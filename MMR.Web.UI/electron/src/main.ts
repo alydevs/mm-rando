@@ -323,7 +323,7 @@ function manageCSP() {
 //IPC
 ipcMain.on('getGeneratorGUISettings', (event, arg) => {
 
-  let pythonRootPath = app.isPackaged ? app.getAppPath() + "/python/" : app.getAppPath() + "/../";
+  let pythonRootPath = app.isPackaged ? app.getAppPath() + "/python/" : app.getAppPath() + "/";
 
   //Load compiled settings_list.json
   let compiledSettingsMapPath = path.normalize(pythonRootPath + "data/generated/settings_list.json");

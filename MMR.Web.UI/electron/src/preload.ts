@@ -22,7 +22,7 @@ var platform = os.platform();
 console.log("Platform:", platform);
 
 var pythonPath = commander.python ? '"' + commander.python + '"' : platform == "win32" ? "py" : "python3";
-var pythonSourcePath = path.normalize(remote.app.isPackaged ? remote.app.getAppPath() + "/python/" : remote.app.getAppPath() + "/../");
+var pythonSourcePath = path.normalize(remote.app.isPackaged ? remote.app.getAppPath() + "/python/" : remote.app.getAppPath() + "/");
 var pythonGeneratorPath = pythonSourcePath + "OoTRandomizer.py";
 var pythonSettingsToJsonPath = pythonSourcePath + "SettingsToJson.py";
 
@@ -241,6 +241,9 @@ post.on('convertSettingsToString', function (event) {
   //Write settings obj to settings.sav
   dumpSettingsToFile(data);
 
+  post.send(window, 'convertSettingsToStringError', "bla");
+  return false;
+
   //console.log("generate string with settings obj", data);
 
   generator.parseSettings(pythonPath, pythonGeneratorPath).then(res => {
@@ -266,6 +269,8 @@ post.on('updateDynamicSetting', function (event) {
     return false;
 
   //console.log("get settings from string", data);
+  post.send(window, 'updateDynamicSettingError', "bla");
+  return false;
 
   generator.getUpdatedDynamicSetting(pythonPath, pythonSettingsToJsonPath, data).then(res => {
     //console.log('[Preload] Success');
@@ -288,6 +293,9 @@ post.on('convertStringToSettings', function (event) {
     return false;
 
   //console.log("get settings from string", data);
+
+  post.send(window, 'convertStringToSettingsError', "bla");
+  return false;
 
   generator.getSettings(pythonPath, pythonGeneratorPath, data).then(res => {
     //console.log('[Preload] Success');
@@ -335,6 +343,9 @@ post.on('generateSeed', function (event) {
 
   //console.log("generate seed with settings:", data);
 
+  post.send(window, 'generateSeedCancelled');
+  return false;
+
   generator.romBuilding(pythonPath, pythonGeneratorPath, data).then(res => {
     //console.log('[Preload] Success');
     post.send(window, 'generateSeedSuccess', res);
@@ -370,13 +381,7 @@ generator.on("patchJobProgress", status => {
 
 //STARTUP
 //Test if we are in the proper path, else exit
-if (fs.existsSync(pythonGeneratorPath)) {
-  electron.webFrame.executeJavaScript('window.apiPythonSourceFound = true;');
-}
-else {
-  alert("The GUI is not placed in the correct location...");
-  remote.app.quit();
-}
+electron.webFrame.executeJavaScript('window.apiPythonSourceFound = true;');
 
 //Test if python executable exists and can be called
 generator.testPythonPath(pythonPath).then(() => {
