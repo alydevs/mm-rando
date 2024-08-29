@@ -1,0 +1,227 @@
+[
+  {
+    "name": "Web.output_type",
+    "options": [
+      {
+        "name": "z64",
+        "text": ".z64 (N64/Emulator)",
+        "controls_visibility_setting": "Web.wad_file,Web.common_key_file,Web.common_key_string,Web.wad_channel_id,Web.wad_channel_title,Web.wad_legacy_mode"
+      },
+      {
+        "name": "wad",
+        "text": ".wad (WiiVC)"
+      }
+    ],
+    "default": "z64",
+    "text": "Output Type",
+    "tooltip": "",
+    "type": "Radiobutton",
+    "shared": false,
+    "hide_when_disabled": true
+  },
+  {
+    "name": "OutputSettings.InputROMFilename",
+    "type": "Fileinput",
+    "shared": false,
+    "file_types": [
+      {
+        "name": "ROM Files",
+        "extensions": [ "z64", "n64" ]
+      },
+      {
+        "name": "All Files",
+        "extensions": [ "*" ]
+      }
+    ],
+    "hide_when_disabled": true
+  },
+  {
+    "name": "Web.wad_file",
+    "options": [],
+    "default": "",
+    "text": "WAD File",
+    "tooltip": "Your original MM 1.2 NTSC-U / NTSC-J WAD file (.wad)",
+    "type": "Fileinput",
+    "shared": false,
+    "file_types": [
+      {
+        "name": "WAD Files",
+        "extensions": [ "wad" ]
+      },
+      {
+        "name": "All Files",
+        "extensions": [ "*" ]
+      }
+    ],
+    "hide_when_disabled": true
+  },
+  {
+    "name": "Web.common_key_file",
+    "options": [],
+    "default": "",
+    "text": "Wii Common Key File",
+    "tooltip": "The Wii Common Key is a copyrighted 32 character string needed for WAD encryption.<br>Google to find it! Do not ask on Discord!",
+    "type": "Fileinput",
+    "shared": false,
+    "file_types": [
+      {
+        "name": "BIN Files",
+        "extensions": [ "bin" ]
+      },
+      {
+        "name": "All Files",
+        "extensions": [ "*" ]
+      }
+    ],
+    "hide_when_disabled": true
+  },
+  {
+    "name": "Web.common_key_string",
+    "options": [],
+    "default": "",
+    "text": "Alternatively Enter Wii Common Key",
+    "tooltip": "The Wii Common Key is a copyrighted 32 character string needed for WAD encryption.<br>Google to find it! Do not ask on Discord!",
+    "type": "Textinput",
+    "shared": false,
+    "size": "full",
+    "max_length": 32,
+    "hide_when_disabled": true
+  },
+  {
+    "name": "Web.wad_channel_id",
+    "options": [],
+    "default": "NICE",
+    "text": "WAD Channel ID",
+    "tooltip": "4 characters, should end with E to ensure Dolphin compatibility.<br>Note: If you have multiple MMR WAD files with different Channel IDs installed, the game can crash on a soft reset. Use a Title Deleter to remove old WADs.",
+    "type": "Textinput",
+    "shared": false,
+    "size": "small",
+    "max_length": 4,
+    "no_line_break": true,
+    "hide_when_disabled": true
+  },
+  {
+    "name": "Web.wad_channel_title",
+    "options": [],
+    "default": "MMRandomizer",
+    "text": "WAD Channel Title",
+    "tooltip": "20 characters max",
+    "type": "Textinput",
+    "shared": false,
+    "size": "medium",
+    "max_length": 20,
+    "hide_when_disabled": true
+  },
+  {
+    "name": "Web.wad_legacy_mode",
+    "options": [
+      {
+        "name": true,
+        "text": "checked"
+      },
+      {
+        "name": false,
+        "text": "unchecked"
+      }
+    ],
+    "default": false,
+    "text": "WAD Legacy Mode",
+    "tooltip": "Enabling this will avoid any patching of the VC emulator in case your Wii does not have support for it. Recommended to be left unchecked.",
+    "type": "Checkbutton",
+    "shared": false,
+    "no_line_break": false,
+    "hide_when_disabled": true
+  },
+  {
+    "name": "Web.presets",
+    "options": [],
+    "default": "[New Preset]",
+    "text": "",
+    "tooltip": "Select a setting preset to apply.",
+    "type": "Presetinput",
+    "shared": false
+  },
+  {
+    "name": "Web.generate_from_file",
+    "options": [
+      {
+        "name": true,
+        "text": "checked",
+        "controls_visibility_setting": "OutputSettings.GenerateSpoilerLog,GameplaySettings.DrawHash",
+        "controls_visibility_section": "preset_section",
+        "controls_visibility_tab": "main_tab,randomization_tab,gimmicks_tab,comfort_tab,shorten_cutscenes_tab"
+      },
+      {
+        "name": false,
+        "text": "unchecked",
+        "controls_visibility_setting": "Web.repatch_cosmetics,OutputSettings.InputROMFilename,Web.output_type,Web.wad_file,Web.common_key_file,Web.common_key_string,Web.wad_channel_id,Web.wad_channel_title,Web.wad_legacy_mode"
+      }
+    ],
+    "default": false,
+    "text": "Generate From Patch File",
+    "tooltip": "",
+    "type": "Checkbutton",
+    "shared": false
+  },
+  {
+    "name": "Web.patch_file",
+    "options": [],
+    "default": "",
+    "text": "Patch File",
+    "tooltip": "",
+    "type": "Fileinput",
+    "shared": false,
+    "file_types": [
+      {
+        "name": "Patch File",
+        "extensions": [ "mmr" ]
+      },
+      {
+        "name": "All Files",
+        "extensions": [ "*" ]
+      }
+    ]
+  },
+  {
+    "name": "Web.repatch_cosmetics",
+    "options": [
+      {
+        "name": true,
+        "text": "checked"
+      },
+      {
+        "name": false,
+        "text": "unchecked",
+        "controls_visibility_tab": "cosmetics_tab"
+      }
+    ],
+    "default": true,
+    "text": "Override Original Cosmetics",
+    "tooltip": "",
+    "type": "Checkbutton",
+    "shared": false
+  },
+  {
+    "name": "Web.persist_in_cache",
+    "options": [
+      {
+        "name": true,
+        "text": "checked"
+      },
+      {
+        "name": false,
+        "text": "unchecked"
+      }
+    ],
+    "default": true,
+    "text": "Persist Files in Cache",
+    "tooltip": "",
+    "type": "Checkbutton",
+    "shared": false
+  },
+  {
+    "name": "CosmeticSettings.MusicLuckRollChance",
+    "size": "small",
+    "max_length": 5
+  }
+]
