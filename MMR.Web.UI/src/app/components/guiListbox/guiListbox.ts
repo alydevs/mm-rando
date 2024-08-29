@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, IterableDiffers, ChangeDetectorRef } from '@angular/core';
 import { DualListComponent } from 'angular-dual-listbox';
 import { BasicList } from 'angular-dual-listbox';
 
@@ -14,6 +14,114 @@ export class GUIListboxComponent extends DualListComponent {
   @Input() tagFilter: any = null;
 
   selectedTag: string = "(all)";
+  currentDestinationList: any = [];
+  destinationListChangeSub: any = null;
+
+  constructor(differs: IterableDiffers, private cd: ChangeDetectorRef) {
+    super(differs);
+  }
+
+  ngOnChanges(changeRecord) {
+
+    super.ngOnChanges(changeRecord);
+
+    if (changeRecord['tagFilter'] && this.selectedTag != "(all)") {
+
+      //Reset filter if selected tag no longer exists in new filter list
+      let foundFilter = changeRecord['tagFilter'].currentValue.find(filter => filter === this.selectedTag);
+
+      if (!foundFilter) {
+        this.clearFilter(this.available);
+      }
+    }
+
+    if (changeRecord['destination']) {
+
+      //console.log("Destination list external change:", changeRecord['destination'].currentValue);
+
+      this.setNewDestinationList(changeRecord['destination'].currentValue, false);
+
+      //Subscribe to list change event here (only one active sub)
+      if (this.destinationListChangeSub)
+        this.destinationListChangeSub.unsubscribe();
+
+      this.destinationListChangeSub = this.destinationChange.subscribe(destinationList => {
+
+        //console.log("List changed by user input:", destinationList);
+        this.setNewDestinationList(destinationList, false);
+      });
+    }
+
+    if (changeRecord['source']) {
+      //console.log("Source list changed:", changeRecord['source'].currentValue);
+
+      let sourceClone = changeRecord['source'].currentValue ? JSON.parse(JSON.stringify(changeRecord['source'].currentValue)) : [];
+
+      //Whenever the source items change, check current destination list if any items exist that are not in the new source list, if so remove them
+      let newDestinationList = [];
+      let destinationListChange = false;
+
+      if (changeRecord['source'].currentValue) {
+
+        for (let destinationOption of this.currentDestinationList) {
+
+          let stillExists = sourceClone.find(sourceOption => sourceOption.name === destinationOption.name);
+
+          if (stillExists) {
+            newDestinationList.push(destinationOption);
+          }
+          else {
+            destinationListChange = true;
+          }
+        }
+      }
+      else {
+        destinationListChange = true;
+      }
+
+      if (destinationListChange) {
+
+        //Delay slightly to avoid race conditions
+        setTimeout(() => {
+
+          //Clear destination list first and force new check (nothing gets transfered over to source list)
+          this.destination = [];
+          this.cd.markForCheck();
+
+          setTimeout(() => {
+
+            //Wipe source list (all empty now) and force new check
+            this.source = [];
+            this.available.list = [];
+            this.cd.markForCheck();
+
+            setTimeout(() => {
+
+              //Restore source list to prior state and set new destination list (clean state)
+              this.source = sourceClone;
+
+              this.destination = newDestinationList;
+              this.setNewDestinationList(this.destination);
+
+              //Force new check
+              this.cd.markForCheck();
+
+            }, 0);
+
+          }, 0);
+
+        }, 0);
+      }
+    }
+  }
+
+  setNewDestinationList(destinationList: any, doEmit: boolean = true) {
+    this.currentDestinationList = destinationList;
+
+    if (doEmit) {
+      this.destinationChange.emit(this.currentDestinationList); //Required so settings get saved
+    }
+  }
 
   clearFilter(source: BasicList, isAvailable: boolean = false) {
     if (source) {

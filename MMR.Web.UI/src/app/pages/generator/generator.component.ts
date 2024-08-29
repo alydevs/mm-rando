@@ -86,11 +86,11 @@ export class GeneratorComponent implements OnInit {
     //Set active footer tab on boot
     if (this.global.getGlobalVar('appType') == 'generator') {
       this.activeFooterTab = this.generateFromSeedTabTitle;
-      this.global.generator_settingsMap["generate_from_file"] = false;
+      this.global.generator_settingsMap["Web.generate_from_file"] = false;
     }
     else {
       this.activeFooterTab = this.generateFromFileTabTitle;
-      this.global.generator_settingsMap["generate_from_file"] = true;
+      this.global.generator_settingsMap["Web.generate_from_file"] = true;
     }
 
     this.recheckAllSettings();
@@ -226,7 +226,7 @@ export class GeneratorComponent implements OnInit {
         this.global.generator_settingsMap["count"] = 1;
 
       //Error if no patch file was entered in fromPatchFile mode
-      if (fromPatchFile && !this.global.generator_settingsMap['patch_file']) {
+      if (fromPatchFile && !this.global.generator_settingsMap['Web.patch_file']) {
         this.dialogService.open(DialogWindowComponent, {
           autoFocus: true, closeOnBackdropClick: true, closeOnEsc: true, hasBackdrop: true, hasScroll: false, context: { dialogHeader: "Error", dialogMessage: "You didn't enter a patch file!" }
         });
@@ -438,6 +438,22 @@ export class GeneratorComponent implements OnInit {
 
   getSettingsString() {
 
+    this.global.saveCurrentSettingsToFile();
+
+    if (this.settingsLocked == true)
+      this.settingsLocked = false;
+
+    if (this.settingsBusy) { //Execute delayed task
+      this.settingsBusy = false;
+      this.afterSettingChange(this.settingsBusySaveOnly);
+      this.settingsBusySaveOnly = true;
+    }
+
+    this.cd.markForCheck();
+    this.cd.detectChanges();
+
+    //OoTR Only
+    /*
     this.settingsLocked = true;
 
     this.global.convertSettingsToString().then(res => {
@@ -474,6 +490,7 @@ export class GeneratorComponent implements OnInit {
         autoFocus: true, closeOnBackdropClick: true, closeOnEsc: true, hasBackdrop: true, hasScroll: false, context: { errorMessage: err }
       });
     });
+    */
   }
 
   importSettingsString() {
@@ -515,7 +532,7 @@ export class GeneratorComponent implements OnInit {
 
   loadPreset() {
 
-    let targetPreset = this.global.generator_presets[this.global.generator_settingsMap["presets"]];
+    let targetPreset = this.global.generator_presets[this.global.generator_settingsMap["Web.presets"]];
 
     if (targetPreset) {
       if (("isNewPreset" in targetPreset) && targetPreset.isNewPreset == true) {
@@ -530,7 +547,7 @@ export class GeneratorComponent implements OnInit {
         }
         else {
           this.global.applyDefaultSettings(); //Restore defaults first in case the user loads an old preset that misses settings
-          this.global.applySettingsObject(this.global.generator_presets[this.global.generator_settingsMap["presets"]].settings);
+          this.global.applySettingsObject(this.global.generator_presets[this.global.generator_settingsMap["Web.presets"]].settings);
         }
 
         this.recheckAllSettings("", false, true);
@@ -543,7 +560,7 @@ export class GeneratorComponent implements OnInit {
 
   savePreset(refPresetSelect: NbSelectComponent) {
 
-    let targetPreset = this.global.generator_presets[this.global.generator_settingsMap["presets"]];
+    let targetPreset = this.global.generator_presets[this.global.generator_settingsMap["Web.presets"]];
 
     if (targetPreset) {
 
@@ -564,7 +581,7 @@ export class GeneratorComponent implements OnInit {
             }
             else {
               this.global.generator_presets[trimmedName] = { settings: this.global.createSettingsFileObject(false, true, !this.global.getGlobalVar('electronAvailable')) };
-              this.global.generator_settingsMap["presets"] = trimmedName;
+              this.global.generator_settingsMap["Web.presets"] = trimmedName;
               this.global.saveCurrentPresetsToFile();
 
               this.cd.markForCheck();
@@ -589,11 +606,11 @@ export class GeneratorComponent implements OnInit {
       }
       else { //USER PRESETS
         this.dialogService.open(ConfirmationWindowComponent, {
-          autoFocus: true, closeOnBackdropClick: true, closeOnEsc: true, hasBackdrop: true, hasScroll: false, context: { dialogHeader: "Confirm?", dialogMessage: "Do you want to overwrite the preset '" + this.global.generator_settingsMap["presets"] + "' ?" }
+          autoFocus: true, closeOnBackdropClick: true, closeOnEsc: true, hasBackdrop: true, hasScroll: false, context: { dialogHeader: "Confirm?", dialogMessage: "Do you want to overwrite the preset '" + this.global.generator_settingsMap["Web.presets"] + "' ?" }
         }).onClose.subscribe(confirmed => {
 
           if (confirmed) {
-            this.global.generator_presets[this.global.generator_settingsMap["presets"]] = { settings: this.global.createSettingsFileObject(false, true, !this.global.getGlobalVar('electronAvailable')) };
+            this.global.generator_presets[this.global.generator_settingsMap["Web.presets"]] = { settings: this.global.createSettingsFileObject(false, true, !this.global.getGlobalVar('electronAvailable')) };
             this.global.saveCurrentPresetsToFile();
 
             console.log("Preset overwritten");
@@ -605,7 +622,7 @@ export class GeneratorComponent implements OnInit {
 
   deletePreset() {
 
-    let targetPreset = this.global.generator_presets[this.global.generator_settingsMap["presets"]];
+    let targetPreset = this.global.generator_presets[this.global.generator_settingsMap["Web.presets"]];
 
     if (targetPreset) {
       if ((("isNewPreset" in targetPreset) && targetPreset.isNewPreset == true) || (("isDefaultPreset" in targetPreset) && targetPreset.isDefaultPreset == true)) {
@@ -620,12 +637,12 @@ export class GeneratorComponent implements OnInit {
       }
       else {
         this.dialogService.open(ConfirmationWindowComponent, {
-          autoFocus: true, closeOnBackdropClick: true, closeOnEsc: true, hasBackdrop: true, hasScroll: false, context: { dialogHeader: "Confirm?", dialogMessage: "Do you really want to delete the preset '" + this.global.generator_settingsMap["presets"] + "' ?" }
+          autoFocus: true, closeOnBackdropClick: true, closeOnEsc: true, hasBackdrop: true, hasScroll: false, context: { dialogHeader: "Confirm?", dialogMessage: "Do you really want to delete the preset '" + this.global.generator_settingsMap["Web.presets"] + "' ?" }
         }).onClose.subscribe(confirmed => {
 
           if (confirmed) {
-            delete this.global.generator_presets[this.global.generator_settingsMap["presets"]];
-            this.global.generator_settingsMap["presets"] = "[New Preset]";
+            delete this.global.generator_presets[this.global.generator_settingsMap["Web.presets"]];
+            this.global.generator_settingsMap["Web.presets"] = "[New Preset]";
             this.global.saveCurrentPresetsToFile();
 
             this.cd.markForCheck();
@@ -885,7 +902,7 @@ export class GeneratorComponent implements OnInit {
 
   browseForPatchFile() { //Electron only
     this.global.browseForFile([{ name: 'Patch File Archive', 'extensions': ['zpfz', 'zpf', 'patch'] }, { 'name': 'All Files', 'extensions': ['*'] }]).then(res => {
-      this.global.generator_settingsMap['patch_file'] = res;
+      this.global.generator_settingsMap['Web.patch_file'] = res;
       this.cd.markForCheck();
       this.afterSettingChange(true);
     }).catch(err => {
@@ -910,14 +927,14 @@ export class GeneratorComponent implements OnInit {
       value = true;
     }
 
-    this.global.generator_settingsMap['generate_from_file'] = value;
+    this.global.generator_settingsMap['Web.generate_from_file'] = value;
 
-    let setting = this.global.findSettingByName("generate_from_file");
+    let setting = this.global.findSettingByName("Web.generate_from_file");
     this.checkVisibility(value, setting, this.findOption(setting.options, value));
   }
 
   updateCosmeticsCheckboxChange(value) {
-    let setting = this.global.findSettingByName("repatch_cosmetics");
+    let setting = this.global.findSettingByName("Web.repatch_cosmetics");
     this.checkVisibility(value, setting, this.findOption(setting.options, value));
   }
 
@@ -1113,8 +1130,29 @@ export class GeneratorComponent implements OnInit {
 
         let optionsSelected = value && typeof (value) == "object" && Array.isArray(value) && value.length > 0;
 
+        //Identify the relevant options array
+        let optionsToSearch = null;
+
+        if (setting.linked_setting) {
+
+          //Find correct options array based on linked setting value
+          if (setting.linked_setting in this.global.generator_settingsMap) {
+            optionsToSearch = setting.options[this.global.generator_settingsMap[setting.linked_setting]];
+
+            if (!optionsToSearch)
+              optionsToSearch = [];
+          }
+          else {
+            optionsToSearch = []; //Invalid/missing linked setting, set empty array
+          }
+        }
+        else {
+          //Regular simple search
+          optionsToSearch = setting.options;
+        }
+
         //First build a complete list consisting of every option that hasn't been selected yet with a true value
-        setting.options.forEach(optionToAdd => {
+        optionsToSearch.forEach(optionToAdd => {
 
           //Ensure option isn't selected before adding it
           if (optionsSelected) {
@@ -1363,9 +1401,9 @@ export class GeneratorComponent implements OnInit {
     this.inputOldValue = this.global.generator_settingsMap[settingName];
   }
 
-  inputFocusOut(settingName: string, saveOnly: boolean, forceNewValue: any = null) {
+  inputFocusOut(settingName: string, saveOnly: boolean, forceNewValue: any = undefined) {
 
-    let newValue = forceNewValue != null ? forceNewValue : this.global.generator_settingsMap[settingName];
+    let newValue = forceNewValue !== undefined ? forceNewValue : this.global.generator_settingsMap[settingName];
 
     //Only update if the value actually changed
     if (newValue != this.inputOldValue) {
@@ -1381,6 +1419,12 @@ export class GeneratorComponent implements OnInit {
     let newValue = this.global.generator_settingsMap[setting["name"]];
     let settingName = setting["name"];
 
+    //Skip checks if null value with nullable allowed
+    if (setting["nullable"] === true && (newValue === null || newValue === "")) {
+      this.inputFocusOut(settingName, false, null);
+      return;
+    }
+
     //Existence check
     if (!newValue || newValue.length == 0) {
 
@@ -1391,12 +1435,27 @@ export class GeneratorComponent implements OnInit {
     }
 
     //Number check
-    if (Number(parseInt(newValue)) != newValue) {
+    if (setting["is_decimal"]) {
 
-      if (forceAdjust)
-        this.revertToPriorValue(settingName, true, this.inputOldValue);
+      //Decimals
+      if (Number(parseFloat(newValue)) != newValue) {
 
-      return;
+        if (forceAdjust)
+          this.revertToPriorValue(settingName, true, this.inputOldValue);
+
+        return;
+      }
+    }
+    else {
+
+      //Non decimals
+      if (Number(parseInt(newValue)) != newValue) {
+
+        if (forceAdjust)
+          this.revertToPriorValue(settingName, true, this.inputOldValue);
+
+        return;
+      }
     }
 
     //Min/Max check
@@ -1422,7 +1481,15 @@ export class GeneratorComponent implements OnInit {
       }
     }
     else { //Update setting with new number value
-      this.inputFocusOut(settingName, false, parseInt(newValue));
+
+      if (setting["is_decimal"]) {
+        //Decimals
+        this.inputFocusOut(settingName, false, parseFloat(newValue));
+      }
+      else {
+        //Non decimals
+        this.inputFocusOut(settingName, false, parseInt(newValue));
+      }
     }
   }
 

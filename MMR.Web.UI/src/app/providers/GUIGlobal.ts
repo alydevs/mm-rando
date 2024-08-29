@@ -528,13 +528,39 @@ export class GUIGlobal implements OnDestroy {
 
           this.generator_settingsVisibilityMap[setting.name] = true;
 
-          if (setting.type == "SearchBox" && userSettings && setting.name in userSettings) { //Special parsing for SearchBox data
+          if (setting.type == "SearchBox") { //Special parsing for SearchBox data
 
-            let valueArray = [];
+            let useDefault = true;
 
-            userSettings[setting.name].forEach(entry => {
+            //Dirty: Settings doctrine says that a default value must be applyable as is, so we need to fix it here by converting the default value (string array) to an options array
+            let defaultOptionsToSearch = null;
 
-              let optionEntry = setting.options.find(option => {
+            if (setting.linked_setting) {
+
+              //Find correct options array based on linked setting
+              let linkedSetting = this.findSettingByName(setting.linked_setting, guiSettings.settingsArray);
+
+              if (linkedSetting) {
+                //We assume here that the default value of the SearchBox will match the options based on the default value of the linked setting
+                defaultOptionsToSearch = setting.options[linkedSetting.default];
+
+                if (!defaultOptionsToSearch)
+                  defaultOptionsToSearch = [];
+              }
+              else {
+                defaultOptionsToSearch = []; //Invalid/missing linked setting, set empty array
+              }
+            }
+            else {
+              //Regular simple search
+              defaultOptionsToSearch = setting.options;
+            }
+
+            let defaultValueArray = [];
+
+            setting.default.forEach(entry => {
+
+              let optionEntry = defaultOptionsToSearch.find(option => {
                 if (option.name === entry)
                   return true;
 
@@ -542,10 +568,90 @@ export class GUIGlobal implements OnDestroy {
               });
 
               if (optionEntry)
-                valueArray.push(optionEntry);
+                defaultValueArray.push(optionEntry);
             });
 
-            this.generator_settingsMap[setting.name] = valueArray;
+            setting.default = defaultValueArray;
+            guiSettings.settingsObj[tab.name].sections[section.name].settings[setting.name].default = defaultValueArray;
+
+            //Convert user options (string array) to options array if present
+            if (userSettings && setting.name in userSettings) {
+
+              let optionsToSearch = null;
+
+              if (setting.linked_setting) {
+
+                //Find correct options array based on linked setting
+                if (setting.linked_setting in userSettings) {
+                  optionsToSearch = setting.options[userSettings[setting.linked_setting]];
+
+                  if (!optionsToSearch)
+                    optionsToSearch = [];
+                }
+                else {
+                  optionsToSearch = []; //Invalid/missing linked setting, set empty array
+                }
+              }
+              else {
+                //Regular simple search
+                optionsToSearch = setting.options;
+              }
+
+              let valueArray = [];
+
+              userSettings[setting.name].forEach(entry => {
+
+                let optionEntry = optionsToSearch.find(option => {
+                  if (option.name === entry)
+                    return true;
+
+                  return false;
+                });
+
+                if (optionEntry)
+                  valueArray.push(optionEntry);
+              });
+
+              this.generator_settingsMap[setting.name] = valueArray;
+              useDefault = false;
+            }
+
+            if (useDefault) {
+              this.generator_settingsMap[setting.name] = setting.default;
+            }
+          }
+          else if (setting.type == "SearchBoxMMR") { //Special parsing for SearchBoxMMR data
+
+            let useDefault = true;
+
+            //Dirty: Settings doctrine says that a default value must be applyable as is, so we need to fix it here by converting the hex string to an options array
+            let decodedDefaultHexStringRes = this.decodeSearchBoxHexString(setting.default, setting.options);
+
+            if (decodedDefaultHexStringRes.success) {
+              setting.default = decodedDefaultHexStringRes.decodedOptions;
+              guiSettings.settingsObj[tab.name].sections[section.name].settings[setting.name].default = decodedDefaultHexStringRes.decodedOptions;
+            }
+            else {
+              //In case of decode error just set empty options array
+              setting.default = [];
+              guiSettings.settingsObj[tab.name].sections[section.name].settings[setting.name].default = [];
+            }
+
+            if (userSettings && setting.name in userSettings) {
+
+              //Convert user hex string value to options array
+              let decodedUserHexStringRes = this.decodeSearchBoxHexString(userSettings[setting.name], setting.options);
+
+              //In case of decode error just use default value
+              if (decodedUserHexStringRes.success) {
+                this.generator_settingsMap[setting.name] = decodedUserHexStringRes.decodedOptions;
+                useDefault = false;
+              }      
+            }
+
+            if (useDefault) { 
+              this.generator_settingsMap[setting.name] = setting.default;
+            }
           }
           else if (setting.type == "Combobox" && userSettings && setting.name in userSettings) { //Ensure combobox option exists before applying it (in case of outdated settings being loaded)
 
@@ -782,10 +888,12 @@ export class GUIGlobal implements OnDestroy {
     return false;
   }
 
-  findSettingByName(settingName: string) {
+  findSettingByName(settingName: string, settingsArrayOverride = null) {
 
-    for (let tabIndex = 0; tabIndex < this.getGlobalVar('generatorSettingsArray').length; tabIndex++) {
-      let tab = this.getGlobalVar('generatorSettingsArray')[tabIndex];
+    let settingsArrayToUse = settingsArrayOverride ? settingsArrayOverride : this.getGlobalVar('generatorSettingsArray');
+
+    for (let tabIndex = 0; tabIndex < settingsArrayToUse.length; tabIndex++) {
+      let tab = settingsArrayToUse[tabIndex];
 
       for (let sectionIndex = 0; sectionIndex < tab.sections.length; sectionIndex++) {
         let section = tab.sections[sectionIndex];
@@ -808,17 +916,35 @@ export class GUIGlobal implements OnDestroy {
     let error = false;
     let didCast = false;
 
+    //Skip checks if null value with nullable allowed
+    if (setting["nullable"] === true && settingValue === null)
+      return error;
+
     if (typeof (settingValue) != "string" && typeof (settingValue) != "number") { //Can't recover, bad type
       error = true;
     }
-    else if (typeof (settingValue) == "string") { //Try to cast it
+    else if (typeof (settingValue) == "string") { //Try to cast it appropriately
 
-      if (Number(parseInt(settingValue)) != Number(settingValue)) { //Cast failed, not numeric
-        error = true;
+      if (setting.is_decimal) {
+
+        //Decimals
+        if (Number(parseFloat(settingValue)) != Number(settingValue)) { //Cast failed, not numeric
+          error = true;
+        }
+        else {
+          settingValue = parseFloat(settingValue);
+          didCast = true;
+        }
       }
       else {
-        settingValue = parseInt(settingValue);
-        didCast = true;
+        //Non decimals
+        if (Number(parseInt(settingValue)) != Number(settingValue)) { //Cast failed, not numeric
+          error = true;
+        }
+        else {
+          settingValue = parseInt(settingValue);
+          didCast = true;
+        }
       }
     }
 
@@ -872,6 +998,176 @@ export class GUIGlobal implements OnDestroy {
     return error;
   }
 
+  decodeSearchBoxHexString(hexString: string, optionList: any) {
+
+    let result = { success: false, decodedOptions: null };
+
+    //Test hex string first
+    let hexGrep = /[0-9A-Fa-f\-]/g;
+    let hexTest = hexString.match(hexGrep);
+
+    if ((hexString.length > 0 && (!hexTest || hexTest.length == 0)) || (hexTest && hexTest.length > 0 && hexTest.join("") != hexString)) {
+      console.log("Invalid character in hex string");
+      return result;
+    }
+
+    let optionCount = optionList.length;
+    let byteCount = Math.ceil(optionCount / 8);
+    let groupCount = Math.ceil(byteCount / 4);
+
+    //Test if enough group separators in string
+    let groupGrep = /[\-]/g;
+    let groupTest = hexString.match(groupGrep);
+
+    if ((groupCount - 1 == 0 && (groupTest && groupTest.length != 0)) || (groupCount - 1 > 0 && (!groupTest || groupTest.length != groupCount - 1))) {
+
+      //If empty string, allow to proceed
+      if (hexString.length != 0) {
+        console.log("Invalid group count in hex string");
+        return result;
+      }
+    }
+
+    //Split string
+    let groupsText = hexString.split("-");
+    groupsText.reverse();
+
+    //console.log("Groups:", groupsText);
+
+    //Loop groups and get flag values
+    let decodedOptionList = [];
+
+    if (hexString.length > 0) {
+
+      for (let i = 0; i < groupCount; i++) {
+
+        let group = groupsText[i];
+        let charsRemaining = group.length;
+
+        if (charsRemaining > 8) {
+          console.log("Invalid group length in hex string");
+          return result;
+        }
+
+        let charPosition = charsRemaining > 1 ? group.length - 2 : group.length - 1;
+        let bytePos = 0;
+
+        while (charsRemaining > 0) {
+
+          let hexByte = group.substr(charPosition, Math.min(charsRemaining, 2));
+          let byte = Number.parseInt(hexByte, 16);
+
+          for (let n = 0; n < 8; n++) {
+            let flagValueTest = Math.pow(2, n);
+
+            if ((byte & flagValueTest) == flagValueTest) {
+
+              let targetIndex = (((i * 4) + bytePos) * 8) + n;
+
+              if (targetIndex >= optionCount) {
+                console.log("invalid option index, out of range");
+                return result;
+              }
+
+              //Find target option and add it to new list
+              let targetOption = optionList.find(item => item.index === targetIndex);
+
+              if (!targetOption) {
+                console.log("Invalid option index for hex string, option not found");
+                return result;
+              }
+
+              decodedOptionList.push(targetOption);
+            }
+          }
+
+          charsRemaining -= hexByte.length;
+          charPosition -= charsRemaining > 1 ? 2 : 1;
+          bytePos++;
+        }
+      }
+    }
+
+    //console.log("New list:", decodedOptionList);
+    result.success = true;
+    result.decodedOptions = decodedOptionList;
+
+    return result;
+  }
+
+  encodeSearchBoxSelectionsAsHexString(currentSelections: any, optionList: any) {
+
+    //Compute hex string
+    let optionCount = optionList.length;
+    let byteCount = Math.ceil(optionCount / 8); //7
+    let groupCount = Math.ceil(byteCount / 4); //2
+
+    //Init groups
+    let groups = Array(groupCount);
+
+    for (let i = 0; i < groupCount; i++) {
+      let byteStartIndex = i * 4;
+      let bytesInGroup = (byteCount - byteStartIndex) < 4 ? byteCount - byteStartIndex : 4;
+
+      groups[i] = Array(bytesInGroup);
+      groups[i].fill(0, 0, bytesInGroup);
+    }
+
+    //Loop currently selected options and add flag values
+    for (let option of currentSelections) {
+      let optionIndex = option.index;
+
+      let bytePos = Math.floor(optionIndex / 8);
+      let groupPosAbs = Math.floor(bytePos / 4);
+      let groupPosRel = bytePos % 4;
+
+      let flagPos = optionIndex % 8;
+      let flagValue = Math.pow(2, flagPos);
+
+      //console.log("byte pos:", bytePos, "group pos abs:", groupPosAbs, "group pos rel:", groupPosRel, "flagPos:", flagPos, "flagValue:", flagValue);
+
+      groups[groupPosAbs][groupPosRel] += flagValue;
+    }
+
+    //Convert groups to hex strings
+    let groupsText = [];
+
+    for (let i = 0; i < groupCount; i++) {
+
+      let group = groups[i];
+      group.reverse();
+
+      let groupText = "";
+      let skipLeadingZeroes = true;
+      let skipFirstPad = true;
+
+      for (let n = 0; n < group.length; n++) {
+
+        if (skipLeadingZeroes) {
+
+          if (group[n] == 0)
+            continue;
+          else
+            skipLeadingZeroes = false;
+        }
+
+        if (skipFirstPad) {
+          groupText += group[n].toString(16);
+          skipFirstPad = false;
+        }
+        else {
+          groupText += group[n].toString(16).padStart(2, "0");
+        }
+      }
+
+      groupsText.push(groupText);
+    }
+
+    //Build string
+    groupsText.reverse();
+    return groupsText.join("-");
+  }
+
   applySettingsObject(settingsObj) {
 
     if (!settingsObj)
@@ -887,11 +1183,32 @@ export class GUIGlobal implements OnDestroy {
 
             if (setting.type == "SearchBox") { //Special parsing for SearchBox data
 
+              //Convert setting options (string array) to options array
+              let optionsToSearch = null;
+
+              if (setting.linked_setting) {
+
+                //Find correct options array based on linked setting
+                if (setting.linked_setting in settingsObj) {
+                  optionsToSearch = setting.options[settingsObj[setting.linked_setting]];
+
+                  if (!optionsToSearch)
+                    optionsToSearch = [];
+                }
+                else {
+                  optionsToSearch = []; //Invalid/missing linked setting, set empty array
+                }
+              }
+              else {
+                //Regular simple search
+                optionsToSearch = setting.options;
+              }
+
               let valueArray = [];
 
               settingsObj[setting.name].forEach(entry => {
 
-                let optionEntry = setting.options.find(option => {
+                let optionEntry = optionsToSearch.find(option => {
                   if (option.name === entry)
                     return true;
 
@@ -900,9 +1217,22 @@ export class GUIGlobal implements OnDestroy {
 
                 if (optionEntry)
                   valueArray.push(optionEntry);
-              });
+              }); 
 
               this.generator_settingsMap[setting.name] = valueArray;
+            }
+            else if (setting.type == "SearchBoxMMR") { //Special parsing for SearchBoxMMR data
+
+              //Convert settings object string value to options array
+              let decodedSettingHexStringRes = this.decodeSearchBoxHexString(settingsObj[setting.name], setting.options);    
+             
+              if (decodedSettingHexStringRes.success) {
+                this.generator_settingsMap[setting.name] = decodedSettingHexStringRes.decodedOptions;
+              }
+              else {
+                //In case of decode error set empty
+                this.generator_settingsMap[setting.name] = [];
+              }
             }
             else if (setting.type == "Combobox") { //Ensure combobox option exists before applying it (in case of outdated settings being loaded)
 
@@ -947,6 +1277,7 @@ export class GUIGlobal implements OnDestroy {
 
   applyDefaultSettings() {
 
+    //cleanSettings is only used to identify settings that should be reset, don't use the values as is!
     let cleanSettings = this.createSettingsFileObject(false, true, !this.getGlobalVar('electronAvailable'));
 
     this.getGlobalVar('generatorSettingsArray').forEach(tab => {
@@ -991,7 +1322,7 @@ export class GUIGlobal implements OnDestroy {
 
     let invalidSettingsList = [];
 
-    //Resolve search box entries (name only)
+    //Resolve special settings
     this.getGlobalVar("generatorSettingsArray").forEach(tab => {
 
       tab.sections.forEach(section => {
@@ -999,6 +1330,7 @@ export class GUIGlobal implements OnDestroy {
 
           if (setting.type == "SearchBox") {
 
+            //Resolve search box entries (name only)
             let valueArray = [];
 
             settingsFile[setting.name].forEach(entry => {
@@ -1007,11 +1339,17 @@ export class GUIGlobal implements OnDestroy {
 
             settingsFile[setting.name] = valueArray;
           }
+          else if (setting.type == "SearchBoxMMR") {
+            
+            //Encode MMR search box entries to a hex string for export
+            settingsFile[setting.name] = this.encodeSearchBoxSelectionsAsHexString(settingsFile[setting.name], setting.options);
+          }
           else if (setting.type == "Scale" || setting.type == "Numberinput") { //Validate numberic values again before saving them
 
             let error = this.verifyNumericSetting(settingsFile, setting, true);
 
             if (error) { //Input could not be recovered, abort
+              console.log("check setting numeric failed:", settingsFile[setting.name], "setting:", setting);
               invalidSettingsList.push(setting.text);
             }
           }
@@ -1028,19 +1366,19 @@ export class GUIGlobal implements OnDestroy {
     }
 
     //Delete keys the python source doesn't need
-    delete settingsFile["presets"];
-    delete settingsFile["open_output_dir"];
-    delete settingsFile["open_python_dir"];
-    delete settingsFile["generate_from_file"];
+    delete settingsFile["Web.presets"];
+    delete settingsFile["open_output_dir"]; //Unneeded
+    delete settingsFile["open_python_dir"]; //Unneeded
+    delete settingsFile["Web.generate_from_file"];
 
     //Delete fromPatchFile keys if mode is fromSeed
     if (!includeFromPatchFileSettings) {
-      delete settingsFile["patch_file"];
-      delete settingsFile["repatch_cosmetics"];
+      delete settingsFile["Web.patch_file"];
+      delete settingsFile["Web.repatch_cosmetics"];
 
       //Web only keys
       if (!this.getGlobalVar('electronAvailable')) {
-        delete settingsFile["web_persist_in_cache"];
+        delete settingsFile["Web.persist_in_cache"];
       }
     }
 

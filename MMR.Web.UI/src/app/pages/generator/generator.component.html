@@ -39,68 +39,67 @@
                             <div class="colorPickerContainer"
                                  [ngClass]="{'oneLineComboBox oLCBPicker': getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && section.settings[itemIndex-1].no_line_break))}">
                               <input #refColorPicker [(colorPicker)]="global.generator_customColorMap[setting.name]"
-                                     [cpAlphaChannel]="disabled" [cpOutputFormat]="hex" [cpUseRootViewContainer]="true"
-                                     [cpAddColorButton]="true" [cpPresetColors]="['#fff', '#000']"
-                                     [cpMaxPresetColorsLength]="5"
+                                     cpAlphaChannel="disabled" cpOutputFormat="hex" cpUseRootViewContainer="true"
+                                     cpAddColorButton="true" [cpPresetColors]="['#fff', '#000']"
+                                     cpMaxPresetColorsLength="5"
                                      (colorPickerClose)="afterSettingChange(true)" />
                             </div>
-                              <nb-select class="selectXSmall"
-                                         [ngClass]="{'oneLineComboBox oLCBSelect': getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && section.settings[itemIndex-1].no_line_break)), 'select-colors' : getColumnCount(refEl) === 1}"
-                                         [disabled]="!global.generator_settingsVisibilityMap[setting.name]"
-                                         [(selected)]="global.generator_settingsMap[setting.name]"
-                                         (selectedChange)="checkVisibility($event, setting, findOption(setting.options, $event), refColorPicker)"
-                                         [nbPopover]="tooltipComponent"
-                                         [nbPopoverContext]="{tooltip: setting.tooltip}"
-                                         [nbPopoverTrigger]="setting.tooltip?.length > 0 && getColumnCount(refEl) > 1 ? 'click' : 'noop'"
-                                         [nbPopoverPlacement]="'right'"
-                                         [nbPopoverAdjustment]="'horizontal'"
-                                         size="xsmall">
-                                <nb-option *ngFor="let option of setting.options; index as optionIndex"
-                                           [value]="option.name">{{option.text}}</nb-option>
-                              </nb-select>
-                              <img class="select-info info-icon-colors"
-                                   [ngClass]="{disabled: !setting.tooltip}"
-                                   *ngIf="getColumnCount(refEl) === 1"
-                                   [nbPopover]="tooltipComponent"
-                                   [nbPopoverContext]="{tooltip: setting.tooltip}"
-                                   [nbPopoverTrigger]="setting.tooltip?.length > 0 ? 'hover' : 'noop'"
-                                   [nbPopoverPlacement]="'top'"
-                                   [nbPopoverAdjustment]="'vertical'" />
+                            <nb-select class="selectXSmall"
+                                       [ngClass]="{'oneLineComboBox oLCBSelect': getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && section.settings[itemIndex-1].no_line_break)), 'select-colors' : getColumnCount(refEl) === 1}"
+                                       [disabled]="!global.generator_settingsVisibilityMap[setting.name]"
+                                       [(selected)]="global.generator_settingsMap[setting.name]"
+                                       (selectedChange)="checkVisibility($event, setting, findOption(setting.options, $event), refColorPicker)"
+                                       [nbPopover]="tooltipComponent"
+                                       [nbPopoverContext]="{tooltip: setting.tooltip}"
+                                       [nbPopoverTrigger]="setting.tooltip?.length > 0 && getColumnCount(refEl) > 1 ? 'click' : 'noop'"
+                                       [nbPopoverPlacement]="'right'"
+                                       [nbPopoverAdjustment]="'horizontal'"
+                                       size="xsmall">
+                              <nb-option *ngFor="let option of setting.options; index as optionIndex"
+                                         [value]="option.name">{{option.text}}</nb-option>
+                            </nb-select>
+                            <img class="select-info info-icon-colors"
+                                 [ngClass]="{disabled: !setting.tooltip}"
+                                 *ngIf="getColumnCount(refEl) === 1"
+                                 [nbPopover]="tooltipComponent"
+                                 [nbPopoverContext]="{tooltip: setting.tooltip}"
+                                 [nbPopoverTrigger]="setting.tooltip?.length > 0 ? 'hover' : 'noop'"
+                                 [nbPopoverPlacement]="'top'"
+                                 [nbPopoverAdjustment]="'vertical'" />
                           </ng-container>
                           <!--Normal Combobox-->
                           <ng-container *ngIf="!section.is_colors">
-                              <nb-select class="selectXSmall"
-                                         [ngClass]="{'oneLineComboBox oLCBSelect': getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && section.settings[itemIndex-1].no_line_break))}"
-                                         [disabled]="!global.generator_settingsVisibilityMap[setting.name]"
-                                         [(selected)]="global.generator_settingsMap[setting.name]"
-                                         (selectedChange)="checkVisibility($event, setting, findOption(setting.options, $event))"
-                                         [nbPopover]="tooltipComponent"
-                                         [nbPopoverContext]="{tooltip: setting.tooltip}"
-                                         [nbPopoverTrigger]="setting.tooltip?.length > 0 && getColumnCount(refEl) > 1 ? 'click' : 'noop'"
-                                         [nbPopoverPlacement]="'right'"
-                                         [nbPopoverAdjustment]="'horizontal'"
-                                         size="xsmall">
-                                <nb-option *ngFor="let option of setting.options; index as optionIndex"
-                                           [value]="option.name">{{option.text}}</nb-option>
-                              </nb-select>
-                              <img class="select-info"
-                                   [ngClass]="{disabled: !setting.tooltip}"
-                                   *ngIf="getColumnCount(refEl) === 1"
-                                   [nbPopover]="tooltipComponent"
-                                   [nbPopoverContext]="{tooltip: setting.tooltip}"
-                                   [nbPopoverTrigger]="setting.tooltip?.length > 0 ? 'hover' : 'noop'"
-                                   [nbPopoverPlacement]="'top'"
-                                   [nbPopoverAdjustment]="'vertical'" />
+                            <nb-select class="selectXSmall"
+                                       [ngClass]="{'oneLineComboBox oLCBSelect': getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && section.settings[itemIndex-1].no_line_break))}"
+                                       [disabled]="!global.generator_settingsVisibilityMap[setting.name]"
+                                       [(selected)]="global.generator_settingsMap[setting.name]"
+                                       (selectedChange)="checkVisibility($event, setting, findOption(setting.options, $event))"
+                                       [nbPopover]="tooltipComponent"
+                                       [nbPopoverContext]="{tooltip: setting.tooltip}"
+                                       [nbPopoverTrigger]="setting.tooltip?.length > 0 && getColumnCount(refEl) > 1 ? 'click' : 'noop'"
+                                       [nbPopoverPlacement]="'right'"
+                                       [nbPopoverAdjustment]="'horizontal'"
+                                       size="xsmall">
+                              <nb-option *ngFor="let option of setting.options; index as optionIndex"
+                                         [value]="option.name">{{option.text}}</nb-option>
+                            </nb-select>
+                            <img class="select-info"
+                                 [ngClass]="{disabled: !setting.tooltip}"
+                                 *ngIf="getColumnCount(refEl) === 1"
+                                 [nbPopover]="tooltipComponent"
+                                 [nbPopoverContext]="{tooltip: setting.tooltip}"
+                                 [nbPopoverTrigger]="setting.tooltip?.length > 0 ? 'hover' : 'noop'"
+                                 [nbPopoverPlacement]="'top'"
+                                 [nbPopoverAdjustment]="'vertical'" />
                           </ng-container>
                         </ng-container>
                         <!--Multiple Select-->
                         <ng-container *ngSwitchCase="'MultipleSelect'">
-                          <span class="comboBoxLabel" [ngClass]="{
-                                'disabled': !global.generator_settingsVisibilityMap[setting.name],
-                                'oneLineComboBox': getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && section.settings[itemIndex-1].no_line_break)),
-                                'oLCBLabelFirst': getColumnCount(refEl) > 2 && setting.no_line_break,
-                                'oLCBLabelSecond': getColumnCount(refEl) > 2 && itemIndex > 0 && section.settings[itemIndex-1].no_line_break
-                                }">
+                          <span class="comboBoxLabel" [ngClass]="{'disabled' : !global.generator_settingsVisibilityMap[setting.name],
+                            'oneLineComboBox': getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && section.settings[itemIndex-1].no_line_break)),
+                            'oLCBLabelFirst': getColumnCount(refEl) > 2 && setting.no_line_break,
+                            'oLCBLabelSecond': getColumnCount(refEl) > 2 && itemIndex > 0 && section.settings[itemIndex-1].no_line_break
+                            }">
                             {{setting.text}}
                           </span>
                           <div class="select-wrapper">
@@ -132,7 +131,7 @@
                         <ng-container *ngSwitchCase="'Scale'">
                           <span *ngIf="!setting.size || setting.size === 'small' || setting.size === 'medium'" class="numberTextInputLabel" [ngClass]="{'disabled': !global.generator_settingsVisibilityMap[setting.name]}">{{setting.text}}:</span>
                           <p *ngIf="setting.size === 'full'" class="numberTextInputLabel" [ngClass]="{'disabled': !global.generator_settingsVisibilityMap[setting.name]}">{{setting.text}}</p>
-                          <input class="numberTextInput" [ngClass]="{numberTextInputSmall: setting.size === 'small', numberTextInputMedium: setting.size === 'medium', numberTextInputFull: setting.size === 'full'}" nbInput [disabled]="!global.generator_settingsVisibilityMap[setting.name]" type="text" [maxlength]="setting.max.length" fieldSize="small"
+                          <input class="numberTextInput" [ngClass]="{numberTextInputSmall: setting.size === 'small', numberTextInputMedium: setting.size === 'medium', numberTextInputFull: setting.size === 'full'}" nbInput [disabled]="!global.generator_settingsVisibilityMap[setting.name]" type="text" [maxlength]="setting.max.toString().length" fieldSize="small"
                                  (focus)="inputFocusIn(setting.name)" (focusout)="numberInputFocusOut(setting, true)" [(ngModel)]="global.generator_settingsMap[setting.name]" [nbPopover]="tooltipComponent" [nbPopoverContext]="{tooltip: setting.tooltip}" [nbPopoverTrigger]="setting.tooltip && setting.tooltip.length > 0 ? 'hint' : 'noop'" nbPopoverPlacement="right" nbPopoverAdjustment="counterclockwise">
                           <mat-slider class="scale" [disabled]="!global.generator_settingsVisibilityMap[setting.name]" [min]="setting.min" [max]="setting.max" step="1" [(ngModel)]="global.generator_settingsMap[setting.name]"
                                       (ngModelChange)="afterSettingChange()" tickInterval="1" thumbLabel [nbPopover]="tooltipComponent" [nbPopoverContext]="{tooltip: setting.tooltip}" [nbPopoverTrigger]="setting.tooltip && setting.tooltip.length > 0 ? 'hint' : 'noop'" nbPopoverPlacement="right" nbPopoverAdjustment="counterclockwise"></mat-slider>
@@ -153,7 +152,7 @@
                         <ng-container *ngSwitchCase="'Numberinput'">
                           <span *ngIf="!setting.size || setting.size === 'small' || setting.size === 'medium'" class="numberTextInputLabel" [ngClass]="{'disabled': !global.generator_settingsVisibilityMap[setting.name]}">{{setting.text}}:</span>
                           <p *ngIf="setting.size === 'full'" class="numberTextInputLabel" [ngClass]="{'disabled': !global.generator_settingsVisibilityMap[setting.name]}">{{setting.text}}</p>
-                          <input class="numberTextInput" [ngClass]="{numberTextInputSmall: setting.size === 'small', numberTextInputMedium: setting.size === 'medium', numberTextInputFull: setting.size === 'full'}" nbInput [disabled]="!global.generator_settingsVisibilityMap[setting.name]" type="text" [maxlength]="setting.max ? setting.max.length : 6" fieldSize="small"
+                          <input class="numberTextInput" [ngClass]="{numberTextInputSmall: setting.size === 'small', numberTextInputMedium: setting.size === 'medium', numberTextInputFull: setting.size === 'full'}" nbInput [disabled]="!global.generator_settingsVisibilityMap[setting.name]" type="text" [maxlength]="setting.max_length ? setting.max_length : setting.max ? setting.max.toString().length : 6" fieldSize="small"
                                  (focus)="inputFocusIn(setting.name)" (focusout)="numberInputFocusOut(setting, true)" [(ngModel)]="global.generator_settingsMap[setting.name]" [nbPopover]="tooltipComponent" [nbPopoverContext]="{tooltip: setting.tooltip}" [nbPopoverTrigger]="setting.tooltip && setting.tooltip.length > 0 ? 'hint' : 'noop'" nbPopoverPlacement="right" nbPopoverAdjustment="counterclockwise">
                         </ng-container>
                         <!--Button-->
@@ -213,7 +212,7 @@
 
                             <button class="ioInputBrowseButton" [disabled]="!global.generator_settingsVisibilityMap[setting.name]" nbButton status="info" size="small" (click)="global.generator_settingsMap[setting.name] = ''">Clear</button>
                           </ng-container>
-                          </ng-container>
+                        </ng-container>
                         <ng-container *ngSwitchCase="'Presetinput'">
                           <div class="select-wrapper">
                             <nb-select #refPresetSelect
@@ -244,10 +243,28 @@
                         </ng-container>
                         <!--SearchBox-->
                         <ng-container *ngSwitchCase="'SearchBox'">
-                          <ootr-gui-listbox [disabled]="!global.generator_settingsVisibilityMap[setting.name]" [source]="setting.options" [(destination)]="global.generator_settingsMap[setting.name]" (destinationChange)="checkVisibility($event, setting)"
-                                       height="100%" key="name" display="text" filter="true" [tagFilter]="setting.tags && setting.tags.length > 0 ? setting.tags : null" [tooltipComponent]="tooltipComponent" tooltip="tooltip" [nbPopover]="tooltipComponent" [nbPopoverContext]="{tooltip: setting.tooltip}" [nbPopoverTrigger]="setting.tooltip && setting.tooltip.length > 0 ? 'click' : 'noop'" nbPopoverPlacement="right" nbPopoverAdjustment="counterclockwise">
+                          <ootr-gui-listbox [disabled]="!global.generator_settingsVisibilityMap[setting.name]"
+                                            [source]="setting.linked_setting ? setting.options[global.generator_settingsMap[setting.linked_setting]] : setting.options"
+                                            [(destination)]="global.generator_settingsMap[setting.name]" (destinationChange)="checkVisibility($event, setting)"
+                                            height="100%" key="name" display="text" filter="true"
+                                            [tagFilter]="setting.tags && setting.linked_setting ? setting.tags[global.generator_settingsMap[setting.linked_setting]] : setting.tags && setting.tags.length > 0 ? setting.tags : null"
+                                            [tooltipComponent]="tooltipComponent" tooltip="tooltip" [nbPopover]="tooltipComponent" [nbPopoverContext]="{tooltip: setting.tooltip}" [nbPopoverTrigger]="setting.tooltip && setting.tooltip.length > 0 ? 'click' : 'noop'" nbPopoverPlacement="right" nbPopoverAdjustment="counterclockwise">
                           </ootr-gui-listbox>
                         </ng-container>
+                        <!--SearchBox MMR-->
+                        <ng-container *ngSwitchCase="'SearchBoxMMR'">
+                          <mmr-gui-listbox [disabled]="!global.generator_settingsVisibilityMap[setting.name]" [source]="setting.options" [(destination)]="global.generator_settingsMap[setting.name]" (destinationChange)="checkVisibility($event, setting)"
+                                           height="100%" key="name" display="text" valueIsHexString="true" [coDependentFilters]="setting.multi_tags" [presets]="setting.presets && setting.presets.presets && setting.presets.presets.length > 0 ? setting.presets : null" filter="true" [tagFilter]="setting.tags && setting.tags.length > 0 ? setting.tags : null" [tooltipComponent]="tooltipComponent" tooltip="tooltip" [nbPopover]="tooltipComponent" [nbPopoverContext]="{tooltip: setting.tooltip}" [nbPopoverTrigger]="setting.tooltip && setting.tooltip.length > 0 ? 'click' : 'noop'" nbPopoverPlacement="right" nbPopoverAdjustment="counterclockwise">
+                          </mmr-gui-listbox>
+                        </ng-container>
+                        <!--Color Picker RGB-->
+                        <ng-container *ngSwitchCase="'Color'">
+                          <span class="comboBoxLabel" [ngClass]="{'disabled': !global.generator_settingsVisibilityMap[setting.name], 'oneLineComboBox': getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && section.settings[itemIndex-1].no_line_break)), 'oLCBLabelFirst': getColumnCount(refEl) > 2 && setting.no_line_break, 'oLCBLabelSecond': getColumnCount(refEl) > 2 && itemIndex > 0 && section.settings[itemIndex-1].no_line_break}">{{setting.text}}</span>
+                          <zsr-gui-color-picker [disabled]="!global.generator_settingsVisibilityMap[setting.name]" [(colorValue)]="global.generator_settingsMap[setting.name]" (colorValueChange)="checkVisibility($event, setting)" [colorArraySize]="setting.color_array ? setting.default.length : null"
+                                                [tooltipComponent]="tooltipComponent" [tooltip]="setting.tooltip">
+                          </zsr-gui-color-picker>
+                        </ng-container>
+
                       </ng-container>
                       <!--Padding-->
                       <div *ngIf="getNextVisibleSetting(section.settings, itemIndex + 1) && !setting.no_line_break" class="settingPadding" [ngClass]="{'settingCBPadding': setting.type !== 'Checkbutton' && getNextVisibleSetting(section.settings, itemIndex + 1).type === 'Checkbutton'}"></div>
@@ -263,14 +280,8 @@
       <!--Static Footer Tabset-->
       <nb-tabset #refTabFooter class="footerTabset" (changeTab)="changeFooterTabSelection($event)" [nbPopover]="tooltipComponent" [nbPopoverContext]="{tooltip: '\'' + generateFromSeedTabTitle + '\': Generate a fresh seed with your provided settings.<br><br>\'' + generateFromFileTabTitle + '\': Use your pre-existing patch file to generate your ROM.'}" [nbPopoverTrigger]="global.getGlobalVar('electronAvailable') || global.getGlobalVar('appType') === 'patcher' || global.getGlobalVar('appType') === 'patcher_only' ? 'noop' : 'hint'" nbPopoverPlacement="top" nbPopoverAdjustment="clockwise">
         <nb-tab *ngIf="global.getGlobalVar('appType') === 'generator'" [tabTitle]="generateFromSeedTabTitle" active>
-          <p class="footerInputLabel">Settings String</p>
           <!--Electron-->
           <ng-container *ngIf="global.getGlobalVar('electronAvailable')">
-            <input class="footerInput" nbInput type="text" maxlength="2000" fieldSize="small" (focus)="inputFocusIn('settings_string')" (focusout)="inputFocusOut('settings_string', true)" [(ngModel)]="global.generator_settingsMap['settings_string']">
-            <button class="footerButton" nbButton status="info" size="small" (click)="copySettingsString()">Copy</button>
-            <button class="footerButton" nbButton status="info" size="small" (click)="importSettingsString()">Import</button>
-            <!--Padding-->
-            <div class="settingPadding"></div>
             <p class="footerInputLabel">Seed</p>
             <input class="footerInput" nbInput type="text" maxlength="260" fieldSize="small" [(ngModel)]="seedString">
             <!--Padding-->
@@ -279,23 +290,18 @@
           </ng-container>
           <!--Web-->
           <ng-container *ngIf="!global.getGlobalVar('electronAvailable')">
-            <input class="footerInputShort" nbInput type="text" maxlength="2000" fieldSize="small" (focus)="inputFocusIn('settings_string')" (focusout)="inputFocusOut('settings_string', true)" [(ngModel)]="global.generator_settingsMap['settings_string']">
-            <button class="footerButton" nbButton status="info" size="small" (click)="copySettingsString()">Copy</button>
-            <button class="footerButton" nbButton status="info" size="small" (click)="settingsBusy = true; getSettingsString()">Get</button>
-            <button class="footerButton" nbButton status="info" size="small" (click)="importSettingsString()">Import</button>
-            <!--Padding-->
-            <div class="settingPadding"></div>
             <p class="footerInputLabel">Seed</p>
             <input class="footerInputShort" nbInput type="text" maxlength="260" fieldSize="small" [(ngModel)]="seedString">
             <!--Padding-->
             <div class="tabsetPadding"></div>
-            <!--Release Versions Only-->
+            <!--Release Versions Only (not available in MMR for now)
             <ng-container *ngIf="global.getGlobalVar('webIsMasterVersion')">
               <button class="footerGenerateButtonNormalSmall" nbButton status="success" [disabled]="!generateSeedButtonEnabled" (click)="generateSeed()">Generate Seed!</button>
               <button class="footerGenerateButtonRaceSmall" nbButton status="info" [disabled]="!generateSeedButtonEnabled" (click)="generateSeed(false, true)">Generate Race Seed!</button>
-            </ng-container>
-            <!--Dev Version-->
-            <ng-container *ngIf="!global.getGlobalVar('webIsMasterVersion')">
+            </ng-container>-->
+            <!--Dev Version (the default in MMR)-->
+            <!--<ng-container *ngIf="!global.getGlobalVar('webIsMasterVersion')">-->
+            <ng-container>
               <button class="footerGenerateButton" nbButton fullWidth status="success" [disabled]="!generateSeedButtonEnabled" (click)="generateSeed()">Generate Seed!</button>
             </ng-container>
           </ng-container>
@@ -304,11 +310,11 @@
           <!--Electron-->
           <ng-container *ngIf="global.getGlobalVar('electronAvailable')">
             <p class="footerInputLabel">Patch File</p>
-            <input class="footerInput" nbInput type="text" maxlength="260" fieldSize="small" (focus)="inputFocusIn('patch_file')" (focusout)="inputFocusOut('patch_file', true)" [(ngModel)]="global.generator_settingsMap['patch_file']">
+            <input class="footerInput" nbInput type="text" maxlength="260" fieldSize="small" (focus)="inputFocusIn('Web.patch_file')" (focusout)="inputFocusOut('Web.patch_file', true)" [(ngModel)]="global.generator_settingsMap['Web.patch_file']">
             <button class="footerButtonPatchFileBrowse" nbButton status="info" size="small" (click)="browseForPatchFile()">Select File</button>
             <!--Padding-->
             <div class="settingPadding"></div>
-            <mat-slide-toggle labelPosition="after" [(ngModel)]="global.generator_settingsMap['repatch_cosmetics']" (ngModelChange)="updateCosmeticsCheckboxChange($event)" [nbPopover]="tooltipComponent" [nbPopoverContext]="{tooltip: repatchCosmeticsCheckboxTooltipPatch}" [nbPopoverTrigger]="'hint'" nbPopoverPlacement="right" nbPopoverAdjustment="clockwise">{{repatchCosmeticsCheckboxText}}</mat-slide-toggle>
+            <mat-slide-toggle labelPosition="after" [(ngModel)]="global.generator_settingsMap['Web.repatch_cosmetics']" (ngModelChange)="updateCosmeticsCheckboxChange($event)" [nbPopover]="tooltipComponent" [nbPopoverContext]="{tooltip: repatchCosmeticsCheckboxTooltipPatch}" [nbPopoverTrigger]="'hint'" nbPopoverPlacement="right" nbPopoverAdjustment="clockwise">{{repatchCosmeticsCheckboxText}}</mat-slide-toggle>
             <!--Padding-->
             <div class="tabsetPadding"></div>
             <button class="footerGenerateButton" nbButton fullWidth status="success" [disabled]="!generateSeedButtonEnabled" (click)="generateSeed(true)">Generate!</button>
@@ -318,21 +324,21 @@
             <!--Generator-->
             <ng-container *ngIf="global.getGlobalVar('appType') === 'generator'">
               <p class="footerInputLabel">Patch File</p>
-              <input class="footerInputWeb" nbInput readonly type="text" maxlength="260" fieldSize="small" [(ngModel)]="getVariableType(global.generator_settingsMap['patch_file']) === 'string' ? global.generator_settingsMap['patch_file'] : global.generator_settingsMap['patch_file'].name" (ngModelChange)="afterSettingChange(true)" ngfDrop [(file)]="global.generator_settingsMap['patch_file']">
-              <button class="footerButtonPatchFileBrowse" nbButton status="info" size="small" ngfSelect [(file)]="global.generator_settingsMap['patch_file']">Select File</button>
-              <button class="footerButtonPatchFileBrowse" nbButton status="info" size="small" (click)="global.generator_settingsMap['patch_file'] = ''">Clear</button>
+              <input class="footerInputWeb" nbInput readonly type="text" maxlength="260" fieldSize="small" [(ngModel)]="getVariableType(global.generator_settingsMap['Web.patch_file']) === 'string' ? global.generator_settingsMap['Web.patch_file'] : global.generator_settingsMap['Web.patch_file'].name" (ngModelChange)="afterSettingChange(true)" ngfDrop [(file)]="global.generator_settingsMap['Web.patch_file']">
+              <button class="footerButtonPatchFileBrowse" nbButton status="info" size="small" ngfSelect [(file)]="global.generator_settingsMap['Web.patch_file']">Select File</button>
+              <button class="footerButtonPatchFileBrowse" nbButton status="info" size="small" (click)="global.generator_settingsMap['Web.patch_file'] = ''">Clear</button>
               <!--Padding-->
               <div class="settingPadding"></div>
-              <mat-slide-toggle labelPosition="after" [(ngModel)]="global.generator_settingsMap['repatch_cosmetics']" (ngModelChange)="updateCosmeticsCheckboxChange($event)" [nbPopover]="tooltipComponent" [nbPopoverContext]="{tooltip: repatchCosmeticsCheckboxTooltipPatch}" [nbPopoverTrigger]="'hint'" nbPopoverPlacement="right" nbPopoverAdjustment="clockwise">{{repatchCosmeticsCheckboxText}}</mat-slide-toggle>
-              <mat-slide-toggle labelPosition="after" [(ngModel)]="global.generator_settingsMap['web_persist_in_cache']" (ngModelChange)="afterSettingChange(true)">Persist Files in Cache</mat-slide-toggle>
+              <mat-slide-toggle labelPosition="after" [(ngModel)]="global.generator_settingsMap['Web.repatch_cosmetics']" (ngModelChange)="updateCosmeticsCheckboxChange($event)" [nbPopover]="tooltipComponent" [nbPopoverContext]="{tooltip: repatchCosmeticsCheckboxTooltipPatch}" [nbPopoverTrigger]="'hint'" nbPopoverPlacement="right" nbPopoverAdjustment="clockwise">{{repatchCosmeticsCheckboxText}}</mat-slide-toggle>
+              <mat-slide-toggle labelPosition="after" [(ngModel)]="global.generator_settingsMap['Web.persist_in_cache']" (ngModelChange)="afterSettingChange(true)">Persist Files in Cache</mat-slide-toggle>
               <!--Padding-->
               <div class="tabsetPadding"></div>
               <button class="footerGenerateButton" nbButton fullWidth status="success" [disabled]="!generateSeedButtonEnabled" (click)="patchROM()">Patch ROM!</button>
             </ng-container>
             <!--Patcher-->
             <ng-container *ngIf="global.getGlobalVar('appType') === 'patcher' || global.getGlobalVar('appType') === 'patcher_only'">
-              <mat-slide-toggle *ngIf="global.getGlobalVar('appType') === 'patcher'" labelPosition="after" [(ngModel)]="global.generator_settingsMap['repatch_cosmetics']" (ngModelChange)="updateCosmeticsCheckboxChange($event)" [nbPopover]="tooltipComponent" [nbPopoverContext]="{tooltip: repatchCosmeticsCheckboxTooltipSeedPageWeb}" [nbPopoverTrigger]="'hint'" nbPopoverPlacement="right" nbPopoverAdjustment="clockwise">{{repatchCosmeticsCheckboxText}}</mat-slide-toggle>
-              <mat-slide-toggle labelPosition="after" [(ngModel)]="global.generator_settingsMap['web_persist_in_cache']" (ngModelChange)="afterSettingChange(true)">Persist Files in Cache</mat-slide-toggle>
+              <mat-slide-toggle *ngIf="global.getGlobalVar('appType') === 'patcher'" labelPosition="after" [(ngModel)]="global.generator_settingsMap['Web.repatch_cosmetics']" (ngModelChange)="updateCosmeticsCheckboxChange($event)" [nbPopover]="tooltipComponent" [nbPopoverContext]="{tooltip: repatchCosmeticsCheckboxTooltipSeedPageWeb}" [nbPopoverTrigger]="'hint'" nbPopoverPlacement="right" nbPopoverAdjustment="clockwise">{{repatchCosmeticsCheckboxText}}</mat-slide-toggle>
+              <mat-slide-toggle labelPosition="after" [(ngModel)]="global.generator_settingsMap['Web.persist_in_cache']" (ngModelChange)="afterSettingChange(true)">Persist Files in Cache</mat-slide-toggle>
               <!--Padding-->
               <div class="tabsetPadding"></div>
               <button class="footerGenerateButton" nbButton fullWidth status="success" [disabled]="!generateSeedButtonEnabled" (click)="patchROM()">Patch ROM!</button>

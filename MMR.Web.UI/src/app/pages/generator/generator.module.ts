@@ -23,7 +23,6 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatTableModule } from '@angular/material/table';
 
 import { AngularDualListBoxModule } from 'angular-dual-listbox';
-import { GUIListboxComponent } from '../../components/guiListbox/guiListbox';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { ngfModule } from 'angular-file';
 
@@ -32,6 +31,9 @@ import { ResponsiveColsDirective } from '../../directives/responsiveCols.directi
 
 //Custom Components
 import { GUITooltipComponent } from './guiTooltip/guiTooltip.component';
+import { GUIListboxComponent } from '../../components/guiListbox/guiListbox';
+import { GUIListboxComponentMMR } from '../../components/guiListboxMMR/guiListboxMMR';
+import { GUIColorPickerComponent } from '../../components/guiColorPicker/guiColorPicker';
 
 @NgModule({
     imports: [
@@ -60,7 +62,9 @@ import { GUITooltipComponent } from './guiTooltip/guiTooltip.component';
         GeneratorComponent,
         ResponsiveColsDirective,
         GUITooltipComponent,
-        GUIListboxComponent
+        GUIListboxComponent,
+        GUIListboxComponentMMR,
+        GUIColorPickerComponent
     ],
     providers: [
       { provide: Window, useValue: window }
