@@ -22,6 +22,7 @@
   {
     "name": "OutputSettings.InputROMFilename",
     "type": "Fileinput",
+    "default": "",
     "shared": false,
     "file_types": [
       {
