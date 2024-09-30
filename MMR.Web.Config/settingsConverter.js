@@ -627,19 +627,34 @@ function assembleSetting(version, setting, linkedSettings = false, overrideBaseT
                         //which is rendered as a series of comboboxes all using the same options that render their value to the respective index in the data array
                         //(use Index array position to name to get Labels for Comboboxes)
                         //ToDo: Can instead make this a Dictionary of inner_type Combobox with default values as given and converting the d-pad keys to a keys array and the Values as options
+                        //This wouldnt work as the value is an array, not a dict, so use the first IndexCombobox approach
+
+                        //Skip for now
+                        if ("Index" in resolvedSetting) {
+                            return null;
+                        }
 
                         for (let option of resolvedSetting.Values) {
 
                             if (!("Label" in option)) {
 
                                 //First empty labelled option is promoted as the "empty" null value (and excluded from options)
-                                settingArray.null_value = option.Value;
-                                settingObject.null_value = option.Value;
+                                settingArray.null_value = [option.Value];
+                                settingObject.null_value = [option.Value];
 
                                 break;
                             }
                         }
 
+                        //Set setting key that describes whether this is a FlagEnum (string output) or an Enum[] (array output)
+                        if (settingTypeOriginalDerived === "FlagEnum") {
+                            settingArray.string_value = true;
+                            settingObject.string_value = true;
+                        }
+                        else {
+                            settingArray.string_value = false;
+                            settingObject.string_value = false;
+                        }
 
                         break;
                     }

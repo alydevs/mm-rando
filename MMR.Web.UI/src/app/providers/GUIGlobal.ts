@@ -653,6 +653,9 @@ export class GUIGlobal implements OnDestroy {
               this.generator_settingsMap[setting.name] = setting.default;
             }
           }
+          else if (setting.type == "MultipleSelect" && setting.string_value && userSettings && setting.name in userSettings) { //Parse MultipleSelect value back to array if needed
+            this.generator_settingsMap[setting.name] = userSettings[setting.name].split(", ");
+          }
           else if (setting.type == "Combobox" && userSettings && setting.name in userSettings) { //Ensure combobox option exists before applying it (in case of outdated settings being loaded)
 
             if (section.is_colors && typeof (userSettings[setting.name]) == "string" && isRGBHex.test(userSettings[setting.name])) { //Custom Color is treated as an exception
@@ -1217,15 +1220,15 @@ export class GUIGlobal implements OnDestroy {
 
                 if (optionEntry)
                   valueArray.push(optionEntry);
-              }); 
+              });
 
               this.generator_settingsMap[setting.name] = valueArray;
             }
             else if (setting.type == "SearchBoxMMR") { //Special parsing for SearchBoxMMR data
 
               //Convert settings object string value to options array
-              let decodedSettingHexStringRes = this.decodeSearchBoxHexString(settingsObj[setting.name], setting.options);    
-             
+              let decodedSettingHexStringRes = this.decodeSearchBoxHexString(settingsObj[setting.name], setting.options);
+
               if (decodedSettingHexStringRes.success) {
                 this.generator_settingsMap[setting.name] = decodedSettingHexStringRes.decodedOptions;
               }
@@ -1250,9 +1253,15 @@ export class GUIGlobal implements OnDestroy {
               this.verifyNumericSetting(settingsObj, setting, false);
               this.generator_settingsMap[setting.name] = settingsObj[setting.name];
             }
-            else if (setting.type == "MultipleSelect") { //Validate list types before applying them
-              if (Array.isArray(settingsObj[setting.name]))
-                this.generator_settingsMap[setting.name] = settingsObj[setting.name];
+            else if (setting.type == "MultipleSelect") { //Validate list types before applying them and convert string value back to array if needed
+
+              if (setting.string_value) {
+                this.generator_settingsMap[setting.name] = settingsObj[setting.name].split(", ");
+              }
+              else {
+                if (Array.isArray(settingsObj[setting.name]))
+                  this.generator_settingsMap[setting.name] = settingsObj[setting.name];
+              }
             }
             else { //Everything else
               this.generator_settingsMap[setting.name] = settingsObj[setting.name];
@@ -1343,6 +1352,17 @@ export class GUIGlobal implements OnDestroy {
             
             //Encode MMR search box entries to a hex string for export
             settingsFile[setting.name] = this.encodeSearchBoxSelectionsAsHexString(settingsFile[setting.name], setting.options);
+          }
+          else if (setting.type == "MultipleSelect") {
+
+            //Revert to null value if empty value if a special null value exists
+            if (setting.null_value && (!settingsFile[setting.name] || settingsFile[setting.name].length < 1)) {
+              settingsFile[setting.name] = setting.null_value;
+            }
+
+            //Encode MultipleSelect entries to a plain string if needed
+            if (setting.string_value)
+              settingsFile[setting.name] = settingsFile[setting.name].join(", ");
           }
           else if (setting.type == "Scale" || setting.type == "Numberinput") { //Validate numberic values again before saving them
 
