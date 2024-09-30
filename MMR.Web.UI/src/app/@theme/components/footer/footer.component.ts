@@ -5,15 +5,15 @@ import { GUIGlobal } from '../../../providers/GUIGlobal';
 import { ConfirmationWindowComponent } from '../../../pages/generator/confirmationWindow/confirmationWindow.component';
 
 @Component({
-  selector: 'ootr-footer',
+  selector: 'mmr-footer',
   styleUrls: ['./footer.component.scss'],
   template: `
     <span *ngIf="!hasUpdate">Version <b>{{localVersion}}</b> © ZeldaSpeedRuns Community</span>
     <span *ngIf="hasUpdate">Version <b>{{localVersion}}</b> © ZeldaSpeedRuns Community - <a id="updateButton" href="#" (click)="promptUpdate()"><b>New Version Available!</b></a></span>
     <div class="socials">
-      <a href="https://wiki.ootrandomizer.com" target="_blank" class="fab fa-wikipedia-w"></a>
+      <a href="https://wiki.mmrandomizer.com" target="_blank" class="fab fa-wikipedia-w"></a>
       <a href="https://www.patreon.com/zeldaspeedruns" target="_blank" class="fab fa-patreon"></a>
-      <a href="https://discord.gg/ootrandomizer" target="_blank" class="fab fa-discord"></a>
+      <a href="https://discord.mmrandomizer.com" target="_blank" class="fab fa-discord"></a>
       <a href="https://twitter.com/zeldaspeedruns" target="_blank" class="fab fa-twitter"></a>
       <a href="https://twitch.tv/zeldaspeedruns" target="_blank" class="fab fa-twitch"></a>
       <a href="https://www.youtube.com/ZSRVideos" target="_blank" class="ion ion-social-youtube"></a>
@@ -67,7 +67,7 @@ export class FooterComponent implements OnInit {
     }).onClose.subscribe(confirmed => {
 
       if (confirmed) {
-        let link = this.remoteVersion.includes("Release") ? "https://www.ootrandomizer.com/downloads" : this.branchUrl;
+        let link = this.branchUrl;
         (<any>window).open(link, "_blank");
       }
     });

@@ -3,7 +3,7 @@ import {GUIGlobal} from '../../../providers/GUIGlobal';
 import {ThemeSwitcher} from '../../../providers/theme-switcher.service';
 
 @Component({
-  selector: 'ootr-header',
+  selector: 'mmr-header',
   styleUrls: ['./header.component.scss'],
   templateUrl: './header.component.html',
 })

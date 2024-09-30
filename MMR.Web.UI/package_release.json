@@ -1,8 +1,8 @@
 {
-  "name": "ootr-electron-gui",
-  "description": "GUI for Ocarina of Time Randomizer",
+  "name": "mmr-electron-gui",
+  "description": "GUI for Majora's Mask Randomizer",
   "version": "8.2.0",
-  "homepage": "https://www.ootrandomizer.com",
+  "homepage": "https://www.mmrandomizer.com",
   "author": "ZeldaSpeedRuns <zsrstaff@gmail.com>",
   "main": "electron/dist/main.js",
   "scripts": {
@@ -21,8 +21,8 @@
     "postinstall": "electron-builder install-app-deps"
   },
   "build": {
-    "appId": "com.ootrandomizer.electrongui",
-    "productName": "Ocarina of Time Randomizer",
+    "appId": "com.mmrandomizer.electrongui",
+    "productName": "Majora's Mask Randomizer",
     "copyright": "Copyright © 2024 ${author}",
     "asar": false,
     "directories": {
@@ -72,7 +72,7 @@
     },
     "linux": {
       "target": "tar.gz",
-      "executableName": "oot-randomizer-gui"
+      "executableName": "mm-randomizer-gui"
     },
     "mac": {
       "target": "dmg",

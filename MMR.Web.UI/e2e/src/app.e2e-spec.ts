@@ -10,7 +10,7 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('Welcome to ootr-electron-gui!');
+    expect(page.getTitleText()).toEqual('Welcome to mmr-electron-gui!');
   });
 
   afterEach(async () => {

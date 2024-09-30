@@ -2,7 +2,7 @@ import { AfterViewChecked, Component, Inject, Input } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
 @Component({
-  selector: 'ootr-gui-tooltip',
+  selector: 'mmr-gui-tooltip',
   template: `
     <nb-card class="popover-card" style="height:100%;margin-bottom:0px">
       <nb-card-body>

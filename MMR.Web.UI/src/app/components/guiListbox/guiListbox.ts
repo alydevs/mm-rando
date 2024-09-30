@@ -3,7 +3,7 @@ import { DualListComponent } from 'angular-dual-listbox';
 import { BasicList } from 'angular-dual-listbox';
 
 @Component({
-  selector: 'ootr-gui-listbox',
+  selector: 'zsr-gui-listbox',
   templateUrl: './guiListbox.html',
   styleUrls: ['./guiListbox.scss']
 })

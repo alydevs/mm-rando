@@ -86,7 +86,7 @@ const COMPONENTS = [
 const NB_THEME_PROVIDERS = [
   ...NbThemeModule.forRoot(
     {
-      name: 'default',
+      name: 'mmr-dark',
     },
   ).providers,
   ...NbSidebarModule.forRoot().providers,

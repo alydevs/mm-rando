@@ -341,7 +341,7 @@ async function runWebTestServer() {
 
 async function main(commandLine) {
 
-    console.log("OoT Randomizer GUI is booting up");
+    console.log("MM Randomizer GUI is booting up");
 
     //Verify node_modules
     if (["./node_modules",
@@ -481,7 +481,7 @@ async function main(commandLine) {
         var angularIndexUpdated = false;
 
         //Check if Angular index and compiled build exists
-        if (forceRecompile || !fs.existsSync("./dist") || !fs.existsSync("./dist/index.json") || !fs.existsSync("./dist/ootr-electron-gui") || !fs.existsSync("./dist/ootr-electron-gui/index.html")) {
+        if (forceRecompile || !fs.existsSync("./dist") || !fs.existsSync("./dist/index.json") || !fs.existsSync("./dist/mmr-electron-gui") || !fs.existsSync("./dist/mmr-electron-gui/index.html")) {
 
             console.log("Create Angular Index...");
 

@@ -42,7 +42,7 @@
       .ioInput,
       .ioInputWeb,
       .numberTextInput {
-        background: nb-theme(color-basic-100) !important;
+        background: nb-theme(color-basic-1200) !important;
       }
 
       [nbInput].status-basic {
@@ -121,7 +121,7 @@
       }
 
       .form-control {
-        background-color: nb-theme(color-basic-100) !important;
+        background-color: nb-theme(color-basic-1200) !important;
         display: block;
         width: 100%;
         font-size: 14px;
@@ -136,7 +136,7 @@
       }
 
       .form-control:focus {
-        background-color: nb-theme(color-basic-100) !important;
+        background-color: nb-theme(color-basic-1200) !important;
       }
 
       nb-select {
@@ -556,8 +556,8 @@
         border-color: nb-theme(color-basic-500);
 
         &:disabled, &:hover:disabled {
-          background-color: nb-theme(color-basic-200);
-          border-color: nb-theme(color-basic-200);
+          background-color: nb-theme(color-basic-1300);
+          border-color: nb-theme(color-basic-1300);
         }
 
         &:hover {
@@ -603,7 +603,9 @@
       }
 
       [nbInput].status-basic, [nbInput].status-basic:hover {
-        background-color: nb-theme(color-basic-100);
+        background-color: nb-theme(color-basic-1200);
+        font-weight: 600 !important;
+        color: nb-theme(color-basic-400);
       }
 
       .tabset .tab a {
@@ -686,11 +688,15 @@
         animation-duration: 600ms;
       }
 
-      ootr-gui-tooltip > nb-card > nb-card-body {
+      mmr-gui-tooltip > nb-card > nb-card-body {
         background-color: nb-theme(color-success-100);
         color: nb-theme(color-basic-1000);
         border-radius: nb-theme(border-radius);
       }
+    }
+
+    nb-badge.status-success {
+      color: nb-theme(color-info-1000);
     }
   }
 }

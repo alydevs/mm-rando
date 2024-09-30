@@ -243,13 +243,13 @@
                         </ng-container>
                         <!--SearchBox-->
                         <ng-container *ngSwitchCase="'SearchBox'">
-                          <ootr-gui-listbox [disabled]="!global.generator_settingsVisibilityMap[setting.name]"
+                          <zsr-gui-listbox [disabled]="!global.generator_settingsVisibilityMap[setting.name]"
                                             [source]="setting.linked_setting ? setting.options[global.generator_settingsMap[setting.linked_setting]] : setting.options"
                                             [(destination)]="global.generator_settingsMap[setting.name]" (destinationChange)="checkVisibility($event, setting)"
                                             height="100%" key="name" display="text" filter="true"
                                             [tagFilter]="setting.tags && setting.linked_setting ? setting.tags[global.generator_settingsMap[setting.linked_setting]] : setting.tags && setting.tags.length > 0 ? setting.tags : null"
                                             [tooltipComponent]="tooltipComponent" tooltip="tooltip" [nbPopover]="tooltipComponent" [nbPopoverContext]="{tooltip: setting.tooltip}" [nbPopoverTrigger]="setting.tooltip && setting.tooltip.length > 0 ? 'click' : 'noop'" nbPopoverPlacement="right" nbPopoverAdjustment="counterclockwise">
-                          </ootr-gui-listbox>
+                          </zsr-gui-listbox>
                         </ng-container>
                         <!--SearchBox MMR-->
                         <ng-container *ngSwitchCase="'SearchBoxMMR'">

@@ -6,7 +6,7 @@ import { GUIGlobal } from '../../../providers/GUIGlobal';
   template: `
     <nb-card class="error-window">
       <nb-card-header class="errorHeader">
-        You encountered an error.<br>Please copy and post the following details in the OoTR Discord:
+        You encountered an error.<br>Please copy and post the following details in the MMR Discord:
         <button nbButton class="headerButton" size="xsmall" status="danger" (click)="closeDialog()">X</button>
       </nb-card-header>
       <nb-card-body class="errorBody">

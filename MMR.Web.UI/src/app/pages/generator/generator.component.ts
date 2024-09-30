@@ -15,7 +15,7 @@ import { ConfirmationWindowComponent } from './confirmationWindow/confirmationWi
 import { TextInputWindowComponent } from './textInputWindow/textInputWindow.component';
 
 @Component({
-  selector: 'ootr-generator',
+  selector: 'mmr-generator',
   styleUrls: ['./generator.component.scss'],
   templateUrl: './generator.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
@@ -452,7 +452,7 @@ export class GeneratorComponent implements OnInit {
     this.cd.markForCheck();
     this.cd.detectChanges();
 
-    //OoTR Only
+    //Old (only relevant for OoTR)
     /*
     this.settingsLocked = true;
 

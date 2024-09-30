@@ -2,16 +2,16 @@ import {Inject, Injectable, Renderer2, RendererFactory2} from '@angular/core';
 import {DOCUMENT} from '@angular/common';
 import {GUIGlobal} from './GUIGlobal';
 
-export enum OOTR_THEME {
-  DEFAULT = 'nb-theme-ootr-default',
-  DARK = 'nb-theme-ootr-dark'
+export enum MMR_THEME {
+  DARK = 'nb-theme-mmr-dark',
+  LIGHT = 'nb-theme-mmr-light'
 }
 
 @Injectable()
 export class ThemeSwitcher {
 
   themeReady: boolean;
-  isDarkThemeActive: boolean;
+  isLightThemeActive: boolean;
 
   private renderer: Renderer2;
   private body: Element;
@@ -30,12 +30,12 @@ export class ThemeSwitcher {
     this.generatorContainer = this.document.querySelector('div#generator');
 
     const themeFromSettings = this.global.generator_settingsMap["theme"];
-    this.isDarkThemeActive = themeFromSettings === 'ootr-dark';
+    this.isLightThemeActive = themeFromSettings === 'mmr-light';
 
     this.removeAllThemes(this.body);
     this.removeAllThemes(this.generatorContainer);
 
-    this.renderer.addClass(this.generatorContainer, this.isDarkThemeActive ? OOTR_THEME.DARK : OOTR_THEME.DEFAULT);
+    this.renderer.addClass(this.generatorContainer, this.isLightThemeActive ? MMR_THEME.LIGHT : MMR_THEME.DARK );
     this.themeReady = true;
 
     //Subscribe to external event
@@ -45,7 +45,7 @@ export class ThemeSwitcher {
         let theme = eventObj?.message;
 
         //Ensure the theme actually needs to switch
-        if ((theme === 'ootr-dark' && this.isDarkThemeActive) || (theme === 'ootr-default' && !this.isDarkThemeActive))
+        if ((theme === 'mmr-light' && this.isLightThemeActive) || (theme === 'mmr-dark' && !this.isLightThemeActive))
           return;
 
         this.switchTheme();
@@ -58,17 +58,17 @@ export class ThemeSwitcher {
     if (!this.themeReady)
       return;
 
-    if (this.isDarkThemeActive) {
-      this.renderer.addClass(this.generatorContainer, OOTR_THEME.DEFAULT);
-      this.renderer.removeClass(this.generatorContainer, OOTR_THEME.DARK);
-      this.global.generator_settingsMap["theme"] = 'ootr-default';
+    if (this.isLightThemeActive) {
+      this.renderer.addClass(this.generatorContainer, MMR_THEME.DARK);
+      this.renderer.removeClass(this.generatorContainer, MMR_THEME.LIGHT);
+      this.global.generator_settingsMap["theme"] = 'mmr-dark';
     } else {
-      this.renderer.addClass(this.generatorContainer, OOTR_THEME.DARK);
-      this.renderer.removeClass(this.generatorContainer, OOTR_THEME.DEFAULT);
-      this.global.generator_settingsMap["theme"] = 'ootr-dark';
+      this.renderer.addClass(this.generatorContainer, MMR_THEME.LIGHT);
+      this.renderer.removeClass(this.generatorContainer, MMR_THEME.DARK);
+      this.global.generator_settingsMap["theme"] = 'mmr-light';
     }
 
-    this.isDarkThemeActive = !this.isDarkThemeActive;
+    this.isLightThemeActive = !this.isLightThemeActive;
     this.global.saveCurrentSettingsToFile();
   }
 

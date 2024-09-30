@@ -41,7 +41,7 @@ async function setupAngular() {
     }
 
     //Copy Angular app
-    fs.copySync("../dist/ootr-electron-gui", appPath);
+    fs.copySync("../dist/mmr-electron-gui", appPath);
 
     //Copy util files
     fs.copyFileSync("./settingsParser/settings_list.json", utilsPath + "/settings_list.json");

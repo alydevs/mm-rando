@@ -5,7 +5,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 
 import { GUIGlobal } from './providers/GUIGlobal';
 import { DOCUMENT } from '@angular/common';
-import { OOTR_THEME, ThemeSwitcher } from './providers/theme-switcher.service';
+import { MMR_THEME, ThemeSwitcher } from './providers/theme-switcher.service';
 
 @Pipe({ name: 'bypassSecurity' })
 export class BypassSecurityPipe implements PipeTransform {
@@ -21,7 +21,7 @@ export class BypassSecurityPipe implements PipeTransform {
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'ngx-app',
   template: `
-      <div id="generator" class="${OOTR_THEME.DEFAULT}">
+      <div id="generator" class="${MMR_THEME.DARK}">
         <router-outlet></router-outlet>
       </div>
   `,

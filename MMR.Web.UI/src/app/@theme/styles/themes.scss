@@ -2,7 +2,7 @@
 @use '@nebular/theme/styles/theming' as *;
 @use '@nebular/theme/styles/themes/default';
 
-@import "theme.ootr-default";
-@import "theme.ootr-dark";
+@import "theme.mmr-dark";
+@import "theme.mmr-light";
 
-$nb-enabled-themes: (ootr-default, ootr-dark);
+$nb-enabled-themes: (mmr-dark, mmr-light);

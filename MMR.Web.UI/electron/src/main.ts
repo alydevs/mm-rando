@@ -68,7 +68,7 @@ async function createApp() {
   //Browser Window common options
   let browserOptions = { 
     icon: path.join(__dirname, '../src/assets/icon/png/64x64.png'), 
-    title: 'OoT Randomizer GUI', 
+    title: 'MM Randomizer GUI', 
     opacity: 1.00, 
     backgroundColor: '#000000', 
     minWidth: 880, 
@@ -140,7 +140,7 @@ async function createApp() {
   else { //Load release dist
 
     //Check if it exists first
-    let indexPath = path.join(__dirname, '../../dist/ootr-electron-gui/index.html');
+    let indexPath = path.join(__dirname, '../../dist/mmr-electron-gui/index.html');
 
     if (!fs.existsSync(indexPath)) {
 

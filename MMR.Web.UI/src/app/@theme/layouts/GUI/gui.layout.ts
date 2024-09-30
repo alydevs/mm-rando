@@ -7,13 +7,13 @@ import {
 import { GUIGlobal } from '../../../providers/GUIGlobal';
 
 @Component({
-  selector: 'ootr-gui-layout',
+  selector: 'mmr-gui-layout',
   styleUrls: ['./gui.layout.scss'],
   template: `
     <nb-layout [ngClass]="{webLayout: !global.getGlobalVar('electronAvailable'), electronLayout: global.getGlobalVar('electronAvailable')}">
       <nb-layout-header fixed *ngIf="global.getGlobalVar('electronAvailable')">
         <div *ngIf="platform !== 'darwin' || !isMaximized" class="dragRegion"></div>
-        <ootr-header></ootr-header>
+        <mmr-header></mmr-header>
       </nb-layout-header>
 
       <nb-layout-column class="main-content">
@@ -21,7 +21,7 @@ import { GUIGlobal } from '../../../providers/GUIGlobal';
       </nb-layout-column>
 
       <nb-layout-footer fixed *ngIf="global.getGlobalVar('electronAvailable')">
-        <ootr-footer></ootr-footer>
+        <mmr-footer></mmr-footer>
       </nb-layout-footer>
     </nb-layout>
   `,

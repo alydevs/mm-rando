@@ -23,7 +23,7 @@ console.log("Platform:", platform);
 
 var pythonPath = commander.python ? '"' + commander.python + '"' : platform == "win32" ? "py" : "python3";
 var pythonSourcePath = path.normalize(remote.app.isPackaged ? remote.app.getAppPath() + "/python/" : remote.app.getAppPath() + "/");
-var pythonGeneratorPath = pythonSourcePath + "OoTRandomizer.py";
+var pythonGeneratorPath = pythonSourcePath + "MMRandomizer.py";
 var pythonSettingsToJsonPath = pythonSourcePath + "SettingsToJson.py";
 
 console.log("Python Executable Path:", pythonPath);

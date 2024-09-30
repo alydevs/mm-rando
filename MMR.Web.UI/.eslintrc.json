@@ -31,7 +31,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "ootr",
+            "prefix": "mmr",
             "style": "kebab-case"
           }
         ]

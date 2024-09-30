@@ -1807,7 +1807,7 @@ export class GUIGlobal implements OnDestroy {
       catch (ex) {
         switch (ex.error) {
           case "file_extension_was_rom": {
-            throw { error_rom_in_plando: "Your Ocarina of Time ROM doesn't belong in a plandomizer setting. This entirely optional setting is used to plan out seeds before generation by manipulating spoiler log files. If you want to generate a normal seed instead, please click YES!", type: "distribution_file" };
+            throw { error_rom_in_plando: "Your Majora's Mask ROM doesn't belong in a plandomizer setting. This entirely optional setting is used to plan out seeds before generation by manipulating spoiler log files. If you want to generate a normal seed instead, please click YES!", type: "distribution_file" };
           }
           default: {
             //Bubble error upwards
@@ -1829,7 +1829,7 @@ export class GUIGlobal implements OnDestroy {
       catch (ex) {
         switch (ex.error) {
           case "file_extension_was_rom": {
-            throw { error_rom_in_plando: "Your Ocarina of Time ROM doesn't belong in a plandomizer setting. This entirely optional setting is used to give you more control over your cosmetic and sound settings. If you want to generate a normal seed with regular cosmetics instead, please click YES!", type: "cosmetic_file" };
+            throw { error_rom_in_plando: "Your Majora's Mask ROM doesn't belong in a plandomizer setting. This entirely optional setting is used to give you more control over your cosmetic and sound settings. If you want to generate a normal seed with regular cosmetics instead, please click YES!", type: "cosmetic_file" };
           }
           default: {
             //Bubble error upwards
@@ -1923,7 +1923,7 @@ export class GUIGlobal implements OnDestroy {
       catch (ex) {
         switch (ex.error) {
           case "file_extension_was_rom": {
-            throw { error_rom_in_plando: "Your Ocarina of Time ROM doesn't belong in a plandomizer setting. This entirely optional setting is used to give you more control over your cosmetic and sound settings. If you want to patch your ROM with regular cosmetics instead, please click YES!", type: "cosmetic_file" };
+            throw { error_rom_in_plando: "Your Majora's Mask ROM doesn't belong in a plandomizer setting. This entirely optional setting is used to give you more control over your cosmetic and sound settings. If you want to patch your ROM with regular cosmetics instead, please click YES!", type: "cosmetic_file" };
           }
           default: {
             //Bubble error upwards
