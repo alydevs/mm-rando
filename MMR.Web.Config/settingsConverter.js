@@ -208,6 +208,14 @@ function resolveSettingsExclusions(settingType, setting, optionsArray, optionsOb
     }
 }
 
+function isSettingShared(settingName) {
+
+    if (settingName.startsWith("GameplaySettings."))
+        return true;
+
+    return false;
+}
+
 function splitCamelCaseString(text) {
 
     let splitGrep = /(?<!^)(?=[A-Z])/g;
@@ -599,13 +607,15 @@ function assembleSetting(version, setting, linkedSettings = false, overrideBaseT
             //Splice any available visibility settings into the options
             resolveSettingsExclusions(settingType, resolvedSetting, optionsArray, optionsObject);
 
+            let settingShared = isSettingShared(setting);
+
             settingArray = {
                 name: setting,
                 text: resolvedSetting.Label,
                 type: settingType,
                 default: resolvedSetting.DefaultValue,
                 tooltip: resolvedSetting.Tooltip,
-                shared: true, //ToDo: Make false when cosmetics section?
+                shared: settingShared,
                 options: optionsArray
             };
 
@@ -614,7 +624,7 @@ function assembleSetting(version, setting, linkedSettings = false, overrideBaseT
                 type: settingType,
                 default: resolvedSetting.DefaultValue,
                 tooltip: resolvedSetting.Tooltip,
-                shared: true,
+                shared: settingShared,
                 options: optionsObject
             };
 
@@ -1107,13 +1117,15 @@ function assembleSetting(version, setting, linkedSettings = false, overrideBaseT
             }
         }
 
+        let settingShared = isSettingShared(setting[0]); //Shared status is assumed from the first setting in this container
+
         settingArray = {
             name: settingName,
             text: null,
             type: settingType,
             default: null,
             tooltip: null,
-            shared: true,
+            shared: settingShared,
             options: optionsArray
         };
 
@@ -1122,7 +1134,7 @@ function assembleSetting(version, setting, linkedSettings = false, overrideBaseT
             type: settingType,
             default: null,
             tooltip: null,
-            shared: true,
+            shared: settingShared,
             options: optionsObject
         };
 

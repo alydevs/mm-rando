@@ -224,5 +224,14 @@
     "name": "CosmeticSettings.MusicLuckRollChance",
     "size": "small",
     "max_length": 5
+  },
+  {
+    "name": "OutputSettings.GenerateSpoilerLog",
+    "text": "Create Spoiler Log",
+    "shared": true
+  },
+  {
+    "name": "GameplaySettings.DrawHash",
+    "text": "Show Verification Hash Icons"
   }
 ]

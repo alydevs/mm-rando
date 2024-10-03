@@ -292,7 +292,6 @@
             "GameplaySettings.FillWallet",
             "GameplaySettings.HiddenRupeesSparkle",
             "GameplaySettings.SaferGlitches",
-            "GameplaySettings.ImprovedCamera",
             "GameplaySettings.EasyFrameByFrame",
             "GameplaySettings.ChestGameMinimap",
             "GameplaySettings.UpdateShopAppearance",
@@ -445,6 +444,7 @@
             "CosmeticSettings.KeepPictoboxAntialiasing",
             "CosmeticSettings.RainbowTunic",
             "CosmeticSettings.BombTrapsRandomizeTunicColor",
+            "CosmeticSettings.CameraStyle",
             "CosmeticSettings.DPad.State",
             "CosmeticSettings.DPad.Display",
             "CosmeticSettings.DPad.Pad.Values"
