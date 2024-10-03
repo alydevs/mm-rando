@@ -172,12 +172,12 @@ namespace MMR.Yaz
                     if (useLookAheadScheme)
                     {
                         // Perform lookup for both current byte and next byte.
-                        result = LookupWithAhead(src, srcPlace, ref window, recents);
+                        result = LookupWithAhead(src, srcPlace, window, recents);
                     }
                     else
                     {
                         // Perform standard lookup for only the current byte.
-                        result = Lookup(src, srcPlace, ref window, recents);
+                        result = Lookup(src, srcPlace, window, recents);
                     }
                 }
 
@@ -228,7 +228,7 @@ namespace MMR.Yaz
                 }
 
                 // Update result state.
-                result = LookupResult.ClearIfNotSkipped(ref result);
+                result = LookupResult.ClearIfNotSkipped(result);
 
                 // Update command bit index.
                 commandBit = (commandBit + 1) % 8;
@@ -248,7 +248,7 @@ namespace MMR.Yaz
         static LookupResult Lookup(
             ReadOnlySpan<byte> src,
             int position,
-            ref RevolvingBufferTracker<int> window,
+            RevolvingBufferTracker<int> window,
             Span<int> recents)
         {
             // Get offset to previous index of current byte value.
@@ -328,10 +328,10 @@ namespace MMR.Yaz
         static LookupResult LookupWithAhead(
             ReadOnlySpan<byte> src,
             int position,
-            ref RevolvingBufferTracker<int> window,
+            RevolvingBufferTracker<int> window,
             Span<int> recents)
         {
-            var result1 = Lookup(src, position, ref window, recents);
+            var result1 = Lookup(src, position, window, recents);
             if (result1.Offset >= 0 && (position + 1) < src.Length)
             {
                 // Store recent value for restoring afterwards.
@@ -339,7 +339,7 @@ namespace MMR.Yaz
                 Remember(src, position, ref window, recents);
 
                 // Perform lookup for next byte.
-                var result2 = Lookup(src, position + 1, ref window, recents);
+                var result2 = Lookup(src, position + 1, window, recents);
 
                 // Restore recent, pop previous delta value.
                 recents[src[position]] = prevRecent;
