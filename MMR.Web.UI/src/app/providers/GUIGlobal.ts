@@ -1867,6 +1867,7 @@ export class GUIGlobal implements OnDestroy {
       useStaticSeed = ""; //Static seeds aren't allowed in race mode
       settingsFile["create_spoiler"] = true; //Force spoiler mode to on
       settingsFile["encrypt"] = true;
+      settingsFile["web_lock"] = true;
     }
     else {
       delete settingsFile["encrypt"];

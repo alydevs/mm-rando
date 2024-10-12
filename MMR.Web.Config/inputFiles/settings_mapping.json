@@ -13,7 +13,6 @@
           "row_span": [ 1, 1, 1 ],
           "settings": [
             "OutputSettings.GenerateSpoilerLog",
-            "GameplaySettings.DrawHash",
             "Web.output_type",
             "OutputSettings.InputROMFilename",
             "Web.wad_file",
@@ -68,7 +67,7 @@
           "name": "generation_section",
           "text": "Generation Settings",
           "col_span": 2,
-          "row_span": [ 3, 3, 3 ],
+          "row_span": [ 2, 2, 3 ],
           "settings": [
             "GameplaySettings.LogicMode",
             "GameplaySettings.UserLogicFileName",

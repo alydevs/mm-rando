@@ -30,6 +30,11 @@
       min-height: calc(100% - 89.6px);
       max-height: calc(100% - 91px);
     }
+
+    @media (max-width: 959px) {
+      min-height: calc(100% - 102px);
+      max-height: calc(100% - 102px);
+    }
   }
 
   div.pickerWithTagFilterMultiNoPreset {
@@ -267,10 +272,30 @@
 
   .tagFilterSingleSelectPadding {
     height: 49px;
+
+    @media (max-width: 1350px) {
+      height: 48px;
+    }
+    @media (max-width: 986px) {
+      height: 46.5px;
+    }
+    @media (max-width: 959px) {
+      height: 36px;
+    }
   }
 
   .tagFilterMultiSelectPadding {
-    height: 98px;
+    height: 97.5px;
+
+    @media (max-width: 1350px) {
+      height: 95.5px;
+    }
+    @media (max-width: 1000px) {
+      height: 94px;
+    }
+    @media (max-width: 959px) {
+      height: 72px;
+    }    
   }
 
   .hexTextInput {
@@ -284,10 +309,28 @@
     margin-top: 5.6px;
     margin-right: 14px !important;
     margin-bottom: 5.6px;
+
+    @media (max-width: 959px) {
+      margin-top: 0px;
+      margin-bottom: 10px;
+    }
   }
 
   .hexPresetsPad {
-    margin-top: 48px;
+    margin-top: 50px;
+
+    @media (max-width: 1350px) {
+      margin-top: 49px;
+    }
+    @media (max-width: 1000px) {
+      margin-top: 48px;
+    }
+    @media (max-width: 959px) {
+      margin-top: 40px;
+    }
+    @media (max-width: 399px) {
+      margin-top: 38px;
+    }
   }
 
   .comboBoxLabel {
@@ -295,6 +338,25 @@
     display: block;
     left: 10px;
     width: calc(100% - 10px);
+
+    @media (max-width: 959px) {
+      align-self: center;
+      width: 150px;
+      margin-right: 15px;
+      margin-top: -8px;
+    }
+  }
+
+  .form-filter-box {
+    display: flex;
+    flex-direction: column;
+
+    @media (max-width: 959px) {
+      align-items: center;
+      justify-content: center;
+      flex-direction: row;
+      margin-bottom: 5px;
+    }
   }
 
   div.select-wrapper {
@@ -307,6 +369,7 @@
   }
 
   .selectXSmall {
-    max-width: 300px;
+    max-width: 340px;
+    overflow: hidden;
   }
 }

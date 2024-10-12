@@ -16,8 +16,7 @@
                      [disabled]="disabled"
                      (selectedChange)="selectedPresetListChange($event)"
                      [(selected)]="selectedPresets">
-            <nb-select-label *ngIf="selectedPresets.length !== presets.presets.length && selectedPresets.length > 2">Selected: {{selectedPresets.length}}</nb-select-label>
-            <nb-select-label *ngIf="selectedPresets.length === presets.presets.length">All</nb-select-label>
+            <nb-select-label>{{getNbMultipleSelectLabel(presets)}}</nb-select-label>
             <nb-option *ngFor="let option of presets.presets; index as optionIndex" [value]="option">{{option}}</nb-option>
           </nb-select>
         </div>
@@ -36,10 +35,12 @@
 
       <form *ngIf="filter" class="filter">
         <ng-template ngFor let-filter [ngForOf]="tagFilter" let-itemIndex="index">
-          <span *ngIf="filter.tags" class="comboBoxLabel">{{filter.text}}</span>
-          <nb-select *ngIf="filter.tags" class="tagFilterSelect" [(selected)]="selectedTag[filter.name]" (selectedChange)="onFilter(available)" size="xsmall" [disabled]="disabled">
-            <nb-option *ngFor="let tag of filter.tags; index as tagIndex" [value]="tag">{{tag}}</nb-option>
-          </nb-select>
+          <div class="form-filter-box">
+            <span *ngIf="filter.tags" class="comboBoxLabel">{{filter.text}}</span>
+            <nb-select *ngIf="filter.tags" class="tagFilterSelect" [(selected)]="selectedTag[filter.name]" (selectedChange)="onFilter(available)" size="xsmall" [disabled]="disabled">
+              <nb-option *ngFor="let tag of filter.tags; index as tagIndex" [value]="tag">{{tag}}</nb-option>
+            </nb-select>
+          </div>
         </ng-template>
         <input nbInput class="form-control" name="filterSource" [readonly]="disabled" [(ngModel)]="available.picker" (ngModelChange)="onFilter(available)">
       </form>

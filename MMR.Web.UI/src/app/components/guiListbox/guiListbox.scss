@@ -30,6 +30,11 @@
       min-height: calc(100% - 68.6px);
       max-height: calc(100% - 70px);
     }
+
+    @media (max-width: 959px) {
+      min-height: calc(100% - 87px) !important;
+      max-height: calc(100% - 87px) !important;
+    }
   }
 
   .record-picker ul {
@@ -226,6 +231,6 @@
   }
 
   .tagFilterSelectPadding {
-    height: 31px;
+    height: 32px;
   }
 }

@@ -1,7 +1,7 @@
 {
   "name": "mmr-electron-gui",
   "description": "GUI for Majora's Mask Randomizer",
-  "version": "8.2.0",
+  "version": "1.16.0-12",
   "homepage": "https://www.mmrandomizer.com",
   "author": "ZeldaSpeedRuns <zsrstaff@gmail.com>",
   "main": "electron/dist/main.js",
@@ -150,7 +150,6 @@
     "socicon": "3.0.5",
     "tcp-ping": "0.1.1",
     "ts-node": "7.0.1",
-    "typeface-exo": "0.0.22",
     "typescript": "4.6.4",
     "zone.js": "0.11.4"
   }

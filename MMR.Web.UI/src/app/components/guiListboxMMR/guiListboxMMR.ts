@@ -1,4 +1,5 @@
-import { Component, Input, IterableDiffers } from '@angular/core';
+import { Component, Input, IterableDiffers, ChangeDetectorRef } from '@angular/core';
+import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 
 import { GUIGlobal } from '../../providers/GUIGlobal';
 
@@ -31,10 +32,35 @@ export class GUIListboxComponentMMR extends DualListComponent {
   currentDestinationList: any = [];
   destinationListChangeSub: any = null;
 
-  constructor(differs: IterableDiffers, public global: GUIGlobal, private dialogService: NbDialogService) {
-    super(differs);
-  }
+  reducedWindowSize: boolean = false;
+  mobileWindowSize: boolean = false;
 
+  constructor(differs: IterableDiffers, private cd: ChangeDetectorRef, private breakpointObserver: BreakpointObserver, public global: GUIGlobal, private dialogService: NbDialogService) {
+    super(differs);
+
+    let breakpointMaxWidth = 1130;
+    let breakpointElectronMaxWidth = 730;
+    let breakpointMobile = 480;
+
+    if (this.global.getGlobalVar('electronAvailable'))
+      breakpointMaxWidth = breakpointElectronMaxWidth;
+   
+    this.breakpointObserver.observe([
+      `(max-width: ${breakpointMaxWidth}px)`
+    ]).subscribe((result: BreakpointState) => {
+      this.reducedWindowSize = result.matches;
+      this.cd.markForCheck();
+    });
+
+    this.breakpointObserver.observe([
+      `(max-width: ${breakpointMobile}px)`
+    ]).subscribe((result: BreakpointState) => {
+      this.mobileWindowSize = result.matches;
+      this.cd.markForCheck();
+    });
+
+  }
+  
   ngOnChanges(changeRecord) {
 
     super.ngOnChanges(changeRecord);
@@ -368,5 +394,18 @@ export class GUIListboxComponentMMR extends DualListComponent {
     else {
       return item;
     }
+  }
+
+  getNbMultipleSelectLabel(setting) {
+    if (this.selectedPresets.length === this.presets.presets.length)
+      return "All";
+
+    if (this.mobileWindowSize && (this.selectedPresets.length > 1 || this.selectedPresets.join(", ").length > 16))
+      return `Selected: ${this.selectedPresets.length}`;
+     
+    if ((this.reducedWindowSize && this.selectedPresets.length > 1) || this.selectedPresets.length > 2)
+      return `Selected: ${this.selectedPresets.length}`;
+    else
+      return this.selectedPresets.join(", ");
   }
 }

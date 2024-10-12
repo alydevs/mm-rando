@@ -36,61 +36,65 @@
                           <span *ngIf="!section.is_colors || global.generator_settingsMap[setting.name] !== 'Custom Color' || global.generator_customColorMap[setting.name].length === 0" class="comboBoxLabel" [ngClass]="{'disabled': !global.generator_settingsVisibilityMap[setting.name], 'oneLineComboBox': getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && section.settings[itemIndex-1].no_line_break)), 'oLCBLabelFirst': getColumnCount(refEl) > 2 && setting.no_line_break, 'oLCBLabelSecond': getColumnCount(refEl) > 2 && itemIndex > 0 && section.settings[itemIndex-1].no_line_break}">{{setting.text}}</span>
                           <!--Combobox with Custom Color Picker for Cosmetics-->
                           <ng-container *ngIf="section.is_colors">
-                            <div class="colorPickerContainer"
-                                 [ngClass]="{'oneLineComboBox oLCBPicker': getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && section.settings[itemIndex-1].no_line_break))}">
-                              <input #refColorPicker [(colorPicker)]="global.generator_customColorMap[setting.name]"
-                                     cpAlphaChannel="disabled" cpOutputFormat="hex" cpUseRootViewContainer="true"
-                                     cpAddColorButton="true" [cpPresetColors]="['#fff', '#000']"
-                                     cpMaxPresetColorsLength="5"
-                                     (colorPickerClose)="afterSettingChange(true)" />
+                            <div [ngClass]="{'selectContainerWithInfo': getColumnCount(refEl) === 1}">
+                              <div class="colorPickerContainer"
+                                  [ngClass]="{'oneLineComboBox oLCBPicker': getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && section.settings[itemIndex-1].no_line_break))}">
+                                <input #refColorPicker [(colorPicker)]="global.generator_customColorMap[setting.name]"
+                                      cpAlphaChannel="disabled" cpOutputFormat="hex" cpUseRootViewContainer="true"
+                                      cpAddColorButton="true" [cpPresetColors]="['#fff', '#000']"
+                                      cpMaxPresetColorsLength="5"
+                                      (colorPickerClose)="afterSettingChange(true)" />
+                              </div>
+                              <nb-select class="selectXSmall"
+                                        [ngClass]="{'oneLineComboBox oLCBSelect': getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && section.settings[itemIndex-1].no_line_break)), 'select-colors spaceForInfo' : getColumnCount(refEl) === 1}"
+                                        [disabled]="!global.generator_settingsVisibilityMap[setting.name]"
+                                        [(selected)]="global.generator_settingsMap[setting.name]"
+                                        (selectedChange)="checkVisibility($event, setting, findOption(setting.options, $event), refColorPicker)"
+                                        [nbPopover]="tooltipComponent"
+                                        [nbPopoverContext]="{tooltip: setting.tooltip}"
+                                        [nbPopoverTrigger]="setting.tooltip?.length > 0 && getColumnCount(refEl) > 1 ? 'click' : 'noop'"
+                                        [nbPopoverPlacement]="'right'"
+                                        [nbPopoverAdjustment]="'horizontal'"
+                                        size="xsmall">
+                                <nb-option *ngFor="let option of setting.options; index as optionIndex"
+                                          [value]="option.name">{{option.text}}</nb-option>
+                              </nb-select>
+                              <img class="select-info info-icon-colors"
+                                  [ngClass]="{disabled: !setting.tooltip}"
+                                  *ngIf="getColumnCount(refEl) === 1"
+                                  [nbPopover]="tooltipComponent"
+                                  [nbPopoverContext]="{tooltip: setting.tooltip}"
+                                  [nbPopoverTrigger]="setting.tooltip?.length > 0 ? 'hover' : 'noop'"
+                                  [nbPopoverPlacement]="'top'"
+                                  [nbPopoverAdjustment]="'vertical'" />
                             </div>
-                            <nb-select class="selectXSmall"
-                                       [ngClass]="{'oneLineComboBox oLCBSelect': getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && section.settings[itemIndex-1].no_line_break)), 'select-colors' : getColumnCount(refEl) === 1}"
-                                       [disabled]="!global.generator_settingsVisibilityMap[setting.name]"
-                                       [(selected)]="global.generator_settingsMap[setting.name]"
-                                       (selectedChange)="checkVisibility($event, setting, findOption(setting.options, $event), refColorPicker)"
-                                       [nbPopover]="tooltipComponent"
-                                       [nbPopoverContext]="{tooltip: setting.tooltip}"
-                                       [nbPopoverTrigger]="setting.tooltip?.length > 0 && getColumnCount(refEl) > 1 ? 'click' : 'noop'"
-                                       [nbPopoverPlacement]="'right'"
-                                       [nbPopoverAdjustment]="'horizontal'"
-                                       size="xsmall">
-                              <nb-option *ngFor="let option of setting.options; index as optionIndex"
-                                         [value]="option.name">{{option.text}}</nb-option>
-                            </nb-select>
-                            <img class="select-info info-icon-colors"
-                                 [ngClass]="{disabled: !setting.tooltip}"
-                                 *ngIf="getColumnCount(refEl) === 1"
-                                 [nbPopover]="tooltipComponent"
-                                 [nbPopoverContext]="{tooltip: setting.tooltip}"
-                                 [nbPopoverTrigger]="setting.tooltip?.length > 0 ? 'hover' : 'noop'"
-                                 [nbPopoverPlacement]="'top'"
-                                 [nbPopoverAdjustment]="'vertical'" />
                           </ng-container>
                           <!--Normal Combobox-->
                           <ng-container *ngIf="!section.is_colors">
-                            <nb-select class="selectXSmall"
-                                       [ngClass]="{'oneLineComboBox oLCBSelect': getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && section.settings[itemIndex-1].no_line_break))}"
-                                       [disabled]="!global.generator_settingsVisibilityMap[setting.name]"
-                                       [(selected)]="global.generator_settingsMap[setting.name]"
-                                       (selectedChange)="checkVisibility($event, setting, findOption(setting.options, $event))"
-                                       [nbPopover]="tooltipComponent"
-                                       [nbPopoverContext]="{tooltip: setting.tooltip}"
-                                       [nbPopoverTrigger]="setting.tooltip?.length > 0 && getColumnCount(refEl) > 1 ? 'click' : 'noop'"
-                                       [nbPopoverPlacement]="'right'"
-                                       [nbPopoverAdjustment]="'horizontal'"
-                                       size="xsmall">
-                              <nb-option *ngFor="let option of setting.options; index as optionIndex"
-                                         [value]="option.name">{{option.text}}</nb-option>
-                            </nb-select>
-                            <img class="select-info"
-                                 [ngClass]="{disabled: !setting.tooltip}"
-                                 *ngIf="getColumnCount(refEl) === 1"
-                                 [nbPopover]="tooltipComponent"
-                                 [nbPopoverContext]="{tooltip: setting.tooltip}"
-                                 [nbPopoverTrigger]="setting.tooltip?.length > 0 ? 'hover' : 'noop'"
-                                 [nbPopoverPlacement]="'top'"
-                                 [nbPopoverAdjustment]="'vertical'" />
+                            <div [ngClass]="{'selectContainerWithInfo': getColumnCount(refEl) === 1}">
+                              <nb-select class="selectXSmall"
+                                        [ngClass]="{'oneLineComboBox oLCBSelect': getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && section.settings[itemIndex-1].no_line_break)), 'spaceForInfo': getColumnCount(refEl) === 1}"
+                                        [disabled]="!global.generator_settingsVisibilityMap[setting.name]"
+                                        [(selected)]="global.generator_settingsMap[setting.name]"
+                                        (selectedChange)="checkVisibility($event, setting, findOption(setting.options, $event))"
+                                        [nbPopover]="tooltipComponent"
+                                        [nbPopoverContext]="{tooltip: setting.tooltip}"
+                                        [nbPopoverTrigger]="setting.tooltip?.length > 0 && getColumnCount(refEl) > 1 ? 'click' : 'noop'"
+                                        [nbPopoverPlacement]="'right'"
+                                        [nbPopoverAdjustment]="'horizontal'"
+                                        size="xsmall">
+                                <nb-option *ngFor="let option of setting.options; index as optionIndex"
+                                          [value]="option.name">{{option.text}}</nb-option>
+                              </nb-select>
+                              <img class="select-info"
+                                  [ngClass]="{disabled: !setting.tooltip}"
+                                  *ngIf="getColumnCount(refEl) === 1"
+                                  [nbPopover]="tooltipComponent"
+                                  [nbPopoverContext]="{tooltip: setting.tooltip}"
+                                  [nbPopoverTrigger]="setting.tooltip?.length > 0 ? 'hover' : 'noop'"
+                                  [nbPopoverPlacement]="'top'"
+                                  [nbPopoverAdjustment]="'vertical'" />
+                            </div>
                           </ng-container>
                         </ng-container>
                         <!--Multiple Select-->
@@ -102,9 +106,9 @@
                             }">
                             {{setting.text}}
                           </span>
-                          <div class="select-wrapper">
+                          <div class="select-wrapper" [ngClass]="{'selectContainerWithInfo': getColumnCount(refEl) === 1}">
                             <nb-select multiple placeholder="None" class="selectXSmall"
-                                       [ngClass]="{'oneLineComboBox oLCBSelect': getColumnCount(refEl) > 2 && setting.no_line_break}"
+                                       [ngClass]="{'oneLineComboBox oLCBSelect': getColumnCount(refEl) > 2 && setting.no_line_break, 'spaceForInfo': getColumnCount(refEl) === 1}"
                                        [disabled]="!global.generator_settingsVisibilityMap[setting.name]"
                                        [(selected)]="global.generator_settingsMap[setting.name]"
                                        (selectedChange)="checkVisibility($event, setting, findOption(setting.options, $event))"
@@ -214,9 +218,10 @@
                           </ng-container>
                         </ng-container>
                         <ng-container *ngSwitchCase="'Presetinput'">
-                          <div class="select-wrapper">
+                          <div class="select-wrapper" [ngClass]="{'selectContainerWithInfo': getColumnCount(refEl) === 1}">
                             <nb-select #refPresetSelect
                                        class="selectXSmall"
+                                       [ngClass]="{'spaceForInfo': getColumnCount(refEl) === 1}"
                                        [disabled]="!global.generator_settingsVisibilityMap[setting.name]"
                                        [(selected)]="global.generator_settingsMap[setting.name]"
                                        [nbPopover]="tooltipComponent"
@@ -301,9 +306,10 @@
             </ng-container>-->
             <!--Dev Version (the default in MMR)-->
             <!--<ng-container *ngIf="!global.getGlobalVar('webIsMasterVersion')">-->
-            <ng-container>
-              <button class="footerGenerateButton" nbButton fullWidth status="success" [disabled]="!generateSeedButtonEnabled" (click)="generateSeed()">Generate Seed!</button>
-            </ng-container>
+              <ng-container>
+                <button class="footerGenerateButtonNormalSmall" nbButton status="success" [disabled]="!generateSeedButtonEnabled" (click)="generateSeed()">Generate Seed!</button>
+                <button class="footerGenerateButtonRaceSmall" nbButton status="success" [disabled]="!generateSeedButtonEnabled" (click)="generateSeed(false, true)">Generate Race Seed!</button>
+              </ng-container>
           </ng-container>
         </nb-tab>
         <nb-tab [tabTitle]="generateFromFileTabTitle" [active]="global.getGlobalVar('appType') !== 'generator'">

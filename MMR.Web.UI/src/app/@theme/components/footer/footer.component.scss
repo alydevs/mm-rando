@@ -32,4 +32,17 @@
       font-size: 21px;
     }
   }
+
+  .copyright {
+    display: initial;
+    @media (max-width: 505px) {
+      display: none;
+    }
+  }
+  .socials {
+      font-size: 21px;
+    @media (max-width: 322px) {
+      font-size: 12px;
+    }
+  }
 }

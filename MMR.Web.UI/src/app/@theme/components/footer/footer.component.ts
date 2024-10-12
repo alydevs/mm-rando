@@ -8,8 +8,8 @@ import { ConfirmationWindowComponent } from '../../../pages/generator/confirmati
   selector: 'mmr-footer',
   styleUrls: ['./footer.component.scss'],
   template: `
-    <span *ngIf="!hasUpdate">Version <b>{{localVersion}}</b> © ZeldaSpeedRuns Community</span>
-    <span *ngIf="hasUpdate">Version <b>{{localVersion}}</b> © ZeldaSpeedRuns Community - <a id="updateButton" href="#" (click)="promptUpdate()"><b>New Version Available!</b></a></span>
+    <span *ngIf="!hasUpdate">Version <b>{{localVersion}}</b><span class="copyright">© ZeldaSpeedRuns Community</span></span>
+    <span *ngIf="hasUpdate">Version <b>{{localVersion}}</b> <span class="copyright">© ZeldaSpeedRuns Community - </span><a id="updateButton" href="#" (click)="promptUpdate()"><b>New Version Available!</b></a></span>
     <div class="socials">
       <a href="https://wiki.mmrandomizer.com" target="_blank" class="fab fa-wikipedia-w"></a>
       <a href="https://www.patreon.com/zeldaspeedruns" target="_blank" class="fab fa-patreon"></a>
