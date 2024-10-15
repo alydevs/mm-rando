@@ -91,7 +91,7 @@
   {
     "name": "Web.wad_channel_id",
     "options": [],
-    "default": "NICE",
+    "default": "NMRE",
     "text": "WAD Channel ID",
     "tooltip": "4 characters, should end with E to ensure Dolphin compatibility.<br>Note: If you have multiple MMR WAD files with different Channel IDs installed, the game can crash on a soft reset. Use a Title Deleter to remove old WADs.",
     "type": "Textinput",
@@ -155,7 +155,8 @@
       {
         "name": false,
         "text": "unchecked",
-        "controls_visibility_setting": "Web.repatch_cosmetics,OutputSettings.InputROMFilename,Web.output_type,Web.wad_file,Web.common_key_file,Web.common_key_string,Web.wad_channel_id,Web.wad_channel_title,Web.wad_legacy_mode"
+        "controls_visibility_setting": "Web.repatch_cosmetics,OutputSettings.InputROMFilename,Web.output_type,Web.wad_file,Web.common_key_file,Web.common_key_string,Web.wad_channel_id,Web.wad_channel_title,Web.wad_legacy_mode",
+        "controls_visibility_tab": "cosmetics_tab"
       }
     ],
     "default": false,
@@ -233,5 +234,29 @@
   {
     "name": "GameplaySettings.DrawHash",
     "text": "Show Verification Hash Icons"
+  },
+  {
+    "name": "GameplaySettings.OverrideNumberOfRequiredGossipHints",
+    "text": "Override Required Gossip Hints"
+  },
+  {
+    "name": "GameplaySettings.OverrideNumberOfNonRequiredGossipHints",
+    "text": "Override Non Required Gossip Hints"
+  },
+  {
+    "name": "GameplaySettings.OverrideMaxNumberOfClockTownGossipHints",
+    "text": "Override Max Clock Town Gossip Hints"
+  },
+  {
+    "name": "GameplaySettings.OverrideNumberOfRequiredGaroHints",
+    "text": "Override Required Garo Hints"
+  },
+  {
+    "name": "GameplaySettings.OverrideNumberOfNonRequiredGaroHints",
+    "text": "Override Non Required Garo Hints"
+  },
+  {
+    "name": "GameplaySettings.OverrideMaxNumberOfClockTownGaroHints",
+    "text": "Override Max Clock Town Garo Hints"
   }
 ]
