@@ -258,7 +258,12 @@ function assembleSetting(version, setting, linkedSettings = false, overrideBaseT
                 return null;
             }
             else {
-                //Extra settings are copied directly into the output if the normal settings dump has no equivalent
+                //Extra settings are copied directly into the output if the normal settings dump has no equivalent and the extra entry is complete
+                if (!("type" in resolvedSettingExtra)) {
+                    console.error("Skip setting:", setting, "because it could not be resolved and the found extra setting is incomplete:", resolvedSettingExtra);
+                    return null;
+                }
+
                 settingName = resolvedSettingExtra.name;
                 settingType = resolvedSettingExtra.type;
                 settingArray = JSON.parse(JSON.stringify(resolvedSettingExtra));
