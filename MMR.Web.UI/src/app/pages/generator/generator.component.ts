@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild, ElementRef, HostListener } from '@angular/core';
 
 import { OverlayContainer } from '@angular/cdk/overlay';
 
@@ -27,6 +27,7 @@ export class GeneratorComponent implements OnInit {
   tooltipComponent = GUITooltipComponent;
 
   @ViewChild('refTabSet') tabSet: NbTabsetComponent;
+  @ViewChild('refTabSet', { read: ElementRef }) tabSetNative: ElementRef<HTMLElement>;
   @ViewChild('refTabFooter') tabSetFooter: NbTabsetComponent;
   activeTab: string = "";
   activeFooterTab: string = "";
@@ -925,6 +926,15 @@ export class GeneratorComponent implements OnInit {
 
     if (title === this.generateFromFileTabTitle) {
       value = true;
+    }
+
+    if (value) {
+      //Generate from File active
+      let tabHeaderBar = this.tabSetNative.nativeElement.querySelector(".tabset");
+      console.log(tabHeaderBar);
+    }
+    else {
+      //Generate from Seed active
     }
 
     this.global.generator_settingsMap['Web.generate_from_file'] = value;
