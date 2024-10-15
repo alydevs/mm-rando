@@ -151,11 +151,11 @@ export class GUIGlobal implements OnDestroy {
       if (detail) {
 
         if (detail.name == "ROM")
-          self.generator_settingsMap["rom"] = "<using cached ROM>";
+          self.generator_settingsMap["OutputSettings.InputROMFilename"] = "<using cached ROM>";
         else if (detail.name == "WAD")
-          self.generator_settingsMap["web_wad_file"] = "<using cached WAD>";
+          self.generator_settingsMap["Web.wad_file"] = "<using cached WAD>";
         else if (detail.name == "COMMONKEY")
-          self.generator_settingsMap["web_common_key_file"] = "<using cached common key>";
+          self.generator_settingsMap["Web.common_key_file"] = "<using cached common key>";
 
         self.globalEmitter.emit({ name: "refresh_gui" });
       }
@@ -440,13 +440,13 @@ export class GUIGlobal implements OnDestroy {
 
     //Legacy: Check for cached files and then create web events after
     if ((<any>window).emscriptenFoundCachedROMFile)
-      this.generator_settingsMap["rom"] = "<using cached ROM>";
+      this.generator_settingsMap["OutputSettings.InputROMFilename"] = "<using cached ROM>";
 
     if ((<any>window).emscriptenFoundCachedWADFile)
-      this.generator_settingsMap["web_wad_file"] = "<using cached WAD>";
+      this.generator_settingsMap["Web.wad_file"] = "<using cached WAD>";
 
     if ((<any>window).emscriptenFoundCachedCommonKeyFile)
-      this.generator_settingsMap["web_common_key_file"] = "<using cached common key>";
+      this.generator_settingsMap["Web.common_key_file"] = "<using cached common key>";
 
     //If we have an external override settings map, apply it now
     if ((<any>window).externalOverrideSettingsMap)
