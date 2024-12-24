@@ -1,13 +1,11 @@
 <nb-card class="mmrHintPriorities-window">
   <nb-card-header>
-    <div class="dialog-title" style="text-align:center; font-size:1.5em; font-weight:bold;">{{ dialogHeader }}</div>
-    <div class="dialog-tooltip" style="text-align:center; font-size:0.95em; color:#888;">
-      Note: this list will be used exclusively if any locations are added.<br>
-      Settings are not taken into account, but non-randomized and junked locations will not be hinted.<br>
-      The higher a location appears in this list, the higher its priority. Locations with the same priority will be chosen randomly.<br>
-      If a location should combine with another location, all the combined locations should be added.<br>
-      The checkbox indicates that this tier of locations should indicate their importance.<br>
-      The number (if non-zero) indicates how many of the locations will be hinted, and the rest will be forced to be junk.
+    <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
+      <div class="dialog-title" style="text-align:center; font-size:1.5em; font-weight:bold;">{{ dialogHeader }}</div>
+      <div class="info-icon-container">
+        <img class="select-info" />
+        <div class="custom-tooltip" [innerHTML]="hintPrioritiesTooltip"></div>
+      </div>
     </div>
     <button nbButton class="headerButton" size="xsmall" status="danger" (click)="cancelDialog()" style="position:absolute; right:16px; top:16px;">X</button>
   </nb-card-header>
@@ -20,9 +18,6 @@
             <button nbButton size="tiny" status="primary" (click)="addItemToTier(tier.id)" class="add-btn">+</button>
           </div>
           <div class="control-wrapper">
-            <button nbButton size="tiny" status="danger" (click)="removeTier(tier.id)" class="remove-btn">-</button>
-          </div>
-          <div class="control-wrapper">
             <input type="checkbox" [(ngModel)]="tier.indicateImportance" class="importance-checkbox">
           </div>
         </div>
@@ -32,7 +27,7 @@
           </div>
           <div class="item-tags-container">
             <div *ngFor="let item of tier.items" class="item-tag">
-              {{ item }}
+              {{ getItemLabel(item) }}
               <button nbButton size="tiny" status="danger" (click)="removeItemFromTier(tier.id, item)">&times;</button>
             </div>
           </div>
@@ -49,6 +44,9 @@
           <div class="control-wrapper">
             <button nbButton size="tiny" status="basic" (click)="moveTierDown(tier.id)" [disabled]="tier.order === tiers.length - 1" class="down-btn">↓</button>
           </div>
+          <div class="control-wrapper">
+            <button nbButton size="tiny" status="danger" (click)="removeTier(tier.id)" class="remove-btn">&times;</button>
+          </div>
         </div>
       </div>
       <div class="add-tier-row">
@@ -59,7 +57,7 @@
   <nb-card-footer>
     <div class="footer-buttons" style="display:flex; justify-content:flex-end; gap:18px; margin:18px 0 6px 0;">
       <button nbButton status="basic" (click)="cancelDialog()" style="padding:8px 24px;">Cancel</button>
-      <button nbButton status="primary" (click)="confirmDialog()" style="padding:8px 24px;">OK</button>
+      <button nbButton status="primary" (click)="confirmDialog()" style="padding:8px 24px;">Save</button>
     </div>
   </nb-card-footer>
 </nb-card> 

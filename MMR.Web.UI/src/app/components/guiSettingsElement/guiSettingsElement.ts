@@ -237,30 +237,115 @@ export class GUISettingsElement implements OnInit {
     });
   }
 
-  openHintPrioritiesWindow(setting: any, assignmentSettingsMap: any, assignmentSettingName: string, settingDefault: any, settingText: string, settingTooltip: string) {
+  openHintPrioritiesWindow(setting: any, assignmentSettingsMap: any, assignmentSettingName: string, settingDefault: any, settingText: string, settingTooltip: string, event?: any) {
+    // Measure the app container and set custom properties for dialog sizing
+    this.setAppContainerDimensions();
 
-    this.dialogService.open(MMRHintPrioritiesWindowComponent, {
-      autoFocus: true, closeOnBackdropClick: true, closeOnEsc: true, hasBackdrop: true, hasScroll: false,
-      context: { dialogHeader: settingText, setting, assignmentSettingsMap, assignmentSettingName }
-    }).onClose.subscribe(result => {
+    //Backup existing settings
+    let overrideHintPriorities = JSON.parse(JSON.stringify(this.assignmentSettingsMap['GameplaySettings.OverrideHintPriorities'] || []));
+    let overrideImportanceIndicatorTiers = JSON.parse(JSON.stringify(this.assignmentSettingsMap['GameplaySettings.OverrideImportanceIndicatorTiers'] || []));
+    let overrideHintItemCaps = JSON.parse(JSON.stringify(this.assignmentSettingsMap['GameplaySettings.OverrideHintItemCaps'] || []));
+
+    const dialogRef = this.dialogService.open(MMRHintPrioritiesWindowComponent, {
+      autoFocus: true, 
+      closeOnBackdropClick: true, 
+      closeOnEsc: true, 
+      hasBackdrop: true, 
+      hasScroll: false,
+      context: { 
+        dialogHeader: settingText, 
+        setting, 
+        assignmentSettingsMap, 
+        assignmentSettingName,
+        sectionSettings: this.sectionSettings
+      }
+    });
+
+    // Set dialog size based on app container immediately
+    this.resizeDialogToAppContainer('.mmrHintPriorities-window', 0.7, 0.7);
+
+    dialogRef.onClose.subscribe(result => {
+
       if (result) {
-        console.log('Hint priorities result:', result);
-        // TODO: Update the settings with the result
+        console.log('Hint priorities result valid:', result);
+        //Save
+        this.app.afterSettingChange();
+      }
+      else {
+        //Revert values
+        this.assignmentSettingsMap['GameplaySettings.OverrideHintPriorities'] = overrideHintPriorities;
+        this.assignmentSettingsMap['GameplaySettings.OverrideImportanceIndicatorTiers'] = overrideImportanceIndicatorTiers;
+        this.assignmentSettingsMap['GameplaySettings.OverrideHintItemCaps'] = overrideHintItemCaps;
       }
     });
   }
 
-  openItemSelectorWindow(setting: any, assignmentSettingsMap: any, assignmentSettingName: string, settingDefault: any, settingText: string, settingTooltip: string) {
+  private setAppContainerDimensions() {
+    // Find the app container (the main card or content area)
+    const appContainer = document.querySelector('.pageContainer') || 
+                       document.querySelector('nb-card') || 
+                       document.querySelector('#generator');
+    
+    if (appContainer) {
+      const rect = appContainer.getBoundingClientRect();
+      const appWidth = rect.width;
+      const appHeight = rect.height;
+      
+      // Set CSS custom properties for dialog sizing
+      document.documentElement.style.setProperty('--app-width', `${appWidth}px`);
+      document.documentElement.style.setProperty('--app-height', `${appHeight}px`);
+      
+      console.log(`App container dimensions: ${appWidth}px × ${appHeight}px`);
+    } else {
+      // Fallback to viewport dimensions if app container not found
+      document.documentElement.style.setProperty('--app-width', `${window.innerWidth}px`);
+      document.documentElement.style.setProperty('--app-height', `${window.innerHeight}px`);
+    }
+  }
 
-    this.dialogService.open(MMRItemSelectorWindowComponent, {
-      autoFocus: true, closeOnBackdropClick: true, closeOnEsc: true, hasBackdrop: true, hasScroll: false,
-      context: { dialogHeader: settingText, setting, assignmentSettingsMap, assignmentSettingName }
-    }).onClose.subscribe(result => {
-      if (result) {
-        console.log('Item selector result:', result);
-        // TODO: Update the settings with the result
+  private resizeDialogToAppContainer(selector: string, widthRatio: number, heightRatio: number) {
+    const appContainer = document.querySelector('.pageContainer') || 
+                       document.querySelector('nb-card') || 
+                       document.querySelector('#generator');
+    
+    if (appContainer) {
+      const appRect = appContainer.getBoundingClientRect();
+      const dialogElement = document.querySelector(selector) as HTMLElement;
+      
+      if (dialogElement) {
+        const targetWidth = appRect.width * widthRatio;
+        const targetHeight = appRect.height * heightRatio;
+        
+        // Calculate position: horizontally centered in app container, vertically centered in viewport
+        const centerX = appRect.left + (appRect.width / 2);
+        const centerY = window.innerHeight / 2;
+        
+        // Set size
+        dialogElement.style.width = `${targetWidth}px`;
+        dialogElement.style.height = `${targetHeight}px`;
+        dialogElement.style.maxWidth = `${targetWidth}px`;
+        dialogElement.style.maxHeight = `${targetHeight}px`;
+        
+        // Set position: horizontally centered in app, vertically centered in viewport
+        dialogElement.style.position = 'fixed';
+        dialogElement.style.left = `${centerX - (targetWidth / 2)}px`;
+        dialogElement.style.top = `${centerY - (targetHeight / 2)}px`;
+        dialogElement.style.transform = 'none'; // Remove any existing transforms
+        dialogElement.style.zIndex = '1000';
+      } else {
+        // Try alternative selectors
+        const alternativeSelectors = [
+          '.mmrItemSelector-window',
+          '.mmrHintPriorities-window',
+          '[class*="ItemSelector"]',
+          '[class*="HintPriorities"]'
+        ];
+        
+        for (const altSelector of alternativeSelectors) {
+          const altElement = document.querySelector(altSelector);
+        }
       }
-    });
+    }
   }
 
   generateDictSetting(mainSetting, keySetting) {

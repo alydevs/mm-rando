@@ -21,6 +21,8 @@
     justify-content: start !important;
     li.disabled {
       opacity: 0.4 !important;
+      max-width: 0 !important;
+      overflow: hidden !important;
     }
 
 

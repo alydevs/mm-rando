@@ -90,6 +90,22 @@ export class GeneratorComponent implements OnInit {
       this.global.generator_settingsMap["Web.generate_from_file"] = true;
     }
 
+    let generateFromFileSetting = this.global.findSettingByName("Web.generate_from_file");
+    if (generateFromFileSetting) {
+      let currentValue = this.global.generator_settingsMap["Web.generate_from_file"];
+      let currentOption = this.findOption(generateFromFileSetting.options, currentValue);
+      
+      if (currentOption && "controls_visibility_tab" in currentOption) {
+        currentOption["controls_visibility_tab"].split(",").forEach(tab => {
+          if (tab in this.global.generator_tabsVisibilityMap) {
+            this.global.generator_tabsVisibilityMap[tab] = currentValue;
+          }
+        });
+      }
+      
+      this.checkVisibility(currentValue, generateFromFileSetting, currentOption);
+    }
+
     this.recheckAllSettings(); //All settings are default set to enabled, so at init time it only needs to potentially disable settings
     this.cd.markForCheck();
     this.cd.detectChanges();
@@ -133,16 +149,11 @@ export class GeneratorComponent implements OnInit {
   }
 
   getTabList(footer: boolean) {
-    console.log("triggering redraw of tablist");
     let filteredTabList = [];
 
     this.global.getGlobalVar('generatorSettingsArray').forEach(tab => {
 
-      /* clashes with tab swap styling
-      if (!this.global.generator_tabsVisibilityMap[tab.name] && tab.hide_when_disabled)
-        return; 
-      */
-
+      // Always include all tabs for animation to work - let [disabled] handle visibility
       if (!footer) {
         if (!("footer" in tab) || !tab.footer)
           filteredTabList.push(tab);
@@ -826,7 +837,6 @@ export class GeneratorComponent implements OnInit {
         let tabIndex = tabNameList.findIndex(elem => elem == tabNameForRemoval);
         if (tabIndex != -1 && rawTabs[tabIndex]) {
           rawTabs[tabIndex].classList.add("collapsed");
-          console.log("collapsing", tabNameForRemoval);
         }
       }
     }
@@ -845,7 +855,6 @@ export class GeneratorComponent implements OnInit {
           let tab = tabNameList[i];
 
           if (tab in visibilityChangeList && visibilityChangeList[tab] == becameVisible) {
-            console.log(tab, visibilityChangeList[tab]);
 
             data.tabs.push(tab);
             data.counter++;
@@ -1185,7 +1194,34 @@ export class GeneratorComponent implements OnInit {
 
         this.global.generator_tabsVisibilityMap[tab] = targetValue;
 
-        //Kick user out of active tab and go back to root if it gets disabled here
+        // Apply/remove collapsed class for animation
+        let tabNameList = this.global.getGlobalVar('generatorSettingsArray').filter(tab => !tab.footer).map(tab => tab.name);
+        let tabIndex = tabNameList.findIndex(elem => elem == tab);
+        
+        // Only apply animation if tabSetNative is available
+        if (this.tabSetNative && this.tabSetNative.nativeElement) {
+          let tabHeaderBar = this.tabSetNative.nativeElement.querySelector(".tabset");
+          let rawTabs = tabHeaderBar.querySelectorAll("li");
+          
+          if (tabIndex != -1 && rawTabs[tabIndex]) {
+            if (!targetValue) {
+              // Hiding tab - add collapsed class (no animation on initial load)
+              rawTabs[tabIndex].classList.add("collapsed");
+            } else {
+              // Showing tab - remove collapsed class and add decollapsing animation
+              if (rawTabs[tabIndex].classList.contains("collapsed")) {
+                rawTabs[tabIndex].classList.add("decollapsing");
+                rawTabs[tabIndex].classList.remove("collapsed");
+                
+                setTimeout(() => {
+                  rawTabs[tabIndex].classList.remove("decollapsing");
+                }, 900);
+              }
+            }
+          }
+        }
+
+     //Kick user out of active tab and go back to root if it gets disabled here
         if (!targetValue && this.global.getGlobalVar("generatorSettingsObj")) {
 
           if (this.activeTab == this.global.getGlobalVar("generatorSettingsObj")[tab].text) {

@@ -63,6 +63,10 @@
     <Content Include="src\app\components\guiListbox\guiListbox.html" />
     <Content Include="src\app\components\guiListbox\guiListbox.scss" />
     <Content Include="src\app\components\guiSettingsElement\guiSettingsElement.scss" />
+    <Content Include="src\app\components\mmr\hintPrioritiesWindow\hintPrioritiesWindow.html" />
+    <Content Include="src\app\components\mmr\hintPrioritiesWindow\hintPrioritiesWindow.scss" />
+    <Content Include="src\app\components\mmr\itemSelectorWindow\itemSelectorWindow.html" />
+    <Content Include="src\app\components\mmr\itemSelectorWindow\itemSelectorWindow.scss" />
     <Content Include="src\app\components\mmr\randomStartingItemsWindow\randomStartingItemsWindow.html" />
     <Content Include="src\app\components\mmr\randomStartingItemsWindow\randomStartingItemsWindow.scss" />
     <Content Include="src\app\pages\generator\confirmationWindow\confirmationWindow.scss" />
@@ -93,6 +97,8 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="src\app\components\guiListbox\guiListbox.ts" />
+    <TypeScriptCompile Include="src\app\components\mmr\hintPrioritiesWindow\hintPrioritiesWindow.component.ts" />
+    <TypeScriptCompile Include="src\app\components\mmr\itemSelectorWindow\itemSelectorWindow.component.ts" />
     <TypeScriptCompile Include="src\app\components\mmr\randomStartingItemsWindow\randomStartingItemsWindow.component.ts" />
     <TypeScriptCompile Include="src\app\directives\responsiveCols.directive.ts">
       <SubType>Code</SubType>
@@ -150,6 +156,8 @@
     <Folder Include="src\app\components\guiColorPicker\" />
     <Folder Include="src\app\components\guiListbox\" />
     <Folder Include="src\app\components\guiListboxMMR\" />
+    <Folder Include="src\app\components\mmr\hintPrioritiesWindow\" />
+    <Folder Include="src\app\components\mmr\itemSelectorWindow\" />
     <Folder Include="src\app\components\mmr\randomStartingItemsWindow\" />
     <Folder Include="src\app\components\mmr\" />
     <Folder Include="src\app\directives\" />

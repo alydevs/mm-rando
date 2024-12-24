@@ -1,4 +1,5 @@
-<div class="dual-list" [ngStyle]="{'max-height': height}">
+<div class="dual-list-wrapper" [ngStyle]="{'height': height}">
+  <div class="dual-list">
     <div class="listbox" [ngStyle]="{ 'order' :  direction() ? 1 : 2, 'margin-left' : direction() ? 0 : '10px' }">
         <div class="buttonBox">
             <button nbButton type="button" name="addBtn" class="btn btn-primary btn-block switchButton" (click)="moveItem(available, confirmed)" [ngClass]="direction() ? 'point-right' : 'point-left'" [disabled]="available.pick.length === 0">
@@ -49,4 +50,5 @@
             </ul>
         </div>
     </div>
+  </div>
 </div>

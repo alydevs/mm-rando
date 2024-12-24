@@ -60,6 +60,7 @@
     position: relative;
     min-height: calc(100% - 214.8px);
     max-height: calc(100% - 214.8px);
+    scrollbar-color: auto;
 
     @media (max-width: 960px) and (max-height: 960px) {
       min-height: calc(100% - 181.8px);
