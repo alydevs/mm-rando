@@ -1411,6 +1411,9 @@ export class GUIGlobal implements OnDestroy {
 
       //Delete all shared = false keys from map since they aren't included in the seed
       this.deleteSettingsFromMapWithCondition(settingsFile, "shared", false);
+
+      //Delete all DictionaryLinked as they are only intended for GUI design
+      this.deleteSettingsFromMapWithCondition(settingsFile, "type", "DictionaryLinked");
     }
 
     //Delete keys the browser can't save (web only)

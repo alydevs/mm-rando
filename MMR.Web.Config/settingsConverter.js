@@ -75,6 +75,15 @@ function createSettingsList(version) {
 
                 sectionArray.settings.push(settingsData.settingArray);
                 sectionObject.settings[settingsData.settingName] = settingsData.settingObject;
+
+                //If this setting defined any children, push them too
+                if (settingsData.childSettings.length > 0) {
+
+                    for (let childSettingsData of settingsData.childSettings) {
+                        sectionArray.settings.push(childSettingsData.settingArray);
+                        sectionObject.settings[childSettingsData.settingName] = childSettingsData.settingObject;
+                    }
+                }
             }
 
             tabArray.sections.push(sectionArray);
@@ -237,6 +246,8 @@ function assembleSetting(version, setting, linkedSettings = false, overrideBaseT
     let settingType;
     let settingTypeOriginal = null;
     let settingTypeOriginalDerived = null;
+
+    let childSettings = []; //An extra list of settings to push (used by linked dictionaries)
 
     if (!Array.isArray(setting)) {
 
@@ -641,8 +652,7 @@ function assembleSetting(version, setting, linkedSettings = false, overrideBaseT
                         //ToDo: if Index key is in resolvedSetting, instead make this is a special type IndexCombobox
                         //which is rendered as a series of comboboxes all using the same options that render their value to the respective index in the data array
                         //(use Index array position to name to get Labels for Comboboxes)
-                        //ToDo: Can instead make this a Dictionary of inner_type Combobox with default values as given and converting the d-pad keys to a keys array and the Values as options
-                        //This wouldnt work as the value is an array, not a dict, so use the first IndexCombobox approach
+                        //Dict sadly does not work as the data type is array and not dict
 
                         //Skip for now
                         if ("Index" in resolvedSetting) {
@@ -840,7 +850,7 @@ function assembleSetting(version, setting, linkedSettings = false, overrideBaseT
                         if (Object.keys(foundTags).length > 0) {
 
                             let finalTagsArray = [];
-                            let finalTagsObj = {}
+                            let finalTagsObj = {};
 
                             for (let tagKey of Object.keys(foundTags)) {
 
@@ -855,7 +865,7 @@ function assembleSetting(version, setting, linkedSettings = false, overrideBaseT
                                 finalTagsObj[tagKey] = {
                                     text: tagKeyLabel,
                                     tags: adjustedTagList
-                                }
+                                };
 
                                 finalTagsArray.push({
                                     name: tagKey,
@@ -1055,7 +1065,7 @@ function assembleSetting(version, setting, linkedSettings = false, overrideBaseT
     }
     else {
         //Multi settings (Dictionary only)
-        settingName = setting[0] + "_container"; //Assume first setting name
+        settingName = setting[0] + "_container"; //Assume first setting name for the grouping container
 
         let resolvedSettings = [];
 
@@ -1080,6 +1090,16 @@ function assembleSetting(version, setting, linkedSettings = false, overrideBaseT
         let dictionaryKeysArray = [];
         let dictionaryKeysObject = {};
 
+        childSettings = JSON.parse(JSON.stringify(resolvedSettings)); //Clone resolved settings for later individual insertion
+
+        //Properly tag the child settings (ignored for GUI insertion, used for everything else)
+        for (let childSettingData of childSettings) {
+            childSettingData.settingArray["is_linked"] = true;
+            childSettingData.settingObject["is_linked"] = true;
+        }
+
+        let settingDefault;
+                
         //Only support Dictionary for linked settings
         switch (settingType) {
             case "Dictionary":
@@ -1088,6 +1108,10 @@ function assembleSetting(version, setting, linkedSettings = false, overrideBaseT
                     dictionaryKeysArray = resolvedSettings[0].settingArray.keys;
                     dictionaryKeysObject = resolvedSettings[0].settingObject.keys;
 
+                    //Linked dictionaries are rendered as radio toggle groups, so we pre-select the first one by default
+                    settingDefault = dictionaryKeysArray[0].name;
+
+                    //Assemble grouping container (ignored for everything except for proper settings insertion into GUI)
                     for (let settingData of resolvedSettings) {
 
                         let childSettingName = settingData.settingName;
@@ -1128,7 +1152,7 @@ function assembleSetting(version, setting, linkedSettings = false, overrideBaseT
             name: settingName,
             text: null,
             type: settingType,
-            default: null,
+            default: settingDefault,
             tooltip: null,
             shared: settingShared,
             options: optionsArray
@@ -1137,7 +1161,7 @@ function assembleSetting(version, setting, linkedSettings = false, overrideBaseT
         settingObject = {
             text: null,
             type: settingType,
-            default: null,
+            default: settingDefault,
             tooltip: null,
             shared: settingShared,
             options: optionsObject
@@ -1157,12 +1181,12 @@ function assembleSetting(version, setting, linkedSettings = false, overrideBaseT
 
 
     //ToDo: dynamic: true can be used for settings_list re-generation with at runtime based settings e.g. logic_file
-    applyVersionMods(version, setting, linkedSettings, overrideBaseType, settingName, settingTypeOriginal, settingType, settingArray, settingObject);
+    applyVersionMods(version, setting, linkedSettings, overrideBaseType, settingName, settingTypeOriginal, settingType, settingArray, settingObject, childSettings);
 
-    return { settingName, settingType, settingArray, settingObject };
+    return { settingName, settingType, settingArray, settingObject, childSettings };
 }
 
-function applyVersionMods(version, setting, linkedSettings, overrideBaseType, settingName, settingTypeOriginal, settingType, settingArray, settingObject) {
+function applyVersionMods(version, setting, linkedSettings, overrideBaseType, settingName, settingTypeOriginal, settingType, settingArray, settingObject, childSettings) {
 
     if (!Array.isArray(setting)) {
 

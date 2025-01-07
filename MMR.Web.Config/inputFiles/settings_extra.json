@@ -236,6 +236,10 @@
     "text": "Show Verification Hash Icons"
   },
   {
+    "name": "GameplaySettings.TrapWeights",
+    "no_inner_line_break": true
+  },
+  {
     "name": "GameplaySettings.OverrideNumberOfRequiredGossipHints",
     "text": "Override Required Gossip Hints"
   },
@@ -258,5 +262,13 @@
   {
     "name": "GameplaySettings.OverrideMaxNumberOfClockTownGaroHints",
     "text": "Override Max Clock Town Garo Hints"
+  },
+  {
+    "name": "CosmeticSettings.UseTunicColors",
+    "no_line_break": true
+  },
+  {
+    "name": "CosmeticSettings.UseEnergyColors",
+    "no_line_break": true
   }
 ]

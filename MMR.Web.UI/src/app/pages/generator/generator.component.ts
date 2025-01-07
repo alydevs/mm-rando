@@ -4,7 +4,6 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 
 import { GUIGlobal } from '../../providers/GUIGlobal';
 import { MatGridList, MatGridTile } from '@angular/material/grid-list';
-import { NbSelectComponent } from '@nebular/theme/components/select/select.component';
 import {NbDialogService, NbTabsetComponent} from '@nebular/theme';
 
 import { GUITooltipComponent } from './guiTooltip/guiTooltip.component';
@@ -12,7 +11,6 @@ import { ProgressWindowComponent } from './progressWindow/progressWindow.compone
 import { DialogWindowComponent } from './dialogWindow/dialogWindow.component';
 import { ErrorDetailsWindowComponent } from './errorDetailsWindow/errorDetailsWindow.component';
 import { ConfirmationWindowComponent } from './confirmationWindow/confirmationWindow.component';
-import { TextInputWindowComponent } from './textInputWindow/textInputWindow.component';
 
 @Component({
   selector: 'mmr-generator',
@@ -21,8 +19,6 @@ import { TextInputWindowComponent } from './textInputWindow/textInputWindow.comp
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class GeneratorComponent implements OnInit {
-
-  selectedItem = '2';
 
   tooltipComponent = GUITooltipComponent;
 
@@ -433,6 +429,7 @@ export class GeneratorComponent implements OnInit {
     });
   }
 
+  //Not relevant for MMR
   copySettingsString() {
     this.global.copyToClipboard(this.global.generator_settingsMap["settings_string"]);
   }
@@ -453,7 +450,7 @@ export class GeneratorComponent implements OnInit {
     this.cd.markForCheck();
     this.cd.detectChanges();
 
-    //Old (only relevant for OoTR)
+    //Old (not relevant for MMR)
     /*
     this.settingsLocked = true;
 
@@ -494,6 +491,7 @@ export class GeneratorComponent implements OnInit {
     */
   }
 
+  //Not relevant for MMR
   importSettingsString() {
 
     this.generatorBusy = true;
@@ -520,178 +518,6 @@ export class GeneratorComponent implements OnInit {
 
       this.dialogService.open(DialogWindowComponent, {
         autoFocus: true, closeOnBackdropClick: true, closeOnEsc: true, hasBackdrop: true, hasScroll: false, context: { dialogHeader: "Error", dialogMessage: "The entered settings string seems to be invalid!" }
-      });
-    });
-  }
-
-  getPresetArray() {
-    if (typeof (this.global.generator_presets) == "object")
-      return Object.keys(this.global.generator_presets);
-    else
-      return [];
-  }
-
-  loadPreset() {
-
-    let targetPreset = this.global.generator_presets[this.global.generator_settingsMap["Web.presets"]];
-
-    if (targetPreset) {
-      if (("isNewPreset" in targetPreset) && targetPreset.isNewPreset == true) {
-        this.dialogService.open(DialogWindowComponent, {
-          autoFocus: true, closeOnBackdropClick: true, closeOnEsc: true, hasBackdrop: true, hasScroll: false, context: { dialogHeader: "Warning", dialogMessage: "You can not load this preset!" }
-        });
-      }
-      else {
-
-        if (("isDefaultPreset" in targetPreset) && targetPreset.isDefaultPreset == true) { //RESTORE DEFAULTS
-          this.global.applyDefaultSettings();
-        }
-        else {
-          this.global.applyDefaultSettings(); //Restore defaults first in case the user loads an old preset that misses settings
-          this.global.applySettingsObject(this.global.generator_presets[this.global.generator_settingsMap["Web.presets"]].settings);
-        }
-
-        this.recheckAllSettings("", false, true);
-        this.afterSettingChange();
-
-        //console.log("Preset loaded");
-      }
-    }
-  }
-
-  savePreset(refPresetSelect: NbSelectComponent) {
-
-    let targetPreset = this.global.generator_presets[this.global.generator_settingsMap["Web.presets"]];
-
-    if (targetPreset) {
-
-      if ((("isNewPreset" in targetPreset) && targetPreset.isNewPreset == true)) { //NEW PRESET
-
-        this.dialogService.open(TextInputWindowComponent, {
-          autoFocus: true, closeOnBackdropClick: true, closeOnEsc: true, hasBackdrop: true, hasScroll: false, context: { dialogHeader: "Create new preset", dialogMessage: "Enter preset name:" }
-        }).onClose.subscribe(name => {
-
-          if (name && typeof (name) == "string" && name.trim().length > 0) {
-
-            let trimmedName = name.trim();
-
-            if (trimmedName in this.global.generator_presets) {
-              this.dialogService.open(DialogWindowComponent, {
-                autoFocus: true, closeOnBackdropClick: true, closeOnEsc: true, hasBackdrop: true, hasScroll: false, context: { dialogHeader: "Error", dialogMessage: "A preset with this name already exists! If you wish to overwrite an existing preset, please select it from the list and hit Save instead." }
-              });
-            }
-            else {
-              this.global.generator_presets[trimmedName] = { settings: this.global.createSettingsFileObject(false, true, !this.global.getGlobalVar('electronAvailable')) };
-              this.global.generator_settingsMap["Web.presets"] = trimmedName;
-              this.global.saveCurrentPresetsToFile();
-
-              this.cd.markForCheck();
-              this.cd.detectChanges();
-
-              refPresetSelect.selected = trimmedName;
-
-              //console.log("Preset created");
-            }
-          }
-        });
-      }
-      else if (("isDefaultPreset" in targetPreset) && targetPreset.isDefaultPreset == true) { //DEFAULT
-        this.dialogService.open(DialogWindowComponent, {
-          autoFocus: true, closeOnBackdropClick: true, closeOnEsc: true, hasBackdrop: true, hasScroll: false, context: { dialogHeader: "Warning", dialogMessage: "System presets can not be overwritten!" }
-        });
-      }
-      else if (("isProtectedPreset" in targetPreset) && targetPreset.isProtectedPreset == true) { //BUILT IN
-        this.dialogService.open(DialogWindowComponent, {
-          autoFocus: true, closeOnBackdropClick: true, closeOnEsc: true, hasBackdrop: true, hasScroll: false, context: { dialogHeader: "Warning", dialogMessage: "Built in presets are protected and can not be overwritten!" }
-        });
-      }
-      else { //USER PRESETS
-        this.dialogService.open(ConfirmationWindowComponent, {
-          autoFocus: true, closeOnBackdropClick: true, closeOnEsc: true, hasBackdrop: true, hasScroll: false, context: { dialogHeader: "Confirm?", dialogMessage: "Do you want to overwrite the preset '" + this.global.generator_settingsMap["Web.presets"] + "' ?" }
-        }).onClose.subscribe(confirmed => {
-
-          if (confirmed) {
-            this.global.generator_presets[this.global.generator_settingsMap["Web.presets"]] = { settings: this.global.createSettingsFileObject(false, true, !this.global.getGlobalVar('electronAvailable')) };
-            this.global.saveCurrentPresetsToFile();
-
-            console.log("Preset overwritten");
-          }
-        });
-      }
-    }
-  }
-
-  deletePreset() {
-
-    let targetPreset = this.global.generator_presets[this.global.generator_settingsMap["Web.presets"]];
-
-    if (targetPreset) {
-      if ((("isNewPreset" in targetPreset) && targetPreset.isNewPreset == true) || (("isDefaultPreset" in targetPreset) && targetPreset.isDefaultPreset == true)) {
-        this.dialogService.open(DialogWindowComponent, {
-          autoFocus: true, closeOnBackdropClick: true, closeOnEsc: true, hasBackdrop: true, hasScroll: false, context: { dialogHeader: "Warning", dialogMessage: "System presets can not be deleted!" }
-        });
-      }
-      else if (("isProtectedPreset" in targetPreset) && targetPreset.isProtectedPreset == true) {
-        this.dialogService.open(DialogWindowComponent, {
-          autoFocus: true, closeOnBackdropClick: true, closeOnEsc: true, hasBackdrop: true, hasScroll: false, context: { dialogHeader: "Warning", dialogMessage: "Built in presets are protected and can not be deleted!" }
-        });
-      }
-      else {
-        this.dialogService.open(ConfirmationWindowComponent, {
-          autoFocus: true, closeOnBackdropClick: true, closeOnEsc: true, hasBackdrop: true, hasScroll: false, context: { dialogHeader: "Confirm?", dialogMessage: "Do you really want to delete the preset '" + this.global.generator_settingsMap["Web.presets"] + "' ?" }
-        }).onClose.subscribe(confirmed => {
-
-          if (confirmed) {
-            delete this.global.generator_presets[this.global.generator_settingsMap["Web.presets"]];
-            this.global.generator_settingsMap["Web.presets"] = "[New Preset]";
-            this.global.saveCurrentPresetsToFile();
-
-            this.cd.markForCheck();
-            this.cd.detectChanges();
-
-            //console.log("Preset deleted");
-          }
-        });
-      }
-    }
-  }
-
-  openOutputDir() { //Electron only
-
-    var path = "";
-
-    if (!this.global.generator_settingsMap["output_dir"] || this.global.generator_settingsMap["output_dir"].length < 1)
-      path = "Output";
-    else
-      path = this.global.generator_settingsMap["output_dir"];
-
-    this.global.createAndOpenPath(path).then(() => {
-      console.log("Output dir opened");
-    }).catch(err => {
-      console.error("Error:", err);
-
-      if (err.message.includes("no such file or directory")) {
-        this.dialogService.open(DialogWindowComponent, {
-          autoFocus: true, closeOnBackdropClick: true, closeOnEsc: true, hasBackdrop: true, hasScroll: false, context: { dialogHeader: "Error", dialogMessage: "The specified output directory does not exist!" }
-        });
-      }
-      else {
-        this.dialogService.open(DialogWindowComponent, {
-          autoFocus: true, closeOnBackdropClick: true, closeOnEsc: true, hasBackdrop: true, hasScroll: false, context: { dialogHeader: "Error", dialogMessage: err }
-        });
-      }
-    });
-  }
-
-  openPythonDir() { //Electron only
-
-    this.global.createAndOpenPath("").then(() => {
-      console.log("Python dir opened");
-    }).catch(err => {
-      console.error("Error:", err);
-
-      this.dialogService.open(DialogWindowComponent, {
-        autoFocus: true, closeOnBackdropClick: true, closeOnEsc: true, hasBackdrop: true, hasScroll: false, context: { dialogHeader: "Error", dialogMessage: err }
       });
     });
   }
@@ -931,7 +757,6 @@ export class GeneratorComponent implements OnInit {
     if (value) {
       //Generate from File active
       let tabHeaderBar = this.tabSetNative.nativeElement.querySelector(".tabset");
-      console.log(tabHeaderBar);
     }
     else {
       //Generate from Seed active
@@ -1396,44 +1221,56 @@ export class GeneratorComponent implements OnInit {
     })));
   }
 
-  revertToPriorValue(settingName: string, forceChangeDetection: boolean, forcePriorValue: any = null) {
+  revertToPriorValue(settingName: string, forceChangeDetection: boolean, forcePriorValue: any = null, subSettingName: string = null) {
 
-    let priorValue = forcePriorValue != null ? forcePriorValue : this.global.generator_settingsMap[settingName];
+    let priorValue = forcePriorValue != null ? forcePriorValue : subSettingName ? this.global.generator_settingsMap[settingName][subSettingName] : this.global.generator_settingsMap[settingName];
 
     setTimeout(() => {
-      this.global.generator_settingsMap[settingName] = priorValue;
+
+      if (subSettingName)
+        this.global.generator_settingsMap[settingName][subSettingName] = priorValue;
+      else
+        this.global.generator_settingsMap[settingName] = priorValue;
 
       if (forceChangeDetection)
         this.cd.markForCheck();
     }, 0);
   }
 
-  inputFocusIn(settingName: string) {
+  inputFocusIn(settingName: string, subSettingName: string = null) {
     //Save current value on entering any input field
-    this.inputOldValue = this.global.generator_settingsMap[settingName];
+    if (subSettingName)
+      this.inputOldValue = this.global.generator_settingsMap[settingName][subSettingName];
+    else
+      this.inputOldValue = this.global.generator_settingsMap[settingName];
   }
 
-  inputFocusOut(settingName: string, saveOnly: boolean, forceNewValue: any = undefined) {
+  inputFocusOut(settingName: string, saveOnly: boolean, forceNewValue: any = undefined, subSettingName: string = null) {
 
-    let newValue = forceNewValue !== undefined ? forceNewValue : this.global.generator_settingsMap[settingName];
+    let newValue = forceNewValue !== undefined ? forceNewValue : subSettingName ? this.global.generator_settingsMap[settingName][subSettingName] : this.global.generator_settingsMap[settingName];
 
     //Only update if the value actually changed
     if (newValue != this.inputOldValue) {
       setTimeout(() => {
-        this.global.generator_settingsMap[settingName] = newValue;
+
+        if (subSettingName)
+          this.global.generator_settingsMap[settingName][subSettingName] = newValue;
+        else
+          this.global.generator_settingsMap[settingName] = newValue;
+
         this.afterSettingChange(saveOnly);
       }, 0);
     }
   }
 
-  numberInputFocusOut(setting: object, forceAdjust: boolean) {
+  numberInputFocusOut(setting: object, forceAdjust: boolean, subSetting: object = null) {
 
-    let newValue = this.global.generator_settingsMap[setting["name"]];
+    let newValue = subSetting ? this.global.generator_settingsMap[setting["name"]][subSetting["name"]] : this.global.generator_settingsMap[setting["name"]];
     let settingName = setting["name"];
 
     //Skip checks if null value with nullable allowed
     if (setting["nullable"] === true && (newValue === null || newValue === "")) {
-      this.inputFocusOut(settingName, false, null);
+      this.inputFocusOut(settingName, false, undefined, subSetting ? subSetting["name"] : null);
       return;
     }
 
@@ -1441,7 +1278,7 @@ export class GeneratorComponent implements OnInit {
     if (!newValue || newValue.length == 0) {
 
       if (forceAdjust)
-        this.revertToPriorValue(settingName, true, this.inputOldValue);
+        this.revertToPriorValue(settingName, true, this.inputOldValue, subSetting ? subSetting["name"] : null);
 
       return;
     }
@@ -1453,7 +1290,7 @@ export class GeneratorComponent implements OnInit {
       if (Number(parseFloat(newValue)) != newValue) {
 
         if (forceAdjust)
-          this.revertToPriorValue(settingName, true, this.inputOldValue);
+          this.revertToPriorValue(settingName, true, this.inputOldValue, subSetting ? subSetting["name"] : null);
 
         return;
       }
@@ -1464,7 +1301,7 @@ export class GeneratorComponent implements OnInit {
       if (Number(parseInt(newValue)) != newValue) {
 
         if (forceAdjust)
-          this.revertToPriorValue(settingName, true, this.inputOldValue);
+          this.revertToPriorValue(settingName, true, this.inputOldValue, subSetting ? subSetting["name"] : null);
 
         return;
       }
@@ -1477,7 +1314,12 @@ export class GeneratorComponent implements OnInit {
     if (("min" in setting) && newValue < settingMin) {
       if (forceAdjust) {
         setTimeout(() => {
-          this.global.generator_settingsMap[setting["name"]] = settingMin;
+
+          if (subSetting)
+            this.global.generator_settingsMap[setting["name"]][subSetting["name"]] = settingMin;
+          else
+            this.global.generator_settingsMap[setting["name"]] = settingMin;
+
           this.cd.markForCheck();
           this.afterSettingChange();
         }, 0);
@@ -1486,7 +1328,12 @@ export class GeneratorComponent implements OnInit {
     else if (("max" in setting) && newValue > settingMax) {
       if (forceAdjust) {
         setTimeout(() => {
-          this.global.generator_settingsMap[setting["name"]] = settingMax;
+
+          if (subSetting)
+            this.global.generator_settingsMap[setting["name"]][subSetting["name"]] = settingMax;
+          else
+            this.global.generator_settingsMap[setting["name"]] = settingMax;
+
           this.cd.markForCheck();
           this.afterSettingChange();
         }, 0);
@@ -1496,11 +1343,11 @@ export class GeneratorComponent implements OnInit {
 
       if (setting["is_decimal"]) {
         //Decimals
-        this.inputFocusOut(settingName, false, parseFloat(newValue));
+        this.inputFocusOut(settingName, false, parseFloat(newValue), subSetting ? subSetting["name"] : null);
       }
       else {
         //Non decimals
-        this.inputFocusOut(settingName, false, parseInt(newValue));
+        this.inputFocusOut(settingName, false, parseInt(newValue), subSetting ? subSetting["name"] : null);
       }
     }
   }

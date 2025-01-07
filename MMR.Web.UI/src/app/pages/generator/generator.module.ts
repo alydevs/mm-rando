@@ -34,6 +34,7 @@ import { GUITooltipComponent } from './guiTooltip/guiTooltip.component';
 import { GUIListboxComponent } from '../../components/guiListbox/guiListbox';
 import { GUIListboxComponentMMR } from '../../components/guiListboxMMR/guiListboxMMR';
 import { GUIColorPickerComponent } from '../../components/guiColorPicker/guiColorPicker';
+import { GUISettingsElement } from '../../components/guiSettingsElement/guiSettingsElement';
 
 @NgModule({
     imports: [
@@ -64,7 +65,8 @@ import { GUIColorPickerComponent } from '../../components/guiColorPicker/guiColo
         GUITooltipComponent,
         GUIListboxComponent,
         GUIListboxComponentMMR,
-        GUIColorPickerComponent
+        GUIColorPickerComponent,
+        GUISettingsElement
     ],
     providers: [
       { provide: Window, useValue: window }
