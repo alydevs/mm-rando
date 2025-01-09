@@ -304,7 +304,7 @@
         font-family: Roboto, "Helvetica Neue", sans-serif;
         border-radius: 2.38px;
         font-size: 12.25px;
-        padding: 1.4px 15.75px;
+        padding: 1.4px 7px;
         position: relative;
         left: 0;
         max-width: unset;
@@ -324,16 +324,16 @@
 
         &.numberTextInput {
           &.numberTextInputSmall {
-            max-width: 50px;
+            max-width: 70px;
           }
 
           &.numberTextInputMedium {
-            max-width: 115px;
+            max-width: 120px;
           }
 
           position: relative;
           left: 15px;
-          max-width: 36px;
+          max-width: 45px;
           min-width: 30px;
           width: auto;
           text-align: center;
@@ -344,6 +344,7 @@
 
       p.subheaderLabel {
         margin-top: 0;
+        margin-bottom: 3px;
       }
 
       nb-tabset {

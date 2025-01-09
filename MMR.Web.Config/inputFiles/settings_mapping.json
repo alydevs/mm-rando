@@ -339,7 +339,7 @@
           "text": "Character Cosmetics",
           "is_colors": true,
           "col_span": 2,
-          "row_span": [ 2, 2, 2 ],
+          "row_span": [ 3, 3, 3 ],
           "settings": [
             [
               "CosmeticSettings.UseTunicColors",
@@ -436,7 +436,7 @@
           "name": "other_section",
           "text": "Other",
           "col_span": 2,
-          "row_span": [ 5, 5, 5 ],
+          "row_span": [ 3, 3, 3 ],
           "settings": [
             "CosmeticSettings.TatlColorSchema",
             "CosmeticSettings.EnableHoldZTargeting",

@@ -41,6 +41,11 @@
     }
   }
 
+  .rgbColorPickerLabel {
+    margin-top: 10px;
+    left: 0 !important;
+  } 
+
   .oneLineComboBox {
     display: inline-block !important;
     margin-bottom: 10px;
@@ -178,8 +183,12 @@
     max-width: initial !important;
     text-align: left;
     padding-right: initial !important;
-    margin-top: 5.6px;
+    margin-top: 12px;
     margin-right: 14px !important;
+  }
+
+  .secondaryInputLabel {
+    margin-left: 25px;
   }
 
   .colorPickerContainer {
@@ -203,7 +212,7 @@
     position: relative;
     left: 10px;
     line-height: 0;
-    margin-bottom: 0;
+    margin-bottom: 8px;
     margin-top: 8px !important;
   }
 
@@ -223,7 +232,7 @@
     width: calc(100% - 230px);
     text-align: left;
     padding-left: 5.25px !important;
-    margin-top: 5.6px;
+    margin-top: 12px;
     margin-right: 14px !important;
   }
 
