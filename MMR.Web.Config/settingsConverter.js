@@ -649,15 +649,16 @@ function assembleSetting(version, setting, linkedSettings = false, overrideBaseT
 
                 case "MultipleSelect": //FlagEnum and Enum[]
                     {
-                        //ToDo: if Index key is in resolvedSetting, instead make this is a special type IndexCombobox
+                        //If Index key is in resolvedSetting, instead make this is a special type IndexCombobox
                         //which is rendered as a series of comboboxes all using the same options that render their value to the respective index in the data array
-                        //(use Index array position to name to get Labels for Comboboxes)
-                        //Dict sadly does not work as the data type is array and not dict
+                        if ("Index" in resolvedSetting && Array.isArray(resolvedSetting.Index)) {
+                            settingType = "IndexCombobox";
+                            settingArray.type = "IndexCombobox";
+                            settingObject.type = "IndexCombobox";
 
-                        //Skip for now
-                        if ("Index" in resolvedSetting) {
-                            return null;
-                        }
+                            settingArray.index_text = resolvedSetting.Index;
+                            settingObject.index_text = resolvedSetting.Index;
+                        }               
 
                         for (let option of resolvedSetting.Values) {
 
@@ -671,7 +672,7 @@ function assembleSetting(version, setting, linkedSettings = false, overrideBaseT
                             }
                         }
 
-                        //Set setting key that describes whether this is a FlagEnum (string output) or an Enum[] (array output)
+                        //Set setting key that describes whether this is a FlagEnum (string output) or an Enum[] (normal or IndexCombobox) (array output)
                         if (settingTypeOriginalDerived === "FlagEnum") {
                             settingArray.string_value = true;
                             settingObject.string_value = true;

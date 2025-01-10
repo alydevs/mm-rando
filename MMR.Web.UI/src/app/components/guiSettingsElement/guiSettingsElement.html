@@ -61,10 +61,44 @@
     </div>
   </ng-container>
 
+  <!--Indexed Combo-->
+  <ng-container *ngSwitchCase="'IndexCombobox'">
+
+    <ng-template ngFor let-subItem [ngForOf]="setting.index_text" let-subItemIndex="index">
+
+      <span *ngIf="!skipLabel" class="comboBoxLabel" [ngClass]="{'disabled': !visibilitySettingsMap[setting.name], 'oneLineComboBox': app.getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break)), 'oLCBLabelFirst': app.getColumnCount(refEl) > 2 && setting.no_line_break, 'oLCBLabelSecond': app.getColumnCount(refEl) > 2 && itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break}">{{subItem}}</span>
+      <div [ngClass]="{'selectContainerWithInfo': app.getColumnCount(refEl) === 1}">
+        <!--Indexed Combobox-->
+        <nb-select class="selectXSmall"
+                   [ngClass]="{'oneLineComboBox oLCBSelect': app.getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break)), 'spaceForInfo': app.getColumnCount(refEl) === 1}"
+                   [disabled]="!visibilitySettingsMap[setting.name]"
+                   [(selected)]="assignmentSettingsMap[assignmentSettingName][subItemIndex]"
+                   (selectedChange)="app.checkVisibility($event, setting, app.findOption(setting.options, $event), null)"
+                   [nbPopover]="tooltipComponent"
+                   [nbPopoverContext]="{tooltip: settingTooltip}"
+                   [nbPopoverTrigger]="settingTooltip?.length > 0 && app.getColumnCount(refEl) > 1 ? 'click' : 'noop'"
+                   [nbPopoverPlacement]="'right'"
+                   [nbPopoverAdjustment]="'horizontal'"
+                   size="xsmall">
+          <nb-option *ngFor="let option of setting.options; index as optionIndex" [value]="option.name">{{option.text}}</nb-option>
+        </nb-select>
+
+        <img class="select-info"
+             [ngClass]="{'disabled': !settingTooltip}"
+             *ngIf="app.getColumnCount(refEl) === 1"
+             [nbPopover]="tooltipComponent"
+             [nbPopoverContext]="{tooltip: settingTooltip}"
+             [nbPopoverTrigger]="settingTooltip?.length > 0 ? 'hover' : 'noop'"
+             [nbPopoverPlacement]="'top'"
+             [nbPopoverAdjustment]="'vertical'" />
+      </div>
+    </ng-template>
+  </ng-container>
+
   <!--Multiple Select-->
   <ng-container *ngSwitchCase="'MultipleSelect'">
     <span *ngIf="!skipLabel" class="comboBoxLabel" [ngClass]="{'disabled': !visibilitySettingsMap[setting.name],
-      'oneLineComboBox' : app.getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break)),
+      'oneLineComboBox': app.getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break)),
       'oLCBLabelFirst': app.getColumnCount(refEl) > 2 && setting.no_line_break,
       'oLCBLabelSecond': app.getColumnCount(refEl) > 2 && itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break
       }">
