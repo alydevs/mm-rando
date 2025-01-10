@@ -35,9 +35,6 @@ speed-measure-plugin.json
 !.vscode/extensions.json
 .history/*
 
-# IDE - VS
-*.sln
-*.njsproj
 
 # misc
 /.angular/cache
@@ -57,3 +54,6 @@ Thumbs.db
 
 # Angular
 .angular
+
+# User Files
+/userData

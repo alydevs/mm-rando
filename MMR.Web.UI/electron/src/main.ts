@@ -42,18 +42,6 @@ async function createApp() {
     if (arg === "r" || arg === "release") { //Runs electron in release mode
       programOpts["release"] = true;
     }
-    else if ((arg === "p" || arg === "python") && i < (process.argv.length - 1)) { //Path to the python executable
-      programOpts["python"] = process.argv[++i];
-    }
-  }
-
-  if (!("python" in programOpts)) {
-    try {
-      programOpts["python"] = await determineDefaultPyPath();
-    }
-    catch(ex) {
-      programOpts["criticalBootError"] = ex;
-    }
   }
 
   global["commandLineArgs"] = programOpts;
@@ -250,62 +238,6 @@ app.on('web-contents-created', (event, contents) => {
 
 });
 
-//Python
-function determineDefaultPyPath() {
-  return new Promise(function (resolve, reject) {
-
-    var error = "";
-    var version = "";
-
-    if (os.platform() != "win32") {
-        resolve("python3");
-    }
-
-    let defaultWindowsExec = "python";
-
-    let pythonExec = child.spawn(defaultWindowsExec, ["--version"], { shell: true }).on('error', err => {
-      reject(err);
-    });
-
-    pythonExec.stderr.on('data', data => {
-      error = data.toString();
-    });
-
-    pythonExec.stdout.on('data', data => {
-      version = data.toString();
-
-      if (version.toLowerCase().includes("python"))
-        version = version.toLowerCase().split("python")[1].trim();
-    });
-    
-    promiseFromChildProcess(pythonExec).then(function () {
-      pythonExec = null;
-
-      if (error)
-        reject(error);
-      else {
-        const [semVer, major, minor, patch, prerelease, buildmetadata] = version.match(/^(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-((?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*)(?:\.(?:0|[1-9]\d*|\d*[a-zA-Z-][0-9a-zA-Z-]*))*))?(?:\+([0-9a-zA-Z-]+(?:\.[0-9a-zA-Z-]+)*))?$/) ?? [];
-
-        if (!semVer)
-          resolve("");
-        else if ((major != "3") || (parseInt(minor) < 11)) {
-          resolve("py");
-        }
-
-        resolve(defaultWindowsExec);
-      }
-        
-    }).catch(err => {
-      reject(err);
-    });
-
-    setTimeout(() => {
-      if (pythonExec)
-        treeKill(pythonExec.pid);
-    }, 2000);
-  });
-}
-
 //CSP
 function manageCSP() {
 
@@ -323,23 +255,23 @@ function manageCSP() {
 //IPC
 ipcMain.on('getGeneratorGUISettings', (event, arg) => {
 
-  let pythonRootPath = app.isPackaged ? app.getAppPath() + "/python/" : app.getAppPath() + "/";
+  let appRootPath = app.getAppPath() + "/";
 
   //Load compiled settings_list.json
-  let compiledSettingsMapPath = path.normalize(pythonRootPath + "data/generated/settings_list.json");
+  let compiledSettingsMapPath = path.normalize(appRootPath + "../MMR.Web.Config/settings_list.json");
   let guiSettings;
 
   if (fs.existsSync(compiledSettingsMapPath)) {
     guiSettings = JSON.parse(fs.readFileSync(compiledSettingsMapPath, 'utf8'));
   }
   else {
-    console.error("No settings_list.json found!");
+    console.error("No settings_list.json found! Please generate it first in the MMR.Web.Config folder");
 
     setTimeout(() => {
       app.quit();
     }, 0);
 
-    throw Error("No settings_list.json found! Please restart the GUI using the Gui.py");
+    throw Error("No settings_list.json found! Please generate it first in the MMR.Web.Config folder");
   }
 
   //Add static presets
@@ -349,8 +281,8 @@ ipcMain.on('getGeneratorGUISettings', (event, arg) => {
   };
 
   //Load built in presets
-  let presetPaths: string[] = [path.normalize(pythonRootPath + "data/presets_default.json")];
-  let extraPresetsPath = path.normalize(pythonRootPath + "data/Presets");
+  let presetPaths: string[] = [path.normalize(appRootPath + "../MMR.Web.Config/presets_default.json")];
+  let extraPresetsPath = path.normalize(appRootPath + "../MMR.Web.Config/Presets");
   let adjustedBuiltInPresets = {};
 
   if (fs.existsSync(extraPresetsPath)) {
@@ -377,7 +309,7 @@ ipcMain.on('getGeneratorGUISettings', (event, arg) => {
 
 
   //Load user presets
-  let userPresetPath = path.normalize(pythonRootPath + "presets.sav");
+  let userPresetPath = path.normalize(appRootPath + "userData/presets.sav");
 
   if (fs.existsSync(userPresetPath)) {
     let userPresets = JSON.parse(fs.readFileSync(userPresetPath, 'utf8'));

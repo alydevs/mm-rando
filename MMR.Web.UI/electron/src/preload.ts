@@ -6,7 +6,6 @@ import * as path from 'path';
 
 import * as post from 'post-robot';
 
-const generator = remote.require(path.join(__dirname, '../src/modules/generator.js'));
 const commander = remote.getGlobal("commandLineArgs");
 
 if ("criticalBootError" in commander)
@@ -21,13 +20,8 @@ console.log("Test Mode:", testMode);
 var platform = os.platform();
 console.log("Platform:", platform);
 
-var pythonPath = commander.python ? '"' + commander.python + '"' : platform == "win32" ? "py" : "python3";
-var pythonSourcePath = path.normalize(remote.app.isPackaged ? remote.app.getAppPath() + "/python/" : remote.app.getAppPath() + "/");
-var pythonGeneratorPath = pythonSourcePath + "MMRandomizer.py";
-var pythonSettingsToJsonPath = pythonSourcePath + "SettingsToJson.py";
+var appSourcePath = path.normalize(remote.app.getAppPath() + "/");
 
-console.log("Python Executable Path:", pythonPath);
-console.log("Python Source Path:", pythonGeneratorPath);
 
 //Enable API in client window
 electron.webFrame.executeJavaScript('window.electronAvailable = true;');
@@ -58,30 +52,25 @@ remote.getCurrentWindow().on('leave-html-full-screen', () => {
 
 //FUNCTIONS
 function dumpSettingsToFile(settingsObj) {
-  settingsObj["check_version"] = true;
-  fs.writeFileSync(pythonSourcePath + "settings.sav", JSON.stringify(settingsObj, null, 4));
+  settingsObj["check_version"] = true; //Not MMR specific
+
+  if (!fs.existsSync(appSourcePath + "userData"))
+    fs.mkdirSync(appSourcePath + "userData");
+
+  fs.writeFileSync(appSourcePath + "userData/settings.sav", JSON.stringify(settingsObj, null, 4));
 }
 
 function dumpPresetsToFile(presetsString: string) {
-  fs.writeFileSync(pythonSourcePath + "presets.sav", presetsString);
-}
 
-function displayPythonErrorAndExit(notPython3: boolean = false) {
+  if (!fs.existsSync(appSourcePath + "userData"))
+    fs.mkdirSync(appSourcePath + "userData");
 
-  setTimeout(() => {
-
-    if (notPython3)
-      alert("The Python version used to run the GUI is not supported! Please ensure you have Python 3.8 or higher installed. You can specify the path to python using the 'python <path>' command line switch!");
-    else
-      alert("Please ensure you have Python 3.8 or higher installed before running the GUI. You can specify the path to python using the 'python <path>' command line switch!");
-
-    remote.app.quit();
-  }, 500);
+  fs.writeFileSync(appSourcePath + "userData/presets.sav", presetsString);
 }
 
 function readSettingsFromFile() {
 
-  let path = pythonSourcePath + "settings.sav";
+  let path = appSourcePath + "userData/settings.sav";
 
   if (fs.existsSync(path))
     return fs.readFileSync(path, 'utf8');
@@ -98,30 +87,8 @@ post.on('getCurrentSourceVersion', function (event) {
     branchUrl: string;
   };
 
-  let versionFilePath = pythonSourcePath + "version.py"; //Read version.py from the python source
-  let data: VersionData = { baseVersion : "", supplementaryVersion : 0, fullVersion : "", branchUrl : "" }
-
-  if (fs.existsSync(versionFilePath)) {
-    let versionFile = fs.readFileSync(versionFilePath, 'utf8');
-
-    let baseMatch = versionFile.match(/^[ \t]*__version__ = ['"](.+)['"]/m);
-    let supplementaryMatch = versionFile.match(/^[ \t]*supplementary_version = (\d+)$/m);
-    let fullMatch = versionFile.match(/^[ \t]*__version__ = f['"]*(.+)['"]/m);
-    let urlMatch = versionFile.match(/^[ \t]*branch_url = ['"](.+)['"]/m);
-
-    data.baseVersion = baseMatch != null && baseMatch[1] !== undefined ? baseMatch[1] : "";
-    data.supplementaryVersion = supplementaryMatch != null && supplementaryMatch[1] !== undefined ? parseInt(supplementaryMatch[1]) : 0;
-    data.fullVersion = fullMatch != null && fullMatch[1] !== undefined ? fullMatch[1] : data.baseVersion;
-    data.fullVersion = data.fullVersion
-      .replace('{base_version}', data.baseVersion)
-      .replace('{supplementary_version}', data.supplementaryVersion.toString())
-    data.branchUrl = urlMatch != null && urlMatch[1] !== undefined ? urlMatch[1] : "";
-
-    return data;
-  }
-  else {
-    return null;
-  }
+  let data: VersionData = { baseVersion : "1.0.0", supplementaryVersion : 0, fullVersion : "1.0.0-0", branchUrl : "" }
+  return data; 
 });
 
 post.on('getGeneratorGUISettings', function (event) {
@@ -167,11 +134,11 @@ post.on('createAndOpenPath', function (event) {
 
   //Use python dir if not specified otherwise
   if (!data || typeof (data) != "string" || data.length < 1) {
-    data = pythonSourcePath;
+    data = appSourcePath;
   }
   else {
     if (!path.isAbsolute(data))
-      data = pythonSourcePath + data;
+      data = appSourcePath + data;
   }
 
   if (fs.existsSync(data)) {
@@ -231,6 +198,7 @@ post.on('saveCurrentSettingsToFile', function (event) {
   dumpSettingsToFile(data);
 });
 
+//Not MMR specific
 post.on('convertSettingsToString', function (event) {
 
   let data = event.data;
@@ -241,27 +209,11 @@ post.on('convertSettingsToString', function (event) {
   //Write settings obj to settings.sav
   dumpSettingsToFile(data);
 
-  post.send(window, 'convertSettingsToStringError', "bla");
+  post.send(window, 'convertSettingsToStringError', "not_supported");
   return false;
-
-  //console.log("generate string with settings obj", data);
-
-  generator.parseSettings(pythonPath, pythonGeneratorPath).then(res => {
-    //console.log('[Preload] Success');
-
-    post.send(window, 'convertSettingsToStringSuccess', res);
-  }).catch((err) => {
-
-    if (err.includes("ImportError: No module named tkinter")) {
-      displayPythonErrorAndExit(true);
-    }
-
-    post.send(window, 'convertSettingsToStringError', err);
-  });
-
-  return true;
 });
 
+//Not MMR specific
 post.on('updateDynamicSetting', function (event) {
   let data = event.data;
 
@@ -269,22 +221,11 @@ post.on('updateDynamicSetting', function (event) {
     return false;
 
   //console.log("get settings from string", data);
-  post.send(window, 'updateDynamicSettingError', "bla");
+  post.send(window, 'updateDynamicSettingError', "not_supported");
   return false;
-
-  generator.getUpdatedDynamicSetting(pythonPath, pythonSettingsToJsonPath, data).then(res => {
-    //console.log('[Preload] Success');
-      post.send(window, 'updateDynamicSettingSuccess', res);
-      
-  }).catch((err) => {
-
-      if (os.platform() == "win32")
-        alert("The Python version used to run the GUI is not supported! If you have python 3.8+ installed, make sure app execution aliases for python are disabled.");
-
-      post.send(window, 'updateDynamicSettingError', err);
-  })
 })
 
+//Not MMR specific
 post.on('convertStringToSettings', function (event) {
 
   let data = event.data;
@@ -294,23 +235,8 @@ post.on('convertStringToSettings', function (event) {
 
   //console.log("get settings from string", data);
 
-  post.send(window, 'convertStringToSettingsError', "bla");
+  post.send(window, 'convertStringToSettingsError', "not_supported");
   return false;
-
-  generator.getSettings(pythonPath, pythonGeneratorPath, data).then(res => {
-    //console.log('[Preload] Success');
-
-    post.send(window, 'convertStringToSettingsSuccess', res);
-  }).catch((err) => {
-
-    if (err.includes("ImportError: No module named tkinter")) {
-      displayPythonErrorAndExit(true);
-    }
-
-    post.send(window, 'convertStringToSettingsError', err);
-  });
-
-  return true;
 });
 
 post.on('saveCurrentPresetsToFile', function (event) {
@@ -326,6 +252,7 @@ post.on('saveCurrentPresetsToFile', function (event) {
   //console.log("presets saved to .sav");
 });
 
+//Not MMR specific
 post.on('generateSeed', function (event) {
 
   let data = event.data;
@@ -345,48 +272,13 @@ post.on('generateSeed', function (event) {
 
   post.send(window, 'generateSeedCancelled');
   return false;
+});
 
-  generator.romBuilding(pythonPath, pythonGeneratorPath, data).then(res => {
-    //console.log('[Preload] Success');
-    post.send(window, 'generateSeedSuccess', res);
-  }).catch((err) => {
-
-    if (err.long.includes("ImportError: No module named tkinter")) {
-      displayPythonErrorAndExit(true);
-    }
-
-    if (err.short == "user_cancelled")
-      post.send(window, 'generateSeedCancelled');
-    else
-      post.send(window, 'generateSeedError', err);
-  });
-
+//Not MMR specific
+post.on('cancelGenerateSeed', function (event) {
   return true;
 });
 
-post.on('cancelGenerateSeed', function (event) {
-
-  if (generator.cancelRomBuilding())
-    return true;
-
-  return false;
-});
-
-//GENERATOR EVENTS
-generator.on("patchJobProgress", status => {
-  //console.log("Patch job reports in at " + status.progress + "%! Message: " + status.message);
-  post.send(window, 'generateSeedProgress', status);
-});
-
-
 //STARTUP
 //Test if we are in the proper path, else exit
-electron.webFrame.executeJavaScript('window.apiPythonSourceFound = true;');
-
-//Test if python executable exists and can be called
-generator.testPythonPath(pythonPath).then(() => {
-  console.log("Python executable confirmed working");
-}).catch(err => {
-  console.error(err);
-  displayPythonErrorAndExit();
-});
+electron.webFrame.executeJavaScript('window.apiPythonSourceFound = true;'); //Not MMR specific
