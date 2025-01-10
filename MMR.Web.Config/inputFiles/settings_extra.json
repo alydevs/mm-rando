@@ -265,10 +265,32 @@
   },
   {
     "name": "CosmeticSettings.UseTunicColors",
-    "no_line_break": true
+    "no_line_break": true,
+    "options": [
+      {
+        "name": true,
+        "text": "checked"
+      },
+      {
+        "name": false,
+        "text": "unchecked",
+        "controls_visibility_setting": "CosmeticSettings.TunicColors"
+      }
+    ]
   },
   {
     "name": "CosmeticSettings.UseEnergyColors",
-    "no_line_break": true
+    "no_line_break": true,
+    "options": [
+      {
+        "name": true,
+        "text": "checked"
+      },
+      {
+        "name": false,
+        "text": "unchecked",
+        "controls_visibility_setting": "CosmeticSettings.EnergyColors"
+      }
+    ]
   }
 ]

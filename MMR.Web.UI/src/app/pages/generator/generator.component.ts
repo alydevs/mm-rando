@@ -952,75 +952,83 @@ export class GeneratorComponent implements OnInit {
     var targetSettings = [];
 
     if (setting["type"] === "Checkbutton" || setting["type"] === "Radiobutton" || setting["type"] === "Combobox" || setting["type"] === "SearchBox") {
-      let value = (typeof (newValue) == "object") && ("value" in newValue) ? newValue.value : newValue;
 
-      //Open color picker if custom color is selected
-      if (refColorPicker && value == "Custom Color") {
+      //Due to dictionaries having an inner type that differs from the actual type (aka Dictionary), we ensure the checking setting is actually of this main type before proceeding
+      //Dictionaries are currently not supported in this function and so their inner types should not trigger visibility checks
+      let actualSetting = this.global.findSettingByName(setting.name);
 
-        if (this.global.generator_customColorMap[setting.name].length < 1)
-          this.global.generator_customColorMap[setting.name] = "#ffffff";
+      if (actualSetting && actualSetting.type == setting.type) {
 
-        refColorPicker.click();
-      }
+        let value = (typeof (newValue) == "object") && ("value" in newValue) ? newValue.value : newValue;
 
-      if (setting["type"] === "SearchBox") { //Special handling for type "SearchBox"
+        //Open color picker if custom color is selected
+        if (refColorPicker && value == "Custom Color") {
 
-        let optionsSelected = value && typeof (value) == "object" && Array.isArray(value) && value.length > 0;
+          if (this.global.generator_customColorMap[setting.name].length < 1)
+            this.global.generator_customColorMap[setting.name] = "#ffffff";
 
-        //Identify the relevant options array
-        let optionsToSearch = null;
+          refColorPicker.click();
+        }
 
-        if (setting.linked_setting) {
+        if (setting["type"] === "SearchBox") { //Special handling for type "SearchBox"
 
-          //Find correct options array based on linked setting value
-          if (setting.linked_setting in this.global.generator_settingsMap) {
-            optionsToSearch = setting.options[this.global.generator_settingsMap[setting.linked_setting]];
+          let optionsSelected = value && typeof (value) == "object" && Array.isArray(value) && value.length > 0;
 
-            if (!optionsToSearch)
-              optionsToSearch = [];
+          //Identify the relevant options array
+          let optionsToSearch = null;
+
+          if (setting.linked_setting) {
+
+            //Find correct options array based on linked setting value
+            if (setting.linked_setting in this.global.generator_settingsMap) {
+              optionsToSearch = setting.options[this.global.generator_settingsMap[setting.linked_setting]];
+
+              if (!optionsToSearch)
+                optionsToSearch = [];
+            }
+            else {
+              optionsToSearch = []; //Invalid/missing linked setting, set empty array
+            }
           }
           else {
-            optionsToSearch = []; //Invalid/missing linked setting, set empty array
-          }
-        }
-        else {
-          //Regular simple search
-          optionsToSearch = setting.options;
-        }
-
-        //First build a complete list consisting of every option that hasn't been selected yet with a true value
-        optionsToSearch.forEach(optionToAdd => {
-
-          //Ensure option isn't selected before adding it
-          if (optionsSelected) {
-            let alreadySelected = value.find(selectedItem => selectedItem.name == optionToAdd.name);
-
-            if (alreadySelected)
-              return;
+            //Regular simple search
+            optionsToSearch = setting.options;
           }
 
-          targetSettings.push({ target: optionToAdd, value: true });
-        });
+          //First build a complete list consisting of every option that hasn't been selected yet with a true value
+          optionsToSearch.forEach(optionToAdd => {
 
-        //Push every selected option last with a false value
-        if (optionsSelected) {
-          value.forEach(selectedItem => {
-            targetSettings.push({ target: selectedItem, value: false });
+            //Ensure option isn't selected before adding it
+            if (optionsSelected) {
+              let alreadySelected = value.find(selectedItem => selectedItem.name == optionToAdd.name);
+
+              if (alreadySelected)
+                return;
+            }
+
+            targetSettings.push({ target: optionToAdd, value: true });
           });
+
+          //Push every selected option last with a false value
+          if (optionsSelected) {
+            value.forEach(selectedItem => {
+              targetSettings.push({ target: selectedItem, value: false });
+            });
+          }
         }
-      }
-      else { //Every other settings type
+        else { //Every other settings type
 
-        //Build list of options
-        setting.options.forEach(optionToAdd => {
+          //Build list of options
+          setting.options.forEach(optionToAdd => {
 
-          if (optionToAdd.name === option.name) //Add currently selected item last for priority
-            return;
+            if (optionToAdd.name === option.name) //Add currently selected item last for priority
+              return;
 
-          targetSettings.push({ target: optionToAdd, value: optionToAdd.name != value });
-        });
+            targetSettings.push({ target: optionToAdd, value: optionToAdd.name != value });
+          });
 
-        targetSettings.push({ target: option, value: false }); //Selected setting uses false as it can disable settings now
+          targetSettings.push({ target: option, value: false }); //Selected setting uses false as it can disable settings now
+        }
       }
     }
 

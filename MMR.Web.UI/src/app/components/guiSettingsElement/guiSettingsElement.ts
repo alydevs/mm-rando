@@ -25,12 +25,14 @@ export class GUISettingsElement implements OnInit {
   @Input() setting: any = null;
   @Input() itemIndex: number = null;
   @Input() subSetting: any = null;
+  @Input() subSettingIndex: number = null;
   @Input() refEl: any = null;
   @Input() tooltipComponent: any = null;
 
-  //Special config inputs
+  //Extra overrides
   @Input() assignmentSettingsMap: any = null;
   @Input() assignmentSettingName: string = null;
+  @Input() visibilitySettingsMap: any = null;
 
   @Input() settingDefault: any = null;
   @Input() settingText: string = null;
@@ -226,5 +228,47 @@ export class GUISettingsElement implements OnInit {
     newKeySetting.type = mainSetting.inner_type;
 
     return newKeySetting;
+  }
+
+  evaluateLinkedDictSettingVisibility(dictSetting: any, allDictSettings: any, currSelectedDictKey: string, visibilitySettingsMap: any) {
+
+    //Note: Only supports simple complexity
+    let visibilityObj = {};
+
+    //By default every dict sub setting is enabled
+    visibilityObj[dictSetting.name] = true;
+
+    //Immediately return disabled if the dict setting is disabled globally
+    if (!visibilitySettingsMap[dictSetting.name]) {
+      visibilityObj[dictSetting.name] = false;
+      return visibilityObj;
+    }
+
+    //See if any other dict setting disables this setting with the current key selected
+    for (let setting of allDictSettings) {
+
+      if (setting.type == "Checkbutton" && setting.options) {
+
+        for (let option of setting.options) {
+
+          if ("controls_visibility_setting" in option) {
+            let settingsList = option.controls_visibility_setting.split(",");
+
+            if (settingsList.indexOf(dictSetting.name) != -1) {
+
+              let currentValue = this.global.generator_settingsMap[setting.name][currSelectedDictKey];
+
+              if (currentValue === option.name) {
+                //console.log("In active key:", currSelectedDictKey, dictSetting.name, "is actively disabled by:", setting.name, "being set to:", option.name);
+                visibilityObj[dictSetting.name] = false;
+                return visibilityObj;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    return visibilityObj;
   }
 }

@@ -25,7 +25,7 @@ export class GUIColorPickerComponent {
 
   openColorPicker(refColorPicker: HTMLInputElement = null, colorIndex: number = null) {
     //Open color picker
-    if (refColorPicker) {
+    if (refColorPicker && !this.disabled) {
       refColorPicker.click();
     }
   }
@@ -48,6 +48,9 @@ export class GUIColorPickerComponent {
   }
 
   randomizeColors() {
+
+    if (this.disabled)
+      return;
 
     //Randomize all colors, then emit event
     if (this.colorArraySize != null) {
