@@ -24,6 +24,7 @@ export class GUIListboxComponentMMR extends DualListComponent {
   @Input() valueIsHexString: boolean = true;
   @Input() coDependentFilters: boolean = false;
   @Input() presets: any = null;
+  @Input() disabled: boolean = false;
 
   selectedTag: any = {};
   currentHexString: string = "";

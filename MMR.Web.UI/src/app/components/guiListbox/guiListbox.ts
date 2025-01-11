@@ -12,6 +12,7 @@ export class GUIListboxComponent extends DualListComponent {
   @Input() tooltip: any = 'tooltip';
   @Input() tooltipComponent: any = null;
   @Input() tagFilter: any = null;
+  @Input() disabled: boolean = false;
 
   selectedTag: string = "(all)";
   currentDestinationList: any = [];
