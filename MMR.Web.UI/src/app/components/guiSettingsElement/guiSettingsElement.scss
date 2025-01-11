@@ -282,4 +282,8 @@
   input:disabled {
     opacity: 0.38;
   }
+
+  zsr-gui-color-picker.disabled {
+    filter: nb-theme(colorpicker-disabled-filter);
+  }
 }

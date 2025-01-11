@@ -14,7 +14,7 @@ $nb-themes: nb-register-theme(
       color-basic-1000: #d0d0d0,
       color-basic-1100: #380432,
       color-basic-1200: #af9aad,
-      color-basic-1300: #380432,
+      color-basic-1300: #1f1e1f,
 
       color-success-100: #1c1c1c,
       color-success-200: #000000,
@@ -147,6 +147,8 @@ $nb-themes: nb-register-theme(
       badge-text-font-size: 0.425rem,
       badge-text-line-height: 0.55rem,
       badge-padding: 0.15rem 0.08rem,
+
+      colorpicker-disabled-filter: grayscale(1) brightness(0.5),
     ),
     mmr-dark,
     default

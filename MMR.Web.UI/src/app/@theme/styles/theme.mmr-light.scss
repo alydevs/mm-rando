@@ -147,6 +147,8 @@ $nb-themes: nb-register-theme(
       badge-text-font-size: 0.425rem,
       badge-text-line-height: 0.55rem,
       badge-padding: 0.15rem 0.08rem,
+
+      colorpicker-disabled-filter: opacity(0.3) saturate(0),
     ),
     mmr-light,
     default

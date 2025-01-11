@@ -338,7 +338,7 @@
           "name": "charactercosmetics_section",
           "text": "Character Cosmetics",
           "is_colors": true,
-          "col_span": 2,
+          "col_span": 1,
           "row_span": [ 3, 3, 3 ],
           "settings": [
             [
@@ -348,23 +348,6 @@
               "CosmeticSettings.UseEnergyColors",
               "CosmeticSettings.EnergyColors"
             ]
-          ]
-        },
-        {
-          "name": "musicsound_section",
-          "text": "Music / Sound",
-          "col_span": 1,
-          "row_span": [ 7, 7, 7 ],
-          "settings": [
-            "CosmeticSettings.RandomizeSounds",
-            "CosmeticSettings.EnableNightBGM",
-            "CosmeticSettings.DisableCombatMusic",
-            "CosmeticSettings.RemoveMinorMusic",
-            "CosmeticSettings.ShowTrackName",
-            "CosmeticSettings.DisableFanfares",
-            "CosmeticSettings.Music",
-            "CosmeticSettings.MusicLuckRollChance",
-            "CosmeticSettings.LowHealthSFX"
           ]
         },
         {
@@ -433,10 +416,27 @@
           ]
         },
         {
+          "name": "musicsound_section",
+          "text": "Music / Sound",
+          "col_span": 1,
+          "row_span": [ 4, 4, 4 ],
+          "settings": [
+            "CosmeticSettings.RandomizeSounds",
+            "CosmeticSettings.EnableNightBGM",
+            "CosmeticSettings.DisableCombatMusic",
+            "CosmeticSettings.RemoveMinorMusic",
+            "CosmeticSettings.ShowTrackName",
+            "CosmeticSettings.DisableFanfares",
+            "CosmeticSettings.Music",
+            "CosmeticSettings.MusicLuckRollChance",
+            "CosmeticSettings.LowHealthSFX"
+          ]
+        },
+        {
           "name": "other_section",
           "text": "Other",
-          "col_span": 2,
-          "row_span": [ 3, 3, 3 ],
+          "col_span": 1,
+          "row_span": [ 7, 7, 7 ],
           "settings": [
             "CosmeticSettings.TatlColorSchema",
             "CosmeticSettings.EnableHoldZTargeting",
