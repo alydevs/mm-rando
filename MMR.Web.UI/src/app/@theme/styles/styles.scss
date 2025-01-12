@@ -474,6 +474,18 @@
           border: 0;
         }
       }
+      .form-control.ng-pristine.size-medium.status-basic.shape-rectangle:disabled,
+      .form-control.size-medium .tatus-basic.shape-rectangle.nb-transition.ng-dirty:disabled {
+        &.ng-untouched, &.ng-touched {
+          border-radius: 2.38px;
+          padding: 10.5px 15.75px;
+          height: 28px;
+          margin: 1px 0 9px 0;
+          filter: opacity(0.3);
+          max-width: initial;
+          border: 0;
+        }
+      }
 
       [nbButton], button.btn {
         &.appearance-filled {

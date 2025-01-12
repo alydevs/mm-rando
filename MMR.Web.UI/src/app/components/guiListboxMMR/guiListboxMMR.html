@@ -42,7 +42,7 @@
             </nb-select>
           </div>
         </ng-template>
-        <input nbInput class="form-control" name="filterSource" [readonly]="disabled" [(ngModel)]="available.picker" (ngModelChange)="onFilter(available)">
+        <input nbInput [disabled]="disabled || available.list.length === 0" class="form-control" name="filterSource" [readonly]="disabled" [(ngModel)]="available.picker" (ngModelChange)="onFilter(available)">
       </form>
 
       <div class="record-picker" [ngClass]="{'pickerWithTagFilterOneNoPreset': tagFilter && !presets && !coDependentFilters, 'pickerWithTagFilterMultiNoPreset': tagFilter && !presets && coDependentFilters, 'pickerWithTagFilterMultiPreset': tagFilter && presets && coDependentFilters}">
@@ -67,7 +67,7 @@
       </div>
       <form *ngIf="filter" class="filter">
         <div *ngIf="tagFilter" [ngClass]="{'tagFilterSingleSelectPadding': tagFilter && !coDependentFilters, 'tagFilterMultiSelectPadding': tagFilter && coDependentFilters}"></div>
-        <input nbInput class="form-control" name="filterDestination" [readonly]="disabled" [(ngModel)]="confirmed.picker" (ngModelChange)="onFilter(confirmed)">
+        <input nbInput [disabled]="disabled || confirmed.list.length === 0" class="form-control" name="filterDestination" [readonly]="disabled" [(ngModel)]="confirmed.picker" (ngModelChange)="onFilter(confirmed)">
       </form>
 
       <div class="record-picker" [ngClass]="{'pickerWithTagFilterOneNoPreset': tagFilter && !presets && !coDependentFilters, 'pickerWithTagFilterMultiNoPreset': tagFilter && !presets && coDependentFilters, 'pickerWithTagFilterMultiPreset': tagFilter && presets && coDependentFilters}">
