@@ -41,6 +41,9 @@ import { ErrorDetailsWindowComponent } from './pages/generator/errorDetailsWindo
 import { ConfirmationWindowComponent } from './pages/generator/confirmationWindow/confirmationWindow.component';
 import { TextInputWindowComponent } from './pages/generator/textInputWindow/textInputWindow.component';
 
+//MMR only
+import { MMRRandomStartingItemsWindowComponent } from './components/mmr/randomStartingItemsWindow/randomStartingItemsWindow.component';
+
 
 @NgModule({
     declarations: [
@@ -50,7 +53,8 @@ import { TextInputWindowComponent } from './pages/generator/textInputWindow/text
         DialogWindowComponent,
         ErrorDetailsWindowComponent,
         ConfirmationWindowComponent,
-        TextInputWindowComponent
+        TextInputWindowComponent,
+        MMRRandomStartingItemsWindowComponent
     ],
     imports: [
         BrowserModule,

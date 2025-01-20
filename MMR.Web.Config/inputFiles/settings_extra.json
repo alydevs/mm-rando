@@ -222,6 +222,15 @@
     "shared": false
   },
   {
+    "name": "Web.RandomStartingItemsPool",
+    "default": {},
+    "text": "Random Starting Item Pools",
+    "function": "openRandomStartingItemsWindow",
+    "tooltip": "Customize several random starting item pools",
+    "type": "Button",
+    "shared": true
+  },
+  {
     "name": "CosmeticSettings.MusicLuckRollChance",
     "size": "small",
     "max_length": 5

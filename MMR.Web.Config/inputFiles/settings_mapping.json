@@ -13,6 +13,7 @@
           "row_span": [ 1, 1, 1 ],
           "settings": [
             "OutputSettings.GenerateSpoilerLog",
+            "Web.RandomStartingItemsPool",
             "Web.output_type",
             "OutputSettings.InputROMFilename",
             "Web.wad_file",

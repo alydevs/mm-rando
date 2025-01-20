@@ -9,6 +9,9 @@ import { DialogWindowComponent } from '../../pages/generator/dialogWindow/dialog
 import { ConfirmationWindowComponent } from '../../pages/generator/confirmationWindow/confirmationWindow.component';
 import { TextInputWindowComponent } from '../../pages/generator/textInputWindow/textInputWindow.component';
 
+//MMR only
+import { MMRRandomStartingItemsWindowComponent } from '../../components/mmr/randomStartingItemsWindow/randomStartingItemsWindow.component';
+
 import { GeneratorComponent } from '../../pages/generator/generator.component';
 
 @Component({
@@ -182,6 +185,7 @@ export class GUISettingsElement implements OnInit {
     }
   }
 
+  //Button settings type listeners
   openOutputDir() { //Electron only
 
     var path = "";
@@ -219,6 +223,15 @@ export class GUISettingsElement implements OnInit {
       this.dialogService.open(DialogWindowComponent, {
         autoFocus: true, closeOnBackdropClick: true, closeOnEsc: true, hasBackdrop: true, hasScroll: false, context: { dialogHeader: "Error", dialogMessage: err }
       });
+    });
+  }
+
+  //MMR only
+  openRandomStartingItemsWindow(setting: any, assignmentSettingsMap: any, assignmentSettingName: string, settingDefault: any, settingText: string, settingTooltip: string) {
+
+    this.dialogService.open(MMRRandomStartingItemsWindowComponent, {
+      autoFocus: true, closeOnBackdropClick: true, closeOnEsc: true, hasBackdrop: true, hasScroll: false,
+      context: { dialogHeader: settingText, setting, assignmentSettingsMap, assignmentSettingName }
     });
   }
 

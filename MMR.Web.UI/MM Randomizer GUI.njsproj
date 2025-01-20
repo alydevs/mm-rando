@@ -63,6 +63,8 @@
     <Content Include="src\app\components\guiListbox\guiListbox.html" />
     <Content Include="src\app\components\guiListbox\guiListbox.scss" />
     <Content Include="src\app\components\guiSettingsElement\guiSettingsElement.scss" />
+    <Content Include="src\app\components\mmr\randomStartingItemsWindow\randomStartingItemsWindow.html" />
+    <Content Include="src\app\components\mmr\randomStartingItemsWindow\randomStartingItemsWindow.scss" />
     <Content Include="src\app\pages\generator\confirmationWindow\confirmationWindow.scss" />
     <Content Include="src\app\pages\generator\errorDetailsWindow\errorDetailsWindow.scss" />
     <Content Include="src\app\pages\generator\generator.component.html" />
@@ -91,6 +93,7 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="src\app\components\guiListbox\guiListbox.ts" />
+    <TypeScriptCompile Include="src\app\components\mmr\randomStartingItemsWindow\randomStartingItemsWindow.ts" />
     <TypeScriptCompile Include="src\app\directives\responsiveCols.directive.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -147,6 +150,8 @@
     <Folder Include="src\app\components\guiColorPicker\" />
     <Folder Include="src\app\components\guiListbox\" />
     <Folder Include="src\app\components\guiListboxMMR\" />
+    <Folder Include="src\app\components\mmr\randomStartingItemsWindow\" />
+    <Folder Include="src\app\components\mmr\" />
     <Folder Include="src\app\directives\" />
     <Folder Include="src\app\pages\" />
     <Folder Include="src\app\pages\generator\" />

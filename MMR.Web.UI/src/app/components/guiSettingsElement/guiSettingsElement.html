@@ -164,7 +164,7 @@
 
   <!--Button-->
   <ng-container *ngSwitchCase="'Button'">
-    <button class="settingButton" [disabled]="!visibilitySettingsMap[setting.name]" nbButton status="info" size="small" (click)="app[setting.function]()">{{settingText}}</button>
+    <button class="settingButton" [disabled]="!visibilitySettingsMap[setting.name]" nbButton status="info" size="small" (click)="this[setting.function](setting, assignmentSettingsMap, assignmentSettingName, settingDefault, settingText, settingTooltip)">{{settingText}}</button>
   </ng-container>
 
   <!--File Select-->
