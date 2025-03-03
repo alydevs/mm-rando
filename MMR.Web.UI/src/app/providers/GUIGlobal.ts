@@ -1794,45 +1794,49 @@ export class GUIGlobal implements OnDestroy {
 
   async generateSeedWeb(raceSeed: boolean = false, useStaticSeed: string = "") { //Web only
 
-    //Plando Seed Logic
-    let plandoFileSeed = null;
-    if (this.generator_settingsMap["enable_distribution_file"]) {
+    //Plando Files are read to a string before sending them to the server
+    let customUserFiles: any[] = [
+      //Standard
+      {
+        enablerSetting: "enable_distribution_file",
+        setting: "distribution_file",
+        raceSeedAllowed: false,
+        raceSeedWarning: "Plandomizer for seed creation is currently not supported for race seeds due security concerns. Please use a normal seed instead!",
+        errorRomEntered: "Your ROM doesn't belong in a plandomizer setting. This entirely optional setting is used to plan out seeds before generation by manipulating spoiler log files. If you want to generate a normal seed instead, please click YES!"
+      },
+      {
+        enablerSetting: "enable_cosmetic_file",
+        setting: "cosmetic_file",
+        raceSeedAllowed: true,
+        errorRomEntered: "Your ROM doesn't belong in a plandomizer setting. This entirely optional setting is used to give you more control over your cosmetic and sound settings. If you want to generate a normal seed with regular cosmetics instead, please click YES!"
+      },
+      //MMR
+      {
+        enablerSetting: null,
+        setting: "GameplaySettings.UserLogicFileName",
+        raceSeedAllowed: true,
+        errorRomEntered: "Your Majora's Mask ROM doesn't belong in the User Logic setting. This entirely optional setting is used to give you more control over your seed logic. If you want to generate a normal seed instead, please click YES!"
+      }
+    ];
 
-      if (raceSeed) { //No support for race seeds
-        throw { error: "Plandomizer for seed creation is currently not supported for race seeds due security concerns. Please use a normal seed instead!" };
+    for (let userFile of customUserFiles) {
+
+      if (userFile.enablerSetting && !this.generator_settingsMap[userFile.enablerSetting])
+        continue;
+
+      if (!userFile.raceSeedAllowed && raceSeed) { //No support for race seeds
+        throw { error: userFile.raceSeedWarning };
       }
 
-      let setting = this.findSettingByName("distribution_file");
+      let setting = this.findSettingByName(userFile.setting);
 
       try {
-        plandoFileSeed = await this.readPlandoFileIntoMemoryWeb("distribution_file", setting.text);
+        userFile._fileData = await this.readPlandoFileIntoMemoryWeb(userFile.setting, setting.text);
       }
       catch (ex) {
         switch (ex.error) {
           case "file_extension_was_rom": {
-            throw { error_rom_in_plando: "Your Majora's Mask ROM doesn't belong in a plandomizer setting. This entirely optional setting is used to plan out seeds before generation by manipulating spoiler log files. If you want to generate a normal seed instead, please click YES!", type: "distribution_file" };
-          }
-          default: {
-            //Bubble error upwards
-            throw ex;
-          }
-        }
-      }
-    }
-
-    //Plando Cosmetics Logic
-    let plandoFileCosmetics = null;
-    if (this.generator_settingsMap["enable_cosmetic_file"]) {
-
-      let setting = this.findSettingByName("cosmetic_file");
-
-      try {
-        plandoFileCosmetics = await this.readPlandoFileIntoMemoryWeb("cosmetic_file", setting.text);
-      }
-      catch (ex) {
-        switch (ex.error) {
-          case "file_extension_was_rom": {
-            throw { error_rom_in_plando: "Your Majora's Mask ROM doesn't belong in a plandomizer setting. This entirely optional setting is used to give you more control over your cosmetic and sound settings. If you want to generate a normal seed with regular cosmetics instead, please click YES!", type: "cosmetic_file" };
+            throw { error_rom_in_plando: userFile.errorRomEntered, type: userFile };
           }
           default: {
             //Bubble error upwards
@@ -1848,22 +1852,19 @@ export class GUIGlobal implements OnDestroy {
       throw { error: "The generation was aborted due to previous errors!" };
     }
 
-    //Add distribution file back into map as string if available, else clear it
-    if (plandoFileSeed) {
-      settingsFile["distribution_file"] = plandoFileSeed;
-    }
-    else {
-      settingsFile["enable_distribution_file"] = false;
-      settingsFile["distribution_file"] = "";
-    }
+    //Add user files back into map as string if available, else clear them
+    for (let userFile of customUserFiles) {
 
-    //Add cosmetics plando file back into map as string if available, else clear it
-    if (plandoFileCosmetics) {
-      settingsFile["cosmetic_file"] = plandoFileCosmetics;
-    }
-    else {
-      settingsFile["enable_cosmetic_file"] = false;
-      settingsFile["cosmetic_file"] = "";
+      if (!userFile._fileData) {
+
+        if (userFile.enablerSetting)
+          settingsFile[userFile.enablerSetting] = false;
+
+        settingsFile[userFile.setting] = "";
+      }
+      else {
+        settingsFile[userFile.setting] = userFile._fileData;
+      }
     }
 
     if (raceSeed) {

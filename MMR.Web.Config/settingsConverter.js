@@ -19,9 +19,12 @@ function createSettingsList(version) {
         let tabArray = { name: tab.name, text: tab.text, app_type: tab.app_type, sections: [] };
         let tabObject = {
             text: tab.text,
-            app_type: tab.app_type,
+            app_type: tab.app_type,           
             sections: {}
         };
+
+        if ("hide_when_disabled" in tab)
+            tabArray.hide_when_disabled = tabObject.hide_when_disabled = tab.hide_when_disabled;
 
         if (tab.footer) {
             tabArray.footer = true;

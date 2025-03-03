@@ -93,7 +93,7 @@
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="src\app\components\guiListbox\guiListbox.ts" />
-    <TypeScriptCompile Include="src\app\components\mmr\randomStartingItemsWindow\randomStartingItemsWindow.ts" />
+    <TypeScriptCompile Include="src\app\components\mmr\randomStartingItemsWindow\randomStartingItemsWindow.component.ts" />
     <TypeScriptCompile Include="src\app\directives\responsiveCols.directive.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>

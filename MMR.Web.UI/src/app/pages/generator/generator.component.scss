@@ -18,20 +18,36 @@
   }
 
   ::ng-deep .tabset {
+    justify-content: start !important;
     li.disabled {
       opacity: 0.4 !important;
     }
+
 
     li {
       line-height: 0;
       padding-top: 0;
       padding-bottom: 0;
+      display: inline-block;
+      opacity: 1;
+      transition: max-width 0.7s;
+      overflow: hidden;
+      max-width: 250px;
 
       @media (max-width: 995px) {
         line-height: 15px;
       }
     }
 
+    li.collapsed {
+      max-width: 0;
+      white-space: nowrap;
+    }
+
+    li.decollapsing a span {
+      white-space: nowrap;
+    }
+    
     a {
 
       @media (max-width: 827px) {
@@ -81,6 +97,50 @@
     nb-tab {
       height: 102.5%; //adjust for top offset
       padding: nb-theme(padding-top-nb-tab) 3.5px 0 3.5px;
+    }
+  }
+
+  .rollupBox {
+    transform-origin: top;
+    animation: rollUp 1s forwards ease-in-out;
+  }
+  
+  .rolledUp {
+    height: 0 !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+  }
+  
+  .rollupBox::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 20px;
+    background: #ddd;
+    border-bottom-left-radius: 50%;
+    border-bottom-right-radius: 50%;
+    transform-origin: bottom;
+    transform: scaleY(0);
+    animation: curl 1s forwards ease-in-out;
+  }
+  
+  @keyframes rollUp {
+    0% {
+      transform: perspective(1000px) rotateX(0deg) scaleY(1);
+    }
+    100% {
+      transform: perspective(1000px) rotateX(-90deg) scaleY(0);
+    }
+  }
+  
+  @keyframes curl {
+    0% {
+      transform: scaleY(0);
+    }
+    100% {
+      transform: scaleY(1);
     }
   }
 

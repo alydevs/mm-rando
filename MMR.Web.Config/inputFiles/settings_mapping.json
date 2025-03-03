@@ -63,6 +63,7 @@
       "name": "main_tab",
       "text": "Main Settings",
       "app_type": [ "generator" ],
+      "hide_when_disabled": true,
       "sections": [
         {
           "name": "generation_section",
@@ -108,6 +109,7 @@
       "name": "randomization_tab",
       "text": "Randomization",
       "app_type": [ "generator" ],
+      "hide_when_disabled": true,
       "sections": [
         {
           "name": "item_section",
@@ -152,6 +154,7 @@
       "name": "gimmicks_tab",
       "text": "Gimmicks",
       "app_type": "generator",
+      "hide_when_disabled": true,
       "sections": [
         {
           "name": "movement_section",
@@ -228,6 +231,7 @@
       "name": "comfort_tab",
       "text": "Comfort",
       "app_type": [ "generator" ],
+      "hide_when_disabled": true,
       "sections": [
         {
           "name": "speedup_section",
@@ -316,6 +320,7 @@
       "name": "shorten_cutscenes_tab",
       "text": "Shorten Cutscenes",
       "app_type": [ "generator" ],
+      "hide_when_disabled": true,
       "sections": [
         {
           "name": "main_section",
@@ -334,6 +339,7 @@
       "text": "Cosmetics",
       "app_type": [ "generator", "patcher" ],
       "is_cosmetics": true,
+      "hide_when_disabled": true,
       "sections": [
         {
           "name": "charactercosmetics_section",

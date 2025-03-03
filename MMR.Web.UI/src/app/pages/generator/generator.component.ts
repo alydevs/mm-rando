@@ -90,7 +90,7 @@ export class GeneratorComponent implements OnInit {
       this.global.generator_settingsMap["Web.generate_from_file"] = true;
     }
 
-    this.recheckAllSettings();
+    this.recheckAllSettings(); //All settings are default set to enabled, so at init time it only needs to potentially disable settings
     this.cd.markForCheck();
     this.cd.detectChanges();
 
@@ -133,9 +133,15 @@ export class GeneratorComponent implements OnInit {
   }
 
   getTabList(footer: boolean) {
+    console.log("triggering redraw of tablist");
     let filteredTabList = [];
 
     this.global.getGlobalVar('generatorSettingsArray').forEach(tab => {
+
+      /* clashes with tab swap styling
+      if (!this.global.generator_tabsVisibilityMap[tab.name] && tab.hide_when_disabled)
+        return; 
+      */
 
       if (!footer) {
         if (!("footer" in tab) || !tab.footer)
@@ -329,18 +335,15 @@ export class GeneratorComponent implements OnInit {
           }).onClose.subscribe(confirmed => {
             if (confirmed) {
 
-              if (err.type == "distribution_file") {
-                this.global.generator_settingsMap["enable_distribution_file"] = false;
-                this.global.generator_settingsMap["distribution_file"] = "";
+              let userFileConfig = err.type;
 
-                let setting = this.global.findSettingByName("enable_distribution_file");
-                this.checkVisibility(false, setting, this.findOption(setting.options, false));
-              }
-              else if (err.type == "cosmetic_file") {
-                this.global.generator_settingsMap["enable_cosmetic_file"] = false;
-                this.global.generator_settingsMap["cosmetic_file"] = "";
+              if (userFileConfig.enablerSetting)
+                this.global.generator_settingsMap[userFileConfig.enablerSetting] = false;
 
-                let setting = this.global.findSettingByName("enable_cosmetic_file");
+              this.global.generator_settingsMap[userFileConfig.setting] = "";
+
+              if (userFileConfig.enablerSetting) {
+                let setting = this.global.findSettingByName(userFileConfig.enablerSetting);
                 this.checkVisibility(false, setting, this.findOption(setting.options, false));
               }
 
@@ -754,18 +757,113 @@ export class GeneratorComponent implements OnInit {
       value = true;
     }
 
-    if (value) {
-      //Generate from File active
-      let tabHeaderBar = this.tabSetNative.nativeElement.querySelector(".tabset");
-    }
-    else {
-      //Generate from Seed active
-    }
+    //Cache old visibility for later use to compute a change map
+    let oldTabVisibility = { ...this.global.generator_tabsVisibilityMap };
 
+    //Set new tab visibility
     this.global.generator_settingsMap['Web.generate_from_file'] = value;
-
     let setting = this.global.findSettingByName("Web.generate_from_file");
     this.checkVisibility(value, setting, this.findOption(setting.options, value));
+
+    //Handle added/removed tabs gracefully
+    let newTabVisibility = { ...this.global.generator_tabsVisibilityMap };
+    let tabNameList = this.global.getGlobalVar('generatorSettingsArray').filter(tab => !tab.footer).map(tab => tab.name);
+    this.manageTabVisibilityAnimation(tabNameList, this.computeTabVisibilityChangeData(oldTabVisibility, newTabVisibility));
+  }
+
+  computeTabVisibilityChangeData(oldList, newList) {
+
+    let changeList = {};
+    let fullList = {};
+    let settingsObj = this.global.getGlobalVar("generatorSettingsObj");
+
+    for (let tab of Object.keys(oldList)) {
+
+      if (settingsObj[tab].hide_when_disabled) {
+
+        if (oldList[tab] && !newList[tab])
+          changeList[tab] = false;
+        else if (!oldList[tab] && newList[tab])
+          changeList[tab] = true;
+      }
+
+      if (!settingsObj[tab].footer)
+        fullList[tab] = newList[tab];
+    }
+
+    return { currentVisibility: fullList, visibilityChangeList: changeList };
+  }
+
+  manageTabVisibilityAnimation(tabNameList, visibilityChangeData) {
+
+    const { currentVisibility, visibilityChangeList } = visibilityChangeData;
+
+    let addedInOrder = this.getVisibilityChangedTabsCondition("linear", 1, true, tabNameList, currentVisibility, visibilityChangeList);
+    let removedInOrder = this.getVisibilityChangedTabsCondition("linear", 1, false, tabNameList, currentVisibility, visibilityChangeList);
+    let tabHeaderBar = this.tabSetNative.nativeElement.querySelector(".tabset");
+    let rawTabs = tabHeaderBar.querySelectorAll("li");
+
+    if (typeof addedInOrder == "object" && "tabs" in addedInOrder) {
+
+      for (var i=0; i< addedInOrder.tabs.length; i++) {
+        let tabNameForAdd = addedInOrder.tabs[i];
+        let tabIndex = tabNameList.findIndex(elem => elem == tabNameForAdd);
+        if (tabIndex != -1 && rawTabs[tabIndex] && rawTabs[tabIndex].classList.contains("collapsed")) {
+          rawTabs[tabIndex].classList.add("decollapsing");
+          rawTabs[tabIndex].classList.remove("collapsed");
+
+          setTimeout(() => {
+            rawTabs[tabIndex].classList.remove("decollapsing");
+          }, 900);
+        }
+      }
+    }
+
+    if (typeof removedInOrder == "object" && "tabs" in removedInOrder) {
+
+      for (var i=0; i< removedInOrder.tabs.length; i++) {
+        let tabNameForRemoval = removedInOrder.tabs[i];
+        let tabIndex = tabNameList.findIndex(elem => elem == tabNameForRemoval);
+        if (tabIndex != -1 && rawTabs[tabIndex]) {
+          rawTabs[tabIndex].classList.add("collapsed");
+          console.log("collapsing", tabNameForRemoval);
+        }
+      }
+    }
+  }
+
+  getVisibilityChangedTabsCondition(order, startIndex, becameVisible, tabNameList, currentVisibility, visibilityChangeList) {
+
+    let data = { tabs: [], counter: 0 };
+
+    switch (order) {
+
+      case "linear": {
+
+        for (let i = startIndex; startIndex < tabNameList.length; i++) {
+
+          let tab = tabNameList[i];
+
+          if (tab in visibilityChangeList && visibilityChangeList[tab] == becameVisible) {
+            console.log(tab, visibilityChangeList[tab]);
+
+            data.tabs.push(tab);
+            data.counter++;
+          }
+          else if (currentVisibility[tab] == !becameVisible) {
+            continue;
+          }
+          else {
+            return data;
+          }
+        }
+
+        return data;
+      }
+      default: {
+        return 0;
+      }
+    }
   }
 
   /*
@@ -1461,6 +1559,16 @@ export class GeneratorComponent implements OnInit {
           let importedSettings = JSON.parse(localStorage.getItem(storageSettingsKey + closestFoundVersion));
 
           this.global.applySettingsObject(importedSettings);
+
+          //While presets and settings strings ignore the Web namespace, cached settings do include it
+          //So we need to ensure we don't accidentally import a wrong active tab from a different appType
+          if (this.global.getGlobalVar('appType') == 'generator') {
+            this.global.generator_settingsMap["Web.generate_from_file"] = false;
+          }
+          else {
+            this.global.generator_settingsMap["Web.generate_from_file"] = true;
+          }
+
           this.recheckAllSettings("", false, true);
 
           console.log("Imported settings from prior version:", closestFoundVersion, importedSettings);
