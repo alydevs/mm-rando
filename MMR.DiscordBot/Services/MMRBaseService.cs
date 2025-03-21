@@ -26,7 +26,7 @@ namespace MMR.DiscordBot.Services
         private string GetEnvironmentVariableDirectory(string variable)
         {
             var result = Environment.GetEnvironmentVariable(variable);
-            if (string.IsNullOrWhiteSpace(_cliPath))
+            if (string.IsNullOrWhiteSpace(result))
             {
                 Console.WriteLine($"Warning: Environment Variable '{variable}' is missing.");
             }
