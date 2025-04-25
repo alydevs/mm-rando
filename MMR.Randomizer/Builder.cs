@@ -3359,7 +3359,7 @@ namespace MMR.Randomizer
                         }
                         else
                         {
-                            return remainLocation.RegionArea(_randomized.ItemList).Value.ToString();
+                            return remainLocation.RegionAreaOfTemple(_randomized.ItemList).Value.ToString();
                         }
                     })
                     .Distinct()

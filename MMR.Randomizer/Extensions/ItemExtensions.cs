@@ -143,6 +143,28 @@ namespace MMR.Randomizer.Extensions
             return item.GetAttribute<RegionAreaAttribute>()?.RegionArea ?? item.Region(itemList)?.RegionArea();
         }
 
+        private static Dictionary<RegionArea, Item> RegionAreaDungeonEntrance = new Dictionary<RegionArea, Item>
+        {
+            { GameObjects.RegionArea.Swamp, Item.AreaWoodFallTempleAccess },
+            { GameObjects.RegionArea.Mountain, Item.AreaSnowheadTempleAccess },
+            { GameObjects.RegionArea.Ocean, Item.AreaGreatBayTempleAccess },
+            { GameObjects.RegionArea.Canyon, Item.AreaInvertedStoneTowerTempleAccess },
+        };
+
+        private static Dictionary<Item, RegionArea> DungeonEntranceRegionArea = RegionAreaDungeonEntrance.ToDictionary(x => x.Value, x => x.Key);
+
+        public static RegionArea? RegionAreaOfTemple(this Item check, ItemList itemList)
+        {
+            var regionArea = check.RegionArea(itemList);
+            if (regionArea.HasValue && RegionAreaDungeonEntrance.ContainsKey(regionArea.Value))
+            {
+                var dungeonEntranceToFind = RegionAreaDungeonEntrance[regionArea.Value];
+                var dungeonNewEntrance = itemList[dungeonEntranceToFind].NewLocation ?? dungeonEntranceToFind;
+                regionArea = DungeonEntranceRegionArea[dungeonNewEntrance];
+            }
+            return regionArea;
+        }
+
         private static IReadOnlyDictionary<Item, Item?> _mainLocations = Enum.GetValues<Item>().ToDictionary(x => x, x => x.GetAttribute<MainLocationAttribute>()?.Location);
         public static Item? MainLocation(this Item item)
         {
