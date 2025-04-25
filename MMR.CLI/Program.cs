@@ -37,6 +37,13 @@ namespace MMR.CLI
         public Dictionary<string, object> AdditionalInformation { get; set; }
     }
 
+    public class SettingProperty
+    {
+        public string Name { get; set; }
+        public string DataType { get; set; }
+        public List<SettingItemListItem> ItemList { get; set; }
+    }
+
     public class SettingConfig
     {
         public string Path { get; set; }
@@ -45,6 +52,7 @@ namespace MMR.CLI
         public string Label { get; set; }
         public string Tooltip { get; set; }
         public object DefaultValue { get; set; }
+        public List<SettingProperty> Properties { get; set; }
         public List<SettingValue> Keys { get; set; }
         public List<SettingValue> Values { get; set; }
         public List<SettingItemListItem> ItemList { get; set; }
@@ -261,6 +269,37 @@ namespace MMR.CLI
                                             //settingConfig.Values = Enum.GetNames(itemType2).ToList();
                                         }
                                     }
+                                }
+                                else if (itemType.IsClass)
+                                {
+                                    settingConfig.DataType = "object[]";
+                                    settingConfig.Properties = itemType.GetProperties().Select(p =>
+                                    {
+                                        var settingItemListAttribute = p.GetAttribute<SettingItemListAttribute>();
+                                        if (settingItemListAttribute != null)
+                                        {
+                                            return new SettingProperty
+                                            {
+                                                Name = p.Name,
+                                                DataType = "ItemList",
+                                                ItemList = settingItemListAttribute.ItemList.Select((item, index) =>
+                                                {
+                                                    var itemListItem = new SettingItemListItem
+                                                    {
+                                                        Index = index,
+                                                        Label = settingItemListAttribute.LabelExtractor(item),
+                                                        AdditionalInformation = settingItemListAttribute.AdditionalInformationExtractors.ToDictionary(kvp => kvp.Key, kvp => kvp.Value(item)),
+                                                    };
+                                                    return itemListItem;
+                                                }).ToList()
+                                            };
+                                        }
+                                        return new SettingProperty
+                                        {
+                                            Name = p.Name,
+                                            DataType = p.PropertyType.Name,
+                                        };
+                                    }).ToList();
                                 }
                                 else
                                 {

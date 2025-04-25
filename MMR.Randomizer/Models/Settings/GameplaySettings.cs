@@ -506,6 +506,13 @@ namespace MMR.Randomizer.Models.Settings
         [SettingItemList(nameof(ItemUtils.CustomStartingItems), true, false, nameof(ItemExtensions.ItemCategory))]
         public string CustomStartingItemListString { get; set; } = "--1fbfc-5800000-";
 
+        //[SettingItemList(nameof(ItemUtils.CustomStartingItems), true, false, nameof(ItemExtensions.ItemCategory))]
+        public List<RandomStartingItemGroup> RandomStartingItemGroups { get; set; }
+        //    = new List<RandomStartingItemGroup>
+        //{
+        //    new RandomStartingItemGroup { Items = new List<Item>() { Item.MaskDeku, Item.MaskGoron, Item.MaskZora, Item.MaskFierceDeity }, Amount = 1 },
+        //};
+
         /// <summary>
         /// List of locations that must be randomized to junk
         /// </summary>
