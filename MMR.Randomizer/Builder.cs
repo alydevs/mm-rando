@@ -3526,6 +3526,7 @@ namespace MMR.Randomizer
                             };
                         }
                     })
+                    .Where(x => x.Region != Region.Misc)
                     .GroupBy(x => x.Region)
                     .ToDictionary(g2 => g2.Key, g2 => g2.Select(x => x.Location).ToArray())
                 );
