@@ -522,10 +522,12 @@ namespace MMR.Randomizer.Utils
 
         public static bool IsLocationJunk(Item location, GameplaySettings settings)
         {
+            var mainLocation = location.MainLocation();
             return settings.CustomJunkLocations.Contains(location)
                 || (HintedJunkLocations?.Contains(location) == true)
                 || (BlitzJunkLocations?.Contains(location) == true)
-                || (SettingJunkLocations?.Contains(location) == true);
+                || (SettingJunkLocations?.Contains(location) == true)
+                || (mainLocation.HasValue && IsLocationJunk(mainLocation.Value, settings));
         }
 
         public static bool CanBeRequired(Item item)
