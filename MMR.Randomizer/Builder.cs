@@ -5769,6 +5769,10 @@ namespace MMR.Randomizer
                             path.Pop();
                         }
                     }
+                    if ((item.Item.ItemCategory() == ItemCategory.StrayFairies || item.Item.ItemCategory() == ItemCategory.SkulltulaTokens || item.Item.ItemCategory() == ItemCategory.Frogs) && !itemIsUsed((int)item.Item, new Stack<int>()))
+                    {
+                        overrideChestType = ChestTypeAttribute.ChestType.SmallWooden;
+                    }
                     if ((item.Item.Name().Contains("Bombchu") || item.Item.Name().Contains("Shield")) && itemIsUsed((int)item.Item, new Stack<int>()))
                     {
                         overrideChestType = item.Item.IsTemporary() ? ChestTypeAttribute.ChestType.SmallGold : ChestTypeAttribute.ChestType.LargeGold;
