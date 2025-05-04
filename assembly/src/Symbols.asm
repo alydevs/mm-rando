@@ -63,6 +63,7 @@
 .definelabel z2_Actor_SpawnAsChild, 0x800BB0C0
 .definelabel z2_ActorRemove, 0x800BB498
 .definelabel z2_Actor_ChangeAnimation, 0x800BDC5C
+.definelabel z2_Gfx_DrawDListOpa, 0x800BDFC0
 .definelabel z2_BgCheck_GetCollisionHeader, 0x800C3C2C
 .definelabel z2_BgCheck_EntityCheckCeiling, 0x800C4F84
 .definelabel z2_DynaPoly_GetActor, 0x800C6248

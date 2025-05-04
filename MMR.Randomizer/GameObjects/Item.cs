@@ -11630,6 +11630,85 @@ namespace MMR.Randomizer.GameObjects
         CollectableWellFountainFairy8,
 
 
+        [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
+        [Repeatable]
+        [ItemName("Deku Nut"), LocationName("Great Bay Coast Palm Tree 1"), Region(Region.GreatBayCoast)]
+        [GossipLocationHint("a tree"), GossipItemHint("a flashing impact")]
+        [ShopText("Its flash blinds enemies.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x4ED), ItemPool(ItemCategory.DekuNuts, LocationCategory.Trees, ClassicCategory.FixedMinorItemDrops), NullableItem]
+        CollectableGreatBayCoastPalmTree1,
+
+
+        [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
+        [Repeatable]
+        [ItemName("Deku Nut"), LocationName("Great Bay Coast Palm Tree 2"), Region(Region.GreatBayCoast)]
+        [GossipLocationHint("a tree"), GossipItemHint("a flashing impact")]
+        [ShopText("Its flash blinds enemies.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x4EE), ItemPool(ItemCategory.DekuNuts, LocationCategory.Trees, ClassicCategory.FixedMinorItemDrops), NullableItem]
+        CollectableGreatBayCoastPalmTree2,
+
+
+        [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
+        [Repeatable]
+        [ItemName("Deku Nut"), LocationName("Great Bay Coast Palm Tree 3"), Region(Region.GreatBayCoast)]
+        [GossipLocationHint("a tree"), GossipItemHint("a flashing impact")]
+        [ShopText("Its flash blinds enemies.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x4EF), ItemPool(ItemCategory.DekuNuts, LocationCategory.Trees, ClassicCategory.FixedMinorItemDrops), NullableItem]
+        CollectableGreatBayCoastPalmTree3,
+
+
+        [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
+        [Repeatable]
+        [ItemName("Deku Nut"), LocationName("Zora Cape Shore Palm Tree 1"), Region(Region.ZoraCape)]
+        [GossipLocationHint("a tree"), GossipItemHint("a flashing impact")]
+        [ShopText("Its flash blinds enemies.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x4F0), ItemPool(ItemCategory.DekuNuts, LocationCategory.Trees, ClassicCategory.FixedMinorItemDrops), NullableItem]
+        CollectableZoraCapeShorePalmTree1,
+
+
+        [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
+        [Repeatable]
+        [ItemName("Deku Nut"), LocationName("Zora Cape Shore Palm Tree 2"), Region(Region.ZoraCape)]
+        [GossipLocationHint("a tree"), GossipItemHint("a flashing impact")]
+        [ShopText("Its flash blinds enemies.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x4F1), ItemPool(ItemCategory.DekuNuts, LocationCategory.Trees, ClassicCategory.FixedMinorItemDrops), NullableItem]
+        CollectableZoraCapeShorePalmTree2,
+
+
+        [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
+        [Repeatable]
+        [ItemName("Deku Nut"), LocationName("Zora Cape Rock Palm Tree"), Region(Region.ZoraCape)]
+        [GossipLocationHint("a tree"), GossipItemHint("a flashing impact")]
+        [ShopText("Its flash blinds enemies.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x4F2), ItemPool(ItemCategory.DekuNuts, LocationCategory.Trees, ClassicCategory.FixedMinorItemDrops), NullableItem]
+        CollectableZoraCapeRockPalmTree,
+
+
+        [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
+        [Repeatable]
+        [ItemName("Deku Nut"), LocationName("Zora Cape Scarecrow Palm Tree"), Region(Region.ZoraCape)]
+        [GossipLocationHint("a tree"), GossipItemHint("a flashing impact")]
+        [ShopText("Its flash blinds enemies.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x4F3), ItemPool(ItemCategory.DekuNuts, LocationCategory.Trees, ClassicCategory.FixedMinorItemDrops), NullableItem]
+        CollectableZoraCapeScarecrowPalmTree,
+
+
+        [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
+        [Repeatable]
+        [ItemName("Deku Nut"), LocationName("Zora Cape Lone Palm Tree"), Region(Region.ZoraCape)]
+        [GossipLocationHint("a tree"), GossipItemHint("a flashing impact")]
+        [ShopText("Its flash blinds enemies.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x4F4), ItemPool(ItemCategory.DekuNuts, LocationCategory.Trees, ClassicCategory.FixedMinorItemDrops), NullableItem]
+        CollectableZoraCapeLonePalmTree,
+
 
 
         //multilocation items

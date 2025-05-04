@@ -12,6 +12,7 @@
 #include "Objheap.h"
 #include "Player.h"
 #include "Util.h"
+#include "PalmTree.h"
 
 #define OBJHEAP_SLOTS (24)
 #define OBJHEAP_SIZE  (0x20000)
@@ -1215,4 +1216,50 @@ void Models_AfterPrepareDisplayBuffers(GraphicsContext* gfx) {
     if (Game_IsPlayerActor()) {
         Objheap_NextFrame(&gObjheap);
     }
+}
+
+Gfx palmTreeNoNutsDL[80];
+
+void Models_DrawPalmTree(GlobalContext* ctxt, Actor* actor, Gfx* dList) {
+    if (MISC_CONFIG.drawFlags.freestanding) {
+        if (palmTreeNoNutsDL[0].hi == 0 && palmTreeNoNutsDL[0].lo == 0) {
+            Gfx* dListRAM = (Gfx*)z2_Lib_SegmentedToVirtual(dList);
+            z2_memcpy(&palmTreeNoNutsDL, dListRAM, sizeof(Gfx[52]));
+            palmTreeNoNutsDL[52] = gsSPLoadGeometryMode(G_ZBUFFER | G_SHADE | G_FOG | G_LIGHTING | G_SHADING_SMOOTH);
+            palmTreeNoNutsDL[53] = gsDPPipeSync();
+            z2_memcpy(&palmTreeNoNutsDL[54], dListRAM + 64, sizeof(Gfx[26]));
+        }
+
+        z2_Gfx_DrawDListOpa(ctxt, palmTreeNoNutsDL);
+
+        u16 giIndex = ObjYasi_GetGiIndex(actor, ctxt);
+        if (giIndex > 0) {
+            GetItemEntry* entry = MMR_GetGiEntry(giIndex);
+            if (entry->message != 0) {
+                u16 drawGiIndex = MMR_GetNewGiIndex(ctxt, 0, giIndex, false);
+                if (drawGiIndex > 0) {
+                    z2_PushMatrixStackCopy();
+                    z2_TranslateMatrix(0.0f, 2944.0f, 0.0f, 1); // MTXMODE_APPLY
+                    for (int i = 0; i < 3; i++) {
+                        z2_Matrix_RotateY(0x5555, 1); // MTXMODE_APPLY
+                        z2_PushMatrixStackCopy();
+                        z2_TranslateMatrix(0.0f, 0.0f, 140.0f, 1); // MTXMODE_APPLY
+
+                        struct Model model;
+                        GetItemEntry* entry = PrepareGiEntry(&model, ctxt, drawGiIndex, false);
+
+                        z2_CallSetupDList(ctxt->state.gfxCtx);
+                        DrawModel(model, actor, ctxt, 4.0f);
+
+                        z2_PopMatrixStack();
+                    }
+                    z2_PopMatrixStack();
+
+                    return;
+                }
+            }
+        }
+    }
+
+    z2_Gfx_DrawDListOpa(ctxt, dList);
 }

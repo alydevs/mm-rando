@@ -1,5 +1,5 @@
 {
-  "Version": 25,
+  "Version": 26,
   "Logic": [
     {
       "Id": "MaskDeku",
@@ -21890,6 +21890,145 @@
       "IsTrick": false
     },
     {
+      "Id": "CollectableGreatBayCoastPalmTree1",
+      "RequiredItems": [
+        "AreaWestAccess"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "CollectableGreatBayCoastPalmTree2",
+      "RequiredItems": [
+        "AreaWestAccess"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "CollectableGreatBayCoastPalmTree3",
+      "RequiredItems": [
+        "AreaWestAccess"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "CollectableZoraCapeShorePalmTree1",
+      "RequiredItems": [
+        "AreaWestAccess"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "CollectableZoraCapeShorePalmTree2",
+      "RequiredItems": [
+        "AreaWestAccess"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "CollectableZoraCapeRockPalmTree",
+      "RequiredItems": [
+        "OtherExplosive",
+        "AreaWestAccess"
+      ],
+      "ConditionalItems": [
+        [
+          "ItemHookshot"
+        ],
+        [
+          "SettingClimbMostSurfaces"
+        ],
+        [
+          "Ocean Great Fairy With Ice Arrows"
+        ],
+        [
+          "Ocean Great Fairy as FD"
+        ],
+        [
+          "Low% Ocean Great Fairy"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "CollectableZoraCapeScarecrowPalmTree",
+      "RequiredItems": [
+        "OtherExplosive",
+        "AreaWestAccess"
+      ],
+      "ConditionalItems": [
+        [
+          "ItemHookshot"
+        ],
+        [
+          "SettingClimbMostSurfaces"
+        ],
+        [
+          "Ocean Great Fairy as FD"
+        ],
+        [
+          "Low% Ocean Great Fairy"
+        ],
+        [
+          "Zora Cape Lower Palm Trees With Ice Arrows"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "CollectableZoraCapeLonePalmTree",
+      "RequiredItems": [
+        "OtherExplosive",
+        "AreaWestAccess"
+      ],
+      "ConditionalItems": [
+        [
+          "ItemHookshot"
+        ],
+        [
+          "SettingClimbMostSurfaces"
+        ],
+        [
+          "Ocean Great Fairy as FD"
+        ],
+        [
+          "Low% Ocean Great Fairy"
+        ],
+        [
+          "Zora Cape Lower Palm Trees With Ice Arrows"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
       "Id": "ItemTingleMapTownInTown",
       "RequiredItems": [],
       "ConditionalItems": [
@@ -34490,6 +34629,19 @@
       "TimeSetup": "None",
       "IsTrick": false,
       "SettingExpression": "!settings.TakeDamageWhileShielding"
+    },
+    {
+      "Id": "Zora Cape Lower Palm Trees With Ice Arrows",
+      "RequiredItems": [
+        "Use Ice Arrow"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": true,
+      "TrickTooltip": "Create ice platforms with Ice Arrows and jump to the two lower platforms with the palm trees.",
+      "TrickCategory": "Zora Cape"
     }
   ]
 }

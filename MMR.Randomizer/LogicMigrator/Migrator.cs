@@ -8,7 +8,7 @@ namespace MMR.Randomizer.LogicMigrator
 {
     public static partial class Migrator
     {
-        public const int CurrentVersion = 25;
+        public const int CurrentVersion = 26;
 
         public static string ApplyMigrations(string logic)
         {
@@ -247,6 +247,11 @@ namespace MMR.Randomizer.LogicMigrator
             if (logicObject.Version < 25)
             {
                 AddMoonFairies(logicObject);
+            }
+
+            if (logicObject.Version < 26)
+            {
+                AddPalmTrees(logicObject);
             }
 
             return JsonSerializer.Serialize(logicObject);
@@ -3737,12 +3742,7 @@ namespace MMR.Randomizer.LogicMigrator
                 "RemainsTwinmold",
             };
 
-            logicObject.Logic.InsertRange(startIndex, itemNames.Select(name => new JsonFormatLogicItem
-            {
-                Id = name,
-                RequiredItems = new List<string>(),
-                ConditionalItems = new List<List<string>>(),
-            }));
+            logicObject.Logic.InsertRange(startIndex, GetLogicItems(itemNames));
             logicObject.Version = 2;
         }
 
@@ -3755,12 +3755,7 @@ namespace MMR.Randomizer.LogicMigrator
                 "SongTime",
             };
 
-            logicObject.Logic.InsertRange(startIndex, itemNames.Select(name => new JsonFormatLogicItem
-            {
-                Id = name,
-                RequiredItems = new List<string>(),
-                ConditionalItems = new List<List<string>>(),
-            }));
+            logicObject.Logic.InsertRange(startIndex, GetLogicItems(itemNames));
             logicObject.Version = 3;
         }
 
@@ -3793,12 +3788,7 @@ namespace MMR.Randomizer.LogicMigrator
                 "SongOathInISTT",
             };
 
-            logicObject.Logic.InsertRange(startIndex, itemNames.Select(name => new JsonFormatLogicItem
-            {
-                Id = name,
-                RequiredItems = new List<string>(),
-                ConditionalItems = new List<List<string>>(),
-            }));
+            logicObject.Logic.InsertRange(startIndex, GetLogicItems(itemNames));
             logicObject.Version = 4;
         }
 
@@ -3815,12 +3805,7 @@ namespace MMR.Randomizer.LogicMigrator
                 "ShopItemGoronRedPotionInSpring",
             };
 
-            logicObject.Logic.InsertRange(startIndex, itemNames.Select(name => new JsonFormatLogicItem
-            {
-                Id = name,
-                RequiredItems = new List<string>(),
-                ConditionalItems = new List<List<string>>(),
-            }));
+            logicObject.Logic.InsertRange(startIndex, GetLogicItems(itemNames));
             logicObject.Version = 5;
         }
 
@@ -3832,12 +3817,7 @@ namespace MMR.Randomizer.LogicMigrator
                 "OtherMagicBean",
             };
 
-            logicObject.Logic.InsertRange(startIndex, itemNames.Select(name => new JsonFormatLogicItem
-            {
-                Id = name,
-                RequiredItems = new List<string>(),
-                ConditionalItems = new List<List<string>>(),
-            }));
+            logicObject.Logic.InsertRange(startIndex, GetLogicItems(itemNames));
             logicObject.Version = 6;
         }
 
@@ -3856,12 +3836,7 @@ namespace MMR.Randomizer.LogicMigrator
                 "ShopItemBusinessScrubBluePotionInOcean",
             };
 
-            logicObject.Logic.InsertRange(startIndex, itemNames.Select(name => new JsonFormatLogicItem
-            {
-                Id = name,
-                RequiredItems = new List<string>(),
-                ConditionalItems = new List<List<string>>(),
-            }));
+            logicObject.Logic.InsertRange(startIndex, GetLogicItems(itemNames));
             logicObject.Version = 7;
         }
 
@@ -3873,12 +3848,7 @@ namespace MMR.Randomizer.LogicMigrator
                 "OtherTimeTravel",
             };
 
-            logicObject.Logic.InsertRange(startIndex, itemNames.Select(name => new JsonFormatLogicItem
-            {
-                Id = name,
-                RequiredItems = new List<string>(),
-                ConditionalItems = new List<List<string>>(),
-            }));
+            logicObject.Logic.InsertRange(startIndex, GetLogicItems(itemNames));
             logicObject.Version = 8;
         }
 
@@ -3891,12 +3861,7 @@ namespace MMR.Randomizer.LogicMigrator
                 "OtherPlayDekuPlayground",
             };
 
-            logicObject.Logic.InsertRange(startIndex, itemNames.Select(name => new JsonFormatLogicItem
-            {
-                Id = name,
-                RequiredItems = new List<string>(),
-                ConditionalItems = new List<List<string>>(),
-            }));
+            logicObject.Logic.InsertRange(startIndex, GetLogicItems(itemNames));
             logicObject.Version = 9;
         }
 
@@ -3908,12 +3873,7 @@ namespace MMR.Randomizer.LogicMigrator
                 "UpgradeRoyalWallet",
             };
 
-            logicObject.Logic.InsertRange(startIndex, itemNames.Select(name => new JsonFormatLogicItem
-            {
-                Id = name,
-                RequiredItems = new List<string>(),
-                ConditionalItems = new List<List<string>>(),
-            }));
+            logicObject.Logic.InsertRange(startIndex, GetLogicItems(itemNames));
             logicObject.Version = 10;
         }
 
@@ -3926,12 +3886,7 @@ namespace MMR.Randomizer.LogicMigrator
                 "CollectibleStrayFairyClockTownInECT",
             };
 
-            logicObject.Logic.InsertRange(startIndex, itemNames.Select(name => new JsonFormatLogicItem
-            {
-                Id = name,
-                RequiredItems = new List<string>(),
-                ConditionalItems = new List<List<string>>(),
-            }));
+            logicObject.Logic.InsertRange(startIndex, GetLogicItems(itemNames));
             logicObject.Version = 11;
         }
 
@@ -3958,12 +3913,7 @@ namespace MMR.Randomizer.LogicMigrator
                 "HintGaroMaster",
             };
 
-            logicObject.Logic.InsertRange(startIndex, itemNames.Select(name => new JsonFormatLogicItem
-            {
-                Id = name,
-                RequiredItems = new List<string>(),
-                ConditionalItems = new List<List<string>>(),
-            }));
+            logicObject.Logic.InsertRange(startIndex, GetLogicItems(itemNames));
             logicObject.Version = 12;
         }
 
@@ -3984,12 +3934,7 @@ namespace MMR.Randomizer.LogicMigrator
                 "OtherKillTwinmold",
             };
 
-            logicObject.Logic.InsertRange(startIndex, itemNames.Select(name => new JsonFormatLogicItem
-            {
-                Id = name,
-                RequiredItems = new List<string>(),
-                ConditionalItems = new List<List<string>>(),
-            }));
+            logicObject.Logic.InsertRange(startIndex, GetLogicItems(itemNames));
             logicObject.Version = 13;
         }
 
@@ -4013,12 +3958,7 @@ namespace MMR.Randomizer.LogicMigrator
                 "SongLullabyIntroInTwinIslands",
             };
 
-            logicObject.Logic.InsertRange(startIndex, itemNames.Select(name => new JsonFormatLogicItem
-            {
-                Id = name,
-                RequiredItems = new List<string>(),
-                ConditionalItems = new List<List<string>>(),
-            }));
+            logicObject.Logic.InsertRange(startIndex, GetLogicItems(itemNames));
             logicObject.Version = 14;
         }
 
@@ -4080,14 +4020,9 @@ namespace MMR.Randomizer.LogicMigrator
                 "NotebookGuruGuru",
             };
 
-            logicObject.Logic.InsertRange(startIndex, itemNames.Select(name => new JsonFormatLogicItem
-            {
-                Id = name,
-                RequiredItems = new List<string>(),
-                ConditionalItems = new List<List<string>>(),
-            }));
+            logicObject.Logic.InsertRange(startIndex, GetLogicItems(itemNames));
 
-            const int startMultiLocaitonIndex = 1175;
+            const int startMultiLocationIndex = 1175;
             itemNames = new string[]
             {
                 "NotebookMeetBombersInNCT",
@@ -4123,12 +4058,7 @@ namespace MMR.Randomizer.LogicMigrator
                 "NotebookLearnBombersCodeInECT",
             };
 
-            logicObject.Logic.InsertRange(startMultiLocaitonIndex, itemNames.Select(name => new JsonFormatLogicItem
-            {
-                Id = name,
-                RequiredItems = new List<string>(),
-                ConditionalItems = new List<List<string>>(),
-            }));
+            logicObject.Logic.InsertRange(startMultiLocationIndex, GetLogicItems(itemNames));
             logicObject.Version = 15;
         }
 
@@ -4208,7 +4138,7 @@ namespace MMR.Randomizer.LogicMigrator
 
             const int startIndex = 1135;
             const int newItemCount = 82;
-            var itemNames = new (string name, int reference, Action<JsonFormatLogicItem> modify)[]
+            var itemNames = new (string name, int? reference, Action<JsonFormatLogicItem> modify)[]
             {
                 ("CollectableAncientCastleOfIkanaCastleExteriorPot1", 443, null),
                 ("CollectableAncientCastleOfIkanaHoleRoomPot3", 769, null),
@@ -4348,27 +4278,7 @@ namespace MMR.Randomizer.LogicMigrator
                 ("CollectableTerminaFieldButterflyFairy1", 0, null),
             };
 
-            logicObject.Logic.InsertRange(startIndex, itemNames.Select(data =>
-            {
-                var reference = logicObject.Logic[data.reference];
-
-                var logicItem = new JsonFormatLogicItem
-                {
-                    Id = data.name,
-                    RequiredItems = reference.RequiredItems.ToList(),
-                    ConditionalItems = reference.ConditionalItems.Select(c => c.ToList()).ToList(),
-                    TimeAvailable = reference.TimeAvailable,
-                    TimeNeeded = reference.TimeNeeded,
-                    TimeSetup = reference.TimeSetup,
-                };
-
-                if (data.modify != null)
-                {
-                    data.modify(logicItem);
-                }
-
-                return logicItem;
-            }).ToList());
+            logicObject.Logic.InsertRange(startIndex, GetLogicItems(logicObject, itemNames));
 
             var summonFairy = new JsonFormatLogicItem
             {
@@ -4395,30 +4305,22 @@ namespace MMR.Randomizer.LogicMigrator
         private static void AddFrogs(JsonFormatLogic logicObject)
         {
             const int startIndex = 1217;
-            var itemNames = new string[]
+
+            void addDonGeroMask(JsonFormatLogicItem item)
             {
-                "FrogWoodfallTemple",
-                "FrogGreatBayTemple",
-                "FrogSwamp",
-                "FrogLaundryPool",
+                item.RequiredItems.Add("TODO");
+            }
+            var itemNames = new (string, int? reference, Action<JsonFormatLogicItem> modify)[]
+            {
+                ("FrogWoodfallTemple", 59, null),
+                ("FrogGreatBayTemple", 59, null),
+                ("FrogSwamp", null, addDonGeroMask),
+                ("FrogLaundryPool", null, addDonGeroMask),
             };
 
+            logicObject.Logic.InsertRange(startIndex, GetLogicItems(logicObject, itemNames));
+
             var frogChoirLogic = logicObject.Logic[59];
-
-            logicObject.Logic.InsertRange(startIndex, itemNames.Skip(2).Select(name => new JsonFormatLogicItem
-            {
-                Id = name,
-                RequiredItems = new List<string> { "MaskDonGero" },
-                ConditionalItems = new List<List<string>>(),
-            }));
-
-            logicObject.Logic.InsertRange(startIndex, itemNames.Take(2).Select(name => new JsonFormatLogicItem
-            {
-                Id = name,
-                RequiredItems = frogChoirLogic.RequiredItems,
-                ConditionalItems = frogChoirLogic.ConditionalItems,
-            }));
-
             frogChoirLogic.RequiredItems = new List<string>
             {
                 "AreaSnowheadTempleClear",
@@ -4493,35 +4395,7 @@ namespace MMR.Randomizer.LogicMigrator
                 //("SettingNotSpeedupBank", null, null),
             };
 
-            logicObject.Logic.InsertRange(startIndex, itemNames.Select(data =>
-            {
-                var reference = logicObject.Logic.FirstOrDefault(item => item.Id == data.referenceName && item.IsTrick)
-                    ?? new JsonFormatLogicItem
-                    {
-                        RequiredItems = new List<string>(),
-                        ConditionalItems = new List<List<string>>(),
-                    };
-
-                // mark for deletion
-                reference.Id = null;
-
-                var logicItem = new JsonFormatLogicItem
-                {
-                    Id = data.name,
-                    RequiredItems = reference.RequiredItems.ToList(),
-                    ConditionalItems = reference.ConditionalItems.Select(c => c.ToList()).ToList(),
-                    TimeAvailable = reference.TimeAvailable,
-                    TimeNeeded = reference.TimeNeeded,
-                    TimeSetup = reference.TimeSetup,
-                };
-
-                if (data.modify != null)
-                {
-                    data.modify(logicItem);
-                }
-
-                return logicItem;
-            }).ToList());
+            logicObject.Logic.InsertRange(startIndex, GetLogicItems(logicObject, itemNames, true));
 
             foreach (var conditionals in logicObject.Logic.SelectMany(item => item.ConditionalItems))
             {
@@ -4561,44 +4435,37 @@ namespace MMR.Randomizer.LogicMigrator
         private static void AddWellFairies(JsonFormatLogic logicObject)
         {
             const int startIndex = 1269;
-            var itemNames = new string[]
+
+            void setWaterConditionals(JsonFormatLogicItem item)
             {
-                "CollectableWellFountainFairy1",
-                "CollectableWellFountainFairy2",
-                "CollectableWellFountainFairy3",
-                "CollectableWellFountainFairy4",
-                "CollectableWellFountainFairy5",
-                "CollectableWellFountainFairy6",
-                "CollectableWellFountainFairy7",
-                "CollectableWellFountainFairy8",
+                item.ConditionalItems = new List<List<string>>
+                {
+                    new List<string>
+                    {
+                        "BottleCatchSpringWater"
+                    },
+                    new List<string>
+                    {
+                        "BottleCatchHotSpringWater"
+                    }
+                };
+            }
+
+            var itemNames = new (string name, int? reference, Action<JsonFormatLogicItem> modify)[]
+            {
+                ("CollectableWellFountainFairy1", 270, setWaterConditionals),
+                ("CollectableWellFountainFairy2", 270, setWaterConditionals),
+                ("CollectableWellFountainFairy3", 270, setWaterConditionals),
+                ("CollectableWellFountainFairy4", 270, setWaterConditionals),
+                ("CollectableWellFountainFairy5", 270, setWaterConditionals),
+                ("CollectableWellFountainFairy6", 270, setWaterConditionals),
+                ("CollectableWellFountainFairy7", 270, setWaterConditionals),
+                ("CollectableWellFountainFairy8", 270, setWaterConditionals),
             };
 
             var reference = logicObject.Logic[270];
 
-            logicObject.Logic.InsertRange(startIndex, itemNames.Select(name =>
-            {
-                var logicItem = new JsonFormatLogicItem
-                {
-                    Id = name,
-                    RequiredItems = reference.RequiredItems.ToList(),
-                    ConditionalItems = new List<List<string>>
-                    {
-                        new List<string>
-                        {
-                            "BottleCatchSpringWater"
-                        },
-                        new List<string>
-                        {
-                            "BottleCatchHotSpringWater"
-                        }
-                    },
-                    TimeAvailable = reference.TimeAvailable,
-                    TimeNeeded = reference.TimeNeeded,
-                    TimeSetup = reference.TimeSetup,
-                };
-
-                return logicItem;
-            }));
+            logicObject.Logic.InsertRange(startIndex, GetLogicItems(logicObject, itemNames));
             logicObject.Version = 19;
         }
 
@@ -4610,17 +4477,7 @@ namespace MMR.Randomizer.LogicMigrator
                 "OtherInaccessible",
             };
 
-            logicObject.Logic.InsertRange(startIndex, itemNames.Select(name =>
-            {
-                var logicItem = new JsonFormatLogicItem
-                {
-                    Id = name,
-                    RequiredItems = new List<string>(),
-                    ConditionalItems = new List<List<string>>(),
-                };
-
-                return logicItem;
-            }));
+            logicObject.Logic.InsertRange(startIndex, GetLogicItems(itemNames));
             logicObject.Version = 20;
         }
 
@@ -4706,25 +4563,12 @@ namespace MMR.Randomizer.LogicMigrator
         private static void AddOtherCredits(JsonFormatLogic logicObject)
         {
             const int startIndex = 277;
-            var itemNames = new string[]
+            var itemNames = new (string name, Action<JsonFormatLogicItem> modify)[]
             {
-                "OtherCredits",
+                ("OtherCredits", (item) => item.RequiredItems = new List<string>() { "AreaMoonAccess" }),
             };
 
-            logicObject.Logic.InsertRange(startIndex, itemNames.Select(name =>
-            {
-                var logicItem = new JsonFormatLogicItem
-                {
-                    Id = name,
-                    RequiredItems = new List<string>()
-                    {
-                        "AreaMoonAccess"
-                    },
-                    ConditionalItems = new List<List<string>>(),
-                };
-
-                return logicItem;
-            }));
+            logicObject.Logic.InsertRange(startIndex, GetLogicItems(itemNames));
             logicObject.Version = 22;
         }
 
@@ -4742,17 +4586,7 @@ namespace MMR.Randomizer.LogicMigrator
                 "OtherKillMajora",
             };
 
-            logicObject.Logic.InsertRange(startIndex, itemNames.Select(name =>
-            {
-                var logicItem = new JsonFormatLogicItem
-                {
-                    Id = name,
-                    RequiredItems = new List<string>(),
-                    ConditionalItems = new List<List<string>>(),
-                };
-
-                return logicItem;
-            }));
+            logicObject.Logic.InsertRange(startIndex, GetLogicItems(itemNames));
 
             logicObject.Logic[278].RequiredItems.Add("OtherKillMajora");
             logicObject.Version = 24;
@@ -4760,38 +4594,137 @@ namespace MMR.Randomizer.LogicMigrator
 
         private static void AddMoonFairies(JsonFormatLogic logicObject)
         {
-            const int startIndex = 1219;
-            var itemNames = new string[]
+            void addMoonAccess(JsonFormatLogicItem item)
             {
-                "CollectableMoonButterflyFairy1",
-                "CollectableMoonButterflyFairy2",
-                "CollectableMoonButterflyFairy3",
-                "CollectableMoonButterflyFairy4",
-                "CollectableMoonButterflyFairy5",
-                "CollectableMoonButterflyFairy6",
-                "CollectableMoonButterflyFairy7",
-                "CollectableMoonButterflyFairy8",
-                "CollectableMoonButterflyFairy9",
-                "CollectableMoonButterflyFairy10",
-                "CollectableMoonButterflyFairy11",
-                "CollectableMoonButterflyFairy12",
+                item.RequiredItems = new List<string>() { "AreaMoonAccess" };
+            }
+
+            const int startIndex = 1219;
+            var itemNames = new (string name, Action<JsonFormatLogicItem> modify)[]
+            {
+                ("CollectableMoonButterflyFairy1", addMoonAccess),
+                ("CollectableMoonButterflyFairy2", addMoonAccess),
+                ("CollectableMoonButterflyFairy3", addMoonAccess),
+                ("CollectableMoonButterflyFairy4", addMoonAccess),
+                ("CollectableMoonButterflyFairy5", addMoonAccess),
+                ("CollectableMoonButterflyFairy6", addMoonAccess),
+                ("CollectableMoonButterflyFairy7", addMoonAccess),
+                ("CollectableMoonButterflyFairy8", addMoonAccess),
+                ("CollectableMoonButterflyFairy9", addMoonAccess),
+                ("CollectableMoonButterflyFairy10", addMoonAccess),
+                ("CollectableMoonButterflyFairy11", addMoonAccess),
+                ("CollectableMoonButterflyFairy12", addMoonAccess),
             };
 
-            logicObject.Logic.InsertRange(startIndex, itemNames.Select(name =>
+            logicObject.Logic.InsertRange(startIndex, GetLogicItems(itemNames));
+            logicObject.Version = 25;
+        }
+
+        private static void AddPalmTrees(JsonFormatLogic logicObject)
+        {
+            void removeStrayFairiesAndExplosives(JsonFormatLogicItem item)
+            {
+                item.RequiredItems.RemoveAll((req) => req.Contains("StrayFairy"));
+                item.RequiredItems.Remove("OtherExplosives");
+            }
+
+            void updateLowerTrees(JsonFormatLogicItem item)
+            {
+                removeStrayFairiesAndExplosives(item);
+                if (item.ConditionalItems.RemoveAll((c) => c.Contains("Clever Ice Platforms")) > 0)
+                {
+                    item.ConditionalItems.Add(new List<string> { "Clever Ice Platforms" });
+                }
+                if (item.ConditionalItems.RemoveAll((c) => c.Contains("Ocean Great Fairy With Ice Arrows")) > 0)
+                {
+                    item.ConditionalItems.Add(new List<string> { "Zora Cape Lower Palm Trees With Ice Arrows" });
+                }
+            }
+
+            var trickReference = logicObject.Logic.FirstOrDefault((item) => item.Id == "Ocean Great Fairy With Ice Arrows");
+            if (trickReference != null)
+            {
+                var lowerTreesTrick = new JsonFormatLogicItem
+                {
+                    Id = "Zora Cape Lower Palm Trees With Ice Arrows",
+                    RequiredItems = trickReference.RequiredItems.ToList(),
+                    ConditionalItems = new List<List<string>>(),
+                    IsTrick = trickReference.IsTrick,
+                    TrickCategory = trickReference.TrickCategory,
+                    TrickTooltip = trickReference.IsTrick ? "Create ice platforms with Ice Arrows and jump to the two lower platforms with the palm trees." : null,
+                };
+                logicObject.Logic.Add(lowerTreesTrick);
+            }
+
+            const int startIndex = 1243;
+            var itemNames = new (string name, string reference, Action<JsonFormatLogicItem> modify)[]
+            {
+                ("CollectableGreatBayCoastPalmTree1", "CollectableGreatBayCoastPot1", null),
+                ("CollectableGreatBayCoastPalmTree2", "CollectableGreatBayCoastPot1", null),
+                ("CollectableGreatBayCoastPalmTree3", "CollectableGreatBayCoastPot1", null),
+                ("CollectableZoraCapeShorePalmTree1", "CollectableZoraCapePot4", null),
+                ("CollectableZoraCapeShorePalmTree2", "CollectableZoraCapePot4", null),
+                ("CollectableZoraCapeRockPalmTree", "FairyDoubleDefense", removeStrayFairiesAndExplosives),
+                ("CollectableZoraCapeScarecrowPalmTree", "FairyDoubleDefense", updateLowerTrees),
+                ("CollectableZoraCapeLonePalmTree", "FairyDoubleDefense", updateLowerTrees),
+            };
+
+            logicObject.Logic.InsertRange(startIndex, GetLogicItems(logicObject, itemNames));
+            logicObject.Version = 26;
+        }
+
+        private static List<JsonFormatLogicItem> GetLogicItems(IEnumerable<string> itemNames)
+        {
+            return GetLogicItems(itemNames.Select((name) => (name, (JsonFormatLogicItem) null, (Action<JsonFormatLogicItem>)null, false)));
+        }
+
+        private static List<JsonFormatLogicItem> GetLogicItems(JsonFormatLogic logicObject, IEnumerable<(string name, int? reference, Action<JsonFormatLogicItem> modify)> itemInfo)
+        {
+            return GetLogicItems(itemInfo.Select(data => (data.name, data.reference.HasValue ? logicObject.Logic[data.reference.Value] : null, data.modify, false)));
+        }
+
+        private static List<JsonFormatLogicItem> GetLogicItems(JsonFormatLogic logicObject, IEnumerable<(string name, string reference, Action<JsonFormatLogicItem> modify)> itemInfo, bool deleteReference = false)
+        {
+            return GetLogicItems(itemInfo.Select(data => (data.name, logicObject.Logic.FirstOrDefault(item => item.Id == data.reference), data.modify, deleteReference)));
+        }
+
+        private static List<JsonFormatLogicItem> GetLogicItems(IEnumerable<(string name, Action<JsonFormatLogicItem> modify)> itemInfo)
+        {
+            return GetLogicItems(itemInfo.Select(data => (data.name, (JsonFormatLogicItem)null, data.modify, false)));
+        }
+
+        private static List<JsonFormatLogicItem> GetLogicItems(IEnumerable<(string name, JsonFormatLogicItem reference, Action<JsonFormatLogicItem> modify, bool deleteReference)> itemInfo)
+        {
+            return itemInfo.Select(data =>
             {
                 var logicItem = new JsonFormatLogicItem
                 {
-                    Id = name,
-                    RequiredItems = new List<string>
-                    {
-                        "AreaMoonAccess"
-                    },
+                    Id = data.name,
+                    RequiredItems = new List<string>(),
                     ConditionalItems = new List<List<string>>(),
                 };
 
+                if (data.reference != null)
+                {
+                    logicItem.RequiredItems = data.reference.RequiredItems.ToList();
+                    logicItem.ConditionalItems = data.reference.ConditionalItems.Select(c => c.ToList()).ToList();
+                    logicItem.TimeAvailable = data.reference.TimeAvailable;
+                    logicItem.TimeNeeded = data.reference.TimeNeeded;
+                    logicItem.TimeSetup = data.reference.TimeSetup;
+
+                    if (data.deleteReference)
+                    {
+                        data.reference.Id = null; // Mark for deletion
+                    }
+                }
+
+                if (data.modify != null)
+                {
+                    data.modify(logicItem);
+                }
+
                 return logicItem;
-            }));
-            logicObject.Version = 25;
+            }).ToList();
         }
 
         private class MigrationItem

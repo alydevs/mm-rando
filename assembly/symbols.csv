@@ -61,6 +61,7 @@
 0x800BB0C0,z2_Actor_SpawnAsChild
 0x800BB498,z2_ActorRemove
 0x800BDC5C,z2_Actor_ChangeAnimation
+0x800BDFC0,z2_Gfx_DrawDListOpa
 0x800C3C2C,z2_BgCheck_GetCollisionHeader
 0x800C4F84,z2_BgCheck_EntityCheckCeiling
 0x800C6248,z2_DynaPoly_GetActor

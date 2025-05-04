@@ -1,5 +1,5 @@
 {
-  "Version": 25,
+  "Version": 26,
   "Logic": [
     {
       "Id": "MaskDeku",
@@ -23680,6 +23680,163 @@
         ],
         [
           "BottleCatchHotSpringWater"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "CollectableGreatBayCoastPalmTree1",
+      "RequiredItems": [
+        "AreaWestAccess"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "CollectableGreatBayCoastPalmTree2",
+      "RequiredItems": [
+        "AreaWestAccess"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "CollectableGreatBayCoastPalmTree3",
+      "RequiredItems": [
+        "AreaWestAccess"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "CollectableZoraCapeShorePalmTree1",
+      "RequiredItems": [
+        "AreaWestAccess"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "CollectableZoraCapeShorePalmTree2",
+      "RequiredItems": [
+        "AreaWestAccess"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "CollectableZoraCapeRockPalmTree",
+      "RequiredItems": [
+        "OtherExplosive",
+        "AreaWestAccess"
+      ],
+      "ConditionalItems": [
+        [
+          "ItemHookshot"
+        ],
+        [
+          "Clever Ice Platforms",
+          "Tall Character"
+        ],
+        [
+          "Clever Ice Platforms",
+          "Goron Bomb Jump",
+          "SettingDamageModeDefault",
+          "Any Bomb Bag"
+        ],
+        [
+          "Clever Ice Platforms",
+          "Goron Bomb Jump",
+          "SettingDamageModeDefault",
+          "Powder Kegs as Explosives",
+          "ItemPowderKeg",
+          "MaskBlast"
+        ],
+        [
+          "MaskZora",
+          "GBT Iceless"
+        ],
+        [
+          "Long Bomb Hovers"
+        ],
+        [
+          "SettingClimbMostSurfaces"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "CollectableZoraCapeScarecrowPalmTree",
+      "RequiredItems": [
+        "OtherExplosive",
+        "AreaWestAccess"
+      ],
+      "ConditionalItems": [
+        [
+          "ItemHookshot"
+        ],
+        [
+          "MaskZora",
+          "GBT Iceless"
+        ],
+        [
+          "Long Bomb Hovers"
+        ],
+        [
+          "SettingClimbMostSurfaces"
+        ],
+        [
+          "Clever Ice Platforms"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "CollectableZoraCapeLonePalmTree",
+      "RequiredItems": [
+        "OtherExplosive",
+        "AreaWestAccess"
+      ],
+      "ConditionalItems": [
+        [
+          "ItemHookshot"
+        ],
+        [
+          "MaskZora",
+          "GBT Iceless"
+        ],
+        [
+          "Long Bomb Hovers"
+        ],
+        [
+          "SettingClimbMostSurfaces"
+        ],
+        [
+          "Clever Ice Platforms"
         ]
       ],
       "TimeNeeded": "None",
