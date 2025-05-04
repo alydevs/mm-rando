@@ -1,5 +1,5 @@
 {
-  "Version": 24,
+  "Version": 25,
   "Logic": [
     {
       "Id": "MaskDeku",
@@ -21533,6 +21533,138 @@
     {
       "Id": "CollectableTerminaFieldButterflyFairy1",
       "RequiredItems": [],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "CollectableMoonButterflyFairy1",
+      "RequiredItems": [
+        "AreaMoonAccess"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "CollectableMoonButterflyFairy2",
+      "RequiredItems": [
+        "AreaMoonAccess"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "CollectableMoonButterflyFairy3",
+      "RequiredItems": [
+        "AreaMoonAccess"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "CollectableMoonButterflyFairy4",
+      "RequiredItems": [
+        "AreaMoonAccess"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "CollectableMoonButterflyFairy5",
+      "RequiredItems": [
+        "AreaMoonAccess"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "CollectableMoonButterflyFairy6",
+      "RequiredItems": [
+        "AreaMoonAccess"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "CollectableMoonButterflyFairy7",
+      "RequiredItems": [
+        "AreaMoonAccess"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "CollectableMoonButterflyFairy8",
+      "RequiredItems": [
+        "AreaMoonAccess"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "CollectableMoonButterflyFairy9",
+      "RequiredItems": [
+        "AreaMoonAccess"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "CollectableMoonButterflyFairy10",
+      "RequiredItems": [
+        "AreaMoonAccess"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "CollectableMoonButterflyFairy11",
+      "RequiredItems": [
+        "AreaMoonAccess"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "CollectableMoonButterflyFairy12",
+      "RequiredItems": [
+        "AreaMoonAccess"
+      ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",

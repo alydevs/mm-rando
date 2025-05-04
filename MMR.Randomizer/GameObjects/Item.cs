@@ -11400,6 +11400,126 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x4D8), ItemPool(ItemCategory.Fairy, LocationCategory.Butterflies, ClassicCategory.Butterflies), NullableItem]
         CollectableTerminaFieldButterflyFairy1,
 
+
+        [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
+        [Repeatable]
+        [ItemName("Fairy"), LocationName("Moon Butterfly Fairy 1"), Region(Region.TheMoon)]
+        [GossipLocationHint("a transformation"), GossipItemHint("a winged friend", "a healer")]
+        [ShopText("Recovers life energy. If you run out of life energy you'll automatically use this.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x4D9), ItemPool(ItemCategory.Fairy, LocationCategory.Butterflies, ClassicCategory.Butterflies), NullableItem]
+        CollectableMoonButterflyFairy1,
+
+
+        [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
+        [Repeatable]
+        [ItemName("Fairy"), LocationName("Moon Butterfly Fairy 2"), Region(Region.TheMoon)]
+        [GossipLocationHint("a transformation"), GossipItemHint("a winged friend", "a healer")]
+        [ShopText("Recovers life energy. If you run out of life energy you'll automatically use this.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x4DA), ItemPool(ItemCategory.Fairy, LocationCategory.Butterflies, ClassicCategory.Butterflies), NullableItem]
+        CollectableMoonButterflyFairy2,
+
+
+        [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
+        [Repeatable]
+        [ItemName("Fairy"), LocationName("Moon Butterfly Fairy 3"), Region(Region.TheMoon)]
+        [GossipLocationHint("a transformation"), GossipItemHint("a winged friend", "a healer")]
+        [ShopText("Recovers life energy. If you run out of life energy you'll automatically use this.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x4DB), ItemPool(ItemCategory.Fairy, LocationCategory.Butterflies, ClassicCategory.Butterflies), NullableItem]
+        CollectableMoonButterflyFairy3,
+
+
+        [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
+        [Repeatable]
+        [ItemName("Fairy"), LocationName("Moon Butterfly Fairy 4"), Region(Region.TheMoon)]
+        [GossipLocationHint("a transformation"), GossipItemHint("a winged friend", "a healer")]
+        [ShopText("Recovers life energy. If you run out of life energy you'll automatically use this.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x4DC), ItemPool(ItemCategory.Fairy, LocationCategory.Butterflies, ClassicCategory.Butterflies), NullableItem]
+        CollectableMoonButterflyFairy4,
+
+
+        [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
+        [Repeatable]
+        [ItemName("Fairy"), LocationName("Moon Butterfly Fairy 5"), Region(Region.TheMoon)]
+        [GossipLocationHint("a transformation"), GossipItemHint("a winged friend", "a healer")]
+        [ShopText("Recovers life energy. If you run out of life energy you'll automatically use this.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x4DD), ItemPool(ItemCategory.Fairy, LocationCategory.Butterflies, ClassicCategory.Butterflies), NullableItem]
+        CollectableMoonButterflyFairy5,
+
+
+        [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
+        [Repeatable]
+        [ItemName("Fairy"), LocationName("Moon Butterfly Fairy 6"), Region(Region.TheMoon)]
+        [GossipLocationHint("a transformation"), GossipItemHint("a winged friend", "a healer")]
+        [ShopText("Recovers life energy. If you run out of life energy you'll automatically use this.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x4DE), ItemPool(ItemCategory.Fairy, LocationCategory.Butterflies, ClassicCategory.Butterflies), NullableItem]
+        CollectableMoonButterflyFairy6,
+
+
+        [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
+        [Repeatable]
+        [ItemName("Fairy"), LocationName("Moon Butterfly Fairy 7"), Region(Region.TheMoon)]
+        [GossipLocationHint("a transformation"), GossipItemHint("a winged friend", "a healer")]
+        [ShopText("Recovers life energy. If you run out of life energy you'll automatically use this.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x4DF), ItemPool(ItemCategory.Fairy, LocationCategory.Butterflies, ClassicCategory.Butterflies), NullableItem]
+        CollectableMoonButterflyFairy7,
+
+
+        [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
+        [Repeatable]
+        [ItemName("Fairy"), LocationName("Moon Butterfly Fairy 8"), Region(Region.TheMoon)]
+        [GossipLocationHint("a transformation"), GossipItemHint("a winged friend", "a healer")]
+        [ShopText("Recovers life energy. If you run out of life energy you'll automatically use this.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x4E0), ItemPool(ItemCategory.Fairy, LocationCategory.Butterflies, ClassicCategory.Butterflies), NullableItem]
+        CollectableMoonButterflyFairy8,
+
+
+        [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
+        [Repeatable]
+        [ItemName("Fairy"), LocationName("Moon Butterfly Fairy 9"), Region(Region.TheMoon)]
+        [GossipLocationHint("a transformation"), GossipItemHint("a winged friend", "a healer")]
+        [ShopText("Recovers life energy. If you run out of life energy you'll automatically use this.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x4E1), ItemPool(ItemCategory.Fairy, LocationCategory.Butterflies, ClassicCategory.Butterflies), NullableItem]
+        CollectableMoonButterflyFairy9,
+
+
+        [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
+        [Repeatable]
+        [ItemName("Fairy"), LocationName("Moon Butterfly Fairy 10"), Region(Region.TheMoon)]
+        [GossipLocationHint("a transformation"), GossipItemHint("a winged friend", "a healer")]
+        [ShopText("Recovers life energy. If you run out of life energy you'll automatically use this.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x4E2), ItemPool(ItemCategory.Fairy, LocationCategory.Butterflies, ClassicCategory.Butterflies), NullableItem]
+        CollectableMoonButterflyFairy10,
+
+
+        [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
+        [Repeatable]
+        [ItemName("Fairy"), LocationName("Moon Butterfly Fairy 11"), Region(Region.TheMoon)]
+        [GossipLocationHint("a transformation"), GossipItemHint("a winged friend", "a healer")]
+        [ShopText("Recovers life energy. If you run out of life energy you'll automatically use this.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x4E3), ItemPool(ItemCategory.Fairy, LocationCategory.Butterflies, ClassicCategory.Butterflies), NullableItem]
+        CollectableMoonButterflyFairy11,
+
+
+        [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
+        [Repeatable]
+        [ItemName("Fairy"), LocationName("Moon Butterfly Fairy 12"), Region(Region.TheMoon)]
+        [GossipLocationHint("a transformation"), GossipItemHint("a winged friend", "a healer")]
+        [ShopText("Recovers life energy. If you run out of life energy you'll automatically use this.")]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
+        [GetItemIndex(0x4E4), ItemPool(ItemCategory.Fairy, LocationCategory.Butterflies, ClassicCategory.Butterflies), NullableItem]
+        CollectableMoonButterflyFairy12,
+
         [Repeatable, Temporary]
         [ItemName("Cyan Frog"), LocationName("Frog in Woodfall Temple"), Region(Region.WoodfallTemple)]
         [GossipLocationHint("an amphibian"), GossipItemHint("a choir member")]
@@ -11443,7 +11563,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a fountain"), GossipItemHint("a winged friend", "a healer")]
         [ShopText("Recovers life energy. If you run out of life energy you'll automatically use this.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0x4D9), ItemPool(ItemCategory.Fairy, LocationCategory.Fairies, ClassicCategory.Fairies), NullableItem]
+        [GetItemIndex(0x4E5), ItemPool(ItemCategory.Fairy, LocationCategory.Fairies, ClassicCategory.Fairies), NullableItem]
         CollectableWellFountainFairy1,
 
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
@@ -11452,7 +11572,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a fountain"), GossipItemHint("a winged friend", "a healer")]
         [ShopText("Recovers life energy. If you run out of life energy you'll automatically use this.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0x4DA), ItemPool(ItemCategory.Fairy, LocationCategory.Fairies, ClassicCategory.Fairies), NullableItem]
+        [GetItemIndex(0x4E6), ItemPool(ItemCategory.Fairy, LocationCategory.Fairies, ClassicCategory.Fairies), NullableItem]
         CollectableWellFountainFairy2,
 
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
@@ -11461,7 +11581,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a fountain"), GossipItemHint("a winged friend", "a healer")]
         [ShopText("Recovers life energy. If you run out of life energy you'll automatically use this.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0x4DB), ItemPool(ItemCategory.Fairy, LocationCategory.Fairies, ClassicCategory.Fairies), NullableItem]
+        [GetItemIndex(0x4E7), ItemPool(ItemCategory.Fairy, LocationCategory.Fairies, ClassicCategory.Fairies), NullableItem]
         CollectableWellFountainFairy3,
 
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
@@ -11470,7 +11590,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a fountain"), GossipItemHint("a winged friend", "a healer")]
         [ShopText("Recovers life energy. If you run out of life energy you'll automatically use this.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0x4DC), ItemPool(ItemCategory.Fairy, LocationCategory.Fairies, ClassicCategory.Fairies), NullableItem]
+        [GetItemIndex(0x4E8), ItemPool(ItemCategory.Fairy, LocationCategory.Fairies, ClassicCategory.Fairies), NullableItem]
         CollectableWellFountainFairy4,
 
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
@@ -11479,7 +11599,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a fountain"), GossipItemHint("a winged friend", "a healer")]
         [ShopText("Recovers life energy. If you run out of life energy you'll automatically use this.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0x4DD), ItemPool(ItemCategory.Fairy, LocationCategory.Fairies, ClassicCategory.Fairies), NullableItem]
+        [GetItemIndex(0x4E9), ItemPool(ItemCategory.Fairy, LocationCategory.Fairies, ClassicCategory.Fairies), NullableItem]
         CollectableWellFountainFairy5,
 
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
@@ -11488,7 +11608,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a fountain"), GossipItemHint("a winged friend", "a healer")]
         [ShopText("Recovers life energy. If you run out of life energy you'll automatically use this.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0x4DE), ItemPool(ItemCategory.Fairy, LocationCategory.Fairies, ClassicCategory.Fairies), NullableItem]
+        [GetItemIndex(0x4EA), ItemPool(ItemCategory.Fairy, LocationCategory.Fairies, ClassicCategory.Fairies), NullableItem]
         CollectableWellFountainFairy6,
 
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
@@ -11497,7 +11617,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a fountain"), GossipItemHint("a winged friend", "a healer")]
         [ShopText("Recovers life energy. If you run out of life energy you'll automatically use this.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0x4DF), ItemPool(ItemCategory.Fairy, LocationCategory.Fairies, ClassicCategory.Fairies), NullableItem]
+        [GetItemIndex(0x4EB), ItemPool(ItemCategory.Fairy, LocationCategory.Fairies, ClassicCategory.Fairies), NullableItem]
         CollectableWellFountainFairy7,
 
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
@@ -11506,7 +11626,7 @@ namespace MMR.Randomizer.GameObjects
         [GossipLocationHint("a fountain"), GossipItemHint("a winged friend", "a healer")]
         [ShopText("Recovers life energy. If you run out of life energy you'll automatically use this.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
-        [GetItemIndex(0x4E0), ItemPool(ItemCategory.Fairy, LocationCategory.Fairies, ClassicCategory.Fairies), NullableItem]
+        [GetItemIndex(0x4EC), ItemPool(ItemCategory.Fairy, LocationCategory.Fairies, ClassicCategory.Fairies), NullableItem]
         CollectableWellFountainFairy8,
 
 

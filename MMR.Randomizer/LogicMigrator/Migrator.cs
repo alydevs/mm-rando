@@ -8,7 +8,7 @@ namespace MMR.Randomizer.LogicMigrator
 {
     public static partial class Migrator
     {
-        public const int CurrentVersion = 24;
+        public const int CurrentVersion = 25;
 
         public static string ApplyMigrations(string logic)
         {
@@ -242,6 +242,11 @@ namespace MMR.Randomizer.LogicMigrator
             if (logicObject.Version < 24)
             {
                 AddOtherKillMajora(logicObject);
+            }
+
+            if (logicObject.Version < 25)
+            {
+                AddMoonFairies(logicObject);
             }
 
             return JsonSerializer.Serialize(logicObject);
@@ -4751,6 +4756,42 @@ namespace MMR.Randomizer.LogicMigrator
 
             logicObject.Logic[278].RequiredItems.Add("OtherKillMajora");
             logicObject.Version = 24;
+        }
+
+        private static void AddMoonFairies(JsonFormatLogic logicObject)
+        {
+            const int startIndex = 1219;
+            var itemNames = new string[]
+            {
+                "CollectableMoonButterflyFairy1",
+                "CollectableMoonButterflyFairy2",
+                "CollectableMoonButterflyFairy3",
+                "CollectableMoonButterflyFairy4",
+                "CollectableMoonButterflyFairy5",
+                "CollectableMoonButterflyFairy6",
+                "CollectableMoonButterflyFairy7",
+                "CollectableMoonButterflyFairy8",
+                "CollectableMoonButterflyFairy9",
+                "CollectableMoonButterflyFairy10",
+                "CollectableMoonButterflyFairy11",
+                "CollectableMoonButterflyFairy12",
+            };
+
+            logicObject.Logic.InsertRange(startIndex, itemNames.Select(name =>
+            {
+                var logicItem = new JsonFormatLogicItem
+                {
+                    Id = name,
+                    RequiredItems = new List<string>
+                    {
+                        "AreaMoonAccess"
+                    },
+                    ConditionalItems = new List<List<string>>(),
+                };
+
+                return logicItem;
+            }));
+            logicObject.Version = 25;
         }
 
         private class MigrationItem
