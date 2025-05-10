@@ -600,6 +600,7 @@
           "Use Fire Arrow"
         ],
         [
+          "MaskGibdo",
           "Reverse Well With Climbing",
           "BottleCatchBigPoe",
           "Any Milk"
