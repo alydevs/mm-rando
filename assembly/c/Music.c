@@ -47,6 +47,11 @@ static u16 CalculateCurrentState() {
     if (player) {
         state = 1 << player->form;
 
+        if (gSaveContext.perm.isNight) {
+            state = musicState.cumulativeStates.night ? state | SEQUENCE_PLAY_STATE_NIGHT : SEQUENCE_PLAY_STATE_NIGHT;
+        } else {
+            state = musicState.cumulativeStates.day ? state | SEQUENCE_PLAY_STATE_DAY : SEQUENCE_PLAY_STATE_DAY;
+        }
         if (!sIsMusicIndoors && !sIsMusicCave) {
             state = musicState.cumulativeStates.outdoors ? state | SEQUENCE_PLAY_STATE_OUTDOORS : SEQUENCE_PLAY_STATE_OUTDOORS;
         }
