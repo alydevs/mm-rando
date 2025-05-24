@@ -103,7 +103,6 @@ namespace MMR.CLI
                     }
                 });
 
-                Regex addSpacesRegex = new Regex("(?<!^)([A-Z])");
                 var path = new Stack<string>();
                 var settings = new List<SettingConfig>();
                 void processType(object defaultValue)
@@ -124,15 +123,11 @@ namespace MMR.CLI
                             continue;
                         }
                         path.Push(property.Name);
-                        string ToLabel(string label)
-                        {
-                            return addSpacesRegex.Replace(label, " $1");
-                        }
                         var rangeAttribute = property.GetAttribute<RangeAttribute>();
                         SettingConfig settingConfig = new SettingConfig
                         {
                             Path = string.Join(".", path.Reverse()),
-                            Label = property.GetAttribute<SettingNameAttribute>()?.Name ?? ToLabel(property.Name),
+                            Label = property.GetAttribute<SettingNameAttribute>()?.Name ?? property.Name.AddSpaces(),
                             Tooltip = property.GetAttribute<DescriptionAttribute>()?.Description,
                             MinValue = rangeAttribute?.Minimum,
                             MaxValue = rangeAttribute?.Maximum,
@@ -219,7 +214,7 @@ namespace MMR.CLI
                                     settingConfig.Keys = Enum.GetValues(keyType).Cast<Enum>().Where(v => keyType == typeof(TransformationForm) ? true : Convert.ToInt32(v) > 0).Select(key => new SettingValue
                                     {
                                         Value = key.ToString(),
-                                        Label = key.GetAttribute<SettingNameAttribute>()?.Name ?? ToLabel(key.ToString()),
+                                        Label = key.GetAttribute<SettingNameAttribute>()?.Name ?? key.ToString().AddSpaces(),
                                         Tooltip = key.GetAttribute<DescriptionAttribute>()?.Description,
                                     }).ToList();
                                     if (valueType.IsEnum)
@@ -228,7 +223,7 @@ namespace MMR.CLI
                                         settingConfig.Values = Enum.GetValues(valueType).Cast<Enum>().Select(v => new SettingValue
                                         {
                                             Value = v.ToString(),
-                                            Label = v.GetAttribute<SettingNameAttribute>()?.Name ?? ToLabel(v.ToString()),
+                                            Label = v.GetAttribute<SettingNameAttribute>()?.Name ?? v.ToString().AddSpaces(),
                                         }).ToList();
                                     }
                                     else
@@ -250,7 +245,7 @@ namespace MMR.CLI
                                     settingConfig.Values = Enum.GetValues(itemType).Cast<Enum>().Where(v => Convert.ToInt32(v) > 0 || (v.ToString() != "None" && v.ToString() != "Fake")).Select(v => new SettingValue
                                     {
                                         Value = v.ToString(),
-                                        Label = v.GetAttribute<SettingNameAttribute>()?.Name ?? ToLabel(v.ToString()),
+                                        Label = v.GetAttribute<SettingNameAttribute>()?.Name ?? v.ToString().AddSpaces(),
                                         Tooltip = v.GetAttribute<DescriptionAttribute>()?.Description,
                                     }).ToList();
                                 }
@@ -319,7 +314,7 @@ namespace MMR.CLI
                             settingConfig.Values = Enum.GetValues(property.PropertyType).Cast<Enum>().Select(v => new SettingValue
                             {
                                 Value = v.ToString(),
-                                Label = isFlagsEnum && Convert.ToInt32(v) == 0 ? null : v.GetAttribute<SettingNameAttribute>()?.Name ?? ToLabel(v.ToString()),
+                                Label = isFlagsEnum && Convert.ToInt32(v) == 0 ? null : v.GetAttribute<SettingNameAttribute>()?.Name ?? v.ToString().AddSpaces(),
                                 Tooltip = v.GetAttribute<DescriptionAttribute>()?.Description,
                             }).ToList();
                         }

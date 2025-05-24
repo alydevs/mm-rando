@@ -354,8 +354,6 @@ namespace MMR.UI.Forms
             cHUDMagicComboBox.SelectedIndex = 0;
         }
 
-        Regex addSpacesRegex = new Regex("(?<!^)([A-Z])");
-
         private void InitializeTrapSettings()
         {
             var initialX = 7;
@@ -377,7 +375,7 @@ namespace MMR.UI.Forms
                     continue;
                 }
 
-                var labelText = addSpacesRegex.Replace(trapType.ToString(), " $1");
+                var labelText = trapType.ToString().AddSpaces();
 
                 var label = new Label
                 {
@@ -466,7 +464,7 @@ namespace MMR.UI.Forms
                     {
                         Tag = value,
                         Name = "cDungeonMode_" + value.ToString(),
-                        Text = addSpacesRegex.Replace(value.ToString(), " $1"),
+                        Text = value.ToString().AddSpaces(),
                         Location = new Point(currentX, currentY),
                         Size = new Size(width, height),
                     };
@@ -533,7 +531,7 @@ namespace MMR.UI.Forms
                 var checkbox = new InvertIndeterminateCheckBox();
                 var items = itemsByClassicCategory[classicCategory];
                 checkbox.Tag = items;
-                checkbox.Text = $"{addSpacesRegex.Replace(classicCategory.ToString(), " $1")}: +{items.Count}";
+                checkbox.Text = $"{classicCategory.ToString().AddSpaces()}: +{items.Count}";
                 var description = classicCategory.GetAttribute<DescriptionAttribute>()?.Description;
                 if (description != null)
                 {
@@ -567,7 +565,7 @@ namespace MMR.UI.Forms
             locationCategoryLabel.Location = new Point(locationCategoriesX + 24, 0);
             locationCategoryLabel.Width = 740;
             locationCategoryLabel.Height = 105;
-            locationCategoryLabel.Lines = Enum.GetValues<LocationCategory>().Where(c => c > 0).Select(c => $"{addSpacesRegex.Replace(c.ToString(), " $1")}: +{itemsByLocationCategory[c].Count}").ToList();
+            locationCategoryLabel.Lines = Enum.GetValues<LocationCategory>().Where(c => c > 0).Select(c => $"{c.ToString().AddSpaces()}: +{itemsByLocationCategory[c].Count}").ToList();
 
             pLocationCategories.Controls.Add(locationCategoryLabel);
 
@@ -622,7 +620,7 @@ namespace MMR.UI.Forms
                         checkbox = new InvertIndeterminateCheckBox();
                         var items = itemsByItemCategory[itemCategory];
                         checkbox.Tag = items;
-                        checkbox.Text = $"{addSpacesRegex.Replace(itemCategory.ToString(), " $1")}: +{items.Count}";
+                        checkbox.Text = $"{itemCategory.ToString().AddSpaces()}: +{items.Count}";
                         checkbox.CheckAlign = ContentAlignment.MiddleRight;
                         checkbox.TextAlign = ContentAlignment.MiddleRight;
                         checkbox.Width = 148;
@@ -741,7 +739,7 @@ namespace MMR.UI.Forms
                 var tabPage = new TabPage
                 {
                     Tag = shortenCutsceneGroup,
-                    Text = addSpacesRegex.Replace(shortenCutsceneGroup.Name, " $1"),
+                    Text = shortenCutsceneGroup.Name.AddSpaces(),
                     UseVisualStyleBackColor = true,
                 };
                 tShortenCutscenes.TabPages.Add(tabPage);
@@ -764,7 +762,7 @@ namespace MMR.UI.Forms
                     {
                         Tag = value,
                         Name = "cShortenCutscene_" + value.ToString(),
-                        Text = addSpacesRegex.Replace(value.ToString(), " $1"),
+                        Text = value.ToString().AddSpaces(),
                         Location = new Point(currentX, currentY),
                         Size = new Size(width, height),
                     };
@@ -814,7 +812,7 @@ namespace MMR.UI.Forms
                 var tabPage = new TabPage
                 {
                     Tag = form,
-                    Text = addSpacesRegex.Replace(form.ToString(), " $1"),
+                    Text = form.ToString().AddSpaces(),
                     UseVisualStyleBackColor = true,
                 };
                 var bTunic = CreateTunicColorButton(form);
@@ -999,7 +997,7 @@ namespace MMR.UI.Forms
 
         private ComboBox CreateInstrumentComboBox(TransformationForm transformationForm)
         {
-            var data = Enum.GetValues(typeof(Instrument)).Cast<Instrument>().ToDictionary(x => x, x => addSpacesRegex.Replace(x.ToString() + (x == transformationForm.DefaultInstrument() ? " *" : ""), " $1"));
+            var data = Enum.GetValues(typeof(Instrument)).Cast<Instrument>().ToDictionary(x => x, x => x.ToString() + (x == transformationForm.DefaultInstrument() ? " *" : "").AddSpaces());
             var comboBox = new ComboBox
             {
                 Tag = transformationForm,
