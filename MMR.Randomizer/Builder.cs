@@ -525,7 +525,7 @@ namespace MMR.Randomizer
             );
         }
 
-        private void WriteMoonChildDenialTextAndHack(MessageTable table)
+        private void WriteMoonChildDenialText(MessageTable table)
         {
             table.UpdateMessages(new MessageEntryBuilder()
                 .Id(0x21FD)
@@ -546,7 +546,10 @@ namespace MMR.Randomizer
                 })
                 .Build()
             );
+        }
 
+        private void WriteMoonChildDenialHack()
+        {
             RomUtils.CheckCompressed(1501); // The Moon - Room 00
             var data = RomData.MMFileList[1501].Data.ToList();
             data.RemoveRange(0x194, 4); // Reduce end padding from actor list. 8 bytes remaining
@@ -6485,7 +6488,7 @@ namespace MMR.Randomizer
                 WriteArcheryDoubleRewardText(messageTable);
                 WriteBankPostRewardText(messageTable);
                 WriteRoyalWalletText(messageTable);
-                WriteMoonChildDenialTextAndHack(messageTable);
+                WriteMoonChildDenialText(messageTable);
 
                 progressReporter.ReportProgress(61, "Writing quick text...");
                 WriteQuickText();
@@ -6508,6 +6511,8 @@ namespace MMR.Randomizer
                 progressReporter.ReportProgress(67, "Writing gimmicks...");
                 WriteGimmicks(messageTable);
                 WriteMiscHacks();
+
+                WriteMoonChildDenialHack();
 
                 progressReporter.ReportProgress(68, "Writing messages...");
                 WriteGossipQuotes(messageTable);
