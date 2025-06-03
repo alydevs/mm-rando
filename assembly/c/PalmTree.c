@@ -5,7 +5,7 @@
 const static u16 sBaseGiIndex = 0x4ED;
 
 u16 ObjYasi_GetGiIndex(Actor* actor, GlobalContext* ctxt) {
-    if (actor->params & 0x4000) {
+    if ((actor->params & 0x4000) || !(actor->params & 0x8000)) {
         return 0;
     }
 
