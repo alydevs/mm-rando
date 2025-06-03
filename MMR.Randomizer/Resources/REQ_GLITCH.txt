@@ -1,5 +1,5 @@
 {
-  "Version": 26,
+  "Version": 27,
   "Logic": [
     {
       "Id": "MaskDeku",
@@ -321,7 +321,7 @@
           "MaskGoron",
           "Ocarina Items",
           "SettingNotRandomizedBottleCatchHotSpringWater",
-          "Any Bottle"
+          "OtherAnyBottle"
         ],
         [
           "Lullaby Skip",
@@ -330,9 +330,9 @@
         ],
         [
           "Lullaby Skip",
-          "Any Bomb Bag",
-          "Any Bombchu Pack",
-          "Any Shield"
+          "Any Shield",
+          "OtherAnyBombBag",
+          "OtherAnyBombchuPack"
         ],
         [
           "Remote Hookshot"
@@ -376,7 +376,7 @@
           "Clever Ice Platforms",
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Clever Ice Platforms",
@@ -510,7 +510,7 @@
           "Jump Slash Take Downs"
         ],
         [
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ]
       ],
       "TimeNeeded": "None",
@@ -608,24 +608,24 @@
       "ConditionalItems": [
         [
           "MaskGibdo",
-          "BottleCatchFish",
-          "BottleCatchBigPoe",
-          "Any Milk",
-          "OtherLimitlessBeans"
+          "GibdoToFinalWallmaster",
+          "GibdoToBlackBoes",
+          "GibdoToMirrorShield",
+          "GibdoEntranceRight"
         ],
         [
           "Beneath the Well Sun Block",
           "MaskGibdo",
-          "BottleCatchBigPoe",
-          "Any Milk"
+          "GibdoToFinalWallmaster",
+          "GibdoToMirrorShield"
         ],
         [
           "Beneath the Well Sun Block",
           "MaskGibdo",
-          "Any Milk",
           "Action Swap",
           "OtherArrow",
-          "Any Shield"
+          "Any Shield",
+          "GibdoToMirrorShield"
         ],
         [
           "Beneath the Well Sun Block",
@@ -779,7 +779,7 @@
         [
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Goron Bomb Jump",
@@ -907,7 +907,7 @@
         ],
         [
           "Deku Recoil",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Deku Recoil",
@@ -1056,7 +1056,7 @@
     {
       "Id": "HeartPieceHoneyAndDarling",
       "RequiredItems": [
-        "Any Bomb Bag"
+        "OtherAnyBombBag"
       ],
       "ConditionalItems": [
         [
@@ -1140,7 +1140,7 @@
         [
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Goron Bomb Jump",
@@ -1241,7 +1241,7 @@
         "AreaWestAccess",
         "MaskZora",
         "MundaneItemSeahorse",
-        "Any Bottle"
+        "OtherAnyBottle"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -1302,7 +1302,7 @@
           "Long Ranged Weapon"
         ],
         [
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "MaskBlast",
@@ -1369,7 +1369,7 @@
           "SettingAllowFierceDeityAnywhere",
           "Long Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Run Through Poisoned Water",
@@ -1461,7 +1461,7 @@
       ],
       "ConditionalItems": [
         [
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "MaskBlast"
@@ -1575,7 +1575,7 @@
         [
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Bomb Hovering"
@@ -1624,7 +1624,7 @@
         ],
         [
           "Deku Recoil",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Deku Recoil",
@@ -1937,7 +1937,7 @@
           "Jump Slash Take Downs"
         ],
         [
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Powder Kegs as Explosives",
@@ -1965,7 +1965,7 @@
           "Jump Slash Take Downs"
         ],
         [
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Powder Kegs as Explosives",
@@ -1999,7 +1999,7 @@
           "Run Through Poisoned Water",
           "Long Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "MaskZora",
@@ -2021,7 +2021,7 @@
           "Run Through Poisoned Water",
           "Long Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "AreaSouthAccess",
@@ -2298,9 +2298,9 @@
         ],
         [
           "Ocarina Items",
-          "Any Bottle",
           "SettingNotRandomizedBottleCatchHotSpringWater",
-          "Magic Meter"
+          "Magic Meter",
+          "OtherAnyBottle"
         ]
       ],
       "TimeNeeded": "None",
@@ -2379,7 +2379,7 @@
           "SongLullaby",
           "Ocarina Items",
           "SettingNotRandomizedBottleCatchHotSpringWater",
-          "Any Bottle"
+          "OtherAnyBottle"
         ],
         [
           "Lullaby Skip",
@@ -2388,9 +2388,9 @@
         ],
         [
           "Lullaby Skip",
-          "Any Bomb Bag",
-          "Any Bombchu Pack",
-          "Any Shield"
+          "Any Shield",
+          "OtherAnyBombBag",
+          "OtherAnyBombchuPack"
         ],
         [
           "Remote Hookshot"
@@ -2455,7 +2455,7 @@
         [
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Goron Bomb Jump",
@@ -2468,8 +2468,8 @@
           "FD Difficult Jumps",
           "Long Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag",
-          "Play Song of Soaring"
+          "Play Song of Soaring",
+          "OtherAnyBombBag"
         ],
         [
           "FD Difficult Jumps",
@@ -2606,7 +2606,7 @@
           "SettingDamageModeDefault",
           "SettingAllowFierceDeityAnywhere",
           "Gainer",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Goron Bomb Jump",
@@ -2631,7 +2631,7 @@
           "SettingDamageModeDefault",
           "FD Difficult Jumps",
           "Gainer",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Remote Hookshot",
@@ -2639,7 +2639,7 @@
         ],
         [
           "Bomb Hovering",
-          "Any Bombchu Pack"
+          "OtherAnyBombchuPack"
         ],
         [
           "Bomb Hovering",
@@ -2717,8 +2717,8 @@
         ],
         [
           "Time Stop",
-          "Any Bottle",
-          "SettingNotRandomizedBottleCatchHotSpringWater"
+          "SettingNotRandomizedBottleCatchHotSpringWater",
+          "OtherAnyBottle"
         ],
         [
           "SettingClimbMostSurfaces"
@@ -2757,7 +2757,7 @@
       "RequiredItems": [],
       "ConditionalItems": [
         [
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "MaskBlast",
@@ -2789,6 +2789,185 @@
         ],
         [
           "UpgradeBiggestQuiver"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "OtherAnyBombBag",
+      "RequiredItems": [],
+      "ConditionalItems": [
+        [
+          "ItemBombBag"
+        ],
+        [
+          "UpgradeBigBombBag"
+        ],
+        [
+          "UpgradeBiggestBombBag"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "OtherAnyBombchuPack",
+      "RequiredItems": [],
+      "ConditionalItems": [
+        [
+          "ShopItemBombsBombchu10"
+        ],
+        [
+          "ChestInvertedStoneTowerBombchu10"
+        ],
+        [
+          "ChestLinkTrialBombchu10"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "OtherAnyBottle",
+      "RequiredItems": [],
+      "ConditionalItems": [
+        [
+          "ItemBottleWitch"
+        ],
+        [
+          "ItemBottleAliens"
+        ],
+        [
+          "ItemBottleBeavers"
+        ],
+        [
+          "ItemBottleDampe"
+        ],
+        [
+          "ItemBottleMadameAroma"
+        ],
+        [
+          "ItemBottleGoronRace"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "OtherAnyRedPotion",
+      "RequiredItems": [],
+      "ConditionalItems": [
+        [
+          "ItemBottleWitch"
+        ],
+        [
+          "OtherAnyBottle",
+          "ShopItemTradingPostRedPotion"
+        ],
+        [
+          "OtherAnyBottle",
+          "ShopItemWitchRedPotion"
+        ],
+        [
+          "OtherAnyBottle",
+          "ShopItemGoronRedPotion"
+        ],
+        [
+          "OtherAnyBottle",
+          "ShopItemZoraRedPotion"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "OtherAnyGreenPotion",
+      "RequiredItems": [
+        "OtherAnyBottle"
+      ],
+      "ConditionalItems": [
+        [
+          "ShopItemTradingPostGreenPotion"
+        ],
+        [
+          "ShopItemWitchGreenPotion"
+        ],
+        [
+          "ShopItemBusinessScrubGreenPotion"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "OtherAnyBluePotion",
+      "RequiredItems": [
+        "OtherAnyBottle"
+      ],
+      "ConditionalItems": [
+        [
+          "ShopItemWitchBluePotion"
+        ],
+        [
+          "ShopItemBusinessScrubBluePotion"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "OtherAnyMilk",
+      "RequiredItems": [
+        "OtherAnyBottle"
+      ],
+      "ConditionalItems": [
+        [
+          "ItemBottleAliens"
+        ],
+        [
+          "ItemRanchBarnMainCowMilk"
+        ],
+        [
+          "ItemRanchBarnOtherCowMilk1"
+        ],
+        [
+          "ItemRanchBarnOtherCowMilk2"
+        ],
+        [
+          "ItemWellCowMilk"
+        ],
+        [
+          "ItemTerminaGrottoCowMilk1"
+        ],
+        [
+          "ItemTerminaGrottoCowMilk2"
+        ],
+        [
+          "ItemCoastGrottoCowMilk1"
+        ],
+        [
+          "ItemCoastGrottoCowMilk2"
+        ],
+        [
+          "ShopItemMilkBarMilk"
+        ],
+        [
+          "ShopItemGormanBrosMilk"
         ]
       ],
       "TimeNeeded": "None",
@@ -3173,7 +3352,7 @@
         [
           "Long Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Long Jump",
@@ -3277,7 +3456,7 @@
           "MaskZora",
           "Long Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "MaskZora",
@@ -3552,9 +3731,9 @@
         ],
         [
           "Recoil Flip",
-          "Any Bomb Bag",
           "SettingDamageModeDefault",
-          "Stone Tower Map Chest Retrieval"
+          "Stone Tower Map Chest Retrieval",
+          "OtherAnyBombBag"
         ],
         [
           "Recoil Flip",
@@ -3866,7 +4045,7 @@
     {
       "Id": "BottleCatchFairy",
       "RequiredItems": [
-        "Any Bottle"
+        "OtherAnyBottle"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -3878,7 +4057,7 @@
       "Id": "BottleCatchPrincess",
       "RequiredItems": [
         "AreaWoodFallTempleClear",
-        "Any Bottle"
+        "OtherAnyBottle"
       ],
       "ConditionalItems": [
         [
@@ -3896,7 +4075,7 @@
     {
       "Id": "BottleCatchFish",
       "RequiredItems": [
-        "Any Bottle"
+        "OtherAnyBottle"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -3907,7 +4086,7 @@
     {
       "Id": "BottleCatchBug",
       "RequiredItems": [
-        "Any Bottle"
+        "OtherAnyBottle"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -3919,7 +4098,7 @@
       "Id": "BottleCatchPoe",
       "RequiredItems": [
         "AreaInvertedStoneTowerTempleAccess",
-        "Any Bottle"
+        "OtherAnyBottle"
       ],
       "ConditionalItems": [
         [
@@ -3957,15 +4136,16 @@
       "RequiredItems": [
         "AreaIkanaCanyonAccess",
         "MaskGibdo",
-        "Any Bottle",
-        "Any Bomb Bag"
+        "OtherAnyBottle",
+        "GibdoToMiniBoss",
+        "GibdoToCowAndMiniboss"
       ],
       "ConditionalItems": [
         [
           "Beneath the Well Sun Block"
         ],
         [
-          "OtherLimitlessBeans"
+          "GibdoEntranceRight"
         ]
       ],
       "TimeNeeded": "None",
@@ -3976,7 +4156,7 @@
     {
       "Id": "BottleCatchSpringWater",
       "RequiredItems": [
-        "Any Bottle"
+        "OtherAnyBottle"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -3987,7 +4167,7 @@
     {
       "Id": "BottleCatchHotSpringWater",
       "RequiredItems": [
-        "Any Bottle"
+        "OtherAnyBottle"
       ],
       "ConditionalItems": [
         [
@@ -4022,8 +4202,8 @@
         [
           "AreaIkanaCanyonAccess",
           "MaskGibdo",
-          "Any Blue Potion",
-          "BottleCatchFish"
+          "GibdoEntranceLeft",
+          "GibdoToHotWater"
         ],
         [
           "Use Fire Arrow"
@@ -4043,7 +4223,7 @@
       "Id": "BottleCatchEgg",
       "RequiredItems": [
         "AreaPiratesFortressAccess",
-        "Any Bottle"
+        "OtherAnyBottle"
       ],
       "ConditionalItems": [
         [
@@ -4168,7 +4348,7 @@
       "Id": "BottleCatchMushroom",
       "RequiredItems": [
         "MaskScents",
-        "Any Bottle"
+        "OtherAnyBottle"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -4310,7 +4490,7 @@
         ],
         [
           "Recoil Flip",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Recoil Flip",
@@ -4549,7 +4729,7 @@
         [
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Bomb Hovering"
@@ -4630,7 +4810,7 @@
         [
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Goron Bomb Jump",
@@ -4904,7 +5084,7 @@
           "SettingAllowFierceDeityAnywhere",
           "Long Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Run Through Poisoned Water",
@@ -4946,12 +5126,12 @@
       "RequiredItems": [
         "AreaIkanaCanyonAccess",
         "MaskGibdo",
-        "BottleCatchBug"
+        "GibdoToRightChest"
       ],
       "ConditionalItems": [
         [
-          "BottleCatchFish",
-          "OtherLimitlessBeans"
+          "GibdoEntranceRight",
+          "GibdoToBlackBoes"
         ],
         [
           "Use Light Arrow"
@@ -4967,25 +5147,15 @@
       "RequiredItems": [
         "AreaIkanaCanyonAccess",
         "MaskGibdo",
-        "BottleCatchBug",
-        "Any Blue Potion"
+        "GibdoEntranceLeft",
+        "GibdoToBombPots",
+        "GibdoToLeftChest"
       ],
       "ConditionalItems": [
         [
-          "BottleCatchSpringWater",
           "Lensless Chests"
         ],
         [
-          "BottleCatchSpringWater",
-          "ItemLens",
-          "Magic Meter"
-        ],
-        [
-          "BottleCatchHotSpringWater",
-          "Lensless Chests"
-        ],
-        [
-          "BottleCatchHotSpringWater",
           "ItemLens",
           "Magic Meter"
         ]
@@ -5034,7 +5204,7 @@
         ],
         [
           "Superslide",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Remote Hookshot"
@@ -5486,7 +5656,7 @@
         ],
         [
           "Bio Baba Hive Luck",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Bio Baba Hive Luck",
@@ -5651,7 +5821,7 @@
           "ItemHookshot",
           "Long Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "ItemHookshot",
@@ -5703,7 +5873,7 @@
           "SettingAllowFierceDeityAnywhere",
           "Long Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "SettingAllowFierceDeityAnywhere",
@@ -5756,7 +5926,7 @@
           "Ikana Castle Falling Ceiling Skip",
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Use Fire Arrow",
@@ -5775,7 +5945,7 @@
           "SettingAllowFierceDeityAnywhere",
           "Long Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Use Fire Arrow",
@@ -5812,7 +5982,7 @@
           "Ikana Castle Seamwalk",
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Ikana Castle Seamwalk",
@@ -6014,7 +6184,7 @@
           "Tall Character",
           "Harder Long Jumps",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Tall Character",
@@ -6164,7 +6334,7 @@
           "FD Difficult Jumps",
           "Harder Long Jumps",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "FD Difficult Jumps",
@@ -6214,14 +6384,14 @@
         [
           "OtherArrow",
           "ItemHookshot",
-          "Any Bomb Bag",
-          "Any Bombchu Pack"
+          "OtherAnyBombBag",
+          "OtherAnyBombchuPack"
         ],
         [
           "OtherArrow",
           "SettingAllowFierceDeityAnywhere",
-          "Any Bomb Bag",
-          "Any Bombchu Pack"
+          "OtherAnyBombBag",
+          "OtherAnyBombchuPack"
         ],
         [
           "Kill Iron Knuckle",
@@ -6320,12 +6490,10 @@
     },
     {
       "Id": "ChestPreClocktownDekuNut",
-      "RequiredItems": [],
-      "ConditionalItems": [
-        [
-          "Bomb Hovering"
-        ]
+      "RequiredItems": [
+        "Bomb Hovering"
       ],
+      "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
       "TimeSetup": "None",
@@ -6414,9 +6582,10 @@
       "Id": "ItemWellCowMilk",
       "RequiredItems": [
         "AreaIkanaCanyonAccess",
-        "Hot Spring Water Transport",
         "Play Epona's Song",
-        "MaskGibdo"
+        "MaskGibdo",
+        "GibdoToCow",
+        "GibdoToCowAndMiniboss"
       ],
       "ConditionalItems": [
         [
@@ -6533,7 +6702,7 @@
         ],
         [
           "MaskDeku",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "MaskDeku",
@@ -6546,7 +6715,7 @@
         ],
         [
           "FD Difficult Jumps",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "FD Difficult Jumps",
@@ -7377,7 +7546,7 @@
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
           "Goron Pound onto Ledges",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Goron Bomb Jump",
@@ -7922,8 +8091,8 @@
         ],
         [
           "MaskDeku",
-          "Any Bomb Bag",
-          "MaskGreatFairy"
+          "MaskGreatFairy",
+          "OtherAnyBombBag"
         ],
         [
           "MaskDeku",
@@ -7943,8 +8112,8 @@
         ],
         [
           "FD Jumps",
-          "Any Bomb Bag",
-          "MaskGreatFairy"
+          "MaskGreatFairy",
+          "OtherAnyBombBag"
         ],
         [
           "FD Jumps",
@@ -7972,8 +8141,8 @@
         ],
         [
           "MaskDeku",
-          "Any Bomb Bag",
-          "SettingClimbMostSurfaces"
+          "SettingClimbMostSurfaces",
+          "OtherAnyBombBag"
         ],
         [
           "MaskDeku",
@@ -7992,8 +8161,8 @@
         ],
         [
           "FD Jumps",
-          "Any Bomb Bag",
-          "SettingClimbMostSurfaces"
+          "SettingClimbMostSurfaces",
+          "OtherAnyBombBag"
         ],
         [
           "FD Jumps",
@@ -8261,7 +8430,7 @@
           "SHT Jump to Stray Fairies",
           "SHT Elevator Room Access",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "SettingClimbMostSurfaces"
@@ -8659,7 +8828,7 @@
           "SHT Fireless",
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "SHT Fireless",
@@ -8735,7 +8904,7 @@
         [
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Goron Bomb Jump",
@@ -8753,7 +8922,7 @@
         ],
         [
           "MaskGreatFairy",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "MaskGreatFairy",
@@ -8940,7 +9109,7 @@
           "Use Fire Arrow",
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "GBT Reverse Water Direction",
@@ -9280,7 +9449,7 @@
         [
           "Ignore Fire Rings",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Ignore Fire Rings",
@@ -9535,7 +9704,7 @@
           "AreaStoneTowerTempleAccess",
           "STT Garo Master Access",
           "STT Thin Bridge Exit",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "AreaStoneTowerTempleAccess",
@@ -9632,7 +9801,7 @@
         ],
         [
           "Recoil Flip",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Recoil Flip",
@@ -9834,7 +10003,7 @@
           "OtherArrow"
         ],
         [
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "MaskDeku",
@@ -10102,7 +10271,7 @@
           "BottleCatchMushroom"
         ],
         [
-          "Any Milk"
+          "OtherAnyMilk"
         ]
       ],
       "TimeNeeded": "None",
@@ -10136,17 +10305,17 @@
           "Any Red Potion"
         ],
         [
-          "Any Milk"
+          "OtherAnyMilk"
         ],
         [
-          "Any Green Potion"
+          "OtherAnyGreenPotion"
         ],
         [
-          "Any Blue Potion"
+          "OtherAnyBluePotion"
         ],
         [
           "ShopItemTradingPostFairy",
-          "Any Bottle"
+          "OtherAnyBottle"
         ]
       ],
       "TimeNeeded": "None",
@@ -10180,7 +10349,7 @@
         ],
         [
           "ShopItemMilkBarChateau",
-          "Any Bottle"
+          "OtherAnyBottle"
         ]
       ],
       "TimeNeeded": "None",
@@ -10920,7 +11089,7 @@
         [
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Goron Bomb Jump",
@@ -10963,7 +11132,7 @@
         [
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Goron Bomb Jump",
@@ -11236,7 +11405,7 @@
         ],
         [
           "Bio Baba Hive Luck",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Bio Baba Hive Luck",
@@ -11755,7 +11924,7 @@
         [
           "Long Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Long Jump",
@@ -11795,7 +11964,7 @@
         [
           "Long Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Long Jump",
@@ -12496,7 +12665,7 @@
           "SettingAllowFierceDeityAnywhere",
           "Long Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "AreaSouthAccess",
@@ -12672,16 +12841,10 @@
       "RequiredItems": [
         "AreaIkanaCanyonAccess",
         "MaskGibdo",
-        "Any Blue Potion"
+        "GibdoEntranceLeft",
+        "GibdoToBombPots"
       ],
-      "ConditionalItems": [
-        [
-          "BottleCatchSpringWater"
-        ],
-        [
-          "BottleCatchHotSpringWater"
-        ]
-      ],
+      "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
       "TimeSetup": "None",
@@ -12692,16 +12855,10 @@
       "RequiredItems": [
         "AreaIkanaCanyonAccess",
         "MaskGibdo",
-        "Any Blue Potion"
+        "GibdoEntranceLeft",
+        "GibdoToBombPots"
       ],
-      "ConditionalItems": [
-        [
-          "BottleCatchSpringWater"
-        ],
-        [
-          "BottleCatchHotSpringWater"
-        ]
-      ],
+      "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
       "TimeSetup": "None",
@@ -12712,16 +12869,10 @@
       "RequiredItems": [
         "AreaIkanaCanyonAccess",
         "MaskGibdo",
-        "Any Blue Potion"
+        "GibdoEntranceLeft",
+        "GibdoToBombPots"
       ],
-      "ConditionalItems": [
-        [
-          "BottleCatchSpringWater"
-        ],
-        [
-          "BottleCatchHotSpringWater"
-        ]
-      ],
+      "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
       "TimeSetup": "None",
@@ -12732,16 +12883,10 @@
       "RequiredItems": [
         "AreaIkanaCanyonAccess",
         "MaskGibdo",
-        "Any Blue Potion"
+        "GibdoEntranceLeft",
+        "GibdoToBombPots"
       ],
-      "ConditionalItems": [
-        [
-          "BottleCatchSpringWater"
-        ],
-        [
-          "BottleCatchHotSpringWater"
-        ]
-      ],
+      "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
       "TimeSetup": "None",
@@ -12752,16 +12897,10 @@
       "RequiredItems": [
         "AreaIkanaCanyonAccess",
         "MaskGibdo",
-        "Any Blue Potion"
+        "GibdoEntranceLeft",
+        "GibdoToBombPots"
       ],
-      "ConditionalItems": [
-        [
-          "BottleCatchSpringWater"
-        ],
-        [
-          "BottleCatchHotSpringWater"
-        ]
-      ],
+      "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
       "TimeSetup": "None",
@@ -15102,7 +15241,7 @@
         [
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Goron Bomb Jump",
@@ -15172,7 +15311,7 @@
           "Use Light Arrow",
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Use Light Arrow",
@@ -15228,7 +15367,7 @@
           "Use Light Arrow",
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Use Light Arrow",
@@ -15320,7 +15459,7 @@
           "FD Difficult Jumps",
           "Long Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "OtherArrow",
@@ -15385,7 +15524,7 @@
           "FD Difficult Jumps",
           "Long Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "OtherArrow",
@@ -15541,7 +15680,7 @@
         [
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Goron Bomb Jump",
@@ -15584,7 +15723,7 @@
         [
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Goron Bomb Jump",
@@ -15627,7 +15766,7 @@
         [
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Goron Bomb Jump",
@@ -16398,8 +16537,8 @@
         [
           "Harder Long Jumps",
           "SettingDamageModeDefault",
-          "Any Bomb Bag",
-          "Tall Character"
+          "Tall Character",
+          "OtherAnyBombBag"
         ],
         [
           "Precise Zora Jumps"
@@ -16453,7 +16592,7 @@
           "SettingClimbMostSurfaces",
           "Long Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "SettingClimbMostSurfaces",
@@ -16506,7 +16645,7 @@
           "SettingClimbMostSurfaces",
           "Long Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "SettingClimbMostSurfaces",
@@ -16612,7 +16751,7 @@
           "SongLullaby",
           "Ocarina Items",
           "SettingNotRandomizedBottleCatchHotSpringWater",
-          "Any Bottle"
+          "OtherAnyBottle"
         ],
         [
           "Lullaby Skip",
@@ -16621,9 +16760,9 @@
         ],
         [
           "Lullaby Skip",
-          "Any Bomb Bag",
-          "Any Bombchu Pack",
-          "Any Shield"
+          "Any Shield",
+          "OtherAnyBombBag",
+          "OtherAnyBombchuPack"
         ],
         [
           "Remote Hookshot",
@@ -16653,7 +16792,7 @@
           "SongLullaby",
           "Ocarina Items",
           "SettingNotRandomizedBottleCatchHotSpringWater",
-          "Any Bottle"
+          "OtherAnyBottle"
         ],
         [
           "Lullaby Skip",
@@ -16662,9 +16801,9 @@
         ],
         [
           "Lullaby Skip",
-          "Any Bomb Bag",
-          "Any Bombchu Pack",
-          "Any Shield"
+          "Any Shield",
+          "OtherAnyBombBag",
+          "OtherAnyBombchuPack"
         ],
         [
           "Remote Hookshot",
@@ -16694,7 +16833,7 @@
           "SongLullaby",
           "Ocarina Items",
           "SettingNotRandomizedBottleCatchHotSpringWater",
-          "Any Bottle"
+          "OtherAnyBottle"
         ],
         [
           "Lullaby Skip",
@@ -16703,9 +16842,9 @@
         ],
         [
           "Lullaby Skip",
-          "Any Bomb Bag",
-          "Any Bombchu Pack",
-          "Any Shield"
+          "Any Shield",
+          "OtherAnyBombBag",
+          "OtherAnyBombchuPack"
         ],
         [
           "Remote Hookshot",
@@ -16739,7 +16878,7 @@
           "SongLullaby",
           "Ocarina Items",
           "SettingNotRandomizedBottleCatchHotSpringWater",
-          "Any Bottle"
+          "OtherAnyBottle"
         ],
         [
           "Lullaby Skip",
@@ -16748,9 +16887,9 @@
         ],
         [
           "Lullaby Skip",
-          "Any Bomb Bag",
-          "Any Bombchu Pack",
-          "Any Shield"
+          "Any Shield",
+          "OtherAnyBombBag",
+          "OtherAnyBombchuPack"
         ],
         [
           "Remote Hookshot",
@@ -16780,7 +16919,7 @@
           "SongLullaby",
           "Ocarina Items",
           "SettingNotRandomizedBottleCatchHotSpringWater",
-          "Any Bottle"
+          "OtherAnyBottle"
         ],
         [
           "Lullaby Skip",
@@ -16789,9 +16928,9 @@
         ],
         [
           "Lullaby Skip",
-          "Any Bomb Bag",
-          "Any Bombchu Pack",
-          "Any Shield"
+          "Any Shield",
+          "OtherAnyBombBag",
+          "OtherAnyBombchuPack"
         ],
         [
           "Remote Hookshot",
@@ -16821,7 +16960,7 @@
           "SongLullaby",
           "Ocarina Items",
           "SettingNotRandomizedBottleCatchHotSpringWater",
-          "Any Bottle"
+          "OtherAnyBottle"
         ],
         [
           "Lullaby Skip",
@@ -16830,9 +16969,9 @@
         ],
         [
           "Lullaby Skip",
-          "Any Bomb Bag",
-          "Any Bombchu Pack",
-          "Any Shield"
+          "Any Shield",
+          "OtherAnyBombBag",
+          "OtherAnyBombchuPack"
         ],
         [
           "Remote Hookshot",
@@ -16872,7 +17011,7 @@
           "MaskZora",
           "Long Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "MaskZora",
@@ -16890,8 +17029,8 @@
         ],
         [
           "Deku Recoil",
-          "Any Bomb Bag",
-          "SettingDamageModeDefault"
+          "SettingDamageModeDefault",
+          "OtherAnyBombBag"
         ],
         [
           "ItemHookshot",
@@ -16923,7 +17062,7 @@
           "MaskZora",
           "Long Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "MaskZora",
@@ -16941,8 +17080,8 @@
         ],
         [
           "Deku Recoil",
-          "Any Bomb Bag",
-          "SettingDamageModeDefault"
+          "SettingDamageModeDefault",
+          "OtherAnyBombBag"
         ],
         [
           "ItemHookshot",
@@ -17038,7 +17177,7 @@
           "MaskZora",
           "Long Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "MaskZora",
@@ -17056,8 +17195,8 @@
         ],
         [
           "Deku Recoil",
-          "Any Bomb Bag",
-          "SettingDamageModeDefault"
+          "SettingDamageModeDefault",
+          "OtherAnyBombBag"
         ],
         [
           "ItemHookshot",
@@ -17360,7 +17499,7 @@
         [
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Goron Bomb Jump",
@@ -17633,7 +17772,7 @@
         [
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Goron Bomb Jump",
@@ -18243,13 +18382,11 @@
     },
     {
       "Id": "CollectableBeneathTheGraveyardRupeeCluster1",
-      "RequiredItems": [],
-      "ConditionalItems": [
-        [
-          "Ikana Graveyard Access",
-          "Day 2 Grave Access"
-        ]
+      "RequiredItems": [
+        "Ikana Graveyard Access",
+        "Day 2 Grave Access"
       ],
+      "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "Night2",
       "TimeSetup": "Day1, Night1, Day2, Night2",
@@ -19566,7 +19703,7 @@
         [
           "Restricted Items",
           "SettingAllowFierceDeityAnywhere",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ]
       ],
       "TimeNeeded": "None",
@@ -19585,7 +19722,7 @@
         [
           "Restricted Items",
           "SettingAllowFierceDeityAnywhere",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ]
       ],
       "TimeNeeded": "None",
@@ -19604,7 +19741,7 @@
         [
           "Restricted Items",
           "SettingAllowFierceDeityAnywhere",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ]
       ],
       "TimeNeeded": "None",
@@ -19877,7 +20014,7 @@
       ],
       "ConditionalItems": [
         [
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Powder Kegs as Explosives",
@@ -20008,7 +20145,7 @@
       ],
       "ConditionalItems": [
         [
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Powder Kegs as Explosives",
@@ -20028,7 +20165,7 @@
       ],
       "ConditionalItems": [
         [
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Powder Kegs as Explosives",
@@ -20519,7 +20656,7 @@
           "SettingClimbMostSurfaces",
           "Long Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "SettingClimbMostSurfaces",
@@ -20559,7 +20696,7 @@
           "SettingClimbMostSurfaces",
           "Long Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "SettingClimbMostSurfaces",
@@ -20673,7 +20810,7 @@
           "Short Ranged Weapon"
         ],
         [
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ]
       ],
       "TimeNeeded": "None",
@@ -21029,7 +21166,7 @@
         [
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Bomb Hovering"
@@ -21216,7 +21353,7 @@
         ],
         [
           "Deku Recoil",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Deku Recoil",
@@ -21254,7 +21391,7 @@
         ],
         [
           "Deku Recoil",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Deku Recoil",
@@ -21540,7 +21677,7 @@
         [
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Bomb Hovering"
@@ -21748,7 +21885,7 @@
           "Short Ranged Weapon"
         ],
         [
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Powder Kegs as Explosives",
@@ -21875,7 +22012,7 @@
           "MaskZora",
           "Long Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "MaskZora",
@@ -21893,8 +22030,8 @@
         ],
         [
           "Deku Recoil",
-          "Any Bomb Bag",
-          "SettingDamageModeDefault"
+          "SettingDamageModeDefault",
+          "OtherAnyBombBag"
         ],
         [
           "ItemHookshot",
@@ -21926,7 +22063,7 @@
           "MaskZora",
           "Long Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "MaskZora",
@@ -21944,8 +22081,8 @@
         ],
         [
           "Deku Recoil",
-          "Any Bomb Bag",
-          "SettingDamageModeDefault"
+          "SettingDamageModeDefault",
+          "OtherAnyBombBag"
         ],
         [
           "ItemHookshot",
@@ -22261,7 +22398,7 @@
           "SettingAllowFierceDeityAnywhere",
           "Long Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "SettingAllowFierceDeityAnywhere",
@@ -22328,7 +22465,7 @@
         ],
         [
           "Superslide",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Remote Hookshot"
@@ -22483,7 +22620,7 @@
         [
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Goron Bomb Jump",
@@ -22701,7 +22838,7 @@
           "FD Difficult Jumps",
           "Harder Long Jumps",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "FD Difficult Jumps",
@@ -22735,7 +22872,7 @@
           "FD Difficult Jumps",
           "Harder Long Jumps",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "FD Difficult Jumps",
@@ -22769,7 +22906,7 @@
           "FD Difficult Jumps",
           "Harder Long Jumps",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "FD Difficult Jumps",
@@ -22803,7 +22940,7 @@
           "FD Difficult Jumps",
           "Harder Long Jumps",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "FD Difficult Jumps",
@@ -22837,7 +22974,7 @@
           "FD Difficult Jumps",
           "Harder Long Jumps",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "FD Difficult Jumps",
@@ -22905,14 +23042,14 @@
         [
           "OtherArrow",
           "ItemHookshot",
-          "Any Bomb Bag",
-          "Any Bombchu Pack"
+          "OtherAnyBombBag",
+          "OtherAnyBombchuPack"
         ],
         [
           "OtherArrow",
           "SettingAllowFierceDeityAnywhere",
-          "Any Bomb Bag",
-          "Any Bombchu Pack"
+          "OtherAnyBombBag",
+          "OtherAnyBombchuPack"
         ],
         [
           "Kill Iron Knuckle",
@@ -22953,14 +23090,14 @@
         [
           "OtherArrow",
           "ItemHookshot",
-          "Any Bomb Bag",
-          "Any Bombchu Pack"
+          "OtherAnyBombBag",
+          "OtherAnyBombchuPack"
         ],
         [
           "OtherArrow",
           "SettingAllowFierceDeityAnywhere",
-          "Any Bomb Bag",
-          "Any Bombchu Pack"
+          "OtherAnyBombBag",
+          "OtherAnyBombchuPack"
         ],
         [
           "Kill Iron Knuckle",
@@ -23001,14 +23138,14 @@
         [
           "OtherArrow",
           "ItemHookshot",
-          "Any Bomb Bag",
-          "Any Bombchu Pack"
+          "OtherAnyBombBag",
+          "OtherAnyBombchuPack"
         ],
         [
           "OtherArrow",
           "SettingAllowFierceDeityAnywhere",
-          "Any Bomb Bag",
-          "Any Bombchu Pack"
+          "OtherAnyBombBag",
+          "OtherAnyBombchuPack"
         ],
         [
           "Kill Iron Knuckle",
@@ -23441,7 +23578,7 @@
           "MaskZora",
           "Long Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "MaskZora",
@@ -23524,17 +23661,11 @@
       "RequiredItems": [
         "AreaIkanaCanyonAccess",
         "MaskGibdo",
-        "BottleCatchBug",
-        "Any Blue Potion"
+        "GibdoEntranceLeft",
+        "GibdoToBombPots",
+        "GibdoToFairyFountain"
       ],
-      "ConditionalItems": [
-        [
-          "BottleCatchSpringWater"
-        ],
-        [
-          "BottleCatchHotSpringWater"
-        ]
-      ],
+      "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
       "TimeSetup": "None",
@@ -23545,17 +23676,11 @@
       "RequiredItems": [
         "AreaIkanaCanyonAccess",
         "MaskGibdo",
-        "BottleCatchBug",
-        "Any Blue Potion"
+        "GibdoEntranceLeft",
+        "GibdoToBombPots",
+        "GibdoToFairyFountain"
       ],
-      "ConditionalItems": [
-        [
-          "BottleCatchSpringWater"
-        ],
-        [
-          "BottleCatchHotSpringWater"
-        ]
-      ],
+      "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
       "TimeSetup": "None",
@@ -23566,17 +23691,11 @@
       "RequiredItems": [
         "AreaIkanaCanyonAccess",
         "MaskGibdo",
-        "BottleCatchBug",
-        "Any Blue Potion"
+        "GibdoEntranceLeft",
+        "GibdoToBombPots",
+        "GibdoToFairyFountain"
       ],
-      "ConditionalItems": [
-        [
-          "BottleCatchSpringWater"
-        ],
-        [
-          "BottleCatchHotSpringWater"
-        ]
-      ],
+      "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
       "TimeSetup": "None",
@@ -23587,17 +23706,11 @@
       "RequiredItems": [
         "AreaIkanaCanyonAccess",
         "MaskGibdo",
-        "BottleCatchBug",
-        "Any Blue Potion"
+        "GibdoEntranceLeft",
+        "GibdoToBombPots",
+        "GibdoToFairyFountain"
       ],
-      "ConditionalItems": [
-        [
-          "BottleCatchSpringWater"
-        ],
-        [
-          "BottleCatchHotSpringWater"
-        ]
-      ],
+      "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
       "TimeSetup": "None",
@@ -23608,17 +23721,11 @@
       "RequiredItems": [
         "AreaIkanaCanyonAccess",
         "MaskGibdo",
-        "BottleCatchBug",
-        "Any Blue Potion"
+        "GibdoEntranceLeft",
+        "GibdoToBombPots",
+        "GibdoToFairyFountain"
       ],
-      "ConditionalItems": [
-        [
-          "BottleCatchSpringWater"
-        ],
-        [
-          "BottleCatchHotSpringWater"
-        ]
-      ],
+      "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
       "TimeSetup": "None",
@@ -23629,17 +23736,11 @@
       "RequiredItems": [
         "AreaIkanaCanyonAccess",
         "MaskGibdo",
-        "BottleCatchBug",
-        "Any Blue Potion"
+        "GibdoEntranceLeft",
+        "GibdoToBombPots",
+        "GibdoToFairyFountain"
       ],
-      "ConditionalItems": [
-        [
-          "BottleCatchSpringWater"
-        ],
-        [
-          "BottleCatchHotSpringWater"
-        ]
-      ],
+      "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
       "TimeSetup": "None",
@@ -23650,17 +23751,11 @@
       "RequiredItems": [
         "AreaIkanaCanyonAccess",
         "MaskGibdo",
-        "BottleCatchBug",
-        "Any Blue Potion"
+        "GibdoEntranceLeft",
+        "GibdoToBombPots",
+        "GibdoToFairyFountain"
       ],
-      "ConditionalItems": [
-        [
-          "BottleCatchSpringWater"
-        ],
-        [
-          "BottleCatchHotSpringWater"
-        ]
-      ],
+      "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
       "TimeSetup": "None",
@@ -23671,17 +23766,11 @@
       "RequiredItems": [
         "AreaIkanaCanyonAccess",
         "MaskGibdo",
-        "BottleCatchBug",
-        "Any Blue Potion"
+        "GibdoEntranceLeft",
+        "GibdoToBombPots",
+        "GibdoToFairyFountain"
       ],
-      "ConditionalItems": [
-        [
-          "BottleCatchSpringWater"
-        ],
-        [
-          "BottleCatchHotSpringWater"
-        ]
-      ],
+      "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
       "TimeSetup": "None",
@@ -23760,7 +23849,7 @@
           "Clever Ice Platforms",
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Clever Ice Platforms",
@@ -24738,7 +24827,7 @@
         ],
         [
           "Deku Recoil",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Deku Recoil",
@@ -25039,7 +25128,7 @@
         ],
         [
           "Superslide",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "SettingClimbMostSurfaces"
@@ -25223,7 +25312,7 @@
         [
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Goron Bomb Jump",
@@ -25282,7 +25371,7 @@
           "SettingAllowFierceDeityAnywhere",
           "Long Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "SettingAllowFierceDeityAnywhere",
@@ -25604,6 +25693,152 @@
       "IsTrick": false
     },
     {
+      "Id": "GibdoEntranceLeft",
+      "RequiredItems": [
+        "OtherAnyBluePotion"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "GibdoEntranceRight",
+      "RequiredItems": [
+        "OtherLimitlessBeans"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "GibdoToBombPots",
+      "RequiredItems": [],
+      "ConditionalItems": [
+        [
+          "BottleCatchSpringWater"
+        ],
+        [
+          "BottleCatchHotSpringWater"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "GibdoToHotWater",
+      "RequiredItems": [
+        "BottleCatchFish"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "GibdoToFairyFountain",
+      "RequiredItems": [
+        "BottleCatchBug"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "GibdoToCowAndMiniboss",
+      "RequiredItems": [],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "GibdoToMiniBoss",
+      "RequiredItems": [
+        "OtherAnyBombBag"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "GibdoToCow",
+      "RequiredItems": [
+        "Hot Spring Water Transport"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "GibdoToFinalWallmaster",
+      "RequiredItems": [
+        "BottleCatchBigPoe"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "GibdoToMirrorShield",
+      "RequiredItems": [
+        "OtherAnyMilk"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "GibdoToLeftChest",
+      "RequiredItems": [
+        "BottleCatchBug"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "GibdoToRightChest",
+      "RequiredItems": [
+        "BottleCatchBug"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "GibdoToBlackBoes",
+      "RequiredItems": [
+        "BottleCatchFish"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
       "Id": "Magic Meter",
       "RequiredItems": [],
       "ConditionalItems": [
@@ -25717,34 +25952,6 @@
       "IsTrick": false
     },
     {
-      "Id": "Any Bottle",
-      "RequiredItems": [],
-      "ConditionalItems": [
-        [
-          "ItemBottleWitch"
-        ],
-        [
-          "ItemBottleAliens"
-        ],
-        [
-          "ItemBottleBeavers"
-        ],
-        [
-          "ItemBottleDampe"
-        ],
-        [
-          "ItemBottleMadameAroma"
-        ],
-        [
-          "ItemBottleGoronRace"
-        ]
-      ],
-      "TimeNeeded": "None",
-      "TimeAvailable": "None",
-      "TimeSetup": "None",
-      "IsTrick": false
-    },
-    {
       "Id": "3 Stone Tower Keys",
       "RequiredItems": [],
       "ConditionalItems": [
@@ -25791,25 +25998,6 @@
       "IsTrick": false
     },
     {
-      "Id": "Any Bomb Bag",
-      "RequiredItems": [],
-      "ConditionalItems": [
-        [
-          "ItemBombBag"
-        ],
-        [
-          "UpgradeBigBombBag"
-        ],
-        [
-          "UpgradeBiggestBombBag"
-        ]
-      ],
-      "TimeNeeded": "None",
-      "TimeAvailable": "None",
-      "TimeSetup": "None",
-      "IsTrick": false
-    },
-    {
       "Id": "Ocean Skulltulas",
       "RequiredItems": [
         "AreaWestAccess",
@@ -25822,7 +26010,7 @@
         [
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Goron Bomb Jump",
@@ -25850,7 +26038,7 @@
     {
       "Id": "Any Red Potion",
       "RequiredItems": [
-        "Any Bottle"
+        "OtherAnyBottle"
       ],
       "ConditionalItems": [
         [
@@ -25867,90 +26055,6 @@
         ],
         [
           "ShopItemZoraRedPotion"
-        ]
-      ],
-      "TimeNeeded": "None",
-      "TimeAvailable": "None",
-      "TimeSetup": "None",
-      "IsTrick": false
-    },
-    {
-      "Id": "Any Milk",
-      "RequiredItems": [
-        "Any Bottle"
-      ],
-      "ConditionalItems": [
-        [
-          "ItemBottleAliens"
-        ],
-        [
-          "ItemRanchBarnMainCowMilk"
-        ],
-        [
-          "ItemRanchBarnOtherCowMilk1"
-        ],
-        [
-          "ItemRanchBarnOtherCowMilk2"
-        ],
-        [
-          "ItemWellCowMilk"
-        ],
-        [
-          "ItemTerminaGrottoCowMilk1"
-        ],
-        [
-          "ItemTerminaGrottoCowMilk2"
-        ],
-        [
-          "ItemCoastGrottoCowMilk1"
-        ],
-        [
-          "ItemCoastGrottoCowMilk2"
-        ],
-        [
-          "ShopItemMilkBarMilk"
-        ],
-        [
-          "ShopItemGormanBrosMilk"
-        ]
-      ],
-      "TimeNeeded": "None",
-      "TimeAvailable": "None",
-      "TimeSetup": "None",
-      "IsTrick": false
-    },
-    {
-      "Id": "Any Green Potion",
-      "RequiredItems": [
-        "Any Bottle"
-      ],
-      "ConditionalItems": [
-        [
-          "ShopItemTradingPostGreenPotion"
-        ],
-        [
-          "ShopItemWitchGreenPotion"
-        ],
-        [
-          "ShopItemBusinessScrubGreenPotion"
-        ]
-      ],
-      "TimeNeeded": "None",
-      "TimeAvailable": "None",
-      "TimeSetup": "None",
-      "IsTrick": false
-    },
-    {
-      "Id": "Any Blue Potion",
-      "RequiredItems": [
-        "Any Bottle"
-      ],
-      "ConditionalItems": [
-        [
-          "ShopItemWitchBluePotion"
-        ],
-        [
-          "ShopItemBusinessScrubBluePotion"
         ]
       ],
       "TimeNeeded": "None",
@@ -26304,7 +26408,7 @@
         [
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Bomb Hovering"
@@ -26384,7 +26488,7 @@
         [
           "ISTT Reverse 2F",
           "Recoil Flip",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "ISTT Reverse 2F",
@@ -26440,7 +26544,7 @@
         ],
         [
           "MundaneItemSeahorse",
-          "Any Bottle"
+          "OtherAnyBottle"
         ]
       ],
       "TimeNeeded": "None",
@@ -26918,7 +27022,7 @@
           "Any Red Potion"
         ],
         [
-          "Any Blue Potion"
+          "OtherAnyBluePotion"
         ]
       ],
       "TimeNeeded": "None",
@@ -26987,7 +27091,7 @@
     {
       "Id": "Zora Jar Game with Explosives",
       "RequiredItems": [
-        "Any Bomb Bag"
+        "OtherAnyBombBag"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -27039,7 +27143,7 @@
           "FD Difficult Jumps",
           "Long Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "ItemWoodfallBossKey",
@@ -27073,7 +27177,7 @@
         [
           "WFT BK Skip",
           "Bomb Hovering",
-          "Any Bombchu Pack"
+          "OtherAnyBombchuPack"
         ],
         [
           "WFT BK Skip",
@@ -27240,8 +27344,8 @@
           "ISTT Eyegore Access",
           "ItemHookshot",
           "Recoil Flip",
-          "Any Bomb Bag",
-          "STT BK Skip"
+          "STT BK Skip",
+          "OtherAnyBombBag"
         ],
         [
           "ISTT Eyegore Access",
@@ -27677,7 +27781,7 @@
         ],
         [
           "MaskZora",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "MaskZora",
@@ -27803,7 +27907,7 @@
         [
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Goron Bomb Jump",
@@ -27953,8 +28057,8 @@
     {
       "Id": "Clever Bombchu Usage",
       "RequiredItems": [
-        "Any Bomb Bag",
-        "Any Bombchu Pack"
+        "OtherAnyBombBag",
+        "OtherAnyBombchuPack"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -28153,7 +28257,7 @@
           "ItemHookshot",
           "OtherArrow",
           "Recoil Flip",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "ItemHookshot",
@@ -28602,15 +28706,15 @@
         ],
         [
           "STT Sun Block Clip",
-          "Any Bomb Bag",
-          "Any Bombchu Pack",
-          "MaskDeku"
+          "MaskDeku",
+          "OtherAnyBombBag",
+          "OtherAnyBombchuPack"
         ],
         [
           "STT Sun Block Clip",
-          "Any Bomb Bag",
-          "Any Bombchu Pack",
-          "STT Updrafts without Deku Mask"
+          "STT Updrafts without Deku Mask",
+          "OtherAnyBombBag",
+          "OtherAnyBombchuPack"
         ],
         [
           "STT Sun Block Clip",
@@ -28668,7 +28772,7 @@
         [
           "Harder Long Jumps",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Harder Long Jumps",
@@ -28710,7 +28814,7 @@
       "ConditionalItems": [
         [
           "Recoil Flip",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Recoil Flip",
@@ -28727,7 +28831,7 @@
         [
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Use Light Arrow"
@@ -28863,7 +28967,7 @@
       ],
       "ConditionalItems": [
         [
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "MaskBlast"
@@ -28977,7 +29081,7 @@
         ],
         [
           "SettingDeathModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "SettingDeathModeDefault",
@@ -29010,7 +29114,7 @@
           "Gainer"
         ],
         [
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "MaskBlast",
@@ -29087,7 +29191,7 @@
         [
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Bomb Hovering"
@@ -29208,7 +29312,7 @@
         [
           "Long Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Long Jump",
@@ -29255,7 +29359,7 @@
         [
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Bomb Hovering"
@@ -29312,7 +29416,7 @@
         [
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Goron Bomb Jump",
@@ -29323,7 +29427,7 @@
         [
           "Long Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Long Jump",
@@ -29395,7 +29499,7 @@
         [
           "Long Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Long Jump",
@@ -29814,7 +29918,7 @@
           "Clever Ice Platforms",
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Clever Ice Platforms",
@@ -29828,7 +29932,7 @@
         ],
         [
           "Deku Recoil",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Deku Recoil",
@@ -29885,7 +29989,7 @@
           "GBT Iceless",
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "FD Jumps"
@@ -29913,7 +30017,7 @@
           "MaskZora",
           "Long Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "MaskZora",
@@ -29988,25 +30092,6 @@
       "IsTrick": false
     },
     {
-      "Id": "Any Bombchu Pack",
-      "RequiredItems": [],
-      "ConditionalItems": [
-        [
-          "ShopItemBombsBombchu10"
-        ],
-        [
-          "ChestInvertedStoneTowerBombchu10"
-        ],
-        [
-          "ChestLinkTrialBombchu10"
-        ]
-      ],
-      "TimeNeeded": "None",
-      "TimeAvailable": "None",
-      "TimeSetup": "None",
-      "IsTrick": false
-    },
-    {
       "Id": "Kill Iron Knuckle",
       "RequiredItems": [],
       "ConditionalItems": [
@@ -30014,7 +30099,7 @@
           "Any Sword"
         ],
         [
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "MaskGoron"
@@ -30024,7 +30109,7 @@
         ],
         [
           "Use Light Arrow",
-          "Any Green Potion"
+          "OtherAnyGreenPotion"
         ],
         [
           "Use Light Arrow",
@@ -30033,11 +30118,11 @@
         [
           "Use Light Arrow",
           "ShopItemMilkBarChateau",
-          "Any Bottle"
+          "OtherAnyBottle"
         ],
         [
           "Use Light Arrow",
-          "Any Blue Potion"
+          "OtherAnyBluePotion"
         ]
       ],
       "TimeNeeded": "None",
@@ -30106,7 +30191,7 @@
           "FD Difficult Jumps",
           "Harder Long Jumps",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Bomb Hovering"
@@ -30135,26 +30220,26 @@
         [
           "Use Fire Arrow",
           "ItemHookshot",
-          "Any Bomb Bag",
-          "Any Bombchu Pack"
+          "OtherAnyBombBag",
+          "OtherAnyBombchuPack"
         ],
         [
           "Use Fire Arrow",
           "FD Jumps",
-          "Any Bomb Bag",
-          "Any Bombchu Pack"
+          "OtherAnyBombBag",
+          "OtherAnyBombchuPack"
         ],
         [
           "Use Fire Arrow",
           "SettingAllowFierceDeityAnywhere",
           "Gainer",
-          "Any Bomb Bag",
-          "Any Bombchu Pack"
+          "OtherAnyBombBag",
+          "OtherAnyBombchuPack"
         ],
         [
           "Use Fire Arrow",
           "Bomb Hovering",
-          "Any Bombchu Pack"
+          "OtherAnyBombchuPack"
         ],
         [
           "Link Trial Gossip Stones",
@@ -30170,9 +30255,9 @@
         ],
         [
           "Use Fire Arrow",
-          "Any Bomb Bag",
-          "Any Bombchu Pack",
-          "SettingClimbMostSurfaces"
+          "SettingClimbMostSurfaces",
+          "OtherAnyBombBag",
+          "OtherAnyBombchuPack"
         ],
         [
           "Link Trial Gossip Stones",
@@ -30392,7 +30477,7 @@
         [
           "ISTT Eyegore Bridge to Maze",
           "Recoil Flip",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "ISTT Eyegore Bridge to Maze",
@@ -30423,7 +30508,7 @@
       "Id": "Bomb Hovering",
       "RequiredItems": [
         "Any Shield",
-        "Any Bomb Bag"
+        "OtherAnyBombBag"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -30464,7 +30549,7 @@
     {
       "Id": "Ocarina Items Bombs Targets",
       "RequiredItems": [
-        "Any Bomb Bag"
+        "OtherAnyBombBag"
       ],
       "ConditionalItems": [
         [
@@ -30571,7 +30656,7 @@
       "Id": "Remote Hookshot",
       "RequiredItems": [
         "ItemHookshot",
-        "Any Milk"
+        "OtherAnyMilk"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -30719,9 +30804,9 @@
       "Id": "Long Bomb Hovers",
       "RequiredItems": [
         "Any Shield",
-        "Any Bomb Bag",
-        "Any Bombchu Pack",
-        "MaskBlast"
+        "MaskBlast",
+        "OtherAnyBombBag",
+        "OtherAnyBombchuPack"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -30751,7 +30836,7 @@
       "ConditionalItems": [
         [
           "Bomb Hovering",
-          "Any Bombchu Pack"
+          "OtherAnyBombchuPack"
         ],
         [
           "Action Swap",
@@ -30784,8 +30869,8 @@
       "Id": "Weirdshot",
       "RequiredItems": [
         "ItemHookshot",
-        "Any Bomb Bag",
-        "SettingNotCharacterAdultLink"
+        "SettingNotCharacterAdultLink",
+        "OtherAnyBombBag"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -30798,7 +30883,7 @@
     {
       "Id": "WFT Gekko Quick Kill",
       "RequiredItems": [
-        "Any Bomb Bag"
+        "OtherAnyBombBag"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -30839,8 +30924,8 @@
     {
       "Id": "WFT Recoil Jump",
       "RequiredItems": [
-        "Any Bomb Bag",
-        "Any Bombchu Pack"
+        "OtherAnyBombBag",
+        "OtherAnyBombchuPack"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -31026,8 +31111,8 @@
         ],
         [
           "STT Sun Block Clip",
-          "Any Bomb Bag",
-          "Any Bombchu Pack"
+          "OtherAnyBombBag",
+          "OtherAnyBombchuPack"
         ],
         [
           "STT Sun Block Clip",
@@ -31165,9 +31250,9 @@
       "Id": "Extremely Long Bomb Hovers",
       "RequiredItems": [
         "Any Shield",
-        "Any Bomb Bag",
-        "Any Bombchu Pack",
-        "MaskBlast"
+        "MaskBlast",
+        "OtherAnyBombBag",
+        "OtherAnyBombchuPack"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -31226,7 +31311,7 @@
           "SettingClimbMostSurfaces",
           "Long Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "AreaNorthAccess",
@@ -31398,16 +31483,16 @@
           "Weirdshot"
         ],
         [
-          "Any Bomb Bag",
-          "Any Bombchu Pack",
           "MaskZora",
-          "Beneath the Well Sun Block Clip"
+          "Beneath the Well Sun Block Clip",
+          "OtherAnyBombBag",
+          "OtherAnyBombchuPack"
         ],
         [
-          "Any Bomb Bag",
-          "Any Bombchu Pack",
           "SettingAllowFierceDeityAnywhere",
-          "Beneath the Well Sun Block Clip"
+          "Beneath the Well Sun Block Clip",
+          "OtherAnyBombBag",
+          "OtherAnyBombchuPack"
         ],
         [
           "SettingClimbMostSurfaces",
@@ -31823,7 +31908,7 @@
         [
           "STT Eyegore Bridge Jumps",
           "Recoil Flip",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "STT Eyegore Bridge Jumps",
@@ -31870,20 +31955,20 @@
         [
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag",
-          "Long Jump"
+          "Long Jump",
+          "OtherAnyBombBag"
         ],
         [
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag",
-          "Recoil Flip"
+          "Recoil Flip",
+          "OtherAnyBombBag"
         ],
         [
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag",
-          "FD Jumps"
+          "FD Jumps",
+          "OtherAnyBombBag"
         ],
         [
           "Goron Bomb Jump",
@@ -31913,7 +31998,7 @@
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
           "Clever Ice Platforms",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Goron Bomb Jump",
@@ -31992,7 +32077,7 @@
         ],
         [
           "SettingDeathModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "SettingDeathModeDefault",
@@ -32067,8 +32152,8 @@
         [
           "Ignore Fire Rings",
           "SettingDamageModeDefault",
-          "Any Bomb Bag",
-          "MaskDeku"
+          "MaskDeku",
+          "OtherAnyBombBag"
         ],
         [
           "Ignore Fire Rings",
@@ -32086,10 +32171,10 @@
         [
           "Ignore Fire Rings",
           "SettingDamageModeDefault",
-          "Any Bomb Bag",
           "Any Shield",
           "Recoil Flip",
-          "STT Updrafts without Deku Mask"
+          "STT Updrafts without Deku Mask",
+          "OtherAnyBombBag"
         ],
         [
           "Ignore Fire Rings",
@@ -32206,7 +32291,7 @@
           "Day 2 Grave Clip",
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Day 2 Grave Clip",
@@ -32323,7 +32408,7 @@
           "Day 3 Grave Clip",
           "Goron Bomb Jump",
           "SettingDamageModeDefault",
-          "Any Bomb Bag"
+          "OtherAnyBombBag"
         ],
         [
           "Day 3 Grave Clip",
@@ -32421,7 +32506,7 @@
         ],
         [
           "Bomb Hovering",
-          "Any Bombchu Pack"
+          "OtherAnyBombchuPack"
         ],
         [
           "Blast Mask Hovers",

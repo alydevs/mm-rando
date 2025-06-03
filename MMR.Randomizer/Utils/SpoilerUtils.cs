@@ -138,6 +138,7 @@ namespace MMR.Randomizer.Utils
                         Cost = mc.Value,
                     };
                 }).Where(mc => mc != null).ToList(),
+                GibdoRequirements = settings.RandomizeGibdoRequirements ? randomized.GibdoRequirements.Where(g => g.LogicEntry.HasValue).ToList() : new List<GibdoRequirement>(),
             };
 
             if (outputSettings.GenerateHTMLLog)
@@ -234,6 +235,16 @@ namespace MMR.Randomizer.Utils
                 foreach (var price in spoiler.MessageCosts)
                 {
                     log.AppendLine($"{price.Name,-50} -> {price.Cost}");
+                }
+            }
+
+            if (spoiler.GibdoRequirements.Count > 0)
+            {
+                log.AppendLine();
+                log.AppendLine($" {"Gibdo",-50}    Required Item");
+                foreach (var gibdoRequirement in spoiler.GibdoRequirements)
+                {
+                    log.AppendLine($"{gibdoRequirement.LogicEntry.Value.ToString().AddSpaces(),-50} -> {gibdoRequirement.ItemRequired.ToString().AddSpaces()}" + (gibdoRequirement.Amount > 1 ? $" ({gibdoRequirement.Amount})" : ""));
                 }
             }
 

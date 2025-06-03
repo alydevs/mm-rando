@@ -282,6 +282,7 @@ namespace MMR.UI.Forms
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
             this.bSkip = new System.Windows.Forms.Button();
+            this.cGibdoRequirements = new System.Windows.Forms.CheckBox();
             this.tSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.tOtherCustomizations.SuspendLayout();
@@ -392,6 +393,7 @@ namespace MMR.UI.Forms
             // 
             // tOtherCustomization
             // 
+            this.tOtherCustomization.Controls.Add(this.cGibdoRequirements);
             this.tOtherCustomization.Controls.Add(this.cRequiredBossRemains);
             this.tOtherCustomization.Controls.Add(this.lRequiredRemains);
             this.tOtherCustomization.Controls.Add(this.cShuffleBosses);
@@ -3350,6 +3352,19 @@ namespace MMR.UI.Forms
             this.bSkip.Visible = false;
             this.bSkip.Click += new System.EventHandler(this.bSkip_Click);
             // 
+            // cGibdoRequirements
+            // 
+            this.cGibdoRequirements.AutoSize = true;
+            this.cGibdoRequirements.BackColor = System.Drawing.Color.Transparent;
+            this.cGibdoRequirements.ForeColor = System.Drawing.Color.Black;
+            this.cGibdoRequirements.Location = new System.Drawing.Point(380, 36);
+            this.cGibdoRequirements.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.cGibdoRequirements.Name = "cGibdoRequirements";
+            this.cGibdoRequirements.Size = new System.Drawing.Size(134, 19);
+            this.cGibdoRequirements.TabIndex = 31;
+            this.cGibdoRequirements.Text = "Gibdo Requirements";
+            this.cGibdoRequirements.UseVisualStyleBackColor = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -3694,6 +3709,7 @@ namespace MMR.UI.Forms
         private System.Windows.Forms.Label lCameraStyle;
         private System.Windows.Forms.ComboBox cDeathMode;
         private System.Windows.Forms.Label lDeathMode;
+        private System.Windows.Forms.CheckBox cGibdoRequirements;
     }
 }
 

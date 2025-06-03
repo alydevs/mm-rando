@@ -21,6 +21,7 @@ namespace MMR.Randomizer.Models
         public Dictionary<Item, LogicUtils.LogicPaths> CheckedImportanceLocations { get; set; }
         public ReadOnlyCollection<ItemObject> Traps { get; set; }
         public List<ushort?> MessageCosts { get; set; }
+        public List<GibdoRequirement> GibdoRequirements { get; set; }
         public List<Item> BlitzExtraItems { get; set; }
         public int FileSelectSkybox { get; internal set; }
         public int FileSelectColor { get; internal set; }

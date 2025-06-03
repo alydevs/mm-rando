@@ -44,6 +44,8 @@ namespace MMR.Randomizer.Models
 
         public List<NameCostPair> MessageCosts { get; set; }
 
+        public List<GibdoRequirement> GibdoRequirements { get; set; }
+
         public ReadOnlyCollection<Item> BlitzExtraItems { get; set; }
         public List<List<ItemLocationPair>> Spheres { get; set; }
     }

@@ -53,6 +53,7 @@ extern int z2_CanInteract(GlobalContext* ctxt);
 extern u8 z2_Player_MaskIdToItemId(s32 maskIdMinusOne);
 extern void z2_Player_SetBootData(GlobalContext* ctxt, ActorPlayer* player);
 extern void z2_Player_SetEquipmentData(GlobalContext* ctxt, ActorPlayer* player);
+extern void z2_Player_UpdateBottleHeld(GlobalContext* ctxt, ActorPlayer* player, s32 itemId, s32 itemAction);
 extern int z2_Player_InBlockingCsMode(GlobalContext* ctxt, ActorPlayer* player);
 extern int z2_Inventory_GetBtnItem(GlobalContext* ctxt, ActorPlayer* player, s32 buttonIndex);
 extern void z2_DrawButtonAmounts(GlobalContext* ctxt, u32 arg1, u16 alpha);
@@ -230,6 +231,7 @@ extern bool z2_SetGetItemLongrange(Actor* actor, GlobalContext* ctxt, u16 giInde
 extern void z2_GiveItem(GlobalContext* ctxt, u8 itemId);
 extern u8 z2_IsItemKnown(u8 itemId);
 extern bool z2_HasEmptyBottle();
+extern bool z2_Inventory_HasItemInBottle(u8 item);
 extern void z2_GiveMap(u32 mapIndex);
 extern s16 z2_Inventory_GetSkullTokenCount(s16 sceneIndex);
 extern s32 z2_Health_ChangeBy(GlobalContext* ctxt, s16 healthChange);

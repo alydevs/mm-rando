@@ -90,6 +90,7 @@ namespace MMR.UI.Forms
                 { cDEnt, cfg => cfg.GameplaySettings.RandomizeDungeonEntrances },
                 { cShuffleBosses, cfg => cfg.GameplaySettings.RandomizeBossRooms },
                 { cEnemy, cfg => cfg.GameplaySettings.RandomizeEnemies },
+                { cGibdoRequirements, cfg => cfg.GameplaySettings.RandomizeGibdoRequirements },
                 { cMode, cfg => cfg.GameplaySettings.LogicMode },
                 { cItemPlacement, cfg => cfg.GameplaySettings.ItemPlacement },
 
@@ -1297,6 +1298,7 @@ namespace MMR.UI.Forms
             cShuffleBosses.Checked = _configuration.GameplaySettings.RandomizeBossRooms;
             cSFX.Checked = _configuration.CosmeticSettings.RandomizeSounds;
             cEnemy.Checked = _configuration.GameplaySettings.RandomizeEnemies;
+            cGibdoRequirements.Checked = _configuration.GameplaySettings.RandomizeGibdoRequirements;
             if (_configuration.GameplaySettings.ShortenCutsceneSettings == null)
             {
                 _configuration.GameplaySettings.ShortenCutsceneSettings = new ShortenCutsceneSettings();

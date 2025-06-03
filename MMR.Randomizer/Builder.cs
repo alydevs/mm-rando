@@ -20,12 +20,12 @@ using System.Diagnostics;
 using Color = System.Drawing.Color;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using SixLabors.ImageSharp.Formats.Png;
 using System.Security.Cryptography;
 using MMR.Common.Utils;
+using MMR.Randomizer.Attributes.Gibdo;
 
 namespace MMR.Randomizer
 {
@@ -5604,6 +5604,49 @@ namespace MMR.Randomizer
             }
         }
 
+        private void WriteGibdoRequirements()
+        {
+            for (var i = 0; i < _randomized.GibdoRequirements.Count; i++)
+            {
+                var gibdoRequirement = _randomized.GibdoRequirements[i];
+                var gibdoItemAttribute = gibdoRequirement.ItemRequired.GetAttribute<ItemGibdoAttribute>();
+                var messageId = gibdoItemAttribute.MessageId;
+                if (gibdoItemAttribute.CustomMessage != default && messageId == default)
+                {
+                    if (!_extraMessages.Any())
+                    {
+                        throw new Exception("Extra Message unexpectedly empty.");
+                    }
+                    messageId = (ushort)(_extraMessages.Max(me => me.Id) + 1);
+                    _extraMessages.Add(new MessageEntryBuilder()
+                        .Id(messageId)
+                        .Message((it) =>
+                        {
+                            it.CompileTimeWrap((wrap) =>
+                            {
+                                wrap.Text(gibdoItemAttribute.CustomMessage);
+
+                                if (gibdoRequirement.Amount > 1)
+                                {
+                                    wrap.Text($" Preferably {MessageUtils.NumberToWords(gibdoRequirement.Amount)} of them...");
+                                }
+                            });
+
+                            it.DisableTextSkip2()
+                            .EndFinalTextBox();
+                        })
+                        .Build()
+                    );
+                }
+                ReadWriteUtils.WriteToROM(0xF666B8 + i * 8, gibdoRequirement.ToByteArray(messageId));
+
+                // Update spawn params for Gibdos in Well
+                ReadWriteUtils.WriteToROM(0x029B0000 + 0xDA, 0x28C);
+                ReadWriteUtils.WriteToROM(0x029D2000 + 0xB6, 0x22A);
+                ReadWriteUtils.WriteToROM(0x029DC000 + 0xD6, 0x1FB);
+            }
+        }
+
         private void WritePrices(MessageTable messageTable, List<MessageEntry> newMessages)
         {
             // TODO if costs randomized
@@ -5889,6 +5932,8 @@ namespace MMR.Randomizer
             WriteDungeonItemText(newMessages);
 
             WritePrices(messageTable, newMessages);
+
+            WriteGibdoRequirements();
 
             messageTable.UpdateMessages(newMessages);
 

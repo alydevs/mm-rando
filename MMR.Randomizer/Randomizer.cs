@@ -1,9 +1,8 @@
 using MMR.Common.Extensions;
 using MMR.Randomizer.Attributes;
-using MMR.Randomizer.Constants;
+using MMR.Randomizer.Attributes.Gibdo;
 using MMR.Randomizer.Extensions;
 using MMR.Randomizer.GameObjects;
-using MMR.Randomizer.LogicMigrator;
 using MMR.Randomizer.Models;
 using MMR.Randomizer.Models.Rom;
 using MMR.Randomizer.Models.Settings;
@@ -11,12 +10,8 @@ using MMR.Randomizer.Utils;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -1186,6 +1181,8 @@ namespace MMR.Randomizer
 
         private void PrepareAdditionalItemData()
         {
+            RandomizeGibdoRequirements();
+
             RandomizePrices();
 
             UpdateLogicForSettings();
@@ -2142,6 +2139,80 @@ namespace MMR.Randomizer
                             }
                         }
                     }
+                }
+            }
+        }
+
+        private void RandomizeGibdoRequirements()
+        {
+            _randomized.GibdoRequirements = new List<GibdoRequirement>();
+
+            if (!_settings.RandomizeGibdoRequirements)
+            {
+                _randomized.GibdoRequirements.AddRange(GibdoRequirement.GibdoRequirements);
+                return;
+            }
+
+            var candidates = Enum.GetValues<GibdoRequirement.GibdoRequirementItem>().ToList();
+            candidates.Remove(GibdoRequirement.GibdoRequirementItem.None);
+            if (!_settings.BombchuDrops)
+            {
+                candidates.Remove(GibdoRequirement.GibdoRequirementItem.Bombchu);
+            }
+
+            foreach (var gibdoRequirement in GibdoRequirement.GibdoRequirements)
+            {
+                var chosen = candidates.Random(Random);
+                var amountAttribute = chosen.GetAttribute<ItemGibdoAmountAttribute>();
+                var amount = amountAttribute?.DefaultAmount ?? 1;
+                if (amountAttribute != null) // && settings - should randomize amounts
+                {
+                    amount = (byte) Random.Next(amountAttribute.Min, amountAttribute.Max + 1);
+                }
+                _randomized.GibdoRequirements.Add(new GibdoRequirement(chosen, gibdoRequirement.LogicEntry)
+                {
+                    Amount = amount,
+                });
+
+                candidates.Remove(chosen);
+            }
+
+            if (_settings.LogicMode != LogicMode.NoLogic)
+            {
+                var logicChanges = new Dictionary<Item, ItemObject>();
+
+                foreach (var gibdoRequirement in _randomized.GibdoRequirements.Where(r => r.LogicEntry.HasValue))
+                {
+                    var newLogic = new ItemObject();
+
+                    var logicReference = gibdoRequirement.ItemRequired.GetAttribute<ItemGibdoLogicReferenceAttribute>()?.Reference;
+
+                    if (logicReference.HasValue)
+                    {
+                        var logicReferenceClone = new ItemObject
+                        {
+                            ID = ItemList.Count,
+                            TimeAvailable = 63,
+                            DependsOnItems = ItemList[logicReference.Value].DependsOnItems.ToList(),
+                            Conditionals = ItemList[logicReference.Value].Conditionals.Select(c => c.ToList()).ToList(),
+                        };
+                        ItemList.Add(logicReferenceClone);
+                        newLogic.DependsOnItems.Add(logicReferenceClone.Item);
+                    }
+
+                    newLogic.DependsOnItems.AddRange(gibdoRequirement.ItemRequired.GetAttributes<ItemGibdoLogicRequirementsAttribute>()
+                        .Where(attr => (attr.MinAmount == 0 || attr.MinAmount <= gibdoRequirement.Amount) && (attr.MaxAmount == 0 || attr.MaxAmount >= gibdoRequirement.Amount))
+                        .SelectMany(attr => attr.Items.ToList()));
+                    newLogic.Conditionals.AddRange(gibdoRequirement.ItemRequired.GetAttributes<ItemGibdoLogicConditionalAttribute>()
+                        .Where(attr => (attr.MinAmount == 0 || attr.MinAmount <= gibdoRequirement.Amount) && (attr.MaxAmount == 0 || attr.MaxAmount >= gibdoRequirement.Amount))
+                        .Select(attr => attr.Items.ToList()));
+                    logicChanges[gibdoRequirement.LogicEntry.Value] = newLogic;
+                }
+
+                foreach (var (location, newLogic) in logicChanges)
+                {
+                    ItemList[location].DependsOnItems = newLogic.DependsOnItems;
+                    ItemList[location].Conditionals = newLogic.Conditionals;
                 }
             }
         }

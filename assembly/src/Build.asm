@@ -61,6 +61,7 @@
 .include "FloorPhysics.Patch.asm"
 .include "Game.Patch.asm"
 .include "GiantMask.Patch.asm"
+.include "Gibdo.Patch.asm"
 .include "GinkoMan.Patch.asm"
 .include "GoronElder.Patch.asm"
 .include "GossipStone.Patch.asm"

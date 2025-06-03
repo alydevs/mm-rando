@@ -128,6 +128,7 @@
 .definelabel z2_CheckItemObtainability, 0x80114978
 .definelabel z2_RemoveItem, 0x801149A0
 .definelabel z2_HasEmptyBottle, 0x80114E90
+.definelabel z2_Inventory_HasItemInBottle, 0x80114F2C
 .definelabel z2_HudSetAButtonText, 0x8011552C
 .definelabel z2_Health_ChangeBy, 0x80115908
 .definelabel z2_AddRupees, 0x801159EC
@@ -141,6 +142,7 @@
 .definelabel z2_CanInteract, 0x801233E4
 .definelabel z2_Inventory_GetBtnItem, 0x8012364C
 .definelabel z2_Player_SetEquipmentData, 0x80123C90
+.definelabel z2_Player_UpdateBottleHeld, 0x80123D50
 .definelabel z2_801242DC, 0x801242DC
 .definelabel z2_Player_DrawGetItem, 0x8012697C
 .definelabel z2_PlayerGormanTears, 0x80127594

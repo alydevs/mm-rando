@@ -8,7 +8,7 @@ namespace MMR.Randomizer.LogicMigrator
 {
     public static partial class Migrator
     {
-        public const int CurrentVersion = 26;
+        public const int CurrentVersion = 27;
 
         public static string ApplyMigrations(string logic)
         {
@@ -252,6 +252,11 @@ namespace MMR.Randomizer.LogicMigrator
             if (logicObject.Version < 26)
             {
                 AddPalmTrees(logicObject);
+            }
+
+            if (logicObject.Version < 27)
+            {
+                AddGibdos(logicObject);
             }
 
             return JsonSerializer.Serialize(logicObject);
@@ -4089,53 +4094,6 @@ namespace MMR.Randomizer.LogicMigrator
                 }
             }
 
-            void addTodo(JsonFormatLogicItem item)
-            {
-                item.RequiredItems.Add("TODO");
-            }
-
-            void addRequiredIfExists(JsonFormatLogicItem item, string value)
-            {
-                if (logicObject.Logic.Any(x => x.Id == value))
-                {
-                    item.RequiredItems.Add(value);
-                }
-            }
-
-            void addConditional(JsonFormatLogicItem item, params string[] conditionals)
-            {
-                item.ConditionalItems.Add(conditionals.ToList());
-            }
-
-            bool addConditionalIfExists(JsonFormatLogicItem item, params string[] conditionals)
-            {
-                if (conditionals.All(c => logicObject.Logic.Any(x => x.Id == c)))
-                {
-                    addConditional(item, conditionals);
-                    return true;
-                }
-                return false;
-            }
-
-            void addConditionalOrTodo(JsonFormatLogicItem item, params string[] conditionals)
-            {
-                if (!addConditionalIfExists(item, conditionals))
-                {
-                    addTodo(item);
-                }
-            }
-
-            bool removeConditional(JsonFormatLogicItem item, params string[] values)
-            {
-                return item.ConditionalItems.RemoveAll(c => c.SequenceEqual(values)) > 0;
-            }
-
-            void addDayOnly(JsonFormatLogicItem item)
-            {
-                item.TimeAvailable = TimeOfDay.Day1 | TimeOfDay.Day2 | TimeOfDay.Day3;
-                item.TimeSetup = TimeOfDay.Day1 | TimeOfDay.Day2 | TimeOfDay.Day3;
-            }
-
             const int startIndex = 1135;
             const int newItemCount = 82;
             var itemNames = new (string name, int? reference, Action<JsonFormatLogicItem> modify)[]
@@ -4153,25 +4111,25 @@ namespace MMR.Randomizer.LogicMigrator
                     addConditional(item, "OtherArrow");
                     addConditional(item, "MaskZora");
                     addConditional(item, "ItemHookshot");
-                    addConditionalIfExists(item, "Clever Bombchu Usage");
-                    addConditionalIfExists(item, "Bomb Hovering");
-                    addConditionalIfExists(item, "Long Stick");
+                    addConditionalIfExists(logicObject, item, "Clever Bombchu Usage");
+                    addConditionalIfExists(logicObject, item, "Bomb Hovering");
+                    addConditionalIfExists(logicObject, item, "Long Stick");
                 }),
                 ("CollectableMountainVillageSpringSmallSnowball4", 482, null),
                 ("CollectableMountainVillageWinterPot1", 483, (item) =>
                 {
-                    addConditionalIfExists(item, "Short Ranged Weapon");
-                    addConditionalIfExists(item, "Any Bomb Bag");
-                    addConditionalIfExists(item, "Powder Kegs as Explosives", "ItemPowderKeg");
-                    addConditionalIfExists(item, "Long Stick");
+                    addConditionalIfExists(logicObject, item, "Short Ranged Weapon");
+                    addConditionalIfExists(logicObject, item, "Any Bomb Bag");
+                    addConditionalIfExists(logicObject, item, "Powder Kegs as Explosives", "ItemPowderKeg");
+                    addConditionalIfExists(logicObject, item, "Long Stick");
                 }),
                 ("CollectableMountainVillageWinterSmallSnowball8", 483, null),
                 ("CollectableRoadToIkanaPot1", 464, (item) =>
                 {
                     addConditional(item, "OtherArrow");
                     addConditional(item, "ItemHookshot");
-                    addConditionalIfExists(item, "Bomb Hovering");
-                    addConditionalIfExists(item, "Long Stick");
+                    addConditionalIfExists(logicObject, item, "Bomb Hovering");
+                    addConditionalIfExists(logicObject, item, "Long Stick");
                 }),
                 ("CollectableSecretShrineMainRoomPot5", 471, null),
                 ("CollectableSnowheadSmallSnowball10", 487, null),
@@ -4186,18 +4144,18 @@ namespace MMR.Randomizer.LogicMigrator
                 ("CollectableStoneTowerTempleRoomAfterLightArrowsPot1", 0, (item) =>
                 {
                     item.RequiredItems.Add("AreaStoneTowerTempleAccess");
-                    addRequiredIfExists(item, "STT Garo Master Access");
-                    addRequiredIfExists(item, "STT Thin Bridge Exit");
+                    addRequiredIfExists(logicObject, item, "STT Garo Master Access");
+                    addRequiredIfExists(logicObject, item, "STT Thin Bridge Exit");
                 }),
                 ("CollectableStoneTowerTempleInvertedWizzrobeRoomPot1", 408, (item) =>
                 {
                     if (removeConditional(item, "ISTT Lightless", "ISTT Cross Poe Gap"))
                     {
-                        addConditionalIfExists(item, "ISTT Lightless", "ISTT Cross Poe Gap", "OtherArrow");
-                        addConditionalIfExists(item, "ISTT Lightless", "ISTT Cross Poe Gap", "ItemHookshot");
-                        addConditionalIfExists(item, "ISTT Lightless", "ISTT Cross Poe Gap", "MaskZora", "Gainer");
-                        addConditionalIfExists(item, "ISTT Lightless", "ISTT Cross Poe Gap", "Fierce Deity's Mask Anywhere");
-                        addConditionalIfExists(item, "ISTT Lightless", "ISTT Cross Poe Gap", "Clever Bombchu Usage");
+                        addConditionalIfExists(logicObject, item, "ISTT Lightless", "ISTT Cross Poe Gap", "OtherArrow");
+                        addConditionalIfExists(logicObject, item, "ISTT Lightless", "ISTT Cross Poe Gap", "ItemHookshot");
+                        addConditionalIfExists(logicObject, item, "ISTT Lightless", "ISTT Cross Poe Gap", "MaskZora", "Gainer");
+                        addConditionalIfExists(logicObject, item, "ISTT Lightless", "ISTT Cross Poe Gap", "Fierce Deity's Mask Anywhere");
+                        addConditionalIfExists(logicObject, item, "ISTT Lightless", "ISTT Cross Poe Gap", "Clever Bombchu Usage");
                     }
                     else
                     {
@@ -4206,13 +4164,13 @@ namespace MMR.Randomizer.LogicMigrator
                 }),
                 ("CollectableTerminaFieldPot1", 0, (item) =>
                 {
-                    addConditionalOrTodo(item, "OtherMagicBean", "Water for Magic Bean");
-                    addConditionalOrTodo(item, "Short Ranged Weapon");
-                    addConditionalIfExists(item, "Clever Bombchu Usage");
-                    addConditionalIfExists(item, "Bomb Hovering");
-                    addConditionalIfExists(item, "Powder Kegs as Explosives", "ItemPowderKeg", "Fewer Item Requirements");
-                    addConditionalIfExists(item, "Long Stick");
-                    addConditionalIfExists(item, "FD Jumps", "Jump Slash Take Downs");
+                    addConditionalOrTodo(logicObject, item, "OtherMagicBean", "Water for Magic Bean");
+                    addConditionalOrTodo(logicObject, item, "Short Ranged Weapon");
+                    addConditionalIfExists(logicObject, item, "Clever Bombchu Usage");
+                    addConditionalIfExists(logicObject, item, "Bomb Hovering");
+                    addConditionalIfExists(logicObject, item, "Powder Kegs as Explosives", "ItemPowderKeg", "Fewer Item Requirements");
+                    addConditionalIfExists(logicObject, item, "Long Stick");
+                    addConditionalIfExists(logicObject, item, "FD Jumps", "Jump Slash Take Downs");
                 }
                 ),
                 ("CollectableWoodfallPot3", 596, null),
@@ -4266,7 +4224,7 @@ namespace MMR.Randomizer.LogicMigrator
                 ("CollectableGreatBayCoastButterflyFairy1", 207, null),
                 ("CollectableGrottosOceanGossipStonesButterflyFairy1", 0, (item) =>
                 {
-                    addConditionalIfExists(item, "Termina Field Boulder Clip");
+                    addConditionalIfExists(logicObject, item, "Termina Field Boulder Clip");
                     addConditional(item, "MaskGoron");
                     addConditional(item, "OtherExplosive");
                 }),
@@ -4287,12 +4245,12 @@ namespace MMR.Randomizer.LogicMigrator
                 ConditionalItems = new List<List<string>>(),
             };
 
-            if (!addConditionalIfExists(summonFairy, "Play Epona's Song"))
+            if (!addConditionalIfExists(logicObject, summonFairy, "Play Epona's Song"))
             {
                 addConditional(summonFairy, "ItemOcarina", "SongEpona");
             }
 
-            if (!addConditionalIfExists(summonFairy, "Play Song of Healing"))
+            if (!addConditionalIfExists(logicObject, summonFairy, "Play Song of Healing"))
             {
                 addConditional(summonFairy, "ItemOcarina", "SongHealing");
             }
@@ -4673,6 +4631,231 @@ namespace MMR.Randomizer.LogicMigrator
             logicObject.Version = 26;
         }
 
+        private static void AddGibdos(JsonFormatLogic logicObject)
+        {
+            const int newGroupingsIndex = 124;
+            var groupings = new (string name, Action<JsonFormatLogicItem> modify)[]
+            {
+                ("OtherAnyBombBag", (item) =>
+                {
+                    addConditional(item, "ItemBombBag");
+                    addConditional(item, "UpgradeBigBombBag");
+                    addConditional(item, "UpgradeBiggestBombBag");
+                }
+                ),
+                ("OtherAnyBombchuPack", (item) =>
+                {
+                    addConditional(item, "ShopItemBombsBombchu10");
+                    addConditional(item, "ChestInvertedStoneTowerBombchu10");
+                    addConditional(item, "ChestLinkTrialBombchu10");
+                }
+                ),
+                ("OtherAnyBottle", (item) =>
+                {
+                    addConditional(item, "ItemBottleWitch");
+                    addConditional(item, "ItemBottleAliens");
+                    addConditional(item, "ItemBottleBeavers");
+                    addConditional(item, "ItemBottleDampe");
+                    addConditional(item, "ItemBottleMadameAroma");
+                    addConditional(item, "ItemBottleGoronRace");
+                }
+                ),
+                ("OtherAnyRedPotion", (item) =>
+                {
+                    addConditional(item, "ItemBottleWitch");
+                    addConditional(item, "OtherAnyBottle", "ShopItemTradingPostRedPotion");
+                    addConditional(item, "OtherAnyBottle", "ShopItemWitchRedPotion");
+                    addConditional(item, "OtherAnyBottle", "ShopItemGoronRedPotion");
+                    addConditional(item, "OtherAnyBottle", "ShopItemZoraRedPotion");
+                }
+                ),
+                ("OtherAnyGreenPotion", (item) =>
+                {
+                    addRequired(item, "OtherAnyBottle");
+                    addConditional(item, "ShopItemTradingPostGreenPotion");
+                    addConditional(item, "ShopItemWitchGreenPotion");
+                    addConditional(item, "ShopItemBusinessScrubGreenPotion");
+                }
+                ),
+                ("OtherAnyBluePotion", (item) =>
+                {
+                    addRequired(item, "OtherAnyBottle");
+                    addConditional(item, "ShopItemWitchBluePotion");
+                    addConditional(item, "ShopItemBusinessScrubBluePotion");
+                }
+                ),
+                ("OtherAnyMilk", (item) =>
+                {
+                    addRequired(item, "OtherAnyBottle");
+                    addConditional(item, "ItemBottleAliens");
+                    addConditional(item, "ItemRanchBarnMainCowMilk");
+                    addConditional(item, "ItemRanchBarnOtherCowMilk1");
+                    addConditional(item, "ItemRanchBarnOtherCowMilk2");
+                    addConditional(item, "ItemWellCowMilk");
+                    addConditional(item, "ItemTerminaGrottoCowMilk1");
+                    addConditional(item, "ItemTerminaGrottoCowMilk2");
+                    addConditional(item, "ItemCoastGrottoCowMilk1");
+                    addConditional(item, "ItemCoastGrottoCowMilk2");
+                    addConditional(item, "ShopItemMilkBarMilk");
+                    addConditional(item, "ShopItemGormanBrosMilk");
+                }
+                ),
+            };
+
+            var groupingItems = GetLogicItems(groupings);
+            foreach (var groupingItem in groupingItems)
+            {
+                var existingGrouping = logicObject.Logic.FirstOrDefault(item => item.RequiredItems.SequenceEqualIgnoreOrder(groupingItem.RequiredItems)
+                    && item.ConditionalItems.Count == groupingItem.ConditionalItems.Count
+                    && item.ConditionalItems.All(c => groupingItem.ConditionalItems.Any(gc => c.SequenceEqualIgnoreOrder(gc))));
+                if (existingGrouping != null)
+                {
+                    logicObject.Logic.Remove(existingGrouping);
+                    foreach (var item in logicObject.Logic)
+                    {
+                        if (item.RequiredItems.Remove(existingGrouping.Id))
+                        {
+                            item.RequiredItems.Add(groupingItem.Id);
+                        }
+
+                        item.ConditionalItems.ForEach(c =>
+                        {
+                            if (c.Remove(existingGrouping.Id))
+                            {
+                                c.Add(groupingItem.Id);
+                            }
+                        });
+                    }
+                }
+            }
+
+            logicObject.Logic.InsertRange(newGroupingsIndex, GetLogicItems(groupings));
+
+            const int startIndex = 1373;
+            var itemNames = new (string name, string reference, Action<JsonFormatLogicItem> modify)[]
+            {
+                ("GibdoEntranceLeft", null, (item) => addRequired(item, "OtherAnyBluePotion")),
+                ("GibdoEntranceRight", null, (item) => addRequired(item, "OtherLimitlessBeans")),
+                ("GibdoToBombPots", null, (item) =>
+                {
+                    addConditional(item, "BottleCatchSpringWater");
+                    addConditional(item, "BottleCatchHotSpringWater");
+                }),
+                ("GibdoToHotWater", null, (item) => addRequired(item, "BottleCatchFish")),
+                ("GibdoToFairyFountain", null, (item) => addRequired(item, "BottleCatchBug")),
+                ("GibdoToCowAndMiniboss", null, null),
+                ("GibdoToMiniBoss", null, (item) => addRequired(item, "OtherAnyBombBag")),
+                ("GibdoToCow", null, (item) => addRequired(item, "BottleCatchHotSpringWater")),
+                ("GibdoToFinalWallmaster", null, (item) => addRequired(item, "BottleCatchBigPoe")),
+                ("GibdoToMirrorShield", null, (item) => addRequired(item, "OtherAnyMilk")),
+                ("GibdoToLeftChest", null, (item) => addRequired(item, "BottleCatchBug")),
+                ("GibdoToRightChest", null, (item) => addRequired(item, "BottleCatchBug")),
+                ("GibdoToBlackBoes", null, (item) => addRequired(item, "BottleCatchFish")),
+            };
+
+            foreach (var item in logicObject.Logic)
+            {
+                void checkList(List<string> items)
+                {
+                    if (items.Remove("BottleCatchBigPoe"))
+                    {
+                        items.Add("GibdoToFinalWallmaster");
+                        if (items.Remove("BottleCatchFish"))
+                        {
+                            items.Add("GibdoToBlackBoes");
+                        }
+                    }
+                    if (items.Remove("OtherAnyMilk"))
+                    {
+                        items.Add("GibdoToMirrorShield");
+                    }
+                    if (items.Remove("OtherLimitlessBeans"))
+                    {
+                        items.Add("GibdoEntranceRight");
+                        if (items.Remove("BottleCatchFish"))
+                        {
+                            items.Add("GibdoToBlackBoes");
+                        }
+                    }
+                    if (items.Remove("OtherAnyBombBag"))
+                    {
+                        items.Add("GibdoToMiniBoss");
+                        items.Add("GibdoToCowAndMiniboss");
+                    }
+                    if (items.Remove("OtherAnyBluePotion"))
+                    {
+                        items.Add("GibdoEntranceLeft");
+                        if (items.Remove("BottleCatchFish"))
+                        {
+                            items.Add("GibdoToHotWater");
+                        }
+                    }
+                    if (items.Remove("BottleCatchHotSpringWater"))
+                    {
+                        items.Add("GibdoToCow");
+                        items.Add("GibdoToCowAndMiniboss");
+                    }
+                }
+                if (item.RequiredItems.Contains("MaskGibdo"))
+                {
+                    checkList(item.RequiredItems);
+                }
+                foreach (var conditionals in item.ConditionalItems)
+                {
+                    if (conditionals.Contains("MaskGibdo") || item.RequiredItems.Contains("MaskGibdo"))
+                    {
+                        var waterCheck = conditionals.ToList();
+                        if (waterCheck.Remove("BottleCatchSpringWater"))
+                        {
+                            var hotWaterCheck = item.ConditionalItems.FirstOrDefault(c => c.Except(waterCheck).SequenceEqual(new List<string> { "BottleCatchHotSpringWater" }));
+                            if (hotWaterCheck != null)
+                            {
+                                conditionals.Remove("BottleCatchSpringWater");
+                                conditionals.Add("GibdoToBombPots");
+                                hotWaterCheck.Clear();
+                            }
+                        }
+                        checkList(conditionals);
+                    }
+                }
+                item.ConditionalItems.RemoveAll(c => !c.Any());
+                if (item.ConditionalItems.Any())
+                {
+                    var commonConditionals = item.ConditionalItems.Aggregate((a, b) => a.Intersect(b).ToList()).ToList();
+                    if (commonConditionals.Any())
+                    {
+                        item.ConditionalItems.ForEach(cs => cs.RemoveAll(c => commonConditionals.Contains(c)));
+                        item.RequiredItems.AddRange(commonConditionals);
+                    }
+                }
+                item.ConditionalItems.RemoveAll(c => !c.Any());
+                if (item.Id == "ChestWellRightPurpleRupee")
+                {
+                    if (item.RequiredItems.Remove("BottleCatchBug"))
+                    {
+                        item.RequiredItems.Add("GibdoToRightChest");
+                    }
+                }
+                if (item.Id == "ChestWellLeftPurpleRupee")
+                {
+                    if (item.RequiredItems.Remove("BottleCatchBug"))
+                    {
+                        item.RequiredItems.Add("GibdoToLeftChest");
+                    }
+                }
+                if (item.Id.StartsWith("CollectableWellFountainFairy"))
+                {
+                    if (item.RequiredItems.Remove("BottleCatchBug"))
+                    {
+                        item.RequiredItems.Add("GibdoToFairyFountain");
+                    }
+                }
+            }
+
+            logicObject.Logic.InsertRange(startIndex, GetLogicItems(logicObject, itemNames));
+            logicObject.Version = 27;
+        }
+
         private static List<JsonFormatLogicItem> GetLogicItems(IEnumerable<string> itemNames)
         {
             return GetLogicItems(itemNames.Select((name) => (name, (JsonFormatLogicItem) null, (Action<JsonFormatLogicItem>)null, false)));
@@ -4725,6 +4908,60 @@ namespace MMR.Randomizer.LogicMigrator
 
                 return logicItem;
             }).ToList();
+        }
+
+        private static void addTodo(JsonFormatLogicItem item)
+        {
+            item.RequiredItems.Add("TODO");
+        }
+
+        private static void addRequired(JsonFormatLogicItem item, params string[] value)
+        {
+            item.RequiredItems.AddRange(value);
+        }
+
+        private static bool addRequiredIfExists(JsonFormatLogic logicObject, JsonFormatLogicItem item, params string[] value)
+        {
+            if (value.All(r => logicObject.Logic.Any(x => x.Id == r)))
+            {
+                addRequired(item, value);
+                return true;
+            }
+            return false;
+        }
+
+        private static void addConditional(JsonFormatLogicItem item, params string[] conditionals)
+        {
+            item.ConditionalItems.Add(conditionals.ToList());
+        }
+
+        private static bool addConditionalIfExists(JsonFormatLogic logicObject, JsonFormatLogicItem item, params string[] conditionals)
+        {
+            if (conditionals.All(c => logicObject.Logic.Any(x => x.Id == c)))
+            {
+                addConditional(item, conditionals);
+                return true;
+            }
+            return false;
+        }
+
+        private static void addConditionalOrTodo(JsonFormatLogic logicObject, JsonFormatLogicItem item, params string[] conditionals)
+        {
+            if (!addConditionalIfExists(logicObject, item, conditionals))
+            {
+                addTodo(item);
+            }
+        }
+
+        private static bool removeConditional(JsonFormatLogicItem item, params string[] values)
+        {
+            return item.ConditionalItems.RemoveAll(c => c.SequenceEqual(values)) > 0;
+        }
+
+        private static void addDayOnly(JsonFormatLogicItem item)
+        {
+            item.TimeAvailable = TimeOfDay.Day1 | TimeOfDay.Day2 | TimeOfDay.Day3;
+            item.TimeSetup = TimeOfDay.Day1 | TimeOfDay.Day2 | TimeOfDay.Day3;
         }
 
         private class MigrationItem
