@@ -1094,7 +1094,7 @@ void Player_OnDekuWaterVoid(GlobalContext* ctxt, ActorPlayer* player) {
     z2_PerformEnterWaterEffects(ctxt, player);
     // End displaced code
 
-    if (ctxt->warpType) {
+    if (MISC_CONFIG.flags.takeDamageFromVoid && ctxt->warpType && !ctxt->transitionMode && gSaveContext.extra.voidFlag != 1) {
         Player_ForceInflictDamage(ctxt, player, -16);
     }
 }

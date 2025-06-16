@@ -1081,7 +1081,7 @@ struct GlobalContext {
     /* 0x18B20 */ UNK_TYPE1 pad18B20[0x28];
     /* 0x18B48 */ u8 curSpawn;
     /* 0x18B49 */ UNK_TYPE1 pad18B49[0x1];
-    /* 0x18B4A */ u8 unk18B4A;
+    /* 0x18B4A */ u8 transitionMode;
     /* 0x18B4B */ UNK_TYPE1 pad18B4B[0x309];
     /* 0x18E54 */ SceneTableEntry* currentSceneTableEntry;
     /* 0x18E58 */ UNK_TYPE1 pad18E58[0x400];
