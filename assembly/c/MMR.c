@@ -6,6 +6,7 @@
 #include "Items.h"
 #include "Music.h"
 #include "SaveFile.h"
+#include "macro.h"
 
 struct MMRConfig MMR_CONFIG = {
     .magic = MMR_CONFIG_MAGIC,
@@ -434,6 +435,9 @@ u32 MMR_GetMinorItemSfxId(u8 item) {
         return 0x4824;
     }
     if (item == ITEM_MAGIC_JAR || item == ITEM_MAGIC_JAR_LARGE || item == CUSTOM_ITEM_CRIMSON_RUPEE || item == CUSTOM_ITEM_RUPOOR) {
+        return 0x4824;
+    }
+    if (item == ITEM_POWDER_KEG && INV_CONTENT(ITEM_POWDER_KEG) != ITEM_NONE && MISC_CONFIG.flags.kegDrops) {
         return 0x4824;
     }
     if (item == CUSTOM_ITEM_ICE_TRAP) {

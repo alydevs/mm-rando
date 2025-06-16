@@ -44,6 +44,7 @@ namespace MMR.UI.Forms
             this.tabMain = new System.Windows.Forms.TabPage();
             this.tOtherCustomizations = new System.Windows.Forms.TabControl();
             this.tOtherCustomization = new System.Windows.Forms.TabPage();
+            this.cGibdoRequirements = new System.Windows.Forms.CheckBox();
             this.cRequiredBossRemains = new System.Windows.Forms.ComboBox();
             this.lRequiredRemains = new System.Windows.Forms.Label();
             this.cShuffleBosses = new System.Windows.Forms.CheckBox();
@@ -282,7 +283,7 @@ namespace MMR.UI.Forms
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
             this.bSkip = new System.Windows.Forms.Button();
-            this.cGibdoRequirements = new System.Windows.Forms.CheckBox();
+            this.cAddKegDrops = new System.Windows.Forms.CheckBox();
             this.tSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.tOtherCustomizations.SuspendLayout();
@@ -410,6 +411,19 @@ namespace MMR.UI.Forms
             this.tOtherCustomization.TabIndex = 0;
             this.tOtherCustomization.Text = "Other";
             this.tOtherCustomization.UseVisualStyleBackColor = true;
+            // 
+            // cGibdoRequirements
+            // 
+            this.cGibdoRequirements.AutoSize = true;
+            this.cGibdoRequirements.BackColor = System.Drawing.Color.Transparent;
+            this.cGibdoRequirements.ForeColor = System.Drawing.Color.Black;
+            this.cGibdoRequirements.Location = new System.Drawing.Point(380, 36);
+            this.cGibdoRequirements.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.cGibdoRequirements.Name = "cGibdoRequirements";
+            this.cGibdoRequirements.Size = new System.Drawing.Size(134, 19);
+            this.cGibdoRequirements.TabIndex = 31;
+            this.cGibdoRequirements.Text = "Gibdo Requirements";
+            this.cGibdoRequirements.UseVisualStyleBackColor = false;
             // 
             // cRequiredBossRemains
             // 
@@ -2172,6 +2186,7 @@ namespace MMR.UI.Forms
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.cAddKegDrops);
             this.groupBox7.Controls.Add(this.cGossipsTolerant);
             this.groupBox7.Controls.Add(this.cQuestItemKeep);
             this.groupBox7.Controls.Add(this.cUpdateNpcText);
@@ -2211,7 +2226,7 @@ namespace MMR.UI.Forms
             // cGossipsTolerant
             // 
             this.cGossipsTolerant.AutoSize = true;
-            this.cGossipsTolerant.Location = new System.Drawing.Point(172, 267);
+            this.cGossipsTolerant.Location = new System.Drawing.Point(10, 267);
             this.cGossipsTolerant.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cGossipsTolerant.Name = "cGossipsTolerant";
             this.cGossipsTolerant.Size = new System.Drawing.Size(140, 19);
@@ -3352,18 +3367,16 @@ namespace MMR.UI.Forms
             this.bSkip.Visible = false;
             this.bSkip.Click += new System.EventHandler(this.bSkip_Click);
             // 
-            // cGibdoRequirements
+            // cAddKegDrops
             // 
-            this.cGibdoRequirements.AutoSize = true;
-            this.cGibdoRequirements.BackColor = System.Drawing.Color.Transparent;
-            this.cGibdoRequirements.ForeColor = System.Drawing.Color.Black;
-            this.cGibdoRequirements.Location = new System.Drawing.Point(380, 36);
-            this.cGibdoRequirements.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.cGibdoRequirements.Name = "cGibdoRequirements";
-            this.cGibdoRequirements.Size = new System.Drawing.Size(134, 19);
-            this.cGibdoRequirements.TabIndex = 31;
-            this.cGibdoRequirements.Text = "Gibdo Requirements";
-            this.cGibdoRequirements.UseVisualStyleBackColor = false;
+            this.cAddKegDrops.AutoSize = true;
+            this.cAddKegDrops.Location = new System.Drawing.Point(172, 267);
+            this.cAddKegDrops.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.cAddKegDrops.Name = "cAddKegDrops";
+            this.cAddKegDrops.Size = new System.Drawing.Size(105, 19);
+            this.cAddKegDrops.TabIndex = 52;
+            this.cAddKegDrops.Text = "Add Keg Drops";
+            this.cAddKegDrops.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -3710,6 +3723,7 @@ namespace MMR.UI.Forms
         private System.Windows.Forms.ComboBox cDeathMode;
         private System.Windows.Forms.Label lDeathMode;
         private System.Windows.Forms.CheckBox cGibdoRequirements;
+        private System.Windows.Forms.CheckBox cAddKegDrops;
     }
 }
 

@@ -181,6 +181,7 @@ namespace MMR.UI.Forms
                 { cInvisSparkle, cfg => cfg.GameplaySettings.HiddenRupeesSparkle },
                 { cSaferGlitches, cfg => cfg.GameplaySettings.SaferGlitches },
                 { cAddBombchuDrops, cfg => cfg.GameplaySettings.BombchuDrops },
+                { cAddKegDrops, cfg => cfg.GameplaySettings.KegDrops },
                 { cFairyMaskShimmer, cfg => cfg.GameplaySettings.FairyMaskShimmer },
                 { cSkulltulaTokenSounds, cfg => cfg.GameplaySettings.SkulltulaTokenSounds },
                 { nMaxGossipWotH, cfg => cfg.GameplaySettings.OverrideNumberOfRequiredGossipHints },
@@ -1477,6 +1478,7 @@ namespace MMR.UI.Forms
             cInvisSparkle.Checked = _configuration.GameplaySettings.HiddenRupeesSparkle;
             cSaferGlitches.Checked = _configuration.GameplaySettings.SaferGlitches;
             cAddBombchuDrops.Checked = _configuration.GameplaySettings.BombchuDrops;
+            cAddKegDrops.Checked = _configuration.GameplaySettings.KegDrops;
             cInstantTransformations.Checked = _configuration.GameplaySettings.InstantTransform;
             cBombArrows.Checked = _configuration.GameplaySettings.BombArrows;
             cVanillaMoonTrials.Checked = _configuration.GameplaySettings.VanillaMoonTrialAccess;

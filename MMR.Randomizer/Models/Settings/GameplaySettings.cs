@@ -256,6 +256,13 @@ namespace MMR.Randomizer.Models.Settings
             set { this.AsmOptions.MiscConfig.Flags.BombchuDrops = value; }
         }
 
+        [Description("If you have found the Powder Keg, then any random Bomb drop or fixed non-randomized Bomb drop will drop a Powder Keg instead if you are in Goron form and have 0 Powder Kegs. Logic will no longer require the ability to purchase Powder Kegs from the bomb shop goron.")]
+        public bool KegDrops
+        {
+            get { return this.AsmOptions.MiscConfig.Flags.KegDrops; }
+            set { this.AsmOptions.MiscConfig.Flags.KegDrops = value; }
+        }
+
         [Description("Transforming using Deku Mask, Goron Mask, Zora Mask and Fierce Deity's Mask will be almost instant. These items can no longer be used as \"cutscene items\".")]
         [SettingTab(SettingTabAttribute.Type.Gimmicks)]
         public bool InstantTransform

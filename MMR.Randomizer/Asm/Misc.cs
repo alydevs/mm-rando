@@ -272,6 +272,11 @@ namespace MMR.Randomizer.Asm
         public bool BombchuDrops { get; set; }
 
         /// <summary>
+        /// Whether or not Powder Kegs should be able to be dropped.
+        /// </summary>
+        public bool KegDrops { get; set; }
+
+        /// <summary>
         /// Whether or not instant transformation should be enabled.
         /// </summary>
         public bool InstantTransform { get; set; }
@@ -341,6 +346,7 @@ namespace MMR.Randomizer.Asm
             HiddenRupeesSparkle = bitUnpacker.ReadBool();
             SaferGlitches = bitUnpacker.ReadBool();
             BombchuDrops = bitUnpacker.ReadBool();
+            KegDrops = bitUnpacker.ReadBool();
             InstantTransform = bitUnpacker.ReadBool();
             BombArrows = bitUnpacker.ReadBool();
             GiantMaskAnywhere = bitUnpacker.ReadBool();
@@ -386,6 +392,7 @@ namespace MMR.Randomizer.Asm
             bitPacker.Write(HiddenRupeesSparkle);
             bitPacker.Write(SaferGlitches);
             bitPacker.Write(BombchuDrops);
+            bitPacker.Write(KegDrops);
             bitPacker.Write(InstantTransform);
             bitPacker.Write(BombArrows);
             bitPacker.Write(GiantMaskAnywhere);

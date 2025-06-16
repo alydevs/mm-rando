@@ -2123,6 +2123,10 @@ namespace MMR.Randomizer
 
                     foreach (var item in messageCost.ItemsAffected)
                     {
+                        if (item == Item.ItemPowderKeg && _settings.KegDrops)
+                        {
+                            continue;
+                        }
                         foreach (var io in ItemList)
                         {
                             if (io.DependsOnItems.Contains(item))
