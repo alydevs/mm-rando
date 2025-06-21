@@ -35,6 +35,11 @@
 
 ; Replaces:
 ;   slti    at, v0, 0xa
+.org 0x80afea98
+    slti    at, v0, 0x10
+
+; Replaces:
+;   slti    at, v0, 0xa
 .org 0x80afeaa4
     slti    at, v0, 0x10
 
