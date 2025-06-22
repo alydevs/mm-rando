@@ -3272,6 +3272,195 @@ namespace MMR.Randomizer
             }
         }
 
+        private void WriteVictoryConditionText(List<MessageEntry> newMessages)
+        {
+            var flavorTexts = new List<string>();
+            var settingVictoryMode = _randomized.Settings.VictoryMode;
+            if (settingVictoryMode.HasFlag(VictoryMode.FourBossRemains))
+            {
+                settingVictoryMode &= ~(VictoryMode.OneBossRemains | VictoryMode.TwoBossRemains | VictoryMode.ThreeBossRemains);
+            }
+            else if (settingVictoryMode.HasFlag(VictoryMode.ThreeBossRemains))
+            {
+                settingVictoryMode &= ~(VictoryMode.OneBossRemains | VictoryMode.TwoBossRemains);
+            }
+            else if (settingVictoryMode.HasFlag(VictoryMode.TwoBossRemains))
+            {
+                settingVictoryMode &= ~(VictoryMode.OneBossRemains);
+            }
+            foreach (var victoryMode in Enum.GetValues<VictoryMode>())
+            {
+                if (settingVictoryMode.HasFlag(victoryMode))
+                {
+                    var flavorTextAttribute = victoryMode.GetAttribute<VictoryModeFlavorTextAttribute>();
+                    if (flavorTextAttribute == null)
+                    {
+                        continue;
+                    }
+
+                    flavorTexts.Add(flavorTextAttribute.Text);
+                }
+            }
+            if (flavorTexts.Any())
+            {
+                var flavorTexts2 = flavorTexts.ToList();
+                if (!settingVictoryMode.HasFlag(VictoryMode.DirectToCredits))
+                {
+                    flavorTexts.Add("get [RED]Majora's Mask[WHITE] back");
+                    flavorTexts2.Add("recover [RED]Majora's Mask[WHITE]");
+                }
+                var flavorTextsPast = flavorTexts2.Select(text => text
+                    .Replace("recover", "recovered")
+                    .Replace("gather", "gathered")
+                    .Replace("collect", "collected")
+                    .Replace("maximize", "maximized")
+                    .Replace("find", "found")
+                ).ToList();
+                newMessages.Add(new MessageEntryBuilder()
+                    .Id(0x1FC9)
+                    .Message(it =>
+                    {
+                        it.CompileTimeWrap(wrapped =>
+                        {
+                            wrapped.Text("Were you able to ");
+                            for (var i = 0; i < flavorTexts.Count; i++)
+                            {
+                                var text = flavorTexts[i].Replace("[RED]", TextCommands.ColorRed.ToString()).Replace("[WHITE]", TextCommands.ColorWhite.ToString());
+                                wrapped.Text(text);
+                                if (i < flavorTexts.Count - 2)
+                                {
+                                    wrapped.Text(", ");
+                                }
+                                else if (i < flavorTexts.Count - 1)
+                                {
+                                    wrapped.Text(" and ");
+                                }
+                            }
+                            wrapped.Text("?");
+                        })
+                        .DisableTextSkip2()
+                        .EndFinalTextBox();
+                    })
+                    .Build()
+                );
+                newMessages.Add(new MessageEntryBuilder()
+                    .Id(0x1FCA)
+                    .Message(it =>
+                    {
+                        it.QuickText(() => it.Text("You still haven't done it!"))
+                        .EndTextBox()
+                        .Text("I keep telling you that if you don't").NewLine()
+                        .Text("get it done soon, terrible things").NewLine()
+                        .Text("will happen!!!")
+                        .DisableTextSkip2()
+                        .EndFinalTextBox();
+                    })
+                    .Build()
+                );
+                newMessages.Add(new MessageEntryBuilder()
+                    .Id(0x1FCD)
+                    .Message(it =>
+                    {
+                        it.CompileTimeWrap((wrapped) =>
+                        {
+                            wrapped.Text("You'll do fine. Surely you will be able to ");
+                            for (var i = 0; i < flavorTexts2.Count; i++)
+                            {
+                                var text = flavorTexts2[i].Replace("[RED]", TextCommands.ColorRed.ToString()).Replace("[WHITE]", TextCommands.ColorWhite.ToString());
+                                wrapped.Text(text);
+                                if (i < flavorTexts2.Count - 2)
+                                {
+                                    wrapped.Text(", ");
+                                }
+                                else if (i < flavorTexts2.Count - 1)
+                                {
+                                    wrapped.Text(" and ");
+                                }
+                            }
+                            wrapped.Text(".");
+                        })
+                        .EndTextBox()
+                        .Text("Only ").Red("\xE7 ").Text("remain.").NewLine()
+                        .Text("But time is not eternal.").NewLine()
+                        .Text("Please make the most of your").NewLine()
+                        .Text("time.")
+                        .EndTextBox()
+                        .Text("I believe in you.").NewLine()
+                        .Text("I will be waiting here for you.").NewLine()
+                        .PlaySoundEffect(0x697F).Text("Ho, ho, ho.")
+                        .EndFinalTextBox()
+                        ;
+                    })
+                    .Build()
+                );
+                newMessages.Add(new MessageEntryBuilder()
+                    .Id(0x1FCF)
+                    .Message(it =>
+                    {
+                        it.CompileTimeWrap((wrapped) =>
+                        {
+                            wrapped.Text("So then...").NewLine()
+                            .Text("Have you ");
+                            for (var i = 0; i < flavorTextsPast.Count; i++)
+                            {
+                                var text = flavorTextsPast[i].Replace("[RED]", TextCommands.ColorRed.ToString()).Replace("[WHITE]", TextCommands.ColorWhite.ToString());
+                                wrapped.Text(text);
+                                if (i < flavorTextsPast.Count - 2)
+                                {
+                                    wrapped.Text(", ");
+                                }
+                                else if (i < flavorTextsPast.Count - 1)
+                                {
+                                    wrapped.Text(" and ");
+                                }
+                            }
+                            wrapped.Text("?");
+                        })
+                        .DisableTextSkip2()
+                        .EndFinalTextBox()
+                        ;
+                    })
+                    .Build()
+                );
+                newMessages.Add(new MessageEntryBuilder()
+                    .Id(0x2006)
+                    .Message(it =>
+                    {
+                        it.CompileTimeWrap((wrapped) =>
+                        {
+                            wrapped.Text("You'll be fine. Surely you should be able to ");
+                            for (var i = 0; i < flavorTexts2.Count; i++)
+                            {
+                                var text = flavorTexts2[i].Replace("[RED]", TextCommands.ColorRed.ToString()).Replace("[WHITE]", TextCommands.ColorWhite.ToString());
+                                wrapped.Text(text);
+                                if (i < flavorTexts2.Count - 2)
+                                {
+                                    wrapped.Text(", ");
+                                }
+                                else if (i < flavorTexts2.Count - 1)
+                                {
+                                    wrapped.Text(" and ");
+                                }
+                            }
+                            wrapped.Text(".");
+                        })
+                        .EndTextBox()
+                        .Text("Yet there's no time left.")
+                        .EndTextBox()
+                        .Text("But time is not eternal.").NewLine()
+                        .Text("Please value your time.").NewLine()
+                        .Text("I believe in you. I'll be").NewLine()
+                        .Text("waiting here for you.")
+                        .EndTextBox()
+                        .Text("Ho, ho, ho.")
+                        .EndFinalTextBox()
+                        ;
+                    })
+                    .Build()
+                );
+            }
+        }
+
         private void WriteOathHintText(List<MessageEntry> newMessages)
         {
             var oathItem = _randomized.ItemList[Item.SongOath];
@@ -5894,6 +6083,8 @@ namespace MMR.Randomizer
             }
 
             WriteMiscItemText(newMessages);
+
+            WriteVictoryConditionText(newMessages);
 
             var itemsWithCustomMessage = new List<Item>
             {
