@@ -1818,7 +1818,7 @@ namespace MMR.Randomizer
             }
 
             var availableItems = targets.ToList();
-            if (currentItem > Item.SongOath)
+            if (!currentItem.CanBeStartedWith())
             {
                 availableItems.Remove(Item.MaskDeku);
                 availableItems.Remove(Item.SongHealing);
