@@ -156,6 +156,8 @@ extern void z2_load_scene();
 
 extern void z2_EffectSsKiraKira_SpawnSmall(GlobalContext* globalCtx, Vec3f* pos, Vec3f* velocity, Vec3f* accel,
                                  ColorRGBA8* primColor, ColorRGBA8* envColor);
+extern void z2_EffectSsKiraKira_SpawnDispersed(GlobalContext* globalCtx, Vec3f* pos, Vec3f* velocity, Vec3f* accel,
+                                 ColorRGBA8* primColor, ColorRGBA8* envColor, s16 scale, s32 life);
 extern void z2_EffectSsHitmark_SpawnCustomScale(GlobalContext* ctxt, s32 type, s16 scale, Vec3f* pos);
 extern void z2_EffectSsIceSmoke_Spawn(GlobalContext* ctxt, Vec3f* pos, Vec3f* velocity, Vec3f* accel, s16 scale);
 

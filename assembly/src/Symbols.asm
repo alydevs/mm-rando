@@ -23,6 +23,7 @@
 .definelabel z2_rupee_drop_spawn, 0x800A7AD4
 .definelabel z2_random_drop_spawn, 0x800A7D28
 .definelabel z2_EffectSsKiraKira_SpawnSmall, 0x800B16B8
+.definelabel z2_EffectSsKiraKira_SpawnDispersed, 0x800B16F4
 .definelabel z2_EffectSsHitmark_SpawnCustomScale, 0x800B26A8
 .definelabel z2_EffectSsIceSmoke_Spawn, 0x800B320C
 .definelabel z2_SetShape, 0x800B3BA4

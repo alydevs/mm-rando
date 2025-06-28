@@ -299,6 +299,8 @@ namespace MMR.Randomizer.Asm
 
         public bool SkulltulaTokenSounds { get; set; }
 
+        public bool MinorDropSparkle { get; set; } = true;
+
         public bool TakeDamageOnEpona { get; set; }
 
         public bool TakeDamageWhileShielding { get; set; }
@@ -355,6 +357,7 @@ namespace MMR.Randomizer.Asm
             EasyFrameByFrame = bitUnpacker.ReadBool();
             FairyMaskShimmer = bitUnpacker.ReadBool();
             SkulltulaTokenSounds = bitUnpacker.ReadBool();
+            MinorDropSparkle = bitUnpacker.ReadBool();
             TakeDamageOnEpona = bitUnpacker.ReadBool();
             TakeDamageWhileShielding = bitUnpacker.ReadBool();
             TakeDamageFromVoid = bitUnpacker.ReadBool();
@@ -401,6 +404,7 @@ namespace MMR.Randomizer.Asm
             bitPacker.Write(EasyFrameByFrame);
             bitPacker.Write(FairyMaskShimmer);
             bitPacker.Write(SkulltulaTokenSounds);
+            bitPacker.Write(MinorDropSparkle);
             bitPacker.Write(TakeDamageOnEpona);
             bitPacker.Write(TakeDamageWhileShielding);
             bitPacker.Write(TakeDamageFromVoid);
