@@ -257,7 +257,8 @@ namespace MMR.Randomizer.Extensions
         {
             return item.HasAttribute<StartingTingleMapAttribute>()
                 || item.HasAttribute<StartingItemIdAttribute>()
-                || item.HasAttribute<StartingItemAttribute>();
+                || item.HasAttribute<StartingItemAttribute>()
+                || item.HasAttribute<StartingItemSkullAttribute>();
         }
 
         public static IList<DungeonEntrance> DungeonEntrances(this Item item)

@@ -1604,6 +1604,8 @@ namespace MMR.Randomizer
                 .ToList();
 
             _randomized.Settings.AsmOptions.MMRConfig.ExtraStartingMaps = TingleMap.None;
+            _randomized.Settings.AsmOptions.MMRConfig.ExtraStartingSwampSkullTokens = 0;
+            _randomized.Settings.AsmOptions.MMRConfig.ExtraStartingOceanSkullTokens = 0;
             _randomized.Settings.AsmOptions.MMRConfig.ExtraStartingItemIds.Clear();
             foreach (var item in itemList)
             {
@@ -1612,6 +1614,21 @@ namespace MMR.Randomizer
                 {
                     _randomized.Settings.AsmOptions.MMRConfig.ExtraStartingMaps |= startingTingleMap.TingleMap;
                     continue;
+                }
+                if (item.HasAttribute<StartingItemSkullAttribute>())
+                {
+                    if (ItemUtils.OceanSkulltulaTokens().Contains(item))
+                    {
+                        _randomized.Settings.AsmOptions.MMRConfig.ExtraStartingOceanSkullTokens++;
+                    }
+                    else if (ItemUtils.SwampSkulltulaTokens().Contains(item))
+                    {
+                        _randomized.Settings.AsmOptions.MMRConfig.ExtraStartingSwampSkullTokens++;
+                    }
+                    else
+                    {
+                        throw new Exception($@"Invalid {nameof(StartingItemSkullAttribute)} for item ""{item}""");
+                    }
                 }
                 if (item.HasAttribute<StartingItemIdAttribute>())
                 {

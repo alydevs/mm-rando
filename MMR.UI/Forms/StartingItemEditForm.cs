@@ -16,7 +16,7 @@ namespace MMR.UI.Forms
     {
         private readonly List<Item> _startingItems;
         private bool updating = false;
-        private const int ItemGroupCount = 5;
+        private const int ItemGroupCount = 7;
 
         public string ExternalLabel { get; private set; }
         public List<Item> CustomStartingItemList { get; private set; } = new List<Item>();

@@ -228,7 +228,9 @@ namespace MMR.Randomizer.Utils
                 .Cast<Item>()
                 .Where(item => item.HasAttribute<StartingItemAttribute>()
                     || item.HasAttribute<StartingTingleMapAttribute>()
-                    || item.HasAttribute<StartingItemIdAttribute>());
+                    || item.HasAttribute<StartingItemIdAttribute>()
+                    || item.HasAttribute<StartingItemSkullAttribute>()
+                    );
         }
 
         // todo cache
