@@ -201,13 +201,14 @@ namespace MMR.Randomizer.Utils
             {
                 checkedLocations = new Dictionary<Item, LogicPaths>();
             }
-            if (checkedLocations.ContainsKey(location))
+            var checkedLocation = checkedLocations.GetValueOrDefault(location);
+            if (checkedLocation != null && !checkedLocation.Important.Intersect(exclude).Any() && !exclude.Contains(location))
             {
-                if (logicPath.Intersect(checkedLocations[location].Required).Any())
+                if (logicPath.Intersect(checkedLocation.Required).Any())
                 {
                     return null;
                 }
-                return checkedLocations[location];
+                return checkedLocation;
             }
             var locationLogic = itemLogic[(int)location];
             var required = new List<Item>();

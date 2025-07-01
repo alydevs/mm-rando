@@ -3499,6 +3499,15 @@ namespace MMR.Randomizer
                         : logicForImportance;
 
                     var checkedLocations = new Dictionary<Item, LogicUtils.LogicPaths>();
+                    foreach (var location in Enum.GetValues<Item>())
+                    {
+                        if (location.Region(ItemList).HasValue && location.Entrance() == null)
+                        {
+                            var focusedCheckedLocations = checkedLocations.ToDictionary(x => x.Key, x => x.Value);
+                            LogicUtils.GetImportantLocations(ItemList, _settings, location, logicForImportance, checkedLocations: focusedCheckedLocations);
+                            checkedLocations[location] = focusedCheckedLocations[location];
+                        }
+                    }
                     var logicPaths = LogicUtils.GetImportantLocations(ItemList, _settings, Item.OtherCredits, logicForImportance, checkedLocations: checkedLocations);
                     var importantLocations = logicPaths?.Important.Where(item => item.Region(ItemList).HasValue && item.Entrance() == null).Distinct().ToHashSet();
                     var requiredSongLocations = logicPaths?.RequiredSongLocations.ToList();
@@ -3525,7 +3534,8 @@ namespace MMR.Randomizer
                             {
                                 return;
                             }
-                            var checkPaths = LogicUtils.GetImportantLocations(ItemList, _settings, Item.OtherCredits, logicForRequiredItems, cts: cts, exclude: location);
+                            var checkedLocationsCopy = checkedLocations.ToDictionary(x => x.Key, x => x.Value);
+                            var checkPaths = LogicUtils.GetImportantLocations(ItemList, _settings, Item.OtherCredits, logicForRequiredItems, cts: cts, checkedLocations: checkedLocationsCopy, exclude: location);
                             if (checkPaths != null)
                             {
                                 locationsRequiredForMoonAccess.Remove(location, out bool _);
