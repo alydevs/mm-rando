@@ -308,6 +308,13 @@ namespace MMR.Randomizer.Models.Settings
             set { this.AsmOptions.MiscConfig.Flags.SkulltulaTokenSounds = value; }
         }
 
+        [Description("Pots, Grass, Snowballs, Rocks, Crates, Barrels, Beehives, Flower Pots and Butterflies with randomized items will emit a sparkle.")]
+        public bool MinorDropSparkle
+        {
+            get { return this.AsmOptions.MiscConfig.Flags.MinorDropSparkle; }
+            set { this.AsmOptions.MiscConfig.Flags.MinorDropSparkle = value; }
+        }
+
         [Description("Instead of being immune to damage while riding Epona, Link will take damage and be thrown off.")]
         [SettingTab(SettingTabAttribute.Type.Gimmicks)]
         public bool TakeDamageOnEpona
