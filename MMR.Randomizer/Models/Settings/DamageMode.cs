@@ -12,6 +12,8 @@ namespace MMR.Randomizer.Models
 
         Quadruple,
 
+        Octuple,
+
         [SettingName("One-Hit KO")]
         OHKO,
 

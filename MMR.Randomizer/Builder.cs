@@ -1277,7 +1277,7 @@ namespace MMR.Randomizer
             int damageMultiplier = (int)_randomized.Settings.DamageMode;
             if (damageMultiplier > 0)
             {
-                ResourceUtils.ApplyIndexedHack(damageMultiplier-1, Resources.mods.dm_1, Resources.mods.dm_2, Resources.mods.dm_3, Resources.mods.dm_4);
+                ResourceUtils.ApplyIndexedHack(damageMultiplier-1, Resources.mods.dm_1, Resources.mods.dm_2, Resources.mods.dm_8x, Resources.mods.dm_3, Resources.mods.dm_4);
             }
 
             int deathMode = (int)_randomized.Settings.DeathMode;

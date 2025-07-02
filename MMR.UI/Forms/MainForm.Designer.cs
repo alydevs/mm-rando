@@ -1090,6 +1090,7 @@ namespace MMR.UI.Forms
             "Default",
             "2x",
             "4x",
+            "8x",
             "1-hit KO",
             "Doom"});
             this.cDMult.Location = new System.Drawing.Point(7, 34);
