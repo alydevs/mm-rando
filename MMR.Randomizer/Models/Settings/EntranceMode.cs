@@ -1,0 +1,18 @@
+﻿using System;
+using System.ComponentModel;
+
+namespace MMR.Randomizer.Models
+{
+    [Flags]
+    [Description("Entrances")]
+    public enum EntranceMode
+    {
+        Default,
+
+        [Description("Enable randomization of dungeon entrances. \n\nStone Tower Temple is always vanilla, but Inverted Stone Tower Temple is randomized.")]
+        DungeonEntrances = 1,
+
+        [Description("Enable randomization of boss rooms. The boss door texture will match the boss behind the door.")]
+        BossRooms = 1 << 1,
+    }
+}

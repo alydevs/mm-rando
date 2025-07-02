@@ -5,7 +5,7 @@ using System.ComponentModel;
 namespace MMR.Randomizer.Models
 {
     [Flags]
-    [Description("Boss Key Mode")]
+    [Description("Boss Keys")]
     public enum BossKeyMode
     {
         Default,

@@ -387,8 +387,7 @@ namespace MMR.Randomizer.Models.Settings
             nameof(ProgressiveUpgrades),
             nameof(CustomJunkLocationsString),
             nameof(CustomItemListString),
-            nameof(RandomizeDungeonEntrances),
-            nameof(RandomizeBossRooms),
+            nameof(EntranceMode),
             nameof(StartingItemMode),
             nameof(RequiredBossRemains),
             nameof(VictoryMode),
@@ -452,18 +451,6 @@ namespace MMR.Randomizer.Models.Settings
         public bool AddSongs { get; set; }
 
         /// <summary>
-        /// Randomize which dungeon you appear in when entering one
-        /// </summary>
-        [Description("Enable randomization of dungeon entrances. \n\nStone Tower Temple is always vanilla, but Inverted Stone Tower Temple is randomized.")]
-        public bool RandomizeDungeonEntrances { get; set; }
-
-        /// <summary>
-        /// Randomize which boss room you appear in when entering one
-        /// </summary>
-        [Description("Enable randomization of boss rooms. The boss door texture will match the boss behind the door.")]
-        public bool RandomizeBossRooms { get; set; }
-
-        /// <summary>
         /// (Beta) Randomize enemies
         /// </summary>
         [Description("Enable randomization of enemies. May cause softlocks in some circumstances, use at your own risk.")]
@@ -491,6 +478,8 @@ namespace MMR.Randomizer.Models.Settings
         public DungeonNavigationMode DungeonNavigationMode { get; set; }
 
         public VictoryMode VictoryMode { get; set; }
+
+        public EntranceMode EntranceMode { get; set; }
 
 
         /// <summary>

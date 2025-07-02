@@ -5,7 +5,7 @@ using System.ComponentModel;
 namespace MMR.Randomizer.Models
 {
     [Flags]
-    [Description("Victory Mode")]
+    [Description("Victory")]
     public enum VictoryMode
     {
         Default,

@@ -4,7 +4,7 @@ using System.ComponentModel;
 namespace MMR.Randomizer.Models
 {
     [Flags]
-    [Description("Randomize Prices")]
+    [Description("Prices")]
     public enum PriceMode
     {
         None,

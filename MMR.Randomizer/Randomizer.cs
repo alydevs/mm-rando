@@ -3346,13 +3346,13 @@ namespace MMR.Randomizer
                 progressReporter.ReportProgress(5, "Preparing ruleset...");
                 PrepareRulesetItemData();
 
-                if (_settings.RandomizeBossRooms)
+                if (_settings.EntranceMode.HasFlag(EntranceMode.BossRooms))
                 {
                     progressReporter.ReportProgress(10, "Shuffling bosses...");
                     BossShuffle();
                 }
 
-                if (_settings.RandomizeDungeonEntrances)
+                if (_settings.EntranceMode.HasFlag(EntranceMode.DungeonEntrances))
                 {
                     progressReporter.ReportProgress(20, "Shuffling entrances...");
                     EntranceShuffle();

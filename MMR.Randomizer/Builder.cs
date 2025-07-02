@@ -978,7 +978,7 @@ namespace MMR.Randomizer
                 return;
             }
 
-            if (!_randomized.Settings.RandomizeDungeonEntrances && !_randomized.Settings.RandomizeBossRooms)
+            if (!_randomized.Settings.EntranceMode.HasFlag(EntranceMode.DungeonEntrances) && !_randomized.Settings.EntranceMode.HasFlag(EntranceMode.BossRooms))
             {
                 return;
             }
@@ -987,7 +987,7 @@ namespace MMR.Randomizer
             SceneUtils.GetMaps();
 
             var entrances = new List<Item>();
-            if (_randomized.Settings.RandomizeDungeonEntrances)
+            if (_randomized.Settings.EntranceMode.HasFlag(EntranceMode.DungeonEntrances))
             {
                 entrances.Add(Item.AreaWoodFallTempleAccess);
                 entrances.Add(Item.AreaWoodFallTempleClear);
@@ -998,7 +998,7 @@ namespace MMR.Randomizer
                 entrances.Add(Item.AreaInvertedStoneTowerTempleAccess);
                 entrances.Add(Item.AreaStoneTowerClear);
             }
-            if (_randomized.Settings.RandomizeBossRooms)
+            if (_randomized.Settings.EntranceMode.HasFlag(EntranceMode.BossRooms))
             {
                 entrances.Add(Item.AreaWoodFallTempleClear);
                 entrances.Add(Item.AreaSnowheadTempleClear);
@@ -1070,7 +1070,7 @@ namespace MMR.Randomizer
                     (byte)(Values.DCFlagMasks[newIndex] & 0xFF) });
             }
 
-            if (_randomized.Settings.RandomizeBossRooms)
+            if (_randomized.Settings.EntranceMode.HasFlag(EntranceMode.BossRooms))
             {
                 var bosses = new List<Item>
                 {

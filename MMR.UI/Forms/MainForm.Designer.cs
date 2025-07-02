@@ -47,11 +47,9 @@ namespace MMR.UI.Forms
             this.cGibdoRequirements = new System.Windows.Forms.CheckBox();
             this.cRequiredBossRemains = new System.Windows.Forms.ComboBox();
             this.lRequiredRemains = new System.Windows.Forms.Label();
-            this.cShuffleBosses = new System.Windows.Forms.CheckBox();
             this.cStartingItems = new System.Windows.Forms.ComboBox();
             this.lStartingItems = new System.Windows.Forms.Label();
             this.cProgressiveUpgrades = new System.Windows.Forms.CheckBox();
-            this.cDEnt = new System.Windows.Forms.CheckBox();
             this.cMixSongs = new System.Windows.Forms.CheckBox();
             this.cEnemy = new System.Windows.Forms.CheckBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
@@ -181,6 +179,7 @@ namespace MMR.UI.Forms
             this.lLink = new System.Windows.Forms.Label();
             this.cLink = new System.Windows.Forms.ComboBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.cAddKegDrops = new System.Windows.Forms.CheckBox();
             this.cGossipsTolerant = new System.Windows.Forms.CheckBox();
             this.cQuestItemKeep = new System.Windows.Forms.CheckBox();
             this.cUpdateNpcText = new System.Windows.Forms.CheckBox();
@@ -283,7 +282,6 @@ namespace MMR.UI.Forms
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
             this.bSkip = new System.Windows.Forms.Button();
-            this.cAddKegDrops = new System.Windows.Forms.CheckBox();
             this.tSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.tOtherCustomizations.SuspendLayout();
@@ -397,11 +395,9 @@ namespace MMR.UI.Forms
             this.tOtherCustomization.Controls.Add(this.cGibdoRequirements);
             this.tOtherCustomization.Controls.Add(this.cRequiredBossRemains);
             this.tOtherCustomization.Controls.Add(this.lRequiredRemains);
-            this.tOtherCustomization.Controls.Add(this.cShuffleBosses);
             this.tOtherCustomization.Controls.Add(this.cStartingItems);
             this.tOtherCustomization.Controls.Add(this.lStartingItems);
             this.tOtherCustomization.Controls.Add(this.cProgressiveUpgrades);
-            this.tOtherCustomization.Controls.Add(this.cDEnt);
             this.tOtherCustomization.Controls.Add(this.cMixSongs);
             this.tOtherCustomization.Controls.Add(this.cEnemy);
             this.tOtherCustomization.Location = new System.Drawing.Point(4, 24);
@@ -417,7 +413,7 @@ namespace MMR.UI.Forms
             this.cGibdoRequirements.AutoSize = true;
             this.cGibdoRequirements.BackColor = System.Drawing.Color.Transparent;
             this.cGibdoRequirements.ForeColor = System.Drawing.Color.Black;
-            this.cGibdoRequirements.Location = new System.Drawing.Point(380, 36);
+            this.cGibdoRequirements.Location = new System.Drawing.Point(193, 11);
             this.cGibdoRequirements.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cGibdoRequirements.Name = "cGibdoRequirements";
             this.cGibdoRequirements.Size = new System.Drawing.Size(134, 19);
@@ -450,19 +446,6 @@ namespace MMR.UI.Forms
             this.lRequiredRemains.TabIndex = 29;
             this.lRequiredRemains.Text = "Boss Remains For Moon";
             // 
-            // cShuffleBosses
-            // 
-            this.cShuffleBosses.AutoSize = true;
-            this.cShuffleBosses.BackColor = System.Drawing.Color.Transparent;
-            this.cShuffleBosses.ForeColor = System.Drawing.Color.Black;
-            this.cShuffleBosses.Location = new System.Drawing.Point(193, 10);
-            this.cShuffleBosses.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.cShuffleBosses.Name = "cShuffleBosses";
-            this.cShuffleBosses.Size = new System.Drawing.Size(127, 19);
-            this.cShuffleBosses.TabIndex = 28;
-            this.cShuffleBosses.Text = "Shuffle boss rooms";
-            this.cShuffleBosses.UseVisualStyleBackColor = false;
-            // 
             // cStartingItems
             // 
             this.cStartingItems.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -491,26 +474,13 @@ namespace MMR.UI.Forms
             this.cProgressiveUpgrades.AutoSize = true;
             this.cProgressiveUpgrades.BackColor = System.Drawing.Color.Transparent;
             this.cProgressiveUpgrades.ForeColor = System.Drawing.Color.Black;
-            this.cProgressiveUpgrades.Location = new System.Drawing.Point(380, 10);
+            this.cProgressiveUpgrades.Location = new System.Drawing.Point(6, 11);
             this.cProgressiveUpgrades.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cProgressiveUpgrades.Name = "cProgressiveUpgrades";
             this.cProgressiveUpgrades.Size = new System.Drawing.Size(139, 19);
             this.cProgressiveUpgrades.TabIndex = 21;
             this.cProgressiveUpgrades.Text = "Progressive Upgrades";
             this.cProgressiveUpgrades.UseVisualStyleBackColor = false;
-            // 
-            // cDEnt
-            // 
-            this.cDEnt.AutoSize = true;
-            this.cDEnt.BackColor = System.Drawing.Color.Transparent;
-            this.cDEnt.ForeColor = System.Drawing.Color.Black;
-            this.cDEnt.Location = new System.Drawing.Point(6, 10);
-            this.cDEnt.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.cDEnt.Name = "cDEnt";
-            this.cDEnt.Size = new System.Drawing.Size(168, 19);
-            this.cDEnt.TabIndex = 7;
-            this.cDEnt.Text = "Shuffle dungeon entrances";
-            this.cDEnt.UseVisualStyleBackColor = false;
             // 
             // cMixSongs
             // 
@@ -2224,6 +2194,17 @@ namespace MMR.UI.Forms
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Comfort Options";
             // 
+            // cAddKegDrops
+            // 
+            this.cAddKegDrops.AutoSize = true;
+            this.cAddKegDrops.Location = new System.Drawing.Point(172, 267);
+            this.cAddKegDrops.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.cAddKegDrops.Name = "cAddKegDrops";
+            this.cAddKegDrops.Size = new System.Drawing.Size(105, 19);
+            this.cAddKegDrops.TabIndex = 52;
+            this.cAddKegDrops.Text = "Add Keg Drops";
+            this.cAddKegDrops.UseVisualStyleBackColor = true;
+            // 
             // cGossipsTolerant
             // 
             this.cGossipsTolerant.AutoSize = true;
@@ -3368,17 +3349,6 @@ namespace MMR.UI.Forms
             this.bSkip.Visible = false;
             this.bSkip.Click += new System.EventHandler(this.bSkip_Click);
             // 
-            // cAddKegDrops
-            // 
-            this.cAddKegDrops.AutoSize = true;
-            this.cAddKegDrops.Location = new System.Drawing.Point(172, 267);
-            this.cAddKegDrops.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.cAddKegDrops.Name = "cAddKegDrops";
-            this.cAddKegDrops.Size = new System.Drawing.Size(105, 19);
-            this.cAddKegDrops.TabIndex = 52;
-            this.cAddKegDrops.Text = "Add Keg Drops";
-            this.cAddKegDrops.UseVisualStyleBackColor = true;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -3489,7 +3459,6 @@ namespace MMR.UI.Forms
         private System.Windows.Forms.Label lLink;
         private System.Windows.Forms.CheckBox cQText;
         private System.Windows.Forms.CheckBox cEnemy;
-        private System.Windows.Forms.CheckBox cDEnt;
         private System.Windows.Forms.CheckBox cMixSongs;
         private System.Windows.Forms.ColorDialog cEnergy;
         private System.Windows.Forms.ColorDialog cTunic;
@@ -3682,7 +3651,6 @@ namespace MMR.UI.Forms
         private System.Windows.Forms.CheckBox cSpeedupBabyCucco;
         private System.Windows.Forms.Label lChestGame;
         private System.Windows.Forms.ComboBox cChestGameMinimap;
-        private System.Windows.Forms.CheckBox cShuffleBosses;
         private System.Windows.Forms.CheckBox cAddBombchuDrops;
         private System.Windows.Forms.Label lTrapWeightings;
         private System.Windows.Forms.CheckBox cRainbowTunic;

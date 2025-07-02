@@ -47,14 +47,14 @@ namespace MMR.Randomizer.Utils
 
             Dictionary<Item, Item> dungeonEntrances = new Dictionary<Item, Item>();
             var entrances = new List<Item>();
-            if (settings.RandomizeDungeonEntrances)
+            if (settings.EntranceMode.HasFlag(EntranceMode.DungeonEntrances))
             {
                 entrances.Add(Item.AreaWoodFallTempleAccess);
                 entrances.Add(Item.AreaSnowheadTempleAccess);
                 entrances.Add(Item.AreaGreatBayTempleAccess);
                 entrances.Add(Item.AreaInvertedStoneTowerTempleAccess);
             }
-            if (settings.RandomizeBossRooms)
+            if (settings.EntranceMode.HasFlag(EntranceMode.BossRooms))
             {
                 entrances.Add(Item.AreaOdolwasLair);
                 entrances.Add(Item.AreaGohtsLair);

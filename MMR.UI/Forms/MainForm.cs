@@ -87,8 +87,6 @@ namespace MMR.UI.Forms
                 // Main Settings
                 { cMixSongs, cfg => cfg.GameplaySettings.AddSongs },
                 { cProgressiveUpgrades, cfg => cfg.GameplaySettings.ProgressiveUpgrades },
-                { cDEnt, cfg => cfg.GameplaySettings.RandomizeDungeonEntrances },
-                { cShuffleBosses, cfg => cfg.GameplaySettings.RandomizeBossRooms },
                 { cEnemy, cfg => cfg.GameplaySettings.RandomizeEnemies },
                 { cGibdoRequirements, cfg => cfg.GameplaySettings.RandomizeGibdoRequirements },
                 { cMode, cfg => cfg.GameplaySettings.LogicMode },
@@ -431,6 +429,7 @@ namespace MMR.UI.Forms
         private void InitializeDungeonModeSettings()
         {
             var properties = new List<PropertyInfo>();
+            properties.Add(typeof(GameplaySettings).GetProperty(nameof(GameplaySettings.EntranceMode)));
             properties.Add(typeof(GameplaySettings).GetProperty(nameof(GameplaySettings.VictoryMode)));
             properties.Add(typeof(GameplaySettings).GetProperty(nameof(GameplaySettings.PriceMode)));
             properties.Add(typeof(GameplaySettings).GetProperty(nameof(GameplaySettings.BossRemainsMode)));
@@ -1295,8 +1294,6 @@ namespace MMR.UI.Forms
             cItemPlacement.SelectedIndex = (int)_configuration.GameplaySettings.ItemPlacement;
             cMixSongs.Checked = _configuration.GameplaySettings.AddSongs;
             cProgressiveUpgrades.Checked = _configuration.GameplaySettings.ProgressiveUpgrades;
-            cDEnt.Checked = _configuration.GameplaySettings.RandomizeDungeonEntrances;
-            cShuffleBosses.Checked = _configuration.GameplaySettings.RandomizeBossRooms;
             cSFX.Checked = _configuration.CosmeticSettings.RandomizeSounds;
             cEnemy.Checked = _configuration.GameplaySettings.RandomizeEnemies;
             cGibdoRequirements.Checked = _configuration.GameplaySettings.RandomizeGibdoRequirements;
@@ -1788,8 +1785,6 @@ namespace MMR.UI.Forms
             {
                 control.Enabled = !vanillaMode;
             }
-            cDEnt.Enabled = !vanillaMode;
-            cShuffleBosses.Enabled = !vanillaMode;
             cSpoiler.Enabled = !vanillaMode;
             cHTMLLog.Enabled = !vanillaMode;
             cGossipHints.Enabled = !vanillaMode;
@@ -1888,8 +1883,6 @@ namespace MMR.UI.Forms
             bJunkLocationsEditor.Enabled = v;
             tJunkLocationsList.Enabled = v;
 
-            cDEnt.Enabled = v;
-            cShuffleBosses.Enabled = v;
             cStartingItems.Enabled = v;
             cRequiredBossRemains.Enabled = v;
             cMixSongs.Enabled = v;
