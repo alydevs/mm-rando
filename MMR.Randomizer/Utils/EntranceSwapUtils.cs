@@ -13,7 +13,7 @@ namespace MMR.Randomizer.Utils
                 { 93, 94 },     // twin islands
                 { 77, 72 }      // goron village
             };
-        internal static void WriteNewEntrance(DungeonEntrance exit, DungeonEntrance newSpawn)
+        internal static void WriteNewEntrance(Entrance exit, Entrance newSpawn)
         {
             var spawnId = newSpawn.SpawnId();
             foreach (var exitInfo in exit.ExitIndices())
@@ -43,7 +43,7 @@ namespace MMR.Randomizer.Utils
             }
         }
 
-        internal static void WriteSpawnToROM(DungeonEntrance newSpawn)
+        internal static void WriteSpawnToROM(Entrance newSpawn)
         {
             var spawnAddress = newSpawn.SpawnId();
             ReadWriteUtils.WriteToROM(0xBDB882, spawnAddress);

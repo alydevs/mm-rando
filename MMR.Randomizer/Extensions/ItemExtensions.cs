@@ -261,14 +261,14 @@ namespace MMR.Randomizer.Extensions
                 || item.HasAttribute<StartingItemSkullAttribute>();
         }
 
-        public static IList<DungeonEntrance> DungeonEntrances(this Item item)
+        public static IList<Entrance> Entrances(this Item item)
         {
-            if (!item.HasAttribute<DungeonEntranceAttribute>())
+            if (!item.HasAttribute<EntranceAttribute>())
             {
                 return null;
             }
-            var result = new List<DungeonEntrance>();
-            var attr = item.GetAttribute<DungeonEntranceAttribute>();
+            var result = new List<Entrance>();
+            var attr = item.GetAttribute<EntranceAttribute>();
             result.Add(attr.Entrance);
             if (attr.Pair.HasValue)
             {

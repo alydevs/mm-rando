@@ -301,7 +301,7 @@ namespace MMR.Randomizer
 
         #endregion
 
-        private void EntranceShuffle()
+        private void DungeonEntranceShuffle()
         {
             var dungeonEntrances = new List<Item>
             {
@@ -3355,7 +3355,7 @@ namespace MMR.Randomizer
                 if (_settings.EntranceMode.HasFlag(EntranceMode.DungeonEntrances))
                 {
                     progressReporter.ReportProgress(20, "Shuffling entrances...");
-                    EntranceShuffle();
+                    DungeonEntranceShuffle();
                 }
 
                 PrepareAdditionalItemData();
@@ -3592,7 +3592,7 @@ namespace MMR.Randomizer
                     }
                     bool shouldAppearInPlaythrough(ItemObject io)
                     {
-                        return io.IsRandomized && io.Item.DungeonEntrances() == null;
+                        return io.IsRandomized && io.Item.Entrances() == null;
                     }
                     do
                     {
@@ -3662,7 +3662,7 @@ namespace MMR.Randomizer
 
                                 var item = ItemList.Single(x => x.NewLocation == (mainLocation ?? location)).Item;
                                 currentSphereItems.Add(item);
-                                if (location.DungeonEntrances() != null)
+                                if (location.Entrances() != null)
                                 {
                                     currentSphere.Add(new ItemLocationPair
                                     {

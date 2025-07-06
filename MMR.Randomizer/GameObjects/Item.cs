@@ -1039,38 +1039,38 @@ namespace MMR.Randomizer.GameObjects
         AreaSouthAccess,
 
         [EntranceName("Woodfall")]
-        [DungeonEntrance(DungeonEntrance.EntranceWoodfallTempleFromWoodfall, DungeonEntrance.EntranceWoodfallFromWoodfallTempleEntrance)]
+        [Entrance(Entrance.EntranceWoodfallTempleFromWoodfall, Entrance.EntranceWoodfallFromWoodfallTempleEntrance)]
         AreaWoodFallTempleAccess,
 
-        [DungeonEntrance(DungeonEntrance.EntranceWoodfallTemplePrisonFromOdolwasLair)]
+        [Entrance(Entrance.EntranceWoodfallTemplePrisonFromOdolwasLair)]
         AreaWoodFallTempleClear,
         AreaNorthAccess,
 
         [EntranceName("Snowhead")]
-        [DungeonEntrance(DungeonEntrance.EntranceSnowheadTempleFromSnowhead, DungeonEntrance.EntranceSnowheadFromSnowheadTemple)]
+        [Entrance(Entrance.EntranceSnowheadTempleFromSnowhead, Entrance.EntranceSnowheadFromSnowheadTemple)]
         AreaSnowheadTempleAccess,
 
-        [DungeonEntrance(DungeonEntrance.EntranceMountainVillageFromSnowheadClear)]
+        [Entrance(Entrance.EntranceMountainVillageFromSnowheadClear)]
         AreaSnowheadTempleClear,
         OtherEpona,
         AreaWestAccess,
         AreaPiratesFortressAccess,
 
         [EntranceName("Great Bay")]
-        [DungeonEntrance(DungeonEntrance.EntranceGreatBayTempleFromZoraCape, DungeonEntrance.EntranceZoraCapeFromGreatBayTemple)]
+        [Entrance(Entrance.EntranceGreatBayTempleFromZoraCape, Entrance.EntranceZoraCapeFromGreatBayTemple)]
         AreaGreatBayTempleAccess,
 
-        [DungeonEntrance(DungeonEntrance.EntranceZoraCapeFromGreatBayTempleClear)]
+        [Entrance(Entrance.EntranceZoraCapeFromGreatBayTempleClear)]
         AreaGreatBayTempleClear,
         AreaEastAccess,
         AreaIkanaCanyonAccess,
         AreaStoneTowerTempleAccess,
 
         [EntranceName("Inverted Stone Tower")]
-        [DungeonEntrance(DungeonEntrance.EntranceStoneTowerTempleInvertedFromStoneTowerInverted, DungeonEntrance.EntranceStoneTowerInvertedFromStoneTowerTempleInverted)]
+        [Entrance(Entrance.EntranceStoneTowerTempleInvertedFromStoneTowerInverted, Entrance.EntranceStoneTowerInvertedFromStoneTowerTempleInverted)]
         AreaInvertedStoneTowerTempleAccess,
 
-        [DungeonEntrance(DungeonEntrance.EntranceIkanaCanyonFromIkanaClear)]
+        [Entrance(Entrance.EntranceIkanaCanyonFromIkanaClear)]
         AreaStoneTowerClear,
         OtherExplosive,
         OtherArrow,
@@ -1088,19 +1088,19 @@ namespace MMR.Randomizer.GameObjects
         OtherInaccessible,
 
         [EntranceName("Odolwa's Lair"), Region(Region.WoodfallTemple)]
-        [DungeonEntrance(DungeonEntrance.EntranceOdolwasLairFromWoodfallTemple)]
+        [Entrance(Entrance.EntranceOdolwasLairFromWoodfallTemple)]
         AreaOdolwasLair,
 
         [EntranceName("Goht's Lair"), Region(Region.SnowheadTemple)]
-        [DungeonEntrance(DungeonEntrance.EntranceGohtsLairFromSnowheadTemple)]
+        [Entrance(Entrance.EntranceGohtsLairFromSnowheadTemple)]
         AreaGohtsLair,
 
         [EntranceName("Gyorg's Lair"), Region(Region.GreatBayTemple)]
-        [DungeonEntrance(DungeonEntrance.EntranceGyorgsLairFromGreatBayTemple)]
+        [Entrance(Entrance.EntranceGyorgsLairFromGreatBayTemple)]
         AreaGyorgsLair,
 
         [EntranceName("Twinmold's Lair"), Region(Region.StoneTowerTemple)]
-        [DungeonEntrance(DungeonEntrance.EntranceTwinmoldsLairFromStoneTowerTempleInverted)]
+        [Entrance(Entrance.EntranceTwinmoldsLairFromStoneTowerTempleInverted)]
         AreaTwinmoldsLair,
 
         OtherKillOdolwa,

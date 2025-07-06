@@ -971,14 +971,14 @@ namespace MMR.Randomizer
             }
         }
 
-        private void WriteDungeons()
+        private void WriteEntrances()
         {
             if (_randomized.Settings.LogicMode == LogicMode.Vanilla)
             {
                 return;
             }
 
-            if (!_randomized.Settings.EntranceMode.HasFlag(EntranceMode.DungeonEntrances) && !_randomized.Settings.EntranceMode.HasFlag(EntranceMode.BossRooms))
+            if (_randomized.Settings.EntranceMode == EntranceMode.Default)
             {
                 return;
             }
@@ -1012,8 +1012,8 @@ namespace MMR.Randomizer
 
             foreach (var entrance in entrances.Distinct())
             {
-                var newSpawns = entrance.DungeonEntrances();
-                var exits = _randomized.ItemList[entrance].NewLocation.Value.DungeonEntrances();
+                var newSpawns = entrance.Entrances();
+                var exits = _randomized.ItemList[entrance].NewLocation.Value.Entrances();
 
                 var mainExit = exits[0];
                 var mainSpawn = newSpawns[0];
@@ -5988,7 +5988,7 @@ namespace MMR.Randomizer
                     continue;
                 }
 
-                if (item.Item.DungeonEntrances() != null)
+                if (item.Item.Entrances() != null)
                 {
                     continue;
                 }
@@ -6702,7 +6702,7 @@ namespace MMR.Randomizer
                 WriteQuickText();
 
                 progressReporter.ReportProgress(62, "Writing dungeons...");
-                WriteDungeons();
+                WriteEntrances();
 
                 progressReporter.ReportProgress(63, "Writing speedups...");
                 WriteSpeedUps(messageTable);

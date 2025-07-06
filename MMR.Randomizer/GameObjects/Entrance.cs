@@ -3,7 +3,7 @@ using MMR.Randomizer.Attributes.Entrance;
 
 namespace MMR.Randomizer.GameObjects
 {
-    public enum DungeonEntrance
+    public enum Entrance
     {
         [Region(Region.StoneTower)]
         [Exit(Scene.InvertedStoneTower, 0)]
