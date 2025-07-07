@@ -357,5 +357,10 @@ namespace MMR.Randomizer.Extensions
         {
             return item.HasAttribute<BlockBombTrapPlacementAttribute>();
         }
+
+        public static EntranceType? EntranceType(this Item item)
+        {
+            return item.GetAttribute<EntranceTypeAttribute>()?.Type;
+        }
     }
 }

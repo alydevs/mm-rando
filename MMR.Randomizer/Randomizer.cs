@@ -1,5 +1,6 @@
 using MMR.Common.Extensions;
 using MMR.Randomizer.Attributes;
+using MMR.Randomizer.Attributes.Entrance;
 using MMR.Randomizer.Attributes.Gibdo;
 using MMR.Randomizer.Extensions;
 using MMR.Randomizer.GameObjects;
@@ -303,7 +304,7 @@ namespace MMR.Randomizer
 
         private void GrottoEntranceShuffle()
         {
-            var entrances = Enum.GetValues<Item>().Where(item => item.ToString().StartsWith("Grotto")).ToList();
+            var entrances = Enum.GetValues<Item>().Where(item => item.EntranceType() == EntranceType.Grotto);
             var targets = entrances.ToList();
 
             foreach (var entrance in entrances)
@@ -327,21 +328,9 @@ namespace MMR.Randomizer
 
         private void DungeonEntranceShuffle()
         {
-            var dungeonEntrances = new List<Item>
-            {
-                Item.AreaWoodFallTempleAccess,
-                Item.AreaSnowheadTempleAccess,
-                Item.AreaGreatBayTempleAccess,
-                Item.AreaInvertedStoneTowerTempleAccess,
-            };
+            var dungeonEntrances = Enum.GetValues<Item>().Where(item => item.EntranceType() == EntranceType.Dungeon).ToList();
 
-            var dungeonExits = new List<Item>
-            {
-                Item.AreaWoodFallTempleClear,
-                Item.AreaSnowheadTempleClear,
-                Item.AreaGreatBayTempleClear,
-                Item.AreaStoneTowerClear,
-            };
+            var dungeonExits = Enum.GetValues<Item>().Where(item => item.EntranceType() == EntranceType.DungeonExit).ToList();
 
             var randomized = Enumerable.Range(0, 4).ToList().OrderBy(_ => Random.Next()).ToList();
 
@@ -372,21 +361,9 @@ namespace MMR.Randomizer
 
         private void BossShuffle()
         {
-            var bossEntrances = new List<Item>
-            {
-                Item.AreaOdolwasLair,
-                Item.AreaGohtsLair,
-                Item.AreaGyorgsLair,
-                Item.AreaTwinmoldsLair,
-            };
+            var bossEntrances = Enum.GetValues<Item>().Where(item => item.EntranceType() == EntranceType.Boss).ToList();
 
-            var bossExits = new List<Item>
-            {
-                Item.AreaWoodFallTempleClear,
-                Item.AreaSnowheadTempleClear,
-                Item.AreaGreatBayTempleClear,
-                Item.AreaStoneTowerClear,
-            };
+            var bossExits = Enum.GetValues<Item>().Where(item => item.EntranceType() == EntranceType.DungeonExit).ToList();
 
             var bossKills = new List<Item>
             {

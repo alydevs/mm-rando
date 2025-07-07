@@ -1038,40 +1038,41 @@ namespace MMR.Randomizer.GameObjects
         //areas/other
         AreaSouthAccess,
 
-        [EntranceName("Woodfall")]
+        [EntranceName("Woodfall"), EntranceType(EntranceType.Dungeon)]
         [Entrance(Entrance.EntranceWoodfallTempleFromWoodfall, Entrance.EntranceWoodfallFromWoodfallTempleEntrance)]
         AreaWoodFallTempleAccess,
 
-        [Entrance(Entrance.EntranceWoodfallTemplePrisonFromOdolwasLair)]
+        [Entrance(Entrance.EntranceWoodfallTemplePrisonFromOdolwasLair), EntranceType(EntranceType.DungeonExit)]
         AreaWoodFallTempleClear,
         AreaNorthAccess,
 
-        [EntranceName("Snowhead")]
+        [EntranceName("Snowhead"), EntranceType(EntranceType.Dungeon)]
         [Entrance(Entrance.EntranceSnowheadTempleFromSnowhead, Entrance.EntranceSnowheadFromSnowheadTemple)]
         AreaSnowheadTempleAccess,
 
-        [Entrance(Entrance.EntranceMountainVillageFromSnowheadClear)]
+        [Entrance(Entrance.EntranceMountainVillageFromSnowheadClear), EntranceType(EntranceType.DungeonExit)]
         AreaSnowheadTempleClear,
         OtherEpona,
         AreaWestAccess,
         AreaPiratesFortressAccess,
 
-        [EntranceName("Great Bay")]
+        [EntranceName("Great Bay"), EntranceType(EntranceType.Dungeon)]
         [Entrance(Entrance.EntranceGreatBayTempleFromZoraCape, Entrance.EntranceZoraCapeFromGreatBayTemple)]
         AreaGreatBayTempleAccess,
 
-        [Entrance(Entrance.EntranceZoraCapeFromGreatBayTempleClear)]
+        [Entrance(Entrance.EntranceZoraCapeFromGreatBayTempleClear), EntranceType(EntranceType.DungeonExit)]
         AreaGreatBayTempleClear,
         AreaEastAccess,
         AreaIkanaCanyonAccess,
         AreaStoneTowerTempleAccess,
 
-        [EntranceName("Inverted Stone Tower")]
+        [EntranceName("Inverted Stone Tower"), EntranceType(EntranceType.Dungeon)]
         [Entrance(Entrance.EntranceStoneTowerTempleInvertedFromStoneTowerInverted, Entrance.EntranceStoneTowerInvertedFromStoneTowerTempleInverted)]
         AreaInvertedStoneTowerTempleAccess,
 
-        [Entrance(Entrance.EntranceIkanaCanyonFromIkanaClear)]
+        [Entrance(Entrance.EntranceIkanaCanyonFromIkanaClear), EntranceType(EntranceType.DungeonExit)]
         AreaStoneTowerClear,
+
         OtherExplosive,
         OtherArrow,
         OtherAnyBombBag,
@@ -1087,19 +1088,19 @@ namespace MMR.Randomizer.GameObjects
         OtherTimeTravel,
         OtherInaccessible,
 
-        [EntranceName("Woodfall Boss"), Region(Region.WoodfallTemple)]
+        [EntranceName("Woodfall Boss"), Region(Region.WoodfallTemple), EntranceType(EntranceType.Boss)]
         [Entrance(Entrance.EntranceOdolwasLairFromWoodfallTemple)]
         AreaOdolwasLair,
 
-        [EntranceName("Snowhead Boss"), Region(Region.SnowheadTemple)]
+        [EntranceName("Snowhead Boss"), Region(Region.SnowheadTemple), EntranceType(EntranceType.Boss)]
         [Entrance(Entrance.EntranceGohtsLairFromSnowheadTemple)]
         AreaGohtsLair,
 
-        [EntranceName("Great Bay Boss"), Region(Region.GreatBayTemple)]
+        [EntranceName("Great Bay Boss"), Region(Region.GreatBayTemple), EntranceType(EntranceType.Boss)]
         [Entrance(Entrance.EntranceGyorgsLairFromGreatBayTemple)]
         AreaGyorgsLair,
 
-        [EntranceName("Stone Tower Boss"), Region(Region.StoneTowerTemple)]
+        [EntranceName("Stone Tower Boss"), Region(Region.StoneTowerTemple), EntranceType(EntranceType.Boss)]
         [Entrance(Entrance.EntranceTwinmoldsLairFromStoneTowerTempleInverted)]
         AreaTwinmoldsLair,
 
@@ -1108,107 +1109,107 @@ namespace MMR.Randomizer.GameObjects
         OtherKillGyorg,
         OtherKillTwinmold,
 
-        [EntranceName("Ocean Gossip Grotto"), Region(Region.TerminaField)]
+        [EntranceName("Ocean Gossip Grotto"), Region(Region.TerminaField), EntranceType(EntranceType.Grotto)]
         [Entrance(Entrance.EntranceGrottoGossipOcean, Entrance.EntranceTerminaFieldFromGrottoGossipOcean)]
         GrottoGossipOcean,
 
-        [EntranceName("Swamp Gossip Grotto"), Region(Region.TerminaField)]
+        [EntranceName("Swamp Gossip Grotto"), Region(Region.TerminaField), EntranceType(EntranceType.Grotto)]
         [Entrance(Entrance.EntranceGrottoGossipSwamp, Entrance.EntranceTerminaFieldFromGrottoGossipSwamp)]
         GrottoGossipSwamp,
 
-        [EntranceName("Canyon Gossip Grotto"), Region(Region.TerminaField)]
+        [EntranceName("Canyon Gossip Grotto"), Region(Region.TerminaField), EntranceType(EntranceType.Grotto)]
         [Entrance(Entrance.EntranceGrottoGossipCanyon, Entrance.EntranceTerminaFieldFromGrottoGossipCanyon)]
         GrottoGossipCanyon,
 
-        [EntranceName("Mountain Gossip Grotto"), Region(Region.TerminaField)]
+        [EntranceName("Mountain Gossip Grotto"), Region(Region.TerminaField), EntranceType(EntranceType.Grotto)]
         [Entrance(Entrance.EntranceGrottoGossipMountain, Entrance.EntranceTerminaFieldFromGrottoGossipMountain)]
         GrottoGossipMountain,
 
-        [EntranceName("Great Bay Coast Grotto"), Region(Region.GreatBayCoast)]
+        [EntranceName("Great Bay Coast Grotto"), Region(Region.GreatBayCoast), EntranceType(EntranceType.Grotto)]
         [Entrance(Entrance.EntranceGrottoGenericGreatBayCoast, Entrance.EntranceGrottoReturn)]
         GrottoGenericGreatBayCoast,
 
-        [EntranceName("Mountain Spring Grotto"), Region(Region.MountainVillage)]
+        [EntranceName("Mountain Spring Grotto"), Region(Region.MountainVillage), EntranceType(EntranceType.Grotto)]
         [Entrance(Entrance.EntranceGrottoGenericMountainVillageSpring, Entrance.EntranceGrottoReturn)]
         GrottoGenericMountainVillageSpring,
 
-        [EntranceName("Near Swamp Spider House Grotto"), Region(Region.SouthernSwamp)]
+        [EntranceName("Near Swamp Spider House Grotto"), Region(Region.SouthernSwamp), EntranceType(EntranceType.Grotto)]
         [Entrance(Entrance.EntranceGrottoGenericSouthernSwamp, Entrance.EntranceGrottoReturn)]
         GrottoGenericSouthernSwamp,
 
-        [EntranceName("Path to Swamp Grotto"), Region(Region.RoadToSouthernSwamp)]
+        [EntranceName("Path to Swamp Grotto"), Region(Region.RoadToSouthernSwamp), EntranceType(EntranceType.Grotto)]
         [Entrance(Entrance.EntranceGrottoGenericRoadToSwamp, Entrance.EntranceGrottoReturn)]
         GrottoGenericRoadToSwamp,
 
-        [EntranceName("Termina Field Grass Grotto"), Region(Region.TerminaField)]
+        [EntranceName("Termina Field Grass Grotto"), Region(Region.TerminaField), EntranceType(EntranceType.Grotto)]
         [Entrance(Entrance.EntranceGrottoGenericTerminaFieldGrass, Entrance.EntranceGrottoReturn)]
         GrottoGenericTerminaFieldGrass,
 
-        [EntranceName("Secret Shrine Grotto"), Region(Region.IkanaCanyon)]
+        [EntranceName("Secret Shrine Grotto"), Region(Region.IkanaCanyon), EntranceType(EntranceType.Grotto)]
         [Entrance(Entrance.EntranceGrottoGenericIkanaCanyon, Entrance.EntranceGrottoReturn)]
         GrottoGenericIkanaCanyon,
 
-        [EntranceName("Mystery Woods Grotto"), Region(Region.SouthernSwamp)]
+        [EntranceName("Mystery Woods Grotto"), Region(Region.SouthernSwamp), EntranceType(EntranceType.Grotto)]
         [Entrance(Entrance.EntranceGrottoGenericWoodsOfMystery, Entrance.EntranceGrottoReturn)]
         GrottoGenericWoodsOfMystery,
 
-        [EntranceName("Zora Cape Grotto"), Region(Region.ZoraCape)]
+        [EntranceName("Zora Cape Grotto"), Region(Region.ZoraCape), EntranceType(EntranceType.Grotto)]
         [Entrance(Entrance.EntranceGrottoGenericZoraCape, Entrance.EntranceGrottoReturn)]
         GrottoGenericZoraCape,
 
-        [EntranceName("Road to Ikana Grotto"), Region(Region.RoadToIkana)]
+        [EntranceName("Road to Ikana Grotto"), Region(Region.RoadToIkana), EntranceType(EntranceType.Grotto)]
         [Entrance(Entrance.EntranceGrottoGenericRoadToIkana, Entrance.EntranceGrottoReturn)]
         GrottoGenericRoadToIkana,
 
-        [EntranceName("Termina Field Pillar Grotto"), Region(Region.TerminaField)]
+        [EntranceName("Termina Field Pillar Grotto"), Region(Region.TerminaField), EntranceType(EntranceType.Grotto)]
         [Entrance(Entrance.EntranceGrottoGenericTerminaFieldPillar, Entrance.EntranceGrottoReturn)]
         GrottoGenericTerminaFieldPillar,
 
-        [EntranceName("Ikana Graveyard Grotto"), Region(Region.IkanaGraveyard)]
+        [EntranceName("Ikana Graveyard Grotto"), Region(Region.IkanaGraveyard), EntranceType(EntranceType.Grotto)]
         [Entrance(Entrance.EntranceGrottoGenericIkanaGraveyard, Entrance.EntranceGrottoReturn)]
         GrottoGenericIkanaGraveyard,
 
-        [EntranceName("Path to Snowhead Grotto"), Region(Region.PathToSnowhead)]
+        [EntranceName("Path to Snowhead Grotto"), Region(Region.PathToSnowhead), EntranceType(EntranceType.Grotto)]
         [Entrance(Entrance.EntranceGrottoGenericPathToSnowhead, Entrance.EntranceGrottoReturn)]
         GrottoGenericPathToSnowhead,
 
-        [EntranceName("Goron Racetrack Grotto"), Region(Region.TwinIslands)]
+        [EntranceName("Goron Racetrack Grotto"), Region(Region.TwinIslands), EntranceType(EntranceType.Grotto)]
         [Entrance(Entrance.EntranceGrottoGenericTwinIslands, Entrance.EntranceGrottoReturn)]
         GrottoGenericTwinIslands,
 
-        [EntranceName("Hot Spring Water Grotto"), Region(Region.TwinIslands)]
+        [EntranceName("Hot Spring Water Grotto"), Region(Region.TwinIslands), EntranceType(EntranceType.Grotto)]
         [Entrance(Entrance.EntranceGrottoHotSpring, Entrance.EntranceTwinIslandsFromGrottoHotSpring)]
         GrottoHotSpring,
 
-        [EntranceName("Dodongo Grotto"), Region(Region.TerminaField)]
+        [EntranceName("Dodongo Grotto"), Region(Region.TerminaField), EntranceType(EntranceType.Grotto)]
         [Entrance(Entrance.EntranceGrottoDodongo, Entrance.EntranceTerminaFieldFromGrottoDodongo)]
         GrottoDodongo,
 
-        [EntranceName("Deku Merchant Grotto"), Region(Region.TerminaField)]
+        [EntranceName("Deku Merchant Grotto"), Region(Region.TerminaField), EntranceType(EntranceType.Grotto)]
         [Entrance(Entrance.EntranceGrottoDekuMerchant, Entrance.EntranceTerminaFieldFromGrottoDekuMerchant)]
         GrottoDekuMerchant,
 
-        [EntranceName("Great Bay Coast Cow Grotto"), Region(Region.GreatBayCoast)]
+        [EntranceName("Great Bay Coast Cow Grotto"), Region(Region.GreatBayCoast), EntranceType(EntranceType.Grotto)]
         [Entrance(Entrance.EntranceGrottoCowGreatBayCoast, Entrance.EntranceGrottoReturn)]
         GrottoCowGreatBayCoast,
 
-        [EntranceName("Termina Field Cow Grotto"), Region(Region.TerminaField)]
+        [EntranceName("Termina Field Cow Grotto"), Region(Region.TerminaField), EntranceType(EntranceType.Grotto)]
         [Entrance(Entrance.EntranceGrottoCowTerminaField, Entrance.EntranceGrottoReturn)]
         GrottoCowTerminaField,
 
-        [EntranceName("Bio Baba Grotto"), Region(Region.TerminaField)]
+        [EntranceName("Bio Baba Grotto"), Region(Region.TerminaField), EntranceType(EntranceType.Grotto)]
         [Entrance(Entrance.EntranceGrottoBioBaba, Entrance.EntranceTerminaFieldFromGrottoBioBaba)]
         GrottoBioBaba,
 
-        [EntranceName("Bean Seller Grotto"), Region(Region.DekuPalace)]
+        [EntranceName("Bean Seller Grotto"), Region(Region.DekuPalace), EntranceType(EntranceType.Grotto)]
         [Entrance(Entrance.EntranceGrottoBeanSeller, Entrance.EntranceDekuPalaceFromBeanSellerGrotto)]
         GrottoBeanSeller,
 
-        [EntranceName("Peahat Grotto"), Region(Region.TerminaField)]
+        [EntranceName("Peahat Grotto"), Region(Region.TerminaField), EntranceType(EntranceType.Grotto)]
         [Entrance(Entrance.EntranceGrottoPeahat, Entrance.EntranceTerminaFieldFromGrottoPeahat)]
         GrottoPeahat,
 
-        [EntranceName("Deku Playground Grotto"), Region(Region.NorthClockTown)]
+        [EntranceName("Deku Playground Grotto"), Region(Region.NorthClockTown), EntranceType(EntranceType.Grotto)]
         [Entrance(Entrance.EntranceGrottoDekuPlayground, Entrance.EntranceNorthClockTownFromDekuPlayground)]
         GrottoDekuPlayground,
 

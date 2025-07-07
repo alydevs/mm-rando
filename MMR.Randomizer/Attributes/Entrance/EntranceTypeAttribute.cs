@@ -10,11 +10,6 @@ namespace MMR.Randomizer.Attributes.Entrance
         {
             Type = entranceType;
         }
-
-        public EntranceTypeAttribute()
-        {
-
-        }
     }
 
     public enum EntranceType

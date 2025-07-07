@@ -26,6 +26,7 @@ using SixLabors.ImageSharp.Formats.Png;
 using System.Security.Cryptography;
 using MMR.Common.Utils;
 using MMR.Randomizer.Attributes.Gibdo;
+using MMR.Randomizer.Attributes.Entrance;
 
 namespace MMR.Randomizer
 {
@@ -988,30 +989,18 @@ namespace MMR.Randomizer
             var entrances = new List<Item>();
             if (_randomized.Settings.EntranceMode.HasFlag(EntranceMode.DungeonEntrances))
             {
-                entrances.Add(Item.AreaWoodFallTempleAccess);
-                entrances.Add(Item.AreaWoodFallTempleClear);
-                entrances.Add(Item.AreaSnowheadTempleAccess);
-                entrances.Add(Item.AreaSnowheadTempleClear);
-                entrances.Add(Item.AreaGreatBayTempleAccess);
-                entrances.Add(Item.AreaGreatBayTempleClear);
-                entrances.Add(Item.AreaInvertedStoneTowerTempleAccess);
-                entrances.Add(Item.AreaStoneTowerClear);
+                entrances.AddRange(Enum.GetValues<Item>().Where(item => item.EntranceType() == EntranceType.Dungeon));
+                entrances.AddRange(Enum.GetValues<Item>().Where(item => item.EntranceType() == EntranceType.DungeonExit));
             }
             if (_randomized.Settings.EntranceMode.HasFlag(EntranceMode.BossRooms))
             {
-                entrances.Add(Item.AreaWoodFallTempleClear);
-                entrances.Add(Item.AreaSnowheadTempleClear);
-                entrances.Add(Item.AreaGreatBayTempleClear);
-                entrances.Add(Item.AreaStoneTowerClear);
-                entrances.Add(Item.AreaOdolwasLair);
-                entrances.Add(Item.AreaGohtsLair);
-                entrances.Add(Item.AreaGyorgsLair);
-                entrances.Add(Item.AreaTwinmoldsLair);
+                entrances.AddRange(Enum.GetValues<Item>().Where(item => item.EntranceType() == EntranceType.Boss));
+                entrances.AddRange(Enum.GetValues<Item>().Where(item => item.EntranceType() == EntranceType.DungeonExit));
             }
             if (_randomized.Settings.EntranceMode.HasFlag(EntranceMode.Grottos))
             {
-                entrances.AddRange(Enum.GetValues<Item>().Where(item => item.ToString().StartsWith("Grotto")));
-                ReadWriteUtils.WriteU16ToROM(0xD5AFDC, 0x3600); // Replace a JP grotto entrance with deku playground.
+                entrances.AddRange(Enum.GetValues<Item>().Where(item => item.EntranceType() == EntranceType.Grotto));
+                ReadWriteUtils.WriteU16ToROM(0xD5AFDC, Entrance.EntranceGrottoDekuPlayground.SpawnId()); // Replace a JP grotto entrance with deku playground.
             }
 
             foreach (var entrance in entrances.Distinct())
