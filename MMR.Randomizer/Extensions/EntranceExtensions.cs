@@ -14,6 +14,11 @@ namespace MMR.Randomizer.Extensions
             return entrance.GetAttribute<SpawnAttribute>().SpawnId;
         }
 
+        public static SpawnActorParamsAttribute SpawnActorParams(this Entrance entrance)
+        {
+            return entrance.GetAttribute<SpawnActorParamsAttribute>();
+        }
+
         public static IEnumerable<Tuple<int, byte>> ExitIndices(this Entrance entrance)
         {
             return entrance.GetAttributes<ExitAttribute>().Select(ea => new Tuple<int, byte>(ea.SceneId, ea.ExitIndex));
@@ -27,6 +32,16 @@ namespace MMR.Randomizer.Extensions
         public static IEnumerable<int> ExitAddresses(this Entrance entrance)
         {
             return entrance.GetAttributes<ExitAddressAttribute>().Select(eaa => eaa.Address);
+        }
+
+        public static IEnumerable<ExitActorParamsAttribute> ExitActorParams(this Entrance entrance)
+        {
+            return entrance.GetAttributes<ExitActorParamsAttribute>();
+        }
+
+        public static ExitPolygonTypeAttribute ExitPolygonType(this Entrance entrance)
+        {
+            return entrance.GetAttribute<ExitPolygonTypeAttribute>();
         }
     }
 }

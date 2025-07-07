@@ -79,10 +79,6 @@ namespace MMR.Randomizer.Extensions
             {
                 return null;
             }
-            if (itemList == null)
-            {
-                return location;
-            }
 
             var reference = item.GetAttribute<RegionAttribute>()?.Reference;
             if (reference == null)
@@ -90,14 +86,14 @@ namespace MMR.Randomizer.Extensions
                 return location;
             }
 
-            var referenceNewLocation = itemList[reference.Value].NewLocation ?? reference.Value;
-            var itemCategory = item.GetAttribute<ItemPoolAttribute>()?.ItemCategory;
+            var referenceNewLocation = reference.Value;
 
-            var alteredLocation = Enum.GetValues<Item>()
-                .Where(x => x.GetAttribute<ItemPoolAttribute>()?.ItemCategory == itemCategory)
-                .FirstOrDefault(x => x.GetAttribute<RegionAttribute>().Reference == referenceNewLocation);
+            if (itemList != null)
+            {
+                referenceNewLocation = itemList[referenceNewLocation].NewLocation ?? referenceNewLocation;
+            }
 
-            return alteredLocation.Location();
+            return referenceNewLocation.Entrance() + " " + location;
         }
 
         private static IReadOnlyDictionary<Item, RegionAttribute> _regionAttributes = Enum.GetValues<Item>().ToDictionary(x => x, x => x.GetAttribute<RegionAttribute>());

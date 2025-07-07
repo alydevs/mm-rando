@@ -61,6 +61,10 @@ namespace MMR.Randomizer.Utils
                 entrances.Add(Item.AreaGyorgsLair);
                 entrances.Add(Item.AreaTwinmoldsLair);
             }
+            if (settings.EntranceMode.HasFlag(EntranceMode.Grottos))
+            {
+                entrances.AddRange(Enum.GetValues<Item>().Where(item => item.ToString().StartsWith("Grotto")));
+            }
             foreach (var entrance in entrances.OrderBy(e => entrances.IndexOf(randomized.ItemList[e].NewLocation.Value)))
             {
                 dungeonEntrances.Add(randomized.ItemList[entrance].NewLocation.Value, entrance);
@@ -204,11 +208,11 @@ namespace MMR.Randomizer.Utils
 
             if (spoiler.DungeonEntrances.Any())
             {
-                log.AppendLine($" {"Entrance",-21}    {"Destination"}");
+                log.AppendLine($" {"Entrance",-30}    {"Destination"}");
                 log.AppendLine();
                 foreach (var kvp in spoiler.DungeonEntrances)
                 {
-                    log.AppendLine($"{kvp.Entrance,-21} -> {kvp.Destination}");
+                    log.AppendLine($"{kvp.Entrance,-30} -> {kvp.Destination}");
                 }
                 log.AppendLine("");
             }
@@ -218,7 +222,7 @@ namespace MMR.Randomizer.Utils
             {
                 log.AppendLine();
                 log.AppendLine($" {region.Key.Name()}");
-                foreach (var item in region.OrderBy(item => item.NewLocationName))
+                foreach (var item in region.GroupBy(item => new { item.NewLocationName, item.IsImportant, item.IsRequired, item.IsImportantSong, item.IsLocationJunked }).Select(g => g.First()).OrderBy(item => item.NewLocationName))
                 {
                     if (item.IsLocationJunked)
                     {

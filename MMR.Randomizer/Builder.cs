@@ -556,6 +556,8 @@ namespace MMR.Randomizer
             data.InsertRange(0x44, new byte[] { 0x01, 0xBE, 0x00, 0x00 }); // Add extra objects
             data[0x29] += 1; // Increase object count by 1. 1 object slot remaining before needing to increase available space.
             data[0x37] += 4; // Add 4 to the actor list address
+            var room = RomData.SceneList.SelectMany(scene => scene.Setups).SelectMany(setup => setup.Rooms).Single(room => room.File == 1501);
+            room.ActorListAddress += 4;
             RomData.MMFileList[1501].Data = data.ToArray();
 
             ResourceUtils.ApplyHack(Resources.mods.fix_object_stk2_zbuffer);
@@ -983,9 +985,6 @@ namespace MMR.Randomizer
                 return;
             }
 
-            SceneUtils.ReadSceneTable();
-            SceneUtils.GetMaps();
-
             var entrances = new List<Item>();
             if (_randomized.Settings.EntranceMode.HasFlag(EntranceMode.DungeonEntrances))
             {
@@ -1008,6 +1007,11 @@ namespace MMR.Randomizer
                 entrances.Add(Item.AreaGohtsLair);
                 entrances.Add(Item.AreaGyorgsLair);
                 entrances.Add(Item.AreaTwinmoldsLair);
+            }
+            if (_randomized.Settings.EntranceMode.HasFlag(EntranceMode.Grottos))
+            {
+                entrances.AddRange(Enum.GetValues<Item>().Where(item => item.ToString().StartsWith("Grotto")));
+                ReadWriteUtils.WriteU16ToROM(0xD5AFDC, 0x3600); // Replace a JP grotto entrance with deku playground.
             }
 
             foreach (var entrance in entrances.Distinct())
@@ -6057,7 +6061,7 @@ namespace MMR.Randomizer
                     {
                         overrideChestType = ChestTypeAttribute.ChestType.LargeGold;
                     }
-                    ItemSwapUtils.WriteNewItem(item, newMessages, _randomized.Settings, item.Mimic?.ChestType ?? overrideChestType, messageTable, _extendedObjects);
+                    ItemSwapUtils.WriteNewItem(item, _randomized.ItemList, newMessages, _randomized.Settings, item.Mimic?.ChestType ?? overrideChestType, messageTable, _extendedObjects);
                 }
             }
 
@@ -6619,7 +6623,8 @@ namespace MMR.Randomizer
                 RomUtils.ReadFileTable(OldROM);
             }
 
-            RomData.SceneList = null;
+            SceneUtils.ReadSceneTable();
+            SceneUtils.GetMaps();
 
             var originalMMFileList = RomData.MMFileList.Select(file => file.Clone()).ToList();
             List<MMFile> cosmeticMMFileList;
@@ -6701,17 +6706,17 @@ namespace MMR.Randomizer
                 progressReporter.ReportProgress(61, "Writing quick text...");
                 WriteQuickText();
 
-                progressReporter.ReportProgress(62, "Writing dungeons...");
-                WriteEntrances();
-
-                progressReporter.ReportProgress(63, "Writing speedups...");
+                progressReporter.ReportProgress(62, "Writing speedups...");
                 WriteSpeedUps(messageTable);
 
-                progressReporter.ReportProgress(64, "Writing enemies...");
+                progressReporter.ReportProgress(63, "Writing enemies...");
                 WriteEnemies();
 
-                progressReporter.ReportProgress(65, "Writing items...");
+                progressReporter.ReportProgress(64, "Writing items...");
                 WriteItems(messageTable);
+
+                progressReporter.ReportProgress(65, "Writing entrances...");
+                WriteEntrances();
 
                 progressReporter.ReportProgress(66, "Writing cutscenes...");
                 WriteCutscenes(messageTable);

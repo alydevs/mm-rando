@@ -73,7 +73,7 @@ namespace MMR.Randomizer.GameObjects
 
         [Repeatable, Temporary]
         [StartingItemId(0x0A)]
-        [ItemName("Magic Bean"), LocationName("Bean Man"), Region(Region.DekuPalace)]
+        [ItemName("Magic Bean"), LocationName("Bean Man"), Region(GrottoBeanSeller)]
         [GossipLocationHint("a hidden merchant", "a gorging merchant"), GossipItemHint("a plant seed")]
         [ShopText("Plant it in soft soil.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -514,7 +514,7 @@ namespace MMR.Randomizer.GameObjects
         HeartPieceKeatonQuiz,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Piece of Heart"), LocationName("Deku Playground Three Days"), Region(Region.NorthClockTown)]
+        [ItemName("Piece of Heart"), LocationName("Deku Playground Three Days"), Region(GrottoDekuPlayground)]
         [GossipLocationHint("a game for scrubs", "a playground", "a town game"), GossipItemHint("a segment of health"), GossipCompetitiveHint]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
@@ -556,7 +556,7 @@ namespace MMR.Randomizer.GameObjects
         HeartPiecePostBox,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Piece of Heart"), LocationName("Gossip Stones"), Region(Region.TerminaField)]
+        [ItemName("Piece of Heart"), LocationName("Gossip Stones"), MultiLocation(HeartPieceTerminaGossipStonesInSwampGossipGrotto, HeartPieceTerminaGossipStonesInMountainGossipGrotto, HeartPieceTerminaGossipStonesInOceanGossipGrotto, HeartPieceTerminaGossipStonesInCanyonGossipGrotto)]
         [GossipLocationHint("mysterious stones"), GossipItemHint("a segment of health"), GossipCompetitiveHint(-2)]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
@@ -565,7 +565,7 @@ namespace MMR.Randomizer.GameObjects
 
         [TextVisible(nameof(GameplaySettings.UpdateShopAppearance), true)]
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Piece of Heart"), LocationName("Business Scrub Purchase"), Region(Region.TerminaField)]
+        [ItemName("Piece of Heart"), LocationName("Business Scrub Purchase"), Region(GrottoDekuMerchant)]
         [GossipLocationHint("a hidden merchant"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
@@ -669,7 +669,7 @@ namespace MMR.Randomizer.GameObjects
         HeartPieceTreasureChestGame,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Piece of Heart"), LocationName("Peahat Grotto"), Region(Region.TerminaField)]
+        [ItemName("Piece of Heart"), LocationName("Peahat Chest"), Region(GrottoPeahat)]
         [GossipLocationHint("a hollow ground"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02ED3000 + 0x76, ChestAttribute.AppearanceType.AppearsClear)]
@@ -677,7 +677,7 @@ namespace MMR.Randomizer.GameObjects
         HeartPiecePeahat,
 
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Piece of Heart"), LocationName("Dodongo Grotto"), Region(Region.TerminaField)]
+        [ItemName("Piece of Heart"), LocationName("Dodongo Chest"), Region(GrottoDodongo)]
         [GossipLocationHint("a hollow ground"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02EBD000 + 0x76, ChestAttribute.AppearanceType.AppearsClear)]
@@ -1087,19 +1087,19 @@ namespace MMR.Randomizer.GameObjects
         OtherTimeTravel,
         OtherInaccessible,
 
-        [EntranceName("Odolwa's Lair"), Region(Region.WoodfallTemple)]
+        [EntranceName("Woodfall Boss"), Region(Region.WoodfallTemple)]
         [Entrance(Entrance.EntranceOdolwasLairFromWoodfallTemple)]
         AreaOdolwasLair,
 
-        [EntranceName("Goht's Lair"), Region(Region.SnowheadTemple)]
+        [EntranceName("Snowhead Boss"), Region(Region.SnowheadTemple)]
         [Entrance(Entrance.EntranceGohtsLairFromSnowheadTemple)]
         AreaGohtsLair,
 
-        [EntranceName("Gyorg's Lair"), Region(Region.GreatBayTemple)]
+        [EntranceName("Great Bay Boss"), Region(Region.GreatBayTemple)]
         [Entrance(Entrance.EntranceGyorgsLairFromGreatBayTemple)]
         AreaGyorgsLair,
 
-        [EntranceName("Twinmold's Lair"), Region(Region.StoneTowerTemple)]
+        [EntranceName("Stone Tower Boss"), Region(Region.StoneTowerTemple)]
         [Entrance(Entrance.EntranceTwinmoldsLairFromStoneTowerTempleInverted)]
         AreaTwinmoldsLair,
 
@@ -1107,6 +1107,110 @@ namespace MMR.Randomizer.GameObjects
         OtherKillGoht,
         OtherKillGyorg,
         OtherKillTwinmold,
+
+        [EntranceName("Ocean Gossip Grotto"), Region(Region.TerminaField)]
+        [Entrance(Entrance.EntranceGrottoGossipOcean, Entrance.EntranceTerminaFieldFromGrottoGossipOcean)]
+        GrottoGossipOcean,
+
+        [EntranceName("Swamp Gossip Grotto"), Region(Region.TerminaField)]
+        [Entrance(Entrance.EntranceGrottoGossipSwamp, Entrance.EntranceTerminaFieldFromGrottoGossipSwamp)]
+        GrottoGossipSwamp,
+
+        [EntranceName("Canyon Gossip Grotto"), Region(Region.TerminaField)]
+        [Entrance(Entrance.EntranceGrottoGossipCanyon, Entrance.EntranceTerminaFieldFromGrottoGossipCanyon)]
+        GrottoGossipCanyon,
+
+        [EntranceName("Mountain Gossip Grotto"), Region(Region.TerminaField)]
+        [Entrance(Entrance.EntranceGrottoGossipMountain, Entrance.EntranceTerminaFieldFromGrottoGossipMountain)]
+        GrottoGossipMountain,
+
+        [EntranceName("Great Bay Coast Grotto"), Region(Region.GreatBayCoast)]
+        [Entrance(Entrance.EntranceGrottoGenericGreatBayCoast, Entrance.EntranceGrottoReturn)]
+        GrottoGenericGreatBayCoast,
+
+        [EntranceName("Mountain Spring Grotto"), Region(Region.MountainVillage)]
+        [Entrance(Entrance.EntranceGrottoGenericMountainVillageSpring, Entrance.EntranceGrottoReturn)]
+        GrottoGenericMountainVillageSpring,
+
+        [EntranceName("Near Swamp Spider House Grotto"), Region(Region.SouthernSwamp)]
+        [Entrance(Entrance.EntranceGrottoGenericSouthernSwamp, Entrance.EntranceGrottoReturn)]
+        GrottoGenericSouthernSwamp,
+
+        [EntranceName("Path to Swamp Grotto"), Region(Region.RoadToSouthernSwamp)]
+        [Entrance(Entrance.EntranceGrottoGenericRoadToSwamp, Entrance.EntranceGrottoReturn)]
+        GrottoGenericRoadToSwamp,
+
+        [EntranceName("Termina Field Grass Grotto"), Region(Region.TerminaField)]
+        [Entrance(Entrance.EntranceGrottoGenericTerminaFieldGrass, Entrance.EntranceGrottoReturn)]
+        GrottoGenericTerminaFieldGrass,
+
+        [EntranceName("Secret Shrine Grotto"), Region(Region.IkanaCanyon)]
+        [Entrance(Entrance.EntranceGrottoGenericIkanaCanyon, Entrance.EntranceGrottoReturn)]
+        GrottoGenericIkanaCanyon,
+
+        [EntranceName("Mystery Woods Grotto"), Region(Region.SouthernSwamp)]
+        [Entrance(Entrance.EntranceGrottoGenericWoodsOfMystery, Entrance.EntranceGrottoReturn)]
+        GrottoGenericWoodsOfMystery,
+
+        [EntranceName("Zora Cape Grotto"), Region(Region.ZoraCape)]
+        [Entrance(Entrance.EntranceGrottoGenericZoraCape, Entrance.EntranceGrottoReturn)]
+        GrottoGenericZoraCape,
+
+        [EntranceName("Road to Ikana Grotto"), Region(Region.RoadToIkana)]
+        [Entrance(Entrance.EntranceGrottoGenericRoadToIkana, Entrance.EntranceGrottoReturn)]
+        GrottoGenericRoadToIkana,
+
+        [EntranceName("Termina Field Pillar Grotto"), Region(Region.TerminaField)]
+        [Entrance(Entrance.EntranceGrottoGenericTerminaFieldPillar, Entrance.EntranceGrottoReturn)]
+        GrottoGenericTerminaFieldPillar,
+
+        [EntranceName("Ikana Graveyard Grotto"), Region(Region.IkanaGraveyard)]
+        [Entrance(Entrance.EntranceGrottoGenericIkanaGraveyard, Entrance.EntranceGrottoReturn)]
+        GrottoGenericIkanaGraveyard,
+
+        [EntranceName("Path to Snowhead Grotto"), Region(Region.PathToSnowhead)]
+        [Entrance(Entrance.EntranceGrottoGenericPathToSnowhead, Entrance.EntranceGrottoReturn)]
+        GrottoGenericPathToSnowhead,
+
+        [EntranceName("Goron Racetrack Grotto"), Region(Region.TwinIslands)]
+        [Entrance(Entrance.EntranceGrottoGenericTwinIslands, Entrance.EntranceGrottoReturn)]
+        GrottoGenericTwinIslands,
+
+        [EntranceName("Hot Spring Water Grotto"), Region(Region.TwinIslands)]
+        [Entrance(Entrance.EntranceGrottoHotSpring, Entrance.EntranceTwinIslandsFromGrottoHotSpring)]
+        GrottoHotSpring,
+
+        [EntranceName("Dodongo Grotto"), Region(Region.TerminaField)]
+        [Entrance(Entrance.EntranceGrottoDodongo, Entrance.EntranceTerminaFieldFromGrottoDodongo)]
+        GrottoDodongo,
+
+        [EntranceName("Deku Merchant Grotto"), Region(Region.TerminaField)]
+        [Entrance(Entrance.EntranceGrottoDekuMerchant, Entrance.EntranceTerminaFieldFromGrottoDekuMerchant)]
+        GrottoDekuMerchant,
+
+        [EntranceName("Great Bay Coast Cow Grotto"), Region(Region.GreatBayCoast)]
+        [Entrance(Entrance.EntranceGrottoCowGreatBayCoast, Entrance.EntranceGrottoReturn)]
+        GrottoCowGreatBayCoast,
+
+        [EntranceName("Termina Field Cow Grotto"), Region(Region.TerminaField)]
+        [Entrance(Entrance.EntranceGrottoCowTerminaField, Entrance.EntranceGrottoReturn)]
+        GrottoCowTerminaField,
+
+        [EntranceName("Bio Baba Grotto"), Region(Region.TerminaField)]
+        [Entrance(Entrance.EntranceGrottoBioBaba, Entrance.EntranceTerminaFieldFromGrottoBioBaba)]
+        GrottoBioBaba,
+
+        [EntranceName("Bean Seller Grotto"), Region(Region.DekuPalace)]
+        [Entrance(Entrance.EntranceGrottoBeanSeller, Entrance.EntranceDekuPalaceFromBeanSellerGrotto)]
+        GrottoBeanSeller,
+
+        [EntranceName("Peahat Grotto"), Region(Region.TerminaField)]
+        [Entrance(Entrance.EntranceGrottoPeahat, Entrance.EntranceTerminaFieldFromGrottoPeahat)]
+        GrottoPeahat,
+
+        [EntranceName("Deku Playground Grotto"), Region(Region.NorthClockTown)]
+        [Entrance(Entrance.EntranceGrottoDekuPlayground, Entrance.EntranceNorthClockTownFromDekuPlayground)]
+        GrottoDekuPlayground,
 
         //keysanity items
         [Repeatable]
@@ -1559,7 +1663,7 @@ namespace MMR.Randomizer.GameObjects
         ChestLensCavePurpleRupee,
 
         [Repeatable]
-        [ItemName("Red Rupee"), LocationName("Bean Grotto"), Region(Region.DekuPalace)]
+        [ItemName("Red Rupee"), LocationName("Ledge Chest"), Region(GrottoBeanSeller)]
         [GossipLocationHint("a merchant's cave"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 20 rupees.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02ECC000 + 0xFA, ChestAttribute.AppearanceType.Normal)]
@@ -1567,7 +1671,7 @@ namespace MMR.Randomizer.GameObjects
         ChestBeanGrottoRedRupee,
 
         [Repeatable]
-        [ItemName("Red Rupee"), LocationName("Hot Spring Water Grotto"), Region(Region.TwinIslands)]
+        [ItemName("Red Rupee"), LocationName("Rock Chest"), Region(GrottoHotSpring)]
         [GossipLocationHint("a steaming cave"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 20 rupees.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden), Chest(0x02ED7000 + 0xC6, ChestAttribute.AppearanceType.Normal)]
@@ -1583,10 +1687,10 @@ namespace MMR.Randomizer.GameObjects
         ChestBadBatsGrottoPurpleRupee,
 
         [Repeatable, Temporary(nameof(GameplaySettings.BombchuDrops), false)]
-        [ItemName("5 Bombchu"), LocationName("Secret Shrine Grotto"), Region(Region.IkanaCanyon)]
+        [ItemName("5 Bombchu"), LocationName("Chest"), Region(GrottoGenericIkanaCanyon)]
         [GossipLocationHint("a waterfall cave"), GossipItemHint("explosive mice")]
         [ShopText("Mouse-shaped bombs that are practical, sleek and self-propelled.", isMultiple: true)]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x02080000 + 0x93, 0x02080000 + 0x1E3, 0x02080000 + 0x2EB)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest]
         [GetItemIndex(0xD1), ItemPool(ItemCategory.Bombchu, LocationCategory.Chests, ClassicCategory.EverythingElse)]
         ChestIkanaSecretShrineGrotto,
 
@@ -1671,18 +1775,18 @@ namespace MMR.Randomizer.GameObjects
         ChestBomberHideoutSilverRupee,
 
         [Repeatable, Temporary(nameof(GameplaySettings.BombchuDrops), false)]
-        [ItemName("Bombchu"), LocationName("Termina Field Pillar Grotto"), Region(Region.TerminaField)]
+        [ItemName("Bombchu"), LocationName("Chest"), Region(GrottoGenericTerminaFieldPillar)]
         [GossipLocationHint("a hollow pillar"), GossipItemHint("explosive mice")]
         [ShopText("Mouse-shaped bomb that is practical, sleek and self-propelled.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x025C5000 + 0x583)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest]
         [GetItemIndex(0xD7), ItemPool(ItemCategory.Bombchu, LocationCategory.Chests, ClassicCategory.EverythingElse)]
         ChestTerminaGrottoBombchu,
 
         [Repeatable]
-        [ItemName("Red Rupee"), LocationName("Termina Field Grass Grotto"), Region(Region.TerminaField)]
+        [ItemName("Red Rupee"), LocationName("Chest"), Region(GrottoGenericTerminaFieldGrass)]
         [GossipLocationHint("a grassy cave"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 20 rupees.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x025C5000 + 0x593)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest]
         [GetItemIndex(0xDC), ItemPool(ItemCategory.RedRupees, LocationCategory.Chests, ClassicCategory.EverythingElse)]
         ChestTerminaGrottoRedRupee,
 
@@ -1711,10 +1815,10 @@ namespace MMR.Randomizer.GameObjects
         ChestTerminaStumpRedRupee,
 
         [Repeatable]
-        [ItemName("Red Rupee"), LocationName("Great Bay Coast Grotto"), Region(Region.GreatBayCoast)]
+        [ItemName("Red Rupee"), LocationName("Chest"), Region(GrottoGenericGreatBayCoast)]
         [GossipLocationHint("a beach cave"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 20 rupees.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x026DE000 + 0x43F, 0x026DE000 + 0xFE3)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest]
         [GetItemIndex(0xD4), ItemPool(ItemCategory.RedRupees, LocationCategory.Chests, ClassicCategory.EverythingElse)]
         ChestGreatBayCoastGrotto, //contents? 
 
@@ -1735,10 +1839,10 @@ namespace MMR.Randomizer.GameObjects
         ChestGreatBayCapeLedge2, //contents? 
 
         [Repeatable, Temporary(nameof(GameplaySettings.BombchuDrops), false)]
-        [ItemName("Bombchu"), LocationName("Zora Cape Grotto"), Region(Region.ZoraCape)]
+        [ItemName("Bombchu"), LocationName("Chest"), Region(GrottoGenericZoraCape)]
         [GossipLocationHint("a beach cave"), GossipItemHint("explosive mice")]
         [ShopText("Mouse-shaped bomb that is practical, sleek and self-propelled.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x02715000 + 0x45B, 0x02715000 + 0xB47)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest]
         [GetItemIndex(0xD2), ItemPool(ItemCategory.Bombchu, LocationCategory.Chests, ClassicCategory.EverythingElse)]
         ChestGreatBayCapeGrotto, //contents? 
 
@@ -1775,10 +1879,10 @@ namespace MMR.Randomizer.GameObjects
         ChestPiratesFortressEntranceRedRupee3,
 
         [Repeatable]
-        [ItemName("Red Rupee"), LocationName("Path to Swamp Grotto"), Region(Region.RoadToSouthernSwamp)]
+        [ItemName("Red Rupee"), LocationName("Chest"), Region(GrottoGenericRoadToSwamp)]
         [GossipLocationHint("a southern cave"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 20 rupees.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x027C1000 + 0x33B)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest]
         [GetItemIndex(0xDB), ItemPool(ItemCategory.RedRupees, LocationCategory.Chests, ClassicCategory.EverythingElse)]
         ChestToSwampGrotto, //contents? 
 
@@ -1791,18 +1895,18 @@ namespace MMR.Randomizer.GameObjects
         ChestDogRacePurpleRupee,
 
         [Repeatable, Temporary(nameof(GameplaySettings.BombchuDrops), false)]
-        [ItemName("5 Bombchu"), LocationName("Ikana Graveyard Grotto"), Region(Region.IkanaGraveyard)]
+        [ItemName("5 Bombchu"), LocationName("Chest"), Region(GrottoGenericIkanaGraveyard)]
         [ShopText("Mouse-shaped bombs that are practical, sleek and self-propelled.", isMultiple: true)]
         [GossipLocationHint("a circled cave"), GossipItemHint("explosive mice")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x0280D000 + 0x353, 0x0280D000 + 0x54B)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest]
         [GetItemIndex(0xD5), ItemPool(ItemCategory.Bombchu, LocationCategory.Chests, ClassicCategory.EverythingElse)]
         ChestGraveyardGrotto, //contents? 
 
         [Repeatable]
-        [ItemName("Red Rupee"), LocationName("Near Swamp Spider House Grotto"), Region(Region.SouthernSwamp)]
+        [ItemName("Red Rupee"), LocationName("Chest"), Region(GrottoGenericSouthernSwamp)]
         [GossipLocationHint("a southern cave"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 20 rupees.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x01F3A000 + 0x227, 0x02855000 + 0x2AF)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest]
         [GetItemIndex(0xDA), ItemPool(ItemCategory.RedRupees, LocationCategory.Chests, ClassicCategory.EverythingElse)]
         ChestSwampGrotto,  //contents? 
 
@@ -1847,10 +1951,10 @@ namespace MMR.Randomizer.GameObjects
         ChestMountainVillage, //contents? 
 
         [Repeatable]
-        [ItemName("Red Rupee"), LocationName("Mountain Spring Grotto"), Region(Region.MountainVillage)]
+        [ItemName("Red Rupee"), LocationName("Chest"), Region(GrottoGenericMountainVillageSpring)]
         [GossipLocationHint("the springtime"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 20 rupees.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x02BFC000 + 0x1F3, 0x02BFC000 + 0x2B3)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest]
         [GetItemIndex(0xD8), ItemPool(ItemCategory.RedRupees, LocationCategory.Chests, ClassicCategory.EverythingElse)]
         ChestMountainVillageGrottoRedRupee,
 
@@ -1863,10 +1967,10 @@ namespace MMR.Randomizer.GameObjects
         ChestToIkanaRedRupee,
 
         [Repeatable, Temporary(nameof(GameplaySettings.BombchuDrops), false)]
-        [ItemName("Bombchu"), LocationName("Path to Ikana Grotto"), Region(Region.RoadToIkana)]
+        [ItemName("Bombchu"), LocationName("Chest"), Region(GrottoGenericRoadToIkana)]
         [GossipLocationHint("a blocked cave"), GossipItemHint("explosive mice")]
         [ShopText("Mouse-shaped bomb that is practical, sleek and self-propelled.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x02B34000 + 0x523)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest]
         [GetItemIndex(0xD3), ItemPool(ItemCategory.Bombchu, LocationCategory.Chests, ClassicCategory.EverythingElse)]
         ChestToIkanaGrotto, //contents? 
 
@@ -1896,10 +2000,10 @@ namespace MMR.Randomizer.GameObjects
         ChestInvertedStoneTowerBean,
 
         [Repeatable]
-        [ItemName("Red Rupee"), LocationName("Path to Snowhead Grotto"), Region(Region.PathToSnowhead)]
+        [ItemName("Red Rupee"), LocationName("Chest"), Region(GrottoGenericPathToSnowhead)]
         [GossipLocationHint("a snowy cave"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 20 rupees.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x02C04000 + 0xAF, 0x02C04000 + 0x487)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest]
         [GetItemIndex(0xD0), ItemPool(ItemCategory.RedRupees, LocationCategory.Chests, ClassicCategory.EverythingElse)]
         ChestToSnowheadGrotto, //contents? 
 
@@ -1969,10 +2073,10 @@ namespace MMR.Randomizer.GameObjects
         ChestInnGuestRoom, //contents? 
 
         [Repeatable]
-        [ItemName("Purple Rupee"), LocationName("Mystery Woods Grotto"), Region(Region.SouthernSwamp)]
+        [ItemName("Purple Rupee"), LocationName("Chest"), Region(GrottoGenericWoodsOfMystery)]
         [GossipLocationHint("a mystery cave"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 50 rupees.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x02CFC000 + 0x5B)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest]
         [GetItemIndex(0xD9), ItemPool(ItemCategory.PurpleRupees, LocationCategory.Chests, ClassicCategory.EverythingElse)]
         ChestWoodsGrotto, //contents? 
 
@@ -2065,7 +2169,7 @@ namespace MMR.Randomizer.GameObjects
 
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [StartingItem(0xC5CE70, 0x10, true)]
-        [ItemName("Piece of Heart"), LocationName("Bio Baba Grotto"), Region(Region.TerminaField)]
+        [ItemName("Piece of Heart"), LocationName("Right Hive"), Region(GrottoBioBaba)]
         [GossipLocationHint("a beehive"), GossipItemHint("a segment of health")]
         [ShopText("Collect four to assemble a new Heart Container.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
@@ -2150,7 +2254,7 @@ namespace MMR.Randomizer.GameObjects
         [StartingItem(0xC40E1B, 0x10, true)] // add respawn health
         [StartingItem(0xBDA683, 0x10, true)] // add minimum Song of Time health
         [StartingItem(0xBDA68F, 0x10, true)] // add minimum Song of Time health
-        [ItemName("Heart Container"), LocationName("Woodfall Heart Container"), Region(AreaOdolwasLair)]
+        [ItemName("Heart Container"), LocationName("Heart Container"), Region(AreaOdolwasLair)]
         [GossipLocationHint("a masked evil"), GossipItemHint("increased life")]
         [ShopText("Permanently increases your life energy.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -2163,7 +2267,7 @@ namespace MMR.Randomizer.GameObjects
         [StartingItem(0xC40E1B, 0x10, true)] // add respawn health
         [StartingItem(0xBDA683, 0x10, true)] // add minimum Song of Time health
         [StartingItem(0xBDA68F, 0x10, true)] // add minimum Song of Time health
-        [ItemName("Heart Container"), LocationName("Snowhead Heart Container"), Region(AreaGohtsLair)]
+        [ItemName("Heart Container"), LocationName("Heart Container"), Region(AreaGohtsLair)]
         [GossipLocationHint("a masked evil"), GossipItemHint("increased life")]
         [ShopText("Permanently increases your life energy.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -2176,7 +2280,7 @@ namespace MMR.Randomizer.GameObjects
         [StartingItem(0xC40E1B, 0x10, true)] // add respawn health
         [StartingItem(0xBDA683, 0x10, true)] // add minimum Song of Time health
         [StartingItem(0xBDA68F, 0x10, true)] // add minimum Song of Time health
-        [ItemName("Heart Container"), LocationName("Great Bay Heart Container"), Region(AreaGyorgsLair)]
+        [ItemName("Heart Container"), LocationName("Heart Container"), Region(AreaGyorgsLair)]
         [GossipLocationHint("a masked evil"), GossipItemHint("increased life")]
         [ShopText("Permanently increases your life energy.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -2189,7 +2293,7 @@ namespace MMR.Randomizer.GameObjects
         [StartingItem(0xC40E1B, 0x10, true)] // add respawn health
         [StartingItem(0xBDA683, 0x10, true)] // add minimum Song of Time health
         [StartingItem(0xBDA68F, 0x10, true)] // add minimum Song of Time health
-        [ItemName("Heart Container"), LocationName("Stone Tower Heart Container"), Region(AreaTwinmoldsLair)]
+        [ItemName("Heart Container"), LocationName("Heart Container"), Region(AreaTwinmoldsLair)]
         [GossipLocationHint("a masked evil"), GossipItemHint("increased life")]
         [ShopText("Permanently increases your life energy.")]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -2259,10 +2363,10 @@ namespace MMR.Randomizer.GameObjects
 
         //oops I forgot one
         [Repeatable, Temporary(nameof(GameplaySettings.BombchuDrops), false)]
-        [ItemName("Bombchu"), LocationName("Goron Racetrack Grotto"), Region(Region.TwinIslands)]
+        [ItemName("Bombchu"), LocationName("Chest"), Region(GrottoGenericTwinIslands)]
         [GossipLocationHint("a hidden cave"), GossipItemHint("explosive mice")]
         [ShopText("Mouse-shaped bomb that is practical, sleek and self-propelled.")]
-        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest(0x02C23000 + 0x2D7, 0x02C34000 + 0x1DB)]
+        [ChestType(ChestTypeAttribute.ChestType.SmallWooden), GrottoChest]
         [GetItemIndex(0xD6), ItemPool(ItemCategory.Bombchu, LocationCategory.Chests, ClassicCategory.EverythingElse)]
         ChestToGoronRaceGrotto, //contents?
 
@@ -2433,7 +2537,7 @@ namespace MMR.Randomizer.GameObjects
         ItemWellCowMilk,
 
         [Repeatable, Temporary, Overwritable(OverwritableAttribute.ItemSlot.Bottle)]
-        [ItemName("Milk"), LocationName("Termina Grotto Cow #1"), Region(Region.TerminaField)]
+        [ItemName("Milk"), LocationName("Cow #1"), Region(GrottoCowTerminaField)]
         [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
         [ShopText("Recover five hearts with one drink. Contains two helpings.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2441,7 +2545,7 @@ namespace MMR.Randomizer.GameObjects
         ItemTerminaGrottoCowMilk1,
 
         [Repeatable, Temporary, Overwritable(OverwritableAttribute.ItemSlot.Bottle)]
-        [ItemName("Milk"), LocationName("Termina Grotto Cow #2"), Region(Region.TerminaField)]
+        [ItemName("Milk"), LocationName("Cow #2"), Region(GrottoCowTerminaField)]
         [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
         [ShopText("Recover five hearts with one drink. Contains two helpings.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2449,7 +2553,7 @@ namespace MMR.Randomizer.GameObjects
         ItemTerminaGrottoCowMilk2,
 
         [Repeatable, Temporary, Overwritable(OverwritableAttribute.ItemSlot.Bottle)]
-        [ItemName("Milk"), LocationName("Great Bay Coast Grotto Cow #1"), Region(Region.GreatBayCoast)]
+        [ItemName("Milk"), LocationName("Cow #1"), Region(GrottoCowGreatBayCoast)]
         [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
         [ShopText("Recover five hearts with one drink. Contains two helpings.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -2457,7 +2561,7 @@ namespace MMR.Randomizer.GameObjects
         ItemCoastGrottoCowMilk1,
 
         [Repeatable, Temporary, Overwritable(OverwritableAttribute.ItemSlot.Bottle)]
-        [ItemName("Milk"), LocationName("Great Bay Coast Grotto Cow #2"), Region(Region.GreatBayCoast)]
+        [ItemName("Milk"), LocationName("Cow #2"), Region(GrottoCowGreatBayCoast)]
         [GossipLocationHint("a lost creature"), GossipItemHint("a dairy product", "the produce of cows")]
         [ShopText("Recover five hearts with one drink. Contains two helpings.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.SmallGold)]
@@ -3594,7 +3698,7 @@ namespace MMR.Randomizer.GameObjects
 
         [RupeeRepeatable]
         [Repeatable]
-        [ItemName("Purple Rupee"), LocationName("Deku Playground Any Day"), Region(Region.NorthClockTown)]
+        [ItemName("Purple Rupee"), LocationName("Deku Playground Any Day"), Region(GrottoDekuPlayground)]
         [GossipLocationHint("a game for scrubs", "a playground", "a town game"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff"), GossipCompetitiveHint(-3)]
         [ShopText("This is worth 50 rupees.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
@@ -4457,7 +4561,7 @@ namespace MMR.Randomizer.GameObjects
 
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [Repeatable]
-        [ItemName("Blue Rupee"), LocationName("Bio Baba Grotto Hive"), Region(Region.TerminaField)]
+        [ItemName("Blue Rupee"), LocationName("Left Hive"), Region(GrottoBioBaba)]
         [GossipLocationHint("an underground hive"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 5 rupees.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
@@ -7997,7 +8101,7 @@ namespace MMR.Randomizer.GameObjects
 
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [Repeatable]
-        [ItemName("Blue Rupee"), LocationName("Bean Grotto Soft Soil"), Region(Region.DekuPalace)]
+        [ItemName("Blue Rupee"), LocationName("Soft Soil"), Region(GrottoBeanSeller)]
         [GossipLocationHint("underground soil"), GossipItemHint("currency", "money", "cash", "wealth", "riches and stuff")]
         [ShopText("This is worth 5 rupees.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
@@ -10181,7 +10285,7 @@ namespace MMR.Randomizer.GameObjects
 
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [StartingItem(0xC5CE73, 0x01)]
-        [ItemName("Odolwa's Remains"), LocationName("Woodfall Boss Warp"), Region(AreaOdolwasLair)]
+        [ItemName("Odolwa's Remains"), LocationName("Warp"), Region(AreaOdolwasLair)]
         [GossipLocationHint("a masked evil"), GossipItemHint("an evil mask")]
         [ShopText("The remains of the boss in Woodfall Temple.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -10191,7 +10295,7 @@ namespace MMR.Randomizer.GameObjects
 
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [StartingItem(0xC5CE73, 0x02)]
-        [ItemName("Goht's Remains"), LocationName("Snowhead Boss Warp"), Region(AreaGohtsLair)]
+        [ItemName("Goht's Remains"), LocationName("Warp"), Region(AreaGohtsLair)]
         [GossipLocationHint("a masked evil"), GossipItemHint("an evil mask")]
         [ShopText("The remains of the boss in Snowhead Temple.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -10201,7 +10305,7 @@ namespace MMR.Randomizer.GameObjects
 
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [StartingItem(0xC5CE73, 0x04)]
-        [ItemName("Gyorg's Remains"), LocationName("Great Bay Boss Warp"), Region(AreaGyorgsLair)]
+        [ItemName("Gyorg's Remains"), LocationName("Warp"), Region(AreaGyorgsLair)]
         [GossipLocationHint("a masked evil"), GossipItemHint("an evil mask")]
         [ShopText("The remains of the boss in Great Bay Temple.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -10211,7 +10315,7 @@ namespace MMR.Randomizer.GameObjects
 
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [StartingItem(0xC5CE73, 0x08)]
-        [ItemName("Twinmold's Remains"), LocationName("Stone Tower Boss Warp"), Region(AreaTwinmoldsLair)]
+        [ItemName("Twinmold's Remains"), LocationName("Warp"), Region(AreaTwinmoldsLair)]
         [GossipLocationHint("a masked evil"), GossipItemHint("an evil mask")]
         [ShopText("The remains of the boss in Stone Tower Temple.", isMultiple: true)]
         [ChestType(ChestTypeAttribute.ChestType.LargeGold)]
@@ -10970,7 +11074,7 @@ namespace MMR.Randomizer.GameObjects
 
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [Repeatable]
-        [ItemName("Fairy"), LocationName("Gossip Grotto Fairy"), Region(Region.TerminaField)]
+        [ItemName("Fairy"), LocationName("Gossip Grotto Fairy"), MultiLocation(CollectableGrottosOceanGossipStonesGossipFairy1InSwampGossipGrotto, CollectableGrottosOceanGossipStonesGossipFairy1InMountainGossipGrotto, CollectableGrottosOceanGossipStonesGossipFairy1InOceanGossipGrotto, CollectableGrottosOceanGossipStonesGossipFairy1InCanyonGossipGrotto)]
         [GossipLocationHint("a summoning"), GossipItemHint("a winged friend", "a healer")]
         [ShopText("Recovers life energy. If you run out of life energy you'll automatically use this.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
@@ -11400,7 +11504,7 @@ namespace MMR.Randomizer.GameObjects
 
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [Repeatable]
-        [ItemName("Fairy"), LocationName("Termina Field West Gossip Grotto Butterfly Fairy"), Region(Region.TerminaField)]
+        [ItemName("Fairy"), LocationName("Butterfly Fairy"), Region(GrottoGossipOcean)]
         [GossipLocationHint("a transformation"), GossipItemHint("a winged friend", "a healer")]
         [ShopText("Recovers life energy. If you run out of life energy you'll automatically use this.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
@@ -11410,7 +11514,7 @@ namespace MMR.Randomizer.GameObjects
 
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [Repeatable]
-        [ItemName("Fairy"), LocationName("Bean Man Butterfly Fairy"), Region(Region.DekuPalace)]
+        [ItemName("Fairy"), LocationName("Butterfly Fairy"), Region(GrottoBeanSeller)]
         [GossipLocationHint("a transformation"), GossipItemHint("a winged friend", "a healer")]
         [ShopText("Recovers life energy. If you run out of life energy you'll automatically use this.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
@@ -11420,7 +11524,7 @@ namespace MMR.Randomizer.GameObjects
 
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [Repeatable]
-        [ItemName("Fairy"), LocationName("Termina Field Cow Grotto Butterfly Fairy"), Region(Region.TerminaField)]
+        [ItemName("Fairy"), LocationName("Butterfly Fairy"), Region(GrottoCowTerminaField)]
         [GossipLocationHint("a transformation"), GossipItemHint("a winged friend", "a healer")]
         [ShopText("Recovers life energy. If you run out of life energy you'll automatically use this.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
@@ -11430,7 +11534,7 @@ namespace MMR.Randomizer.GameObjects
 
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [Repeatable]
-        [ItemName("Fairy"), LocationName("Great Bay Coast Cow Grotto Butterfly Fairy"), Region(Region.GreatBayCoast)]
+        [ItemName("Fairy"), LocationName("Butterfly Fairy"), Region(GrottoCowGreatBayCoast)]
         [GossipLocationHint("a transformation"), GossipItemHint("a winged friend", "a healer")]
         [ShopText("Recovers life energy. If you run out of life energy you'll automatically use this.")]
         [ChestType(ChestTypeAttribute.ChestType.SmallWooden)]
@@ -11823,6 +11927,30 @@ namespace MMR.Randomizer.GameObjects
 
         [MainLocation(HeartPiecePostBox), Region(Region.EastClockTown)]
         HeartPiecePostBoxInECT,
+
+        [MainLocation(HeartPieceTerminaGossipStones), Region(GrottoGossipSwamp)]
+        HeartPieceTerminaGossipStonesInSwampGossipGrotto,
+
+        [MainLocation(HeartPieceTerminaGossipStones), Region(GrottoGossipMountain)]
+        HeartPieceTerminaGossipStonesInMountainGossipGrotto,
+
+        [MainLocation(HeartPieceTerminaGossipStones), Region(GrottoGossipOcean)]
+        HeartPieceTerminaGossipStonesInOceanGossipGrotto,
+
+        [MainLocation(HeartPieceTerminaGossipStones), Region(GrottoGossipCanyon)]
+        HeartPieceTerminaGossipStonesInCanyonGossipGrotto,
+
+        [MainLocation(CollectableGrottosOceanGossipStonesGossipFairy1), Region(GrottoGossipSwamp)]
+        CollectableGrottosOceanGossipStonesGossipFairy1InSwampGossipGrotto,
+
+        [MainLocation(CollectableGrottosOceanGossipStonesGossipFairy1), Region(GrottoGossipMountain)]
+        CollectableGrottosOceanGossipStonesGossipFairy1InMountainGossipGrotto,
+
+        [MainLocation(CollectableGrottosOceanGossipStonesGossipFairy1), Region(GrottoGossipOcean)]
+        CollectableGrottosOceanGossipStonesGossipFairy1InOceanGossipGrotto,
+
+        [MainLocation(CollectableGrottosOceanGossipStonesGossipFairy1), Region(GrottoGossipCanyon)]
+        CollectableGrottosOceanGossipStonesGossipFairy1InCanyonGossipGrotto,
 
         [MainLocation(HeartPieceKeatonQuiz), Region(Region.NorthClockTown)]
         HeartPieceKeatonQuizInNCT,

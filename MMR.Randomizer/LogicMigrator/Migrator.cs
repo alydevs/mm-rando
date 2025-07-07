@@ -8,7 +8,7 @@ namespace MMR.Randomizer.LogicMigrator
 {
     public static partial class Migrator
     {
-        public const int CurrentVersion = 27;
+        public const int CurrentVersion = 28;
 
         public static string ApplyMigrations(string logic)
         {
@@ -257,6 +257,11 @@ namespace MMR.Randomizer.LogicMigrator
             if (logicObject.Version < 27)
             {
                 AddGibdos(logicObject);
+            }
+
+            if (logicObject.Version < 28)
+            {
+                AddGrottos(logicObject);
             }
 
             return JsonSerializer.Serialize(logicObject);
@@ -4856,6 +4861,153 @@ namespace MMR.Randomizer.LogicMigrator
             logicObject.Version = 27;
         }
 
+        private static void AddGrottos(JsonFormatLogic logicObject)
+        {
+            var itemNames = new (string name, string reference, Action<JsonFormatLogicItem> modify)[]
+            {
+                ("GrottoGossipOcean", "CollectableGrottosOceanGossipStonesButterflyFairy1", null),
+                ("GrottoGossipSwamp", null, null),
+                ("GrottoGossipCanyon", null, null),
+                ("GrottoGossipMountain", null, null),
+                ("GrottoGenericGreatBayCoast", "ChestGreatBayCoastGrotto", null),
+                ("GrottoGenericMountainVillageSpring", "ChestMountainVillageGrottoRedRupee", null),
+                ("GrottoGenericSouthernSwamp", "ChestSwampGrotto", null),
+                ("GrottoGenericRoadToSwamp", null, null),
+                ("GrottoGenericTerminaFieldGrass", null, null),
+                ("GrottoGenericIkanaCanyon", "ChestIkanaSecretShrineGrotto", null),
+                ("GrottoGenericWoodsOfMystery", null, null),
+                ("GrottoGenericZoraCape", "ChestGreatBayCapeGrotto", null),
+                ("GrottoGenericRoadToIkana", "ChestToIkanaGrotto", null),
+                ("GrottoGenericTerminaFieldPillar", null, null),
+                ("GrottoGenericIkanaGraveyard", "ChestGraveyardGrotto", null),
+                ("GrottoGenericPathToSnowhead", "ChestToSnowheadGrotto", null),
+                ("GrottoGenericTwinIslands", "ChestToGoronRaceGrotto", null),
+                ("GrottoHotSpring", "ChestHotSpringGrottoRedRupee", (logicItem) =>
+                {
+                    removeConditionalItemsContainingText(logicItem, "Explosive");
+                    removeConditionalItemsContainingText(logicItem, "Bomb");
+                    removeConditionalItemsContainingText(logicItem, "Blast");
+                    removeConditionalItemsContainingText(logicItem, "Keg");
+                    removeConditionalItemsContainingText(logicItem, "Boulder");
+                    cleanUpConditionals(logicItem);
+                }
+                ),
+                ("GrottoDodongo", null, null),
+                ("GrottoDekuMerchant", null, null),
+                ("GrottoCowGreatBayCoast", "CollectableGrottosCowGrottoButterflyFairy2", null),
+                ("GrottoCowTerminaField", "CollectableGrottosCowGrottoButterflyFairy1", null),
+                ("GrottoBioBaba", "CollectableGrottosOceanGossipStonesButterflyFairy1", null),
+                ("GrottoBeanSeller", "ItemMagicBean", null),
+                ("GrottoPeahat", null, null),
+                ("GrottoDekuPlayground", null, null),
+            };
+
+            logicObject.Logic.InsertRange(144, GetLogicItems(logicObject, itemNames));
+
+            JsonFormatLogicItem getItem(string id) => logicObject.Logic.Single(logicItem => logicItem.Id == id);
+
+            void replaceWithRequiredItems(JsonFormatLogicItem logicItem, params string[] requiredItems)
+            {
+                logicItem.RequiredItems.Clear();
+                logicItem.ConditionalItems.Clear();
+                addRequired(logicItem, requiredItems);
+            }
+
+            void replaceRequiredItems(JsonFormatLogicItem logicItem, params string[] requiredItems)
+            {
+                logicItem.RequiredItems.Clear();
+                addRequired(logicItem, requiredItems);
+            }
+
+            void clearConditionalsAndAddRequiredItems(JsonFormatLogicItem logicItem, params string[] requiredItems)
+            {
+                logicItem.ConditionalItems.Clear();
+                addRequired(logicItem, requiredItems);
+            }
+
+            replaceWithRequiredItems(getItem("CollectableGrottosOceanGossipStonesButterflyFairy1"), "GrottoGossipOcean");
+            replaceWithRequiredItems(getItem("ChestGreatBayCoastGrotto"), "GrottoGenericGreatBayCoast");
+            replaceWithRequiredItems(getItem("ChestMountainVillageGrottoRedRupee"), "GrottoGenericMountainVillageSpring");
+            replaceWithRequiredItems(getItem("ChestSwampGrotto"), "GrottoGenericSouthernSwamp");
+            replaceWithRequiredItems(getItem("ChestToSwampGrotto"), "GrottoGenericRoadToSwamp");
+            replaceWithRequiredItems(getItem("ChestTerminaGrottoRedRupee"), "GrottoGenericTerminaFieldGrass");
+            replaceWithRequiredItems(getItem("ChestIkanaSecretShrineGrotto"), "GrottoGenericIkanaCanyon");
+            replaceWithRequiredItems(getItem("ChestWoodsGrotto"), "GrottoGenericWoodsOfMystery");
+            replaceWithRequiredItems(getItem("ChestGreatBayCapeGrotto"), "GrottoGenericZoraCape");
+            replaceWithRequiredItems(getItem("ChestToIkanaGrotto"), "GrottoGenericRoadToIkana");
+            replaceWithRequiredItems(getItem("ChestTerminaGrottoBombchu"), "GrottoGenericTerminaFieldPillar");
+            replaceWithRequiredItems(getItem("ChestGraveyardGrotto"), "GrottoGenericIkanaGraveyard");
+            replaceWithRequiredItems(getItem("ChestToSnowheadGrotto"), "GrottoGenericPathToSnowhead");
+            replaceWithRequiredItems(getItem("ChestToGoronRaceGrotto"), "GrottoGenericTwinIslands");
+            var hotSpringGrottoChest = getItem("ChestHotSpringGrottoRedRupee");
+            hotSpringGrottoChest.RequiredItems.Clear();
+            addRequired(hotSpringGrottoChest, "GrottoHotSpring");
+            removeConditionalsContainingText(hotSpringGrottoChest, "Challenge");
+            removeConditionalItemsContainingText(hotSpringGrottoChest, "Water");
+            removeConditionalItemsContainingText(hotSpringGrottoChest, "Soaring");
+            removeConditionalItemsContainingText(hotSpringGrottoChest, "Temple");
+            removeConditionalItemsContainingText(hotSpringGrottoChest, "Fire");
+            removeConditionalsContainingText(hotSpringGrottoChest, "Action Swap");
+            removeConditionalsContainingText(hotSpringGrottoChest, "Recoil Flip");
+            cleanUpConditionals(hotSpringGrottoChest);
+            addRequired(getItem("HeartPieceDodong"), "GrottoDodongo");
+            addRequired(getItem("HeartPieceTerminaBusinessScrub"), "GrottoDekuMerchant");
+            clearConditionalsAndAddRequiredItems(getItem("ItemCoastGrottoCowMilk1"), "GrottoCowGreatBayCoast");
+            clearConditionalsAndAddRequiredItems(getItem("ItemCoastGrottoCowMilk2"), "GrottoCowGreatBayCoast");
+            replaceWithRequiredItems(getItem("CollectableGrottosCowGrottoButterflyFairy2"), "GrottoCowGreatBayCoast");
+            replaceWithRequiredItems(getItem("ItemTerminaGrottoCowMilk1"), "GrottoCowTerminaField", "Play Epona's Song");
+            replaceWithRequiredItems(getItem("ItemTerminaGrottoCowMilk2"), "GrottoCowTerminaField", "Play Epona's Song");
+            replaceWithRequiredItems(getItem("CollectableGrottosCowGrottoButterflyFairy1"), "GrottoCowTerminaField");
+            replaceRequiredItems(getItem("HeartPieceZoraGrotto"), "GrottoBioBaba");
+            replaceRequiredItems(getItem("CollectableGrottosOceanHeartPieceGrottoBeehive1"), "GrottoBioBaba");
+            replaceRequiredItems(getItem("ItemMagicBean"), "GrottoBeanSeller");
+            replaceRequiredItems(getItem("ChestBeanGrottoRedRupee"), "GrottoBeanSeller");
+            replaceRequiredItems(getItem("CollectableBeanGrottoSoftSoil1"), "GrottoBeanSeller", "BottleCatchBug");
+            replaceRequiredItems(getItem("CollectableGrottosMagicBeanSellerSGrottoButterflyFairy1"), "GrottoBeanSeller");
+            addRequired(getItem("HeartPiecePeahat"), "GrottoPeahat");
+            addRequired(getItem("HeartPieceDekuPlayground"), "GrottoDekuPlayground");
+            addRequired(getItem("MundaneItemDekuPlaygroundPurpleRupee"), "GrottoDekuPlayground");
+
+            Action<JsonFormatLogicItem> updateGossipStones = (logicItem) =>
+            {
+                logicItem.RequiredItems.Clear();
+                addRequired(logicItem, "GrottoGossipOcean", "GrottoGossipSwamp", "GrottoGossipCanyon", "GrottoGossipMountain");
+            };
+
+            var newMultilocations = new (string name, string reference, Action<JsonFormatLogicItem> modify)[]
+            {
+                ("HeartPieceTerminaGossipStonesInSwampGossipGrotto", "HeartPieceTerminaGossipStones", updateGossipStones),
+                ("HeartPieceTerminaGossipStonesInMountainGossipGrotto", "HeartPieceTerminaGossipStones", updateGossipStones),
+                ("HeartPieceTerminaGossipStonesInOceanGossipGrotto", "HeartPieceTerminaGossipStones", updateGossipStones),
+                ("HeartPieceTerminaGossipStonesInCanyonGossipGrotto", "HeartPieceTerminaGossipStones", updateGossipStones),
+                ("CollectableGrottosOceanGossipStonesGossipFairy1InSwampGossipGrotto", "CollectableGrottosOceanGossipStonesGossipFairy1", (logicItem) => addRequired(logicItem, "GrottoGossipSwamp")),
+                ("CollectableGrottosOceanGossipStonesGossipFairy1InMountainGossipGrotto", "CollectableGrottosOceanGossipStonesGossipFairy1", (logicItem) => addRequired(logicItem, "GrottoGossipMountain")),
+                ("CollectableGrottosOceanGossipStonesGossipFairy1InOceanGossipGrotto", "CollectableGrottosOceanGossipStonesGossipFairy1", (logicItem) => addRequired(logicItem, "GrottoGossipOcean")),
+                ("CollectableGrottosOceanGossipStonesGossipFairy1InCanyonGossipGrotto", "CollectableGrottosOceanGossipStonesGossipFairy1", (logicItem) => addRequired(logicItem, "GrottoGossipCanyon")),
+            };
+
+            logicObject.Logic.InsertRange(1299, GetLogicItems(logicObject, newMultilocations));
+
+            var gossipStoneHp = getItem("HeartPieceTerminaGossipStones");
+            var gossipStoneHpFairy = getItem("CollectableGrottosOceanGossipStonesGossipFairy1");
+
+            gossipStoneHp.RequiredItems.Clear();
+            gossipStoneHp.ConditionalItems.Clear();
+            addConditional(gossipStoneHp, "HeartPieceTerminaGossipStonesInSwampGossipGrotto");
+            addConditional(gossipStoneHp, "HeartPieceTerminaGossipStonesInMountainGossipGrotto");
+            addConditional(gossipStoneHp, "HeartPieceTerminaGossipStonesInOceanGossipGrotto");
+            addConditional(gossipStoneHp, "HeartPieceTerminaGossipStonesInCanyonGossipGrotto");
+
+            gossipStoneHpFairy.RequiredItems.Clear();
+            gossipStoneHpFairy.ConditionalItems.Clear();
+            addConditional(gossipStoneHpFairy, "CollectableGrottosOceanGossipStonesGossipFairy1InSwampGossipGrotto");
+            addConditional(gossipStoneHpFairy, "CollectableGrottosOceanGossipStonesGossipFairy1InMountainGossipGrotto");
+            addConditional(gossipStoneHpFairy, "CollectableGrottosOceanGossipStonesGossipFairy1InOceanGossipGrotto");
+            addConditional(gossipStoneHpFairy, "CollectableGrottosOceanGossipStonesGossipFairy1InCanyonGossipGrotto");
+
+            logicObject.Version = 28;
+        }
+
         private static List<JsonFormatLogicItem> GetLogicItems(IEnumerable<string> itemNames)
         {
             return GetLogicItems(itemNames.Select((name) => (name, (JsonFormatLogicItem) null, (Action<JsonFormatLogicItem>)null, false)));
@@ -4956,6 +5108,25 @@ namespace MMR.Randomizer.LogicMigrator
         private static bool removeConditional(JsonFormatLogicItem item, params string[] values)
         {
             return item.ConditionalItems.RemoveAll(c => c.SequenceEqual(values)) > 0;
+        }
+
+        private static void removeConditionalItemsContainingText(JsonFormatLogicItem item, string text)
+        {
+            item.ConditionalItems.ForEach(c => c.RemoveAll(v => v.Contains(text)));
+        }
+
+        private static void removeConditionalsContainingText(JsonFormatLogicItem item, string text)
+        {
+            item.ConditionalItems.RemoveAll(c => c.Any(v => v.Contains(text)));
+        }
+
+        private static void cleanUpConditionals(JsonFormatLogicItem logicItem)
+        {
+            logicItem.ConditionalItems.RemoveAll(c => !c.Any());
+            for (var i = 0; i < logicItem.ConditionalItems.Count; i++)
+            {
+                logicItem.ConditionalItems.RemoveAll(c => c != logicItem.ConditionalItems[i] && c.SequenceEqualIgnoreOrder(logicItem.ConditionalItems[i]));
+            }
         }
 
         private static void addDayOnly(JsonFormatLogicItem item)

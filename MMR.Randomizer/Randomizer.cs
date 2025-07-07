@@ -301,6 +301,30 @@ namespace MMR.Randomizer
 
         #endregion
 
+        private void GrottoEntranceShuffle()
+        {
+            var entrances = Enum.GetValues<Item>().Where(item => item.ToString().StartsWith("Grotto")).ToList();
+            var targets = entrances.ToList();
+
+            foreach (var entrance in entrances)
+            {
+                var remainingTargets = targets.ToList();
+
+                Item targetEntrance;
+                do
+                {
+                    targetEntrance = remainingTargets.Random(Random);
+                    remainingTargets.Remove(targetEntrance);
+                }
+                while (entrance.Entrances()[0].SpawnId() == 0 && !targetEntrance.Entrances()[0].ExitActorParams().Any());
+
+                ItemList[entrance].NewLocation = targetEntrance;
+                ItemList[entrance].IsRandomized = true;
+
+                targets.Remove(targetEntrance);
+            }
+        }
+
         private void DungeonEntranceShuffle()
         {
             var dungeonEntrances = new List<Item>
@@ -3354,8 +3378,14 @@ namespace MMR.Randomizer
 
                 if (_settings.EntranceMode.HasFlag(EntranceMode.DungeonEntrances))
                 {
-                    progressReporter.ReportProgress(20, "Shuffling entrances...");
+                    progressReporter.ReportProgress(20, "Shuffling dungeon entrances...");
                     DungeonEntranceShuffle();
+                }
+
+                if (_settings.EntranceMode.HasFlag(EntranceMode.Grottos))
+                {
+                    progressReporter.ReportProgress(25, "Shuffling grotto entrances...");
+                    GrottoEntranceShuffle();
                 }
 
                 PrepareAdditionalItemData();

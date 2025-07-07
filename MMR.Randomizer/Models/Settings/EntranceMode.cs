@@ -14,5 +14,8 @@ namespace MMR.Randomizer.Models
 
         [Description("Enable randomization of boss rooms. The boss door texture will match the boss behind the door.")]
         BossRooms = 1 << 1,
+
+        [Description("Enable randomization of grottos. North Clock Town grotto and Deku Palace grotto will never be generic grottos or cow grottos.")]
+        Grottos = 1 << 2,
     }
 }

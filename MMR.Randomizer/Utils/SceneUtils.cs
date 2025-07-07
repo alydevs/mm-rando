@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using MMR.Randomizer.Extensions;
+using System;
 
 namespace MMR.Randomizer.Utils
 {
@@ -96,7 +97,7 @@ namespace MMR.Randomizer.Utils
                     }
                     j += 8;
                 }
-                CheckHeaderForExits(f, 0, scene);
+                CheckSceneHeaders(f, 0, scene);
                 if (scene.Number == 108) // avoid modifying unused setup in East Clock Town. doesn't seem to actually affect anything in-game, but best not to touch it.
                 {
                     scene.Setups.RemoveAt(2);
@@ -265,7 +266,7 @@ namespace MMR.Randomizer.Utils
             }
         }
 
-        private static void CheckHeaderForExits(int f, int headeraddr, Scene scene)
+        private static void CheckSceneHeaders(int f, int headeraddr, Scene scene)
         {
             int j = headeraddr;
             int setupsaddr = -1;
@@ -276,7 +277,25 @@ namespace MMR.Randomizer.Utils
             while (true)
             {
                 byte cmd = RomData.MMFileList[f].Data[j];
-                if (cmd == 0x13)
+                if (cmd == 0x03)
+                {
+                    setup.CollisionHeaderAddress = (int)ReadWriteUtils.Arr_ReadU32(RomData.MMFileList[f].Data, j + 4) & 0xFFFFFF;
+                    setup.PolygonTypeDefinitionsAddress = (int)ReadWriteUtils.Arr_ReadU32(RomData.MMFileList[f].Data, setup.CollisionHeaderAddress.Value + 0x1C) & 0xFFFFFF;
+                }
+                else if (cmd == 0x04)
+                {
+                    var roomCount = RomData.MMFileList[f].Data[j + 1];
+                    int roomAddress = (int)ReadWriteUtils.Arr_ReadU32(RomData.MMFileList[f].Data, j + 4) & 0xFFFFFF;
+                    for (int k = 0; k < roomCount; k++)
+                    {
+                        Room room = new Room();
+                        room.File = RomUtils.AddrToFile((int)ReadWriteUtils.Arr_ReadU32(RomData.MMFileList[f].Data, roomAddress));
+                        setup.Rooms.Add(room);
+                        roomAddress += 8;
+                        CheckRoomHeaders(room.File, scene.Setups.Count - 1, room);
+                    }
+                }
+                else if (cmd == 0x13)
                 {
                     setup.ExitListAddress = (int)ReadWriteUtils.Arr_ReadU32(RomData.MMFileList[f].Data, j + 4) & 0xFFFFFF;
                 }
@@ -326,10 +345,39 @@ namespace MMR.Randomizer.Utils
                 while (s == 0x02)
                 {
                     int p = (int)ReadWriteUtils.Arr_ReadU32(RomData.MMFileList[f].Data, j) & 0xFFFFFF;
-                    CheckHeaderForExits(f, p, scene);
+                    CheckSceneHeaders(f, p, scene);
                     j += 4;
                     s = RomData.MMFileList[f].Data[j];
                 }
+            }
+        }
+
+        private static void CheckRoomHeaders(int f, int setupIndex, Room room)
+        {
+            RomUtils.CheckCompressed(f);
+            var j = 0;
+            if (setupIndex > 0)
+            {
+                var cmd = RomData.MMFileList[f].Data[j];
+                if (cmd != 0x18)
+                {
+                    throw new Exception("Invalid room. First header is not Alternate Headers.");
+                }
+                var headerAddress = ReadWriteUtils.Arr_ReadS32(RomData.MMFileList[f].Data, j + 4) & 0xFFFFFF;
+                j = ReadWriteUtils.Arr_ReadS32(RomData.MMFileList[f].Data, headerAddress + (setupIndex - 1) * 4) & 0xFFFFFF;
+            }
+            while (true)
+            {
+                byte cmd = RomData.MMFileList[f].Data[j];
+                if (cmd == 0x01)
+                {
+                    room.ActorListAddress = (int)ReadWriteUtils.Arr_ReadU32(RomData.MMFileList[f].Data, j + 4) & 0xFFFFFF;
+                }
+                else if (cmd == 0x14)
+                {
+                    break;
+                }
+                j += 8;
             }
         }
 

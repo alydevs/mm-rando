@@ -1,5 +1,5 @@
 {
-  "Version": 27,
+  "Version": 28,
   "Logic": [
     {
       "Id": "MaskDeku",
@@ -149,7 +149,7 @@
     {
       "Id": "ItemMagicBean",
       "RequiredItems": [
-        "AreaDekuPalaceAccess"
+        "GrottoBeanSeller"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -949,7 +949,8 @@
     {
       "Id": "HeartPieceDekuPlayground",
       "RequiredItems": [
-        "OtherPlayDekuPlayground"
+        "OtherPlayDekuPlayground",
+        "GrottoDekuPlayground"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -1012,21 +1013,19 @@
     },
     {
       "Id": "HeartPieceTerminaGossipStones",
-      "RequiredItems": [
-        "Destroy Normal Boulders"
-      ],
+      "RequiredItems": [],
       "ConditionalItems": [
         [
-          "MaskGoron",
-          "Play Goron Lullaby"
+          "HeartPieceTerminaGossipStonesInSwampGossipGrotto"
         ],
         [
-          "MaskDeku",
-          "Play Sonata of Awakening"
+          "HeartPieceTerminaGossipStonesInMountainGossipGrotto"
         ],
         [
-          "MaskZora",
-          "Play New Wave Bossa Nova"
+          "HeartPieceTerminaGossipStonesInOceanGossipGrotto"
+        ],
+        [
+          "HeartPieceTerminaGossipStonesInCanyonGossipGrotto"
         ]
       ],
       "TimeNeeded": "None",
@@ -1038,7 +1037,8 @@
       "Id": "HeartPieceTerminaBusinessScrub",
       "RequiredItems": [
         "AreaAstralObservatoryAccess",
-        "Any Wallet"
+        "Any Wallet",
+        "GrottoDekuMerchant"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -1209,7 +1209,9 @@
     },
     {
       "Id": "HeartPiecePeahat",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "GrottoPeahat"
+      ],
       "ConditionalItems": [
         [
           "Any Sword"
@@ -1240,7 +1242,9 @@
     },
     {
       "Id": "HeartPieceDodong",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "GrottoDodongo"
+      ],
       "ConditionalItems": [
         [
           "Any Sword"
@@ -2660,6 +2664,382 @@
       "IsTrick": false
     },
     {
+      "Id": "GrottoGossipOcean",
+      "RequiredItems": [
+        "Destroy Normal Boulders"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "GrottoGossipSwamp",
+      "RequiredItems": [],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "GrottoGossipCanyon",
+      "RequiredItems": [],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "GrottoGossipMountain",
+      "RequiredItems": [],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "GrottoGenericGreatBayCoast",
+      "RequiredItems": [
+        "AreaWestAccess"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "GrottoGenericMountainVillageSpring",
+      "RequiredItems": [
+        "AreaSnowheadTempleClear"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "GrottoGenericSouthernSwamp",
+      "RequiredItems": [],
+      "ConditionalItems": [
+        [
+          "Kill Big Octo",
+          "MaskDeku"
+        ],
+        [
+          "Kill Big Octo",
+          "Run Through Poisoned Water"
+        ],
+        [
+          "Kill Big Octo",
+          "Swamp Poison Water by Climbing"
+        ],
+        [
+          "Kill Big Octo",
+          "Lilypad Parkour as FD"
+        ],
+        [
+          "Big Octo Skip as Deku",
+          "Dungeon Entrance Return"
+        ],
+        [
+          "Big Octo Skip as FD",
+          "Dungeon Entrance Return"
+        ],
+        [
+          "Big Octo Skip as Adult Link",
+          "Dungeon Entrance Return"
+        ],
+        [
+          "Poison Swamp Grotto as Goron",
+          "Kill Big Octo"
+        ],
+        [
+          "Poison Swamp Grotto as Goron",
+          "Big Octo Skip as Goron",
+          "Dungeon Entrance Return"
+        ],
+        [
+          "Dungeon Entrance Return",
+          "Recoil Flip to Swamp Spiderhouse with Fairy"
+        ],
+        [
+          "AreaSouthAccess",
+          "SettingClimbMostSurfaces"
+        ],
+        [
+          "AreaSouthAccess",
+          "SettingHookshotAnySurface"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "GrottoGenericRoadToSwamp",
+      "RequiredItems": [],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "GrottoGenericTerminaFieldGrass",
+      "RequiredItems": [],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "GrottoGenericIkanaCanyon",
+      "RequiredItems": [
+        "AreaEastAccess"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "GrottoGenericWoodsOfMystery",
+      "RequiredItems": [],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "GrottoGenericZoraCape",
+      "RequiredItems": [
+        "AreaWestAccess",
+        "Destroy Normal Boulders"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "GrottoGenericRoadToIkana",
+      "RequiredItems": [
+        "Destroy Red Boulders"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "GrottoGenericTerminaFieldPillar",
+      "RequiredItems": [],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "GrottoGenericIkanaGraveyard",
+      "RequiredItems": [
+        "AreaIkanaGraveyardAccess",
+        "OtherExplosive"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "GrottoGenericPathToSnowhead",
+      "RequiredItems": [
+        "AreaSnowheadAccess",
+        "OtherExplosive"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "GrottoGenericTwinIslands",
+      "RequiredItems": [
+        "AreaNorthAccess"
+      ],
+      "ConditionalItems": [
+        [
+          "MaskGoron",
+          "OtherExplosive"
+        ],
+        [
+          "OtherExplosive",
+          "SettingClimbMostSurfaces"
+        ],
+        [
+          "OtherExplosive",
+          "SettingHookshotAnySurface"
+        ],
+        [
+          "OtherExplosive",
+          "SettingGiantMaskAnywhere"
+        ],
+        [
+          "OtherExplosive",
+          "Scarecrow's Song"
+        ],
+        [
+          "Powder Kegs as Explosives",
+          "Keg Trial Access"
+        ],
+        [
+          "Zoey Grotto Recoil Flip"
+        ],
+        [
+          "Fish Push",
+          "OtherExplosive"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "GrottoHotSpring",
+      "RequiredItems": [
+        "AreaNorthAccess"
+      ],
+      "ConditionalItems": [
+        [
+          "BottleCatchHotSpringWater",
+          "Play Song of Soaring"
+        ],
+        [
+          "BottleCatchHotSpringWater",
+          "Hot Spring Water in Mountains",
+          "SettingNotRandomizedBottleCatchHotSpringWater"
+        ],
+        [
+          "AreaSnowheadTempleClear"
+        ],
+        [
+          "Use Fire Arrow"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "GrottoDodongo",
+      "RequiredItems": [],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "GrottoDekuMerchant",
+      "RequiredItems": [],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "GrottoCowGreatBayCoast",
+      "RequiredItems": [
+        "AreaWestAccess"
+      ],
+      "ConditionalItems": [
+        [
+          "ItemHookshot"
+        ],
+        [
+          "SettingClimbMostSurfaces"
+        ],
+        [
+          "SettingGiantMaskAnywhere"
+        ],
+        [
+          "Great Bay Cows With Nothing"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "GrottoCowTerminaField",
+      "RequiredItems": [
+        "OtherExplosive"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "GrottoBioBaba",
+      "RequiredItems": [
+        "Destroy Normal Boulders"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "GrottoBeanSeller",
+      "RequiredItems": [
+        "AreaDekuPalaceAccess"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "GrottoPeahat",
+      "RequiredItems": [],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "GrottoDekuPlayground",
+      "RequiredItems": [],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
       "Id": "ItemWoodfallMap",
       "RequiredItems": [
         "AreaWoodFallTempleAccess",
@@ -3744,7 +4124,7 @@
     {
       "Id": "ChestBeanGrottoRedRupee",
       "RequiredItems": [
-        "AreaDekuPalaceAccess"
+        "GrottoBeanSeller"
       ],
       "ConditionalItems": [
         [
@@ -3769,39 +4149,14 @@
     {
       "Id": "ChestHotSpringGrottoRedRupee",
       "RequiredItems": [
-        "AreaNorthAccess"
+        "GrottoHotSpring"
       ],
       "ConditionalItems": [
         [
-          "Destroy Large Boulders",
-          "BottleCatchHotSpringWater",
-          "Play Song of Soaring"
-        ],
-        [
-          "Destroy Large Boulders",
-          "BottleCatchHotSpringWater",
-          "Hot Spring Water in Mountains",
-          "SettingNotRandomizedBottleCatchHotSpringWater"
-        ],
-        [
-          "AreaSnowheadTempleClear",
           "Destroy Large Boulders"
         ],
         [
-          "Use Fire Arrow",
-          "Destroy Large Boulders"
-        ],
-        [
-          "Powder Kegs as Explosives",
-          "Use Fire Arrow"
-        ],
-        [
-          "Powder Kegs as Explosives",
-          "Powder Keg Challenge Access as FD"
-        ],
-        [
-          "Powder Kegs as Explosives",
-          "Powder Keg Challenge Access as Zora/Adult Link"
+          "Powder Kegs as Explosives"
         ]
       ],
       "TimeNeeded": "None",
@@ -3849,7 +4204,7 @@
     {
       "Id": "ChestIkanaSecretShrineGrotto",
       "RequiredItems": [
-        "AreaEastAccess"
+        "GrottoGenericIkanaCanyon"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -4052,7 +4407,9 @@
     },
     {
       "Id": "ChestTerminaGrottoBombchu",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "GrottoGenericTerminaFieldPillar"
+      ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
@@ -4061,7 +4418,9 @@
     },
     {
       "Id": "ChestTerminaGrottoRedRupee",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "GrottoGenericTerminaFieldGrass"
+      ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
@@ -4128,7 +4487,7 @@
     {
       "Id": "ChestGreatBayCoastGrotto",
       "RequiredItems": [
-        "AreaWestAccess"
+        "GrottoGenericGreatBayCoast"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -4186,8 +4545,7 @@
     {
       "Id": "ChestGreatBayCapeGrotto",
       "RequiredItems": [
-        "AreaWestAccess",
-        "Destroy Normal Boulders"
+        "GrottoGenericZoraCape"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -4242,7 +4600,9 @@
     },
     {
       "Id": "ChestToSwampGrotto",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "GrottoGenericRoadToSwamp"
+      ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
@@ -4284,8 +4644,7 @@
     {
       "Id": "ChestGraveyardGrotto",
       "RequiredItems": [
-        "AreaIkanaGraveyardAccess",
-        "OtherExplosive"
+        "GrottoGenericIkanaGraveyard"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -4295,58 +4654,10 @@
     },
     {
       "Id": "ChestSwampGrotto",
-      "RequiredItems": [],
-      "ConditionalItems": [
-        [
-          "Kill Big Octo",
-          "MaskDeku"
-        ],
-        [
-          "Kill Big Octo",
-          "Run Through Poisoned Water"
-        ],
-        [
-          "Kill Big Octo",
-          "Swamp Poison Water by Climbing"
-        ],
-        [
-          "Kill Big Octo",
-          "Lilypad Parkour as FD"
-        ],
-        [
-          "Big Octo Skip as Deku",
-          "Dungeon Entrance Return"
-        ],
-        [
-          "Big Octo Skip as FD",
-          "Dungeon Entrance Return"
-        ],
-        [
-          "Big Octo Skip as Adult Link",
-          "Dungeon Entrance Return"
-        ],
-        [
-          "Poison Swamp Grotto as Goron",
-          "Kill Big Octo"
-        ],
-        [
-          "Poison Swamp Grotto as Goron",
-          "Big Octo Skip as Goron",
-          "Dungeon Entrance Return"
-        ],
-        [
-          "Dungeon Entrance Return",
-          "Recoil Flip to Swamp Spiderhouse with Fairy"
-        ],
-        [
-          "AreaSouthAccess",
-          "SettingClimbMostSurfaces"
-        ],
-        [
-          "AreaSouthAccess",
-          "SettingHookshotAnySurface"
-        ]
+      "RequiredItems": [
+        "GrottoGenericSouthernSwamp"
       ],
+      "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
       "TimeSetup": "None",
@@ -4483,7 +4794,7 @@
     {
       "Id": "ChestMountainVillageGrottoRedRupee",
       "RequiredItems": [
-        "AreaSnowheadTempleClear"
+        "GrottoGenericMountainVillageSpring"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -4513,7 +4824,7 @@
     {
       "Id": "ChestToIkanaGrotto",
       "RequiredItems": [
-        "Destroy Red Boulders"
+        "GrottoGenericRoadToIkana"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -4641,8 +4952,7 @@
     {
       "Id": "ChestToSnowheadGrotto",
       "RequiredItems": [
-        "AreaSnowheadAccess",
-        "OtherExplosive"
+        "GrottoGenericPathToSnowhead"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -4750,7 +5060,9 @@
     },
     {
       "Id": "ChestWoodsGrotto",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "GrottoGenericWoodsOfMystery"
+      ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "Day2, Night2",
@@ -4955,7 +5267,7 @@
     {
       "Id": "HeartPieceZoraGrotto",
       "RequiredItems": [
-        "Destroy Normal Boulders"
+        "GrottoBioBaba"
       ],
       "ConditionalItems": [
         [
@@ -5355,41 +5667,9 @@
     {
       "Id": "ChestToGoronRaceGrotto",
       "RequiredItems": [
-        "AreaNorthAccess"
+        "GrottoGenericTwinIslands"
       ],
-      "ConditionalItems": [
-        [
-          "MaskGoron",
-          "OtherExplosive"
-        ],
-        [
-          "OtherExplosive",
-          "SettingClimbMostSurfaces"
-        ],
-        [
-          "OtherExplosive",
-          "SettingHookshotAnySurface"
-        ],
-        [
-          "OtherExplosive",
-          "SettingGiantMaskAnywhere"
-        ],
-        [
-          "OtherExplosive",
-          "Scarecrow's Song"
-        ],
-        [
-          "Powder Kegs as Explosives",
-          "Keg Trial Access"
-        ],
-        [
-          "Zoey Grotto Recoil Flip"
-        ],
-        [
-          "Fish Push",
-          "OtherExplosive"
-        ]
-      ],
+      "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
       "TimeSetup": "None",
@@ -5827,8 +6107,8 @@
     {
       "Id": "ItemTerminaGrottoCowMilk1",
       "RequiredItems": [
-        "Play Epona's Song",
-        "OtherExplosive"
+        "GrottoCowTerminaField",
+        "Play Epona's Song"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -5839,8 +6119,8 @@
     {
       "Id": "ItemTerminaGrottoCowMilk2",
       "RequiredItems": [
-        "Play Epona's Song",
-        "OtherExplosive"
+        "GrottoCowTerminaField",
+        "Play Epona's Song"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -5851,22 +6131,10 @@
     {
       "Id": "ItemCoastGrottoCowMilk1",
       "RequiredItems": [
-        "Play Epona's Song"
+        "Play Epona's Song",
+        "GrottoCowGreatBayCoast"
       ],
-      "ConditionalItems": [
-        [
-          "ItemHookshot"
-        ],
-        [
-          "SettingClimbMostSurfaces"
-        ],
-        [
-          "SettingGiantMaskAnywhere"
-        ],
-        [
-          "Great Bay Cows With Nothing"
-        ]
-      ],
+      "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
       "TimeSetup": "None",
@@ -5875,22 +6143,10 @@
     {
       "Id": "ItemCoastGrottoCowMilk2",
       "RequiredItems": [
-        "Play Epona's Song"
+        "Play Epona's Song",
+        "GrottoCowGreatBayCoast"
       ],
-      "ConditionalItems": [
-        [
-          "ItemHookshot"
-        ],
-        [
-          "SettingClimbMostSurfaces"
-        ],
-        [
-          "SettingGiantMaskAnywhere"
-        ],
-        [
-          "Great Bay Cows With Nothing"
-        ]
-      ],
+      "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
       "TimeSetup": "None",
@@ -9342,7 +9598,8 @@
     {
       "Id": "MundaneItemDekuPlaygroundPurpleRupee",
       "RequiredItems": [
-        "OtherPlayDekuPlayground"
+        "OtherPlayDekuPlayground",
+        "GrottoDekuPlayground"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -10616,7 +10873,7 @@
     {
       "Id": "CollectableGrottosOceanHeartPieceGrottoBeehive1",
       "RequiredItems": [
-        "Destroy Normal Boulders"
+        "GrottoBioBaba"
       ],
       "ConditionalItems": [
         [
@@ -16107,7 +16364,7 @@
     {
       "Id": "CollectableBeanGrottoSoftSoil1",
       "RequiredItems": [
-        "AreaDekuPalaceAccess",
+        "GrottoBeanSeller",
         "BottleCatchBug"
       ],
       "ConditionalItems": [],
@@ -20603,10 +20860,21 @@
     },
     {
       "Id": "CollectableGrottosOceanGossipStonesGossipFairy1",
-      "RequiredItems": [
-        "Summon Fairy"
+      "RequiredItems": [],
+      "ConditionalItems": [
+        [
+          "CollectableGrottosOceanGossipStonesGossipFairy1InSwampGossipGrotto"
+        ],
+        [
+          "CollectableGrottosOceanGossipStonesGossipFairy1InMountainGossipGrotto"
+        ],
+        [
+          "CollectableGrottosOceanGossipStonesGossipFairy1InOceanGossipGrotto"
+        ],
+        [
+          "CollectableGrottosOceanGossipStonesGossipFairy1InCanyonGossipGrotto"
+        ]
       ],
-      "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
       "TimeSetup": "None",
@@ -21596,7 +21864,7 @@
     {
       "Id": "CollectableGrottosOceanGossipStonesButterflyFairy1",
       "RequiredItems": [
-        "Destroy Normal Boulders"
+        "GrottoGossipOcean"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -21607,7 +21875,7 @@
     {
       "Id": "CollectableGrottosMagicBeanSellerSGrottoButterflyFairy1",
       "RequiredItems": [
-        "AreaDekuPalaceAccess"
+        "GrottoBeanSeller"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -21618,7 +21886,7 @@
     {
       "Id": "CollectableGrottosCowGrottoButterflyFairy1",
       "RequiredItems": [
-        "OtherExplosive"
+        "GrottoCowTerminaField"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -21629,22 +21897,9 @@
     {
       "Id": "CollectableGrottosCowGrottoButterflyFairy2",
       "RequiredItems": [
-        "AreaWestAccess"
+        "GrottoCowGreatBayCoast"
       ],
-      "ConditionalItems": [
-        [
-          "ItemHookshot"
-        ],
-        [
-          "SettingClimbMostSurfaces"
-        ],
-        [
-          "SettingGiantMaskAnywhere"
-        ],
-        [
-          "Great Bay Cows With Nothing"
-        ]
-      ],
+      "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
       "TimeSetup": "None",
@@ -22412,6 +22667,162 @@
       "Id": "HeartPiecePostBoxInECT",
       "RequiredItems": [
         "MaskPostmanHat"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "HeartPieceTerminaGossipStonesInSwampGossipGrotto",
+      "RequiredItems": [
+        "GrottoGossipOcean",
+        "GrottoGossipSwamp",
+        "GrottoGossipCanyon",
+        "GrottoGossipMountain"
+      ],
+      "ConditionalItems": [
+        [
+          "MaskGoron",
+          "Play Goron Lullaby"
+        ],
+        [
+          "MaskDeku",
+          "Play Sonata of Awakening"
+        ],
+        [
+          "MaskZora",
+          "Play New Wave Bossa Nova"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "HeartPieceTerminaGossipStonesInMountainGossipGrotto",
+      "RequiredItems": [
+        "GrottoGossipOcean",
+        "GrottoGossipSwamp",
+        "GrottoGossipCanyon",
+        "GrottoGossipMountain"
+      ],
+      "ConditionalItems": [
+        [
+          "MaskGoron",
+          "Play Goron Lullaby"
+        ],
+        [
+          "MaskDeku",
+          "Play Sonata of Awakening"
+        ],
+        [
+          "MaskZora",
+          "Play New Wave Bossa Nova"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "HeartPieceTerminaGossipStonesInOceanGossipGrotto",
+      "RequiredItems": [
+        "GrottoGossipOcean",
+        "GrottoGossipSwamp",
+        "GrottoGossipCanyon",
+        "GrottoGossipMountain"
+      ],
+      "ConditionalItems": [
+        [
+          "MaskGoron",
+          "Play Goron Lullaby"
+        ],
+        [
+          "MaskDeku",
+          "Play Sonata of Awakening"
+        ],
+        [
+          "MaskZora",
+          "Play New Wave Bossa Nova"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "HeartPieceTerminaGossipStonesInCanyonGossipGrotto",
+      "RequiredItems": [
+        "GrottoGossipOcean",
+        "GrottoGossipSwamp",
+        "GrottoGossipCanyon",
+        "GrottoGossipMountain"
+      ],
+      "ConditionalItems": [
+        [
+          "MaskGoron",
+          "Play Goron Lullaby"
+        ],
+        [
+          "MaskDeku",
+          "Play Sonata of Awakening"
+        ],
+        [
+          "MaskZora",
+          "Play New Wave Bossa Nova"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "CollectableGrottosOceanGossipStonesGossipFairy1InSwampGossipGrotto",
+      "RequiredItems": [
+        "Summon Fairy",
+        "GrottoGossipSwamp"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "CollectableGrottosOceanGossipStonesGossipFairy1InMountainGossipGrotto",
+      "RequiredItems": [
+        "Summon Fairy",
+        "GrottoGossipMountain"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "CollectableGrottosOceanGossipStonesGossipFairy1InOceanGossipGrotto",
+      "RequiredItems": [
+        "Summon Fairy",
+        "GrottoGossipOcean"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "CollectableGrottosOceanGossipStonesGossipFairy1InCanyonGossipGrotto",
+      "RequiredItems": [
+        "Summon Fairy",
+        "GrottoGossipCanyon"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",

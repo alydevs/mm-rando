@@ -11,8 +11,17 @@ namespace MMR.Randomizer.Models.Rom
         public List<SceneSetup> Setups { get; set; } = new List<SceneSetup>();
     }
 
+    public class Room
+    {
+        public int File { get; set; }
+        public int? ActorListAddress { get; set; }
+    }
+
     public class SceneSetup
     {
+        public List<Room> Rooms { get; set; } = new List<Room>();
+        public int? CollisionHeaderAddress { get; set; }
+        public int? PolygonTypeDefinitionsAddress { get; set; }
         public int? ExitListAddress { get; set; }
         public int? CutsceneListAddress { get; set; }
         public int? ActorCutsceneListAddress { get; set; }
