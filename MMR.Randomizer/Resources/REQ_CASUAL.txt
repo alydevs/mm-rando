@@ -4006,17 +4006,7 @@
       ],
       "ConditionalItems": [
         [
-          "AreaSnowheadTempleClear",
-          "AreaNorthAccess"
-        ],
-        [
-          "BottleCatchHotSpringWater",
-          "Play Song of Soaring",
-          "AreaNorthAccess"
-        ],
-        [
-          "Use Fire Arrow",
-          "AreaNorthAccess"
+          "GrottoHotSpring"
         ],
         [
           "Hot Spring Water in Mountains"

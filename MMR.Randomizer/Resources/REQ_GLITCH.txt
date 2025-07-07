@@ -4649,31 +4649,13 @@
           "SettingClimbMostSurfaces"
         ],
         [
-          "AreaNorthAccess",
-          "Hot Spring Water Transport"
-        ],
-        [
-          "AreaNorthAccess",
-          "AreaSnowheadTempleClear"
-        ],
-        [
-          "AreaNorthAccess",
-          "Recoil Flip Through Ice",
-          "Recoil Flip"
+          "GrottoHotSpring"
         ],
         [
           "AreaIkanaCanyonAccess",
           "MaskGibdo",
           "GibdoEntranceLeft",
           "GibdoToHotWater"
-        ],
-        [
-          "Use Fire Arrow"
-        ],
-        [
-          "Action Swap",
-          "OtherArrow",
-          "Any Shield"
         ]
       ],
       "TimeNeeded": "None",
