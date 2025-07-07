@@ -1,4 +1,5 @@
 ﻿using MMR.Common.Utils;
+using MMR.Randomizer.Attributes.Entrance;
 using MMR.Randomizer.Extensions;
 using MMR.Randomizer.GameObjects;
 using MMR.Randomizer.Models;
@@ -49,21 +50,15 @@ namespace MMR.Randomizer.Utils
             var entrances = new List<Item>();
             if (settings.EntranceMode.HasFlag(EntranceMode.DungeonEntrances))
             {
-                entrances.Add(Item.AreaWoodFallTempleAccess);
-                entrances.Add(Item.AreaSnowheadTempleAccess);
-                entrances.Add(Item.AreaGreatBayTempleAccess);
-                entrances.Add(Item.AreaInvertedStoneTowerTempleAccess);
+                entrances.AddRange(Enum.GetValues<Item>().Where(item => item.EntranceType() == EntranceType.Dungeon));
             }
             if (settings.EntranceMode.HasFlag(EntranceMode.BossRooms))
             {
-                entrances.Add(Item.AreaOdolwasLair);
-                entrances.Add(Item.AreaGohtsLair);
-                entrances.Add(Item.AreaGyorgsLair);
-                entrances.Add(Item.AreaTwinmoldsLair);
+                entrances.AddRange(Enum.GetValues<Item>().Where(item => item.EntranceType() == EntranceType.Boss));
             }
             if (settings.EntranceMode.HasFlag(EntranceMode.Grottos))
             {
-                entrances.AddRange(Enum.GetValues<Item>().Where(item => item.ToString().StartsWith("Grotto")));
+                entrances.AddRange(Enum.GetValues<Item>().Where(item => item.EntranceType() == EntranceType.Grotto));
             }
             foreach (var entrance in entrances.OrderBy(e => entrances.IndexOf(randomized.ItemList[e].NewLocation.Value)))
             {
@@ -208,11 +203,17 @@ namespace MMR.Randomizer.Utils
 
             if (spoiler.DungeonEntrances.Any())
             {
-                log.AppendLine($" {"Entrance",-30}    {"Destination"}");
                 log.AppendLine();
-                foreach (var kvp in spoiler.DungeonEntrances)
+                log.AppendLine($" {"Entrance",-30}    {"Destination"}");
+                foreach (var entranceType in spoiler.DungeonEntrances.GroupBy(entrance => entrance.EntranceType).OrderBy(g => g.Key))
                 {
-                    log.AppendLine($"{kvp.Entrance,-30} -> {kvp.Destination}");
+                    log.AppendLine();
+                    log.AppendLine($" {entranceType.Key}");
+
+                    foreach (var kvp in entranceType)
+                    {
+                        log.AppendLine($"{kvp.Entrance,-30} -> {kvp.Destination}");
+                    }
                 }
                 log.AppendLine("");
             }

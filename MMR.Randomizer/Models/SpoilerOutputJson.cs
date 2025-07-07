@@ -1,4 +1,5 @@
-﻿using MMR.Randomizer.Extensions;
+﻿using MMR.Randomizer.Attributes.Entrance;
+using MMR.Randomizer.Extensions;
 using MMR.Randomizer.GameObjects;
 using MMR.Randomizer.Models.Settings;
 using System.Collections.Generic;
@@ -28,10 +29,11 @@ namespace MMR.Randomizer.Models
 
     public class SpoilerDungeonEntrance
     {
-        public string Entrance { get; set; }
-        public string Destination { get; set; }
+        public string Entrance { get; }
+        public string Destination { get; }
         public int EntranceId { get; }
         public int DestinationId { get; }
+        public EntranceType EntranceType { get; }
 
         public SpoilerDungeonEntrance(KeyValuePair<Item, Item> entrance)
         {
@@ -39,6 +41,7 @@ namespace MMR.Randomizer.Models
             Destination = entrance.Value.Entrance();
             EntranceId = (int)entrance.Key;
             DestinationId = (int)entrance.Value;
+            EntranceType = entrance.Key.EntranceType().Value;
         }
     }
 }
