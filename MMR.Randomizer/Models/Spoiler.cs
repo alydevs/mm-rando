@@ -15,7 +15,7 @@ namespace MMR.Randomizer.Models
 
         public string SettingsString { get; set; }
 
-        public List<SpoilerDungeonEntrance> DungeonEntrances { get; set; }
+        public List<SpoilerDungeonEntrance> Entrances { get; set; }
 
         public int Seed { get; set; }
 

@@ -37,7 +37,7 @@ namespace MMR.Randomizer.Models
 
         public SpoilerDungeonEntrance(KeyValuePair<Item, Item> entrance)
         {
-            Entrance = entrance.Key.Entrance();
+            Entrance = entrance.Key.Exit() ?? entrance.Key.Entrance();
             Destination = entrance.Value.Entrance();
             EntranceId = (int)entrance.Key;
             DestinationId = (int)entrance.Value;

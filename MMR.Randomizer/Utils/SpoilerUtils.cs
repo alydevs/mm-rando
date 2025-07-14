@@ -76,7 +76,7 @@ namespace MMR.Randomizer.Utils
                 Version = Randomizer.AssemblyVersion,
                 SettingsString = settingsString,
                 Seed = randomized.Seed,
-                DungeonEntrances = dungeonEntrances.Select(kvp => new SpoilerDungeonEntrance(kvp)).ToList(),
+                Entrances = dungeonEntrances.Select(kvp => new SpoilerDungeonEntrance(kvp)).ToList(),
                 ItemList = itemList.ToList(),
                 Logic = randomized.Logic,
                 BlitzExtraItems = randomized.BlitzExtraItems.AsReadOnly(),
@@ -161,7 +161,7 @@ namespace MMR.Randomizer.Utils
                     Settings = settings,
                     Seed = spoiler.Seed,
                     Version = spoiler.Version,
-                    DungeonEntrances = spoiler.DungeonEntrances,
+                    DungeonEntrances = spoiler.Entrances,
                     Items = spoiler.ItemList.GroupBy(item => item.Region).OrderBy(g => g.Key).ToDictionary(g => g.Key.Name(), g => g.ToList()),
                     BlitzExtraItems = spoiler.BlitzExtraItems.Select(item => item.Name()).ToList().AsReadOnly(),
                     Playthrough = spoiler.Spheres,
@@ -201,11 +201,11 @@ namespace MMR.Randomizer.Utils
                 log.AppendLine("");
             }
 
-            if (spoiler.DungeonEntrances.Any())
+            if (spoiler.Entrances.Any())
             {
                 log.AppendLine();
                 log.AppendLine($" {"Entrance",-30}    {"Destination"}");
-                foreach (var entranceType in spoiler.DungeonEntrances.GroupBy(entrance => entrance.EntranceType).OrderBy(g => g.Key))
+                foreach (var entranceType in spoiler.Entrances.GroupBy(entrance => entrance.EntranceType).OrderBy(g => g.Key))
                 {
                     log.AppendLine();
                     log.AppendLine($" {entranceType.Key}");

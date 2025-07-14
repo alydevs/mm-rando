@@ -93,7 +93,7 @@ namespace MMR.Randomizer.Extensions
                 referenceNewLocation = itemList[referenceNewLocation].NewLocation ?? referenceNewLocation;
             }
 
-            return referenceNewLocation.Entrance() + " " + location;
+            return referenceNewLocation.Exit() + " " + location;
         }
 
         private static IReadOnlyDictionary<Item, RegionAttribute> _regionAttributes = Enum.GetValues<Item>().ToDictionary(x => x, x => x.GetAttribute<RegionAttribute>());
@@ -171,6 +171,12 @@ namespace MMR.Randomizer.Extensions
         public static string Entrance(this Item item)
         {
             return _entrances.GetValueOrDefault(item);
+        }
+
+        private static IReadOnlyDictionary<Item, string> _exits = Enum.GetValues<Item>().ToDictionary(x => x, x => x.GetAttribute<ExitNameAttribute>()?.Name);
+        public static string Exit(this Item item)
+        {
+            return _exits.GetValueOrDefault(item);
         }
 
         public static ShopTextAttribute ShopTexts(this Item item)

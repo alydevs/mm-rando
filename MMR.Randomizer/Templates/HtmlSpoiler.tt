@@ -69,7 +69,7 @@
 <div><#= remains.Name() #></div>
 <# } #>
 <# } #>
-<# if (spoiler.DungeonEntrances.Any()) { 
+<# if (spoiler.Entrances.Any()) { 
 #>
 <h2>Dungeon Entrance Replacements</h2>
 <table border="1" class="item-replacements">
@@ -78,7 +78,7 @@
         <th></th>
         <th>New Destination</th>
     </tr>
-<#         foreach (var dungeonEntrance in spoiler.DungeonEntrances) {#>
+<#         foreach (var dungeonEntrance in spoiler.Entrances) {#>
     <tr data-id="<#= dungeonEntrance.DestinationId #>" data-newlocationid="<#= dungeonEntrance.EntranceId #>" class="unavailable">
         <td class="newlocation"><#= dungeonEntrance.Entrance #></td>
         <td><input type="checkbox"/></td>
