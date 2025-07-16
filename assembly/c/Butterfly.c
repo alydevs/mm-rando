@@ -26,7 +26,7 @@ u16 Bufferfly_GetGiIndex(ActorEnButte* actor, GlobalContext* ctxt) {
                         giIndex = sBaseGiIndex + 2;
                         break;
                     case 10: // Cows
-                        switch (gSaveContext.extra.unk87) {
+                        switch (gSaveContext.extra.respawn[RESPAWN_MODE_GROTTO_RETURN].data) {
                             case 0: // Termina Field Cow Grotto
                                 giIndex = sBaseGiIndex + 3;
                                 break;

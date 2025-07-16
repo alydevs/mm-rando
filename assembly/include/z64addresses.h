@@ -266,6 +266,7 @@ extern f32 z2_Math3D_Vec3fDistSq(Vec3f* a, Vec3f* b);
 // Function Prototypes (Objects).
 extern s8 z2_GetObjectIndex(const SceneContext* ctxt, u16 objectId);
 
+extern void z2_Scene_SetExitFade(GlobalContext* ctxt);
 extern s32 z2_Entrance_GetSceneIdAbsolute(u16 entrance);
 extern s32 z2_Entrance_GetTransitionFlags(u16 entrance);
 

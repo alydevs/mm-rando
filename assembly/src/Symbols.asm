@@ -163,6 +163,7 @@
 .definelabel z2_object_spawn, 0x8012F2E0
 .definelabel z2_load_objects, 0x8012F4FC
 .definelabel z2_GetObjectIndex, 0x8012F608
+.definelabel z2_Scene_SetExitFade, 0x801306A4
 .definelabel z2_AnimatedMat_Draw, 0x80131758
 .definelabel z2_Entrance_GetSceneIdAbsolute, 0x80132338
 .definelabel z2_Entrance_GetTransitionFlags, 0x801323A0

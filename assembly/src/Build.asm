@@ -111,6 +111,7 @@
 .include "SyatekiMan.Patch.asm"
 .include "TargetHealth.Patch.asm"
 .include "Thiefbird.Patch.asm"
+.include "WarpTag.Patch.asm"
 .include "WorldColors.Patch.asm"
 .include "ZoraLand.Patch.asm"
 
