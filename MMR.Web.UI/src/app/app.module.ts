@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ThemeModule } from './@theme/theme.module';
 
 import { CdkTableModule } from '@angular/cdk/table';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatButtonModule } from '@angular/material/button';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
@@ -43,6 +44,8 @@ import { TextInputWindowComponent } from './pages/generator/textInputWindow/text
 
 //MMR only
 import { MMRRandomStartingItemsWindowComponent } from './components/mmr/randomStartingItemsWindow/randomStartingItemsWindow.component';
+import { MMRHintPrioritiesWindowComponent } from './components/mmr/hintPrioritiesWindow/hintPrioritiesWindow.component';
+import { MMRItemSelectorWindowComponent } from './components/mmr/itemSelectorWindow/itemSelectorWindow.component';
 
 
 @NgModule({
@@ -54,7 +57,9 @@ import { MMRRandomStartingItemsWindowComponent } from './components/mmr/randomSt
         ErrorDetailsWindowComponent,
         ConfirmationWindowComponent,
         TextInputWindowComponent,
-        MMRRandomStartingItemsWindowComponent
+        MMRRandomStartingItemsWindowComponent,
+        MMRHintPrioritiesWindowComponent,
+        MMRItemSelectorWindowComponent
     ],
     imports: [
         BrowserModule,
@@ -64,6 +69,7 @@ import { MMRRandomStartingItemsWindowComponent } from './components/mmr/randomSt
         FormsModule,
         ReactiveFormsModule,
         CdkTableModule,
+        DragDropModule,
         ThemeModule.forRoot(),
         NbDialogModule.forRoot(),
         NbEvaIconsModule

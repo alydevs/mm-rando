@@ -11,6 +11,8 @@ import { TextInputWindowComponent } from '../../pages/generator/textInputWindow/
 
 //MMR only
 import { MMRRandomStartingItemsWindowComponent } from '../../components/mmr/randomStartingItemsWindow/randomStartingItemsWindow.component';
+import { MMRHintPrioritiesWindowComponent } from '../../components/mmr/hintPrioritiesWindow/hintPrioritiesWindow.component';
+import { MMRItemSelectorWindowComponent } from '../../components/mmr/itemSelectorWindow/itemSelectorWindow.component';
 
 import { GeneratorComponent } from '../../pages/generator/generator.component';
 
@@ -232,6 +234,32 @@ export class GUISettingsElement implements OnInit {
     this.dialogService.open(MMRRandomStartingItemsWindowComponent, {
       autoFocus: true, closeOnBackdropClick: true, closeOnEsc: true, hasBackdrop: true, hasScroll: false,
       context: { dialogHeader: settingText, setting, assignmentSettingsMap, assignmentSettingName }
+    });
+  }
+
+  openHintPrioritiesWindow(setting: any, assignmentSettingsMap: any, assignmentSettingName: string, settingDefault: any, settingText: string, settingTooltip: string) {
+
+    this.dialogService.open(MMRHintPrioritiesWindowComponent, {
+      autoFocus: true, closeOnBackdropClick: true, closeOnEsc: true, hasBackdrop: true, hasScroll: false,
+      context: { dialogHeader: settingText, setting, assignmentSettingsMap, assignmentSettingName }
+    }).onClose.subscribe(result => {
+      if (result) {
+        console.log('Hint priorities result:', result);
+        // TODO: Update the settings with the result
+      }
+    });
+  }
+
+  openItemSelectorWindow(setting: any, assignmentSettingsMap: any, assignmentSettingName: string, settingDefault: any, settingText: string, settingTooltip: string) {
+
+    this.dialogService.open(MMRItemSelectorWindowComponent, {
+      autoFocus: true, closeOnBackdropClick: true, closeOnEsc: true, hasBackdrop: true, hasScroll: false,
+      context: { dialogHeader: settingText, setting, assignmentSettingsMap, assignmentSettingName }
+    }).onClose.subscribe(result => {
+      if (result) {
+        console.log('Item selector result:', result);
+        // TODO: Update the settings with the result
+      }
     });
   }
 

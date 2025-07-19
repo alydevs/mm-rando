@@ -231,6 +231,15 @@
     "shared": true
   },
   {
+    "name": "Web.HintPriorities",
+    "default": {},
+    "text": "Customize Hint Priorities",
+    "function": "openHintPrioritiesWindow",
+    "tooltip": "Customize hint priority tiers for competitive hint generation",
+    "type": "Button",
+    "shared": true
+  },
+  {
     "name": "CosmeticSettings.MusicLuckRollChance",
     "size": "small",
     "max_length": 5

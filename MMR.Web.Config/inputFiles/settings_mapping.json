@@ -254,7 +254,7 @@
           "settings": [
             "GameplaySettings.HintsIndicateImportance",
             "GameplaySettings.MixGossipAndGaroHints",
-
+            "Web.HintPriorities",
             "GameplaySettings.RemainsHint",
             "GameplaySettings.OathHint",
             "GameplaySettings.FairyAndSkullHint"
