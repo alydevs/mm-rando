@@ -772,13 +772,14 @@ namespace MMR.Randomizer.Models.Settings
         [Range(0, 7)]
         public int? OverrideMaxNumberOfClockTownGaroHints { get; set; }
 
-        [SettingIgnore]
+        [SettingItemList(nameof(ItemUtils.AllLocations), false, true, nameof(ItemExtensions.Regions))]
+        [Description("If any locations are provided, this list will be used exclusively for determining hint priorities. Settings are not taken into account, but non-randomized and junked locations will not be hinted. The higher a location appears in this list, the higher its priority. Locations with the same priority will be chosen randomly. If a location should combine with another location, all the combined locations should be added.")]
         public List<List<Item>> OverrideHintPriorities { get; set; }
 
-        [SettingIgnore]
+        [Description("Make chosen tiers of hints indicate their importance.")]
         public HashSet<int> OverrideImportanceIndicatorTiers { get; set; }
 
-        [SettingIgnore]
+        [Description("The number (if non-zero) indicates how many of the locations in the tier will be hinted, and the rest will be forced to be junk.")]
         public List<int> OverrideHintItemCaps { get; set; }
 
         /// <summary>

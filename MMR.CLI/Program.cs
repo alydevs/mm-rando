@@ -33,7 +33,8 @@ namespace MMR.CLI
     public class SettingItemListItem
     {
         public string Label { get; set; }
-        public int Index { get; set; }
+        public int? Index { get; set; }
+        public string Value { get; set; }
         public Dictionary<string, object> AdditionalInformation { get; set; }
     }
 
@@ -121,6 +122,7 @@ namespace MMR.CLI
                             return addSpacesRegex.Replace(label, " $1");
                         }
                         var rangeAttribute = property.GetAttribute<RangeAttribute>();
+                        var relativePath = string.Join(".", path.Skip(1).Reverse());
                         SettingConfig settingConfig = new SettingConfig
                         {
                             Path = string.Join(".", path.Reverse()),
@@ -129,7 +131,7 @@ namespace MMR.CLI
                             MinValue = rangeAttribute?.Minimum,
                             MaxValue = rangeAttribute?.Maximum,
                             SettingExcludes = property.HasAttribute<SettingExcludeAttribute>()
-                                ? property.GetAttributes<SettingExcludeAttribute>().ToDictionary(attr => attr.PropertyValue, attr => attr.SettingPaths)
+                                ? property.GetAttributes<SettingExcludeAttribute>().ToDictionary(attr => attr.PropertyValue, attr => attr.SettingPaths.Select(p => relativePath + "." + p).ToList())
                                 : null,
                             InLogic = property.GetAttribute<SettingTabAttribute>()?.TabType == SettingTabAttribute.Type.Gimmicks ? itemLists.ToDictionary(kvp => kvp.Key, kvp =>
                             {
@@ -177,7 +179,7 @@ namespace MMR.CLI
                                 }).ToList();
                             }
                         }
-                        else if (settingItemListAttribute != null)
+                        else if (settingItemListAttribute != null && property.PropertyType == typeof(string))
                         {
                             settingConfig.DataType = "ItemList";
                             settingConfig.ItemList = settingItemListAttribute.ItemList.Select((item, index) =>
@@ -257,9 +259,27 @@ namespace MMR.CLI
                                         }
                                         else if (itemType2.IsEnum)
                                         {
-                                            //settingConfig.DataType = "Enum[][]";
-                                            //settingConfig.Values = Enum.GetNames(itemType2).ToList();
+                                            if (settingItemListAttribute != null)
+                                            {
+                                                settingConfig.DataType = "Item[][]";
+                                                settingConfig.ItemList = settingItemListAttribute.ItemList.Select((item, index) =>
+                                                {
+                                                    var itemListItem = new SettingItemListItem
+                                                    {
+                                                        Value = item.ToString(),
+                                                        Label = settingItemListAttribute.LabelExtractor(item),
+                                                        AdditionalInformation = settingItemListAttribute.AdditionalInformationExtractors.ToDictionary(kvp => kvp.Key, kvp => kvp.Value(item)),
+                                                    };
+                                                    return itemListItem;
+                                                }).ToList();
+                                            }
+                                            else
+                                            {
+                                                //settingConfig.DataType = "Enum[][]";
+                                                //settingConfig.Values = Enum.GetNames(itemType2).ToList();
+                                            }
                                         }
+                                        
                                     }
                                 }
                                 else
@@ -535,11 +555,18 @@ namespace MMR.CLI
             try
             {
                 string result;
-                using (var progressBar = new ProgressBar())
+                if (argsDictionary.ContainsKey("-noProgressBar"))
                 {
-                    //var progressReporter = new TextWriterProgressReporter(Console.Out);
-                    var progressReporter = new ProgressBarProgressReporter(progressBar, maxImportanceWait);
+                    var progressReporter = new TextWriterProgressReporter(Console.Out);
                     result = ConfigurationProcessor.Process(configuration, seed, progressReporter);
+                }
+                else
+                {
+                    using (var progressBar = new ProgressBar())
+                    {
+                        var progressReporter = new ProgressBarProgressReporter(progressBar, maxImportanceWait);
+                        result = ConfigurationProcessor.Process(configuration, seed, progressReporter);
+                    }
                 }
                 if (result != null)
                 {
