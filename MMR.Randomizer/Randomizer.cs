@@ -1939,6 +1939,8 @@ namespace MMR.Randomizer
                     currentItemObject.NewLocation = targetLocation;
                     currentItemObject.IsRandomized = true;
 
+                    ItemUtils.CheckAndUpdateHintedJunkLocations(_settings, ItemList, currentItem, targetLocation, Random);
+
                     Debug.WriteLine($"----Placed {currentItem.Name()} at {targetLocation.Location()}----");
 
                     targets.Remove(targetLocation);
@@ -2893,6 +2895,8 @@ namespace MMR.Randomizer
                             ItemList[item].NewLocation = check;
                             ItemList[item].IsRandomized = true;
 
+                            ItemUtils.CheckAndUpdateHintedJunkLocations(_settings, ItemList, item, check, Random);
+
                             Debug.WriteLine($"----Plando Placed {item.Name()} at {check.Location()}----");
 
                             itemPool.Remove(check);
@@ -3425,6 +3429,7 @@ namespace MMR.Randomizer
                 progressReporter.ReportProgress(5, "Preparing ruleset...");
                 PrepareRulesetItemData();
 
+                ItemUtils.PrepareHintedJunkLocations();
 
                 progressReporter.ReportProgress(15, "Shuffling entrances...");
 
@@ -3443,8 +3448,6 @@ namespace MMR.Randomizer
                 {
                     ItemList[item].ItemOverride = Item.RecoveryHeart;
                 }
-
-                ItemUtils.PrepareHintedJunkLocations(_settings, Random);
 
                 // TODO check junk location count against junk item count
 
