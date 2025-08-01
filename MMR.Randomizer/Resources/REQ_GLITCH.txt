@@ -3302,7 +3302,7 @@
       "RequiredItems": [],
       "ConditionalItems": [],
       "TimeNeeded": "None",
-      "TimeAvailable": "None",
+      "TimeAvailable": "Day2, Night2",
       "TimeSetup": "None",
       "IsTrick": false
     },
@@ -3575,7 +3575,7 @@
       "Id": "GrottoPeahat",
       "RequiredItems": [],
       "ConditionalItems": [],
-      "TimeNeeded": "None",
+      "TimeNeeded": "Day1, Day2, Day3",
       "TimeAvailable": "None",
       "TimeSetup": "None",
       "IsTrick": false
@@ -3584,7 +3584,7 @@
       "Id": "GrottoDekuPlayground",
       "RequiredItems": [],
       "ConditionalItems": [],
-      "TimeNeeded": "None",
+      "TimeNeeded": "Day1",
       "TimeAvailable": "None",
       "TimeSetup": "None",
       "IsTrick": false
@@ -5748,7 +5748,7 @@
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
-      "TimeAvailable": "Day2, Night2",
+      "TimeAvailable": "None",
       "TimeSetup": "None",
       "IsTrick": false
     },

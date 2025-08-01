@@ -4875,7 +4875,7 @@ namespace MMR.Randomizer.LogicMigrator
                 ("GrottoGenericRoadToSwamp", null, null),
                 ("GrottoGenericTerminaFieldGrass", null, null),
                 ("GrottoGenericIkanaCanyon", "ChestIkanaSecretShrineGrotto", null),
-                ("GrottoGenericWoodsOfMystery", null, null),
+                ("GrottoGenericWoodsOfMystery", null, (item) => item.addTimeAvailable(TimeOfDay.Day2 | TimeOfDay.Night2)),
                 ("GrottoGenericZoraCape", "ChestGreatBayCapeGrotto", null),
                 ("GrottoGenericRoadToIkana", "ChestToIkanaGrotto", null),
                 ("GrottoGenericTerminaFieldPillar", null, null),
@@ -4898,8 +4898,8 @@ namespace MMR.Randomizer.LogicMigrator
                 ("GrottoCowTerminaField", "CollectableGrottosCowGrottoButterflyFairy1", null),
                 ("GrottoBioBaba", "CollectableGrottosOceanGossipStonesButterflyFairy1", null),
                 ("GrottoBeanSeller", "ItemMagicBean", null),
-                ("GrottoPeahat", null, null),
-                ("GrottoDekuPlayground", null, null),
+                ("GrottoPeahat", null, (item) => item.addTimeNeeded(TimeOfDay.Day1 | TimeOfDay.Day2 | TimeOfDay.Day3)),
+                ("GrottoDekuPlayground", null, (item) => item.addTimeNeeded(TimeOfDay.Day1)),
             };
 
             logicObject.Logic.InsertRange(144, GetLogicItems(logicObject, itemNames));
@@ -4933,6 +4933,7 @@ namespace MMR.Randomizer.LogicMigrator
             replaceWithRequiredItems(getItem("ChestTerminaGrottoRedRupee"), "GrottoGenericTerminaFieldGrass");
             replaceWithRequiredItems(getItem("ChestIkanaSecretShrineGrotto"), "GrottoGenericIkanaCanyon");
             replaceWithRequiredItems(getItem("ChestWoodsGrotto"), "GrottoGenericWoodsOfMystery");
+            getItem("ChestWoodsGrotto").TimeAvailable = TimeOfDay.None;
             replaceWithRequiredItems(getItem("ChestGreatBayCapeGrotto"), "GrottoGenericZoraCape");
             replaceWithRequiredItems(getItem("ChestToIkanaGrotto"), "GrottoGenericRoadToIkana");
             replaceWithRequiredItems(getItem("ChestTerminaGrottoBombchu"), "GrottoGenericTerminaFieldPillar");
@@ -5133,6 +5134,18 @@ namespace MMR.Randomizer.LogicMigrator
         {
             item.TimeAvailable = TimeOfDay.Day1 | TimeOfDay.Day2 | TimeOfDay.Day3;
             item.TimeSetup = TimeOfDay.Day1 | TimeOfDay.Day2 | TimeOfDay.Day3;
+        }
+
+        private static JsonFormatLogicItem addTimeAvailable(this JsonFormatLogicItem item, TimeOfDay timeAvailable)
+        {
+            item.TimeAvailable = timeAvailable;
+            return item;
+        }
+
+        private static JsonFormatLogicItem addTimeNeeded(this JsonFormatLogicItem item, TimeOfDay timeNeeded)
+        {
+            item.TimeNeeded = timeNeeded;
+            return item;
         }
 
         private class MigrationItem

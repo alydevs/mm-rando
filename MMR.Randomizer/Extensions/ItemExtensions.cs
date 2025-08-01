@@ -80,7 +80,13 @@ namespace MMR.Randomizer.Extensions
                 return null;
             }
 
-            var reference = item.GetAttribute<RegionAttribute>()?.Reference;
+            var regionAttribute = item.GetAttribute<RegionAttribute>();
+            if (regionAttribute == null || !regionAttribute.PassToLocation)
+            {
+                return location;
+            }
+
+            var reference = regionAttribute.Reference;
             if (reference == null)
             {
                 return location;

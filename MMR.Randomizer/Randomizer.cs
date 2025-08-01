@@ -302,27 +302,80 @@ namespace MMR.Randomizer
 
         #endregion
 
-        private void GrottoEntranceShuffle()
+        private void ShuffleEntrances()
         {
-            var entrances = Enum.GetValues<Item>().Where(item => item.EntranceType() == EntranceType.Grotto);
-            var targets = entrances.ToList();
+            if (_settings.EntranceMode.HasFlag(EntranceMode.BossRooms))
+            {
+                BossShuffle();
+            }
+
+            if (_settings.EntranceMode.HasFlag(EntranceMode.DungeonEntrances))
+            {
+                DungeonEntranceShuffle();
+            }
+
+            if (_settings.EntranceMode.HasFlag(EntranceMode.Grottos))
+            {
+                OtherEntranceShuffle(EntranceType.Grotto);
+            }
+        }
+
+        private bool CheckEntranceMatch(Item entrance, Item targetEntrance)
+        {
+            if (!entrance.Entrances()[0].SpawnId().HasValue && !targetEntrance.Entrances()[0].ExitActorParams().Any())
+            {
+                return false;
+            }
+
+            if (_settings.LogicMode == LogicMode.NoLogic)
+            {
+                return true;
+            }
+
+            if (ItemList[entrance].TimeNeeded != 0 && (ItemList[entrance].TimeNeeded & ItemList[targetEntrance].TimeAvailable) == 0)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        private void PlaceEntrance(Item entrance, List<Item> targets)
+        {
+            if (ItemList[entrance].NewLocation.HasValue)
+            {
+                return;
+            }
+
+            var remainingTargets = targets.ToList();
+
+            Item targetEntrance;
+            do
+            {
+                if (remainingTargets.Count == 0)
+                {
+                    throw new RandomizationException($"Unable to place {entrance.Entrance()} anywhere.");
+                }
+
+                targetEntrance = remainingTargets.Random(Random);
+                remainingTargets.Remove(targetEntrance);
+            }
+            while (!CheckEntranceMatch(entrance, targetEntrance));
+
+            ItemList[entrance].NewLocation = targetEntrance;
+            ItemList[entrance].IsRandomized = true;
+
+            targets.Remove(targetEntrance);
+        }
+
+        private void OtherEntranceShuffle(EntranceType entranceType)
+        {
+            var entrances = Enum.GetValues<Item>().Where(item => item.EntranceType() == entranceType);
+            var targets = entrances.Where(entrance => !ItemList.Any(io => io.NewLocation == entrance)).ToList();
 
             foreach (var entrance in entrances)
             {
-                var remainingTargets = targets.ToList();
-
-                Item targetEntrance;
-                do
-                {
-                    targetEntrance = remainingTargets.Random(Random);
-                    remainingTargets.Remove(targetEntrance);
-                }
-                while (entrance.Entrances()[0].SpawnId() == 0 && !targetEntrance.Entrances()[0].ExitActorParams().Any());
-
-                ItemList[entrance].NewLocation = targetEntrance;
-                ItemList[entrance].IsRandomized = true;
-
-                targets.Remove(targetEntrance);
+                PlaceEntrance(entrance, targets);
             }
         }
 
@@ -1122,11 +1175,7 @@ namespace MMR.Randomizer
                 && io.DependsOnItems.Count == 0
                 && io.Conditionals.Count == 0;
 
-            var unrandomizedSphereZeroItems = ItemList
-                .Where(filter)
-                .Select(io => io.Item)
-                .ToList();
-            unrandomizedSphereZeroItems.Remove(Item.OtherInaccessible);
+            var unrandomizedSphereZeroItems = new List<Item>();
             bool updated;
             do
             {
@@ -1139,7 +1188,12 @@ namespace MMR.Randomizer
                         continue;
                     }
 
-                    itemObject.DependsOnItems.RemoveAll(unrandomizedSphereZeroItems.Contains);
+                    foreach (var dependent in itemObject.DependsOnItems.Where(unrandomizedSphereZeroItems.Contains).AllowModification())
+                    {
+                        itemObject.TimeAvailable &= ItemList[dependent].TimeAvailable;
+                        itemObject.DependsOnItems.Remove(dependent);
+                    }
+
                     itemObject.Conditionals.ForEach(c => c.RemoveAll(unrandomizedSphereZeroItems.Contains));
 
                     if (itemObject.Conditionals.Any(c => !c.Any()))
@@ -3347,23 +3401,10 @@ namespace MMR.Randomizer
                 progressReporter.ReportProgress(5, "Preparing ruleset...");
                 PrepareRulesetItemData();
 
-                if (_settings.EntranceMode.HasFlag(EntranceMode.BossRooms))
-                {
-                    progressReporter.ReportProgress(10, "Shuffling bosses...");
-                    BossShuffle();
-                }
 
-                if (_settings.EntranceMode.HasFlag(EntranceMode.DungeonEntrances))
-                {
-                    progressReporter.ReportProgress(20, "Shuffling dungeon entrances...");
-                    DungeonEntranceShuffle();
-                }
+                progressReporter.ReportProgress(15, "Shuffling entrances...");
 
-                if (_settings.EntranceMode.HasFlag(EntranceMode.Grottos))
-                {
-                    progressReporter.ReportProgress(25, "Shuffling grotto entrances...");
-                    GrottoEntranceShuffle();
-                }
+                ShuffleEntrances();
 
                 PrepareAdditionalItemData();
 
