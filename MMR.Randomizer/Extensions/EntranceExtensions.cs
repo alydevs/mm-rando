@@ -1,4 +1,5 @@
 ﻿using MMR.Common.Extensions;
+using MMR.Randomizer.Attributes;
 using MMR.Randomizer.Attributes.Entrance;
 using MMR.Randomizer.GameObjects;
 using System;
@@ -9,9 +10,9 @@ namespace MMR.Randomizer.Extensions
 {
     public static class EntranceExtensions
     {
-        public static ushort SpawnId(this Entrance entrance)
+        public static ushort? SpawnId(this Entrance entrance)
         {
-            return entrance.GetAttribute<SpawnAttribute>().SpawnId;
+            return entrance.GetAttribute<SpawnAttribute>()?.SpawnId;
         }
 
         public static SpawnActorParamsAttribute SpawnActorParams(this Entrance entrance)
@@ -42,6 +43,16 @@ namespace MMR.Randomizer.Extensions
         public static ExitPolygonTypeAttribute ExitPolygonType(this Entrance entrance)
         {
             return entrance.GetAttribute<ExitPolygonTypeAttribute>();
+        }
+
+        public static IEnumerable<byte[]> HackContent(this Entrance entrance, bool isSame)
+        {
+            var hackContentAttributes = entrance.GetAttributes<HackContentAttribute>();
+            if (isSame)
+            {
+                hackContentAttributes = hackContentAttributes.Where(h => !h.ApplyOnlyIfItemIsDifferent);
+            }
+            return hackContentAttributes.Select(h => h.HackContent);
         }
     }
 }

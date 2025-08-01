@@ -1000,8 +1000,13 @@ namespace MMR.Randomizer
             if (_randomized.Settings.EntranceMode.HasFlag(EntranceMode.Grottos))
             {
                 entrances.AddRange(Enum.GetValues<Item>().Where(item => item.EntranceType() == EntranceType.Grotto));
-                ReadWriteUtils.WriteU16ToROM(0xD5A95A, Entrance.EntranceGrottoDekuPlayground.SpawnId()); // Replace a JP grotto entrance with deku playground.
+                ReadWriteUtils.WriteU16ToROM(0xD5A95A, Entrance.EntranceGrottoDekuPlayground.SpawnId().Value); // Replace a JP grotto entrance with deku playground.
             }
+            if (_randomized.Settings.EntranceMode.HasFlag(EntranceMode.SimpleInteriors))
+            {
+                entrances.AddRange(Enum.GetValues<Item>().Where(item => item.EntranceType() == EntranceType.Interior));
+            }
+
 
             foreach (var entrance in entrances.Distinct())
             {

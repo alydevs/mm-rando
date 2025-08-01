@@ -73,7 +73,26 @@ namespace MMR.Randomizer.Attributes
 
         private bool KeepFairyWithinArea(Item item, Item location, ItemList itemList)
         {
-            return item.RegionArea(itemList) == (_templeRegions.Contains(location.Region(itemList)) ? location.RegionAreaOfTemple(itemList) : location.RegionArea(itemList));
+            RegionArea fairyRegionArea;
+            switch (item.RegionArea(itemList))
+            {
+                case RegionArea.Swamp:
+                    fairyRegionArea = Item.FairySpinAttack.RegionArea(itemList).Value;
+                    break;
+                case RegionArea.Mountain:
+                    fairyRegionArea = Item.FairyDoubleMagic.RegionArea(itemList).Value;
+                    break;
+                case RegionArea.Ocean:
+                    fairyRegionArea = Item.FairyDoubleDefense.RegionArea(itemList).Value;
+                    break;
+                case RegionArea.Canyon:
+                    fairyRegionArea = Item.ItemFairySword.RegionArea(itemList).Value;
+                    break;
+                default:
+                    fairyRegionArea = RegionArea.None;
+                    break;
+            }
+            return fairyRegionArea == (_templeRegions.Contains(location.Region(itemList)) ? location.RegionAreaOfTemple(itemList) : location.RegionArea(itemList));
         }
     }
 }

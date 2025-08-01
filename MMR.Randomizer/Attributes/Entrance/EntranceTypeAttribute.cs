@@ -1,14 +1,18 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace MMR.Randomizer.Attributes.Entrance
 {
     public class EntranceTypeAttribute : Attribute
     {
-        public EntranceType? Type { get; private set; }
+        public EntranceType Type { get; }
+        public ReadOnlyCollection<EntranceType> AdditionalTypes { get; }
 
-        public EntranceTypeAttribute(EntranceType entranceType)
+        public EntranceTypeAttribute(EntranceType entranceType, params EntranceType[] additionalTypes)
         {
             Type = entranceType;
+            AdditionalTypes = additionalTypes.ToList().AsReadOnly();
         }
     }
 
@@ -26,6 +30,7 @@ namespace MMR.Randomizer.Attributes.Entrance
         OwlWarp,
         Telescope,
         Grotto,
-        VoidRespawn
+        VoidRespawn,
+        FairyFountain,
     }
 }

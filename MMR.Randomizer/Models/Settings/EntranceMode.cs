@@ -17,5 +17,8 @@ namespace MMR.Randomizer.Models
 
         [Description("Enable randomization of grottos. North Clock Town grotto and Deku Palace grotto will never be generic grottos or cow grottos.")]
         Grottos = 1 << 2,
+
+        [Description("Enable randomization of simple interiors.")]
+        SimpleInteriors = 1 << 3,
     }
 }

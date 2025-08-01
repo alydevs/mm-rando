@@ -374,5 +374,10 @@ namespace MMR.Randomizer.Extensions
         {
             return item.GetAttribute<EntranceTypeAttribute>()?.Type;
         }
+
+        public static IEnumerable<EntranceType> AdditionalEntranceTypes(this Item item)
+        {
+            return item.GetAttribute<EntranceTypeAttribute>()?.AdditionalTypes ?? Enumerable.Empty<EntranceType>();
+        }
     }
 }

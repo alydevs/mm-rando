@@ -264,6 +264,11 @@ namespace MMR.Randomizer.LogicMigrator
                 AddGrottos(logicObject);
             }
 
+            if (logicObject.Version < 29)
+            {
+                AddInteriors(logicObject);
+            }
+
             return JsonSerializer.Serialize(logicObject);
         }
 
@@ -5007,6 +5012,104 @@ namespace MMR.Randomizer.LogicMigrator
             addConditional(gossipStoneHpFairy, "CollectableGrottosOceanGossipStonesGossipFairy1InCanyonGossipGrotto");
 
             logicObject.Version = 28;
+        }
+
+        private static void AddInteriors(JsonFormatLogic logicObject)
+        {
+            var itemNames = new (string name, string reference, Action<JsonFormatLogicItem> modify)[]
+            {
+                ("InteriorMayorsResidence", null, (item) => item.addTimeAvailable(TimeOfDay.Day1 | TimeOfDay.Day2 | TimeOfDay.Day3).addTimeNeeded(TimeOfDay.Day1 | TimeOfDay.Day2)),
+                ("InteriorPotionShop", null, (item) => item.addTimeNeeded(TimeOfDay.Day1 | TimeOfDay.Night1)),
+                ("InteriorRanchBarn", null, (item) => item.addTimeAvailable(TimeOfDay.Day3 | TimeOfDay.Night3)),
+                ("InteriorRanchHouse", null, null),
+                ("InteriorHoneyAndDarling", null, null),
+                ("InteriorCuriosityShop", null, null),
+                ("InteriorMilkBar", null, null),
+                ("InteriorTreasureChestShop", null, null),
+                ("InteriorTownShootingGallery", null, null),
+                ("InteriorSwampShootingGallery", null, null),
+                ("InteriorMountainSmithy", null, null),
+                ("InteriorPostOffice", null, null),
+                ("InteriorMarineResearchLab", null, null),
+                ("InteriorTradingPost", null, null),
+                ("InteriorLotteryShop", null, null),
+                ("InteriorDoggyRacetrack", null, null),
+                ("InteriorCuccoShack", null, null),
+                ("InteriorMikauTijoRoom", null, null),
+                ("InteriorJapasRoom", null, null),
+                ("InteriorLuluRoom", null, null),
+                ("InteriorEvanRoom", null, null),
+                ("InteriorZoraShop", null, null),
+                ("InteriorSwordsmanSchool", null, null),
+                ("InteriorMusicBoxHouse", null, null),
+                ("InteriorBombShop", null, null),
+                ("InteriorLensCave", null, null),
+                ("InteriorIkanaPoolCave", null, null),
+                ("InteriorPinnacleRock", null, null),
+                ("InteriorFairyFountainTown", null, null),
+                ("InteriorFairyFountainWoodfall", null, null),
+                ("InteriorFairyFountainSnowhead", null, null),
+                ("InteriorFairyFountainZoraCape", null, null),
+                ("InteriorFairyFountainIkanaCanyon", null, null),
+                ("InteriorFishermanHut", null, null),
+                ("InteriorGoronShop", null, null),
+                ("InteriorWaterfallRapids", null, null),
+                ("InteriorGoronGraveyard", null, null),
+                ("InteriorPoeHut", null, null),
+                ("InteriorDekuShrine", null, null),
+                ("InteriorSecretShrine", null, null),
+                ("InteriorWoodsOfMystery", null, null),
+                ("InteriorGoronRacetrack", null, null),
+                ("InteriorStoneTowerTemple", null, null),
+                ("InteriorSwampSpiderHouse", null, null),
+                ("InteriorOceanSpiderHouse", null, null),
+            };
+
+            logicObject.Logic.InsertRange(170, GetLogicItems(logicObject, itemNames));
+
+            var newMultilocations1 = new (string name, string reference, Action<JsonFormatLogicItem> modify)[]
+            {
+                ("NotebookMeetRomaniInRanch", null, null),
+                ("NotebookMeetRomaniInHouse", null, null),
+                ("NotebookMeetRomaniInBarn", null, null),
+                ("NotebookMeetCremiaInRanch", null, null),
+                ("NotebookMeetCremiaInHouse", null, null),
+                ("NotebookMeetCremiaInBarn", null, null),
+                ("NotebookMeetMadameAromaInOffice", null, null),
+                ("NotebookMeetMadameAromaInBar", null, null),
+                ("NotebookMeetTotoInOffice", null, null),
+                ("NotebookMeetTotoInBar", null, null),
+            };
+
+            logicObject.Logic.InsertRange(1389, GetLogicItems(logicObject, newMultilocations1));
+
+            var newMultilocations2 = new (string name, string reference, Action<JsonFormatLogicItem> modify)[]
+            {
+                ("NotebookMeetGormanInOffice", null, null),
+                ("NotebookMeetGormanInBar", null, null),
+            };
+
+            logicObject.Logic.InsertRange(1401, GetLogicItems(logicObject, newMultilocations2));
+
+            var newMultilocations3 = new (string name, string reference, Action<JsonFormatLogicItem> modify)[]
+            {
+                ("NotebookMeetPostmanInPostOffice", null, null),
+                ("NotebookMeetPostmanInMilkBar", null, null),
+            };
+
+            logicObject.Logic.InsertRange(1409, GetLogicItems(logicObject, newMultilocations3));
+
+            var newMultilocations4 = new (string name, string reference, Action<JsonFormatLogicItem> modify)[]
+            {
+                ("ItemBottleWitchInWoodsOfMystery", null, null),
+                ("ItemBottleWitchInPotionShop", null, null),
+                ("UpgradeBigBombBagInBombShop", null, null),
+                ("UpgradeBigBombBagInCuriosityShop", null, null),
+            };
+
+            logicObject.Logic.InsertRange(1422, GetLogicItems(logicObject, newMultilocations4));
+
+            logicObject.Version = 29;
         }
 
         private static List<JsonFormatLogicItem> GetLogicItems(IEnumerable<string> itemNames)

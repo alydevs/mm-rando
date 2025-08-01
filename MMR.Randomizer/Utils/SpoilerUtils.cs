@@ -60,6 +60,10 @@ namespace MMR.Randomizer.Utils
             {
                 entrances.AddRange(Enum.GetValues<Item>().Where(item => item.EntranceType() == EntranceType.Grotto));
             }
+            if (settings.EntranceMode.HasFlag(EntranceMode.SimpleInteriors))
+            {
+                entrances.AddRange(Enum.GetValues<Item>().Where(item => item.EntranceType() == EntranceType.Interior));
+            }
             foreach (var entrance in entrances.OrderBy(e => entrances.IndexOf(randomized.ItemList[e].NewLocation.Value)))
             {
                 dungeonEntrances.Add(randomized.ItemList[entrance].NewLocation.Value, entrance);

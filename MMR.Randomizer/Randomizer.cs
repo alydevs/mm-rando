@@ -318,6 +318,11 @@ namespace MMR.Randomizer
             {
                 OtherEntranceShuffle(EntranceType.Grotto);
             }
+
+            if (_settings.EntranceMode.HasFlag(EntranceMode.SimpleInteriors))
+            {
+                OtherEntranceShuffle(EntranceType.Interior);
+            }
         }
 
         private bool CheckEntranceMatch(Item entrance, Item targetEntrance)
@@ -340,7 +345,7 @@ namespace MMR.Randomizer
             return true;
         }
 
-        private void PlaceEntrance(Item entrance, List<Item> targets)
+        private void PlaceEntrance(Item entrance, List<Item> targets, Func<Item, Item, ItemList, bool> restriction = null)
         {
             if (ItemList[entrance].NewLocation.HasValue)
             {
@@ -348,6 +353,11 @@ namespace MMR.Randomizer
             }
 
             var remainingTargets = targets.ToList();
+
+            if (restriction != null)
+            {
+                remainingTargets.RemoveAll(location => !restriction(entrance, location, ItemList));
+            }
 
             Item targetEntrance;
             do
@@ -372,6 +382,20 @@ namespace MMR.Randomizer
         {
             var entrances = Enum.GetValues<Item>().Where(item => item.EntranceType() == entranceType);
             var targets = entrances.Where(entrance => !ItemList.Any(io => io.NewLocation == entrance)).ToList();
+
+            if (entranceType == EntranceType.Interior && _settings.StrayFairyMode.HasFlag(StrayFairyMode.KeepWithinArea))
+            {
+                var fairyFountains = entrances.Where(entrance => entrance.AdditionalEntranceTypes().Contains(EntranceType.FairyFountain));
+                var remainingRegionAreas = fairyFountains.Select(f => f.RegionArea(ItemList)).ToList();
+                foreach (var entrance in fairyFountains)
+                {
+                    PlaceEntrance(entrance, targets, (entrance, target, itemList) =>
+                    {
+                        return remainingRegionAreas.Contains(target.RegionArea(itemList));
+                    });
+                    remainingRegionAreas.Remove(ItemList[entrance].NewLocation.Value.RegionArea(ItemList));
+                }
+            }
 
             foreach (var entrance in entrances)
             {
