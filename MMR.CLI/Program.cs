@@ -317,6 +317,10 @@ namespace MMR.CLI
                         if (settingConfig != null)
                         {
                             settingConfig.DefaultValue = property.GetValue(defaultValue);
+                            if (settingConfig.DefaultValue == null)
+                            {
+                                settingConfig.DefaultValue = new WriteableNull();
+                            }
                             settings.Add(settingConfig);
                         }
                         path.Pop();
