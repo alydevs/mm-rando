@@ -529,6 +529,7 @@ namespace MMR.Randomizer.Models.Settings
         /// The weighting to give different types of traps.
         /// </summary>
         [SettingTab(SettingTabAttribute.Type.Gimmicks)]
+        [Range(0, int.MaxValue)]
         public Dictionary<TrapType, int> TrapWeights { get; set; } = new Dictionary<TrapType, int>();
 
         /// <summary>
