@@ -38,6 +38,12 @@ namespace MMR.CLI
         public Dictionary<string, object> AdditionalInformation { get; set; }
     }
 
+    public class SettingDictionary<TKey, TValue>
+    {
+        public string KeySettingPath { get; set; }
+        public Dictionary<TKey, TValue> Values { get; set; }
+    }
+
     public class SettingConfig
     {
         public string Path { get; set; }
@@ -53,8 +59,8 @@ namespace MMR.CLI
         public object MinValue { get; set; }
         public object MaxValue { get; set; }
         public Dictionary<object, List<string>> SettingExcludes { get; set; }
-        public Dictionary<LogicMode, Dictionary<string, List<SettingValue>>> TrickInfo { get; set; }
-        public Dictionary<LogicMode, bool> InLogic { get; set; }
+        public SettingDictionary<LogicMode, Dictionary<string, List<SettingValue>>> TrickInfo { get; set; }
+        public SettingDictionary<LogicMode, bool> InLogic { get; set; }
         public List<string> Index { get; set; }
     }
 
@@ -133,30 +139,38 @@ namespace MMR.CLI
                             SettingExcludes = property.HasAttribute<SettingExcludeAttribute>()
                                 ? property.GetAttributes<SettingExcludeAttribute>().ToDictionary(attr => attr.PropertyValue, attr => attr.SettingPaths.Select(p => relativePath + "." + p).ToList())
                                 : null,
-                            InLogic = property.GetAttribute<SettingTabAttribute>()?.TabType == SettingTabAttribute.Type.Gimmicks ? itemLists.ToDictionary(kvp => kvp.Key, kvp =>
+                            InLogic = property.GetAttribute<SettingTabAttribute>()?.TabType == SettingTabAttribute.Type.Gimmicks ? new SettingDictionary<LogicMode, bool>
                             {
-                                return kvp.Value.Any(io => !string.IsNullOrWhiteSpace(io.SettingExpression) && LogicUtils.ParseSettingExpression(io.SettingExpression).VisitsMember(declaringType, property.Name));
-                            }) : null,
+                                KeySettingPath = $"{nameof(GameplaySettings)}.{nameof(GameplaySettings.LogicMode)}",
+                                Values = itemLists.ToDictionary(kvp => kvp.Key, kvp =>
+                                {
+                                    return kvp.Value.Any(io => !string.IsNullOrWhiteSpace(io.SettingExpression) && LogicUtils.ParseSettingExpression(io.SettingExpression).VisitsMember(declaringType, property.Name));
+                                })
+                        } : null,
                         };
                         if (settingConfig.Path == $"{nameof(GameplaySettings)}.{nameof(GameplaySettings.EnabledTricks)}")
                         {
-                            settingConfig.TrickInfo = itemLists.ToDictionary(kvp => kvp.Key, kvp =>
+                            settingConfig.TrickInfo = new SettingDictionary<LogicMode, Dictionary<string, List<SettingValue>>>
                             {
-                                var tricks = kvp.Value.Where(io => io.IsTrick);
-                                var categories = tricks.Select(io => string.IsNullOrWhiteSpace(io.TrickCategory) ? "Misc" : io.TrickCategory).Distinct().ToList();
-
-                                foreach (var i in tricks)
+                                KeySettingPath = $"{nameof(GameplaySettings)}.{nameof(GameplaySettings.LogicMode)}",
+                                Values = itemLists.ToDictionary(kvp => kvp.Key, kvp =>
                                 {
-                                    i.TrickCategory = string.IsNullOrWhiteSpace(i.TrickCategory) ? "Misc" : i.TrickCategory;
-                                }
+                                    var tricks = kvp.Value.Where(io => io.IsTrick);
+                                    var categories = tricks.Select(io => string.IsNullOrWhiteSpace(io.TrickCategory) ? "Misc" : io.TrickCategory).Distinct().ToList();
 
-                                return tricks.GroupBy(io => io.TrickCategory).ToDictionary(g => g.Key, g => g.Select(io => new SettingValue
-                                {
-                                    Label = io.Name,
-                                    Tooltip = io.TrickTooltip,
-                                    Value = io.TrickUrl,
-                                }).ToList());
-                            });
+                                    foreach (var i in tricks)
+                                    {
+                                        i.TrickCategory = string.IsNullOrWhiteSpace(i.TrickCategory) ? "Misc" : i.TrickCategory;
+                                    }
+
+                                    return tricks.GroupBy(io => io.TrickCategory).ToDictionary(g => g.Key, g => g.Select(io => new SettingValue
+                                    {
+                                        Label = io.Name,
+                                        Tooltip = io.TrickTooltip,
+                                        Value = io.TrickUrl,
+                                    }).ToList());
+                                })
+                            };
                         }
 
                         var settingIndexLabels = property.GetAttribute<SettingIndexValuesAttribute>();
