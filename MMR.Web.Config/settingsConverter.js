@@ -174,6 +174,10 @@ function resolveSettingType(dataType, isValueType = false, linkedSettings = fals
                 return 'Numberinput';
             case "File":
                 return 'Fileinput';
+            case "Item[][]":
+                return "Custom_Item[][]"
+            case "Int32[]":
+                return 'Custom_Int32[]';
             default: {
                 console.error("Unknown single DataType:", dataType);
             }
@@ -239,6 +243,63 @@ function splitCamelCaseString(text) {
     outText = outText.replace("I D", "ID");
 
     return outText;
+}
+
+function generateTooltip(tooltip) {
+
+    if (!tooltip)
+        return tooltip;
+
+    let finalTooltip = tooltip.replace(/\n/g, "<br>");
+
+    //Don't handle short tooltips or ones that already have manual line breaks
+    if (finalTooltip.includes("<br>") || finalTooltip.length < 100)
+        return finalTooltip;
+
+    //Automatically insert new line breaks where appropriate
+    let wrappedLines = wrapTooltipLine(finalTooltip);
+    return wrappedLines.join('<br>');
+}
+
+function wrapTooltipLine(line) {
+    const maxLen = 100;
+    const dotMinPos = 60;
+    const commaMinPos = 70;
+    let results = [];
+
+    while (line.length > maxLen) {
+        // Consider only first maxLen characters
+        let segment = line.slice(0, maxLen);
+        let breakPos = -1;
+
+        // 1. Look for dot between dotMinPos and maxLen
+        for (let i = maxLen; i >= dotMinPos; i--) {
+            if (segment[i - 1] === '.') { breakPos = i; break; }
+        }
+
+        // 2. If no dot, look for comma between commaMinPos and maxLen
+        if (breakPos === -1) {
+            for (let i = maxLen; i >= commaMinPos; i--) {
+                if (segment[i - 1] === ',') { breakPos = i; break; }
+            }
+        }
+
+        // 3. If still no break, find last space before maxLen
+        if (breakPos === -1) {
+            const lastSpace = segment.lastIndexOf(' ');
+            breakPos = lastSpace > 0 ? lastSpace : maxLen;
+        }
+
+        // Extract and trim
+        let part = line.slice(0, breakPos).trim();
+        results.push(part);
+        // Prepare remainder, trim leading spaces
+        line = line.slice(breakPos).trimStart();
+    }
+
+    // Push any remaining text
+    if (line.length > 0) results.push(line);
+    return results;
 }
 
 function assembleSetting(version, setting, linkedSettings = false, overrideBaseType = null) {
@@ -337,8 +398,8 @@ function assembleSetting(version, setting, linkedSettings = false, overrideBaseT
                             optionsObject[option.Value] = { text: option.Label };
 
                             if ("Tooltip" in option) {
-                                arrayValue.tooltip = option.Tooltip;
-                                optionsObject[option.Value].tooltip = option.Tooltip;
+                                arrayValue.tooltip = generateTooltip(option.Tooltip);
+                                optionsObject[option.Value].tooltip = generateTooltip(option.Tooltip);
                             }
 
                             optionsArray.push(arrayValue);
@@ -349,16 +410,6 @@ function assembleSetting(version, setting, linkedSettings = false, overrideBaseT
                 case "SearchBox":
                     {
                         //String[]
-                        //Linked setting detection
-                        let linkedSetting = "LinkedSettingPath" in resolvedSetting ? resolvedSetting.LinkedSettingPath : null;
-
-                        if (linkedSetting == null && setting === "GameplaySettings.EnabledTricks")
-                            linkedSetting = "GameplaySettings.LogicMode"; //ToDo: Remove hardcode and rely on LinkedSettingPath instead
-
-                        if (linkedSetting) {
-                            optionsArray = {}; //Turn outer array into object
-                        }
-
                         const optionKeys = ["TrickInfo"]; //ToDo: Hacky...Identify options through key detection
 
                         for (let optionKey of optionKeys) {
@@ -366,21 +417,30 @@ function assembleSetting(version, setting, linkedSettings = false, overrideBaseT
                             if (!(optionKey in resolvedSetting))
                                 continue;
 
+                            let optionData = resolvedSetting[optionKey];
+
+                            //Linked setting detection
+                            let linkedSetting = typeof (optionData) == "object" && !Array.isArray(optionData) && "KeySettingPath" in optionData ? optionData.KeySettingPath : null;
+
+                            if (linkedSetting) {
+                                optionsArray = {}; //Turn outer array into object
+                            }
+
                             if (linkedSetting) {
 
                                 //Linked setting parsing. Options are scoped by linked setting value
-                                for (let linkedSettingValue of Object.keys(resolvedSetting[optionKey])) {
+                                for (let linkedSettingValue of Object.keys(optionData.Values)) {
 
                                     optionsArray[linkedSettingValue] = [];
                                     optionsObject[linkedSettingValue] = {};
 
                                     //Options are further scoped by tags
-                                    for (let tagName of Object.keys(resolvedSetting[optionKey][linkedSettingValue])) {
+                                    for (let tagName of Object.keys(optionData.Values[linkedSettingValue])) {
 
                                         let adjustedTagName = tagName; //Used verbatim for now
 
                                         //Final layer are the options
-                                        for (let option of resolvedSetting[optionKey][linkedSettingValue][tagName]) {
+                                        for (let option of optionData.Values[linkedSettingValue][tagName]) {
 
                                             if (!("Label" in option)) {
                                                 console.error("Invalid empty option entry in SearchBox:", resolvedSetting);
@@ -414,8 +474,8 @@ function assembleSetting(version, setting, linkedSettings = false, overrideBaseT
                                             };
 
                                             if ("Tooltip" in option) {
-                                                arrayValue.tooltip = option.Tooltip;
-                                                optionsObject[linkedSettingValue][optionName].tooltip = option.Tooltip;
+                                                arrayValue.tooltip = generateTooltip(option.Tooltip);
+                                                optionsObject[linkedSettingValue][optionName].tooltip = generateTooltip(option.Tooltip);
                                             }
 
                                             optionsArray[linkedSettingValue].push(arrayValue);
@@ -454,8 +514,8 @@ function assembleSetting(version, setting, linkedSettings = false, overrideBaseT
                                     };
 
                                     if ("Tooltip" in option) {
-                                        arrayValue.tooltip = option.Tooltip;
-                                        optionsObject[optionName].tooltip = option.Tooltip;
+                                        arrayValue.tooltip = generateTooltip(option.Tooltip);
+                                        optionsObject[optionName].tooltip = generateTooltip(option.Tooltip);
                                     }
 
                                     //Dynamically process Additional Information
@@ -503,6 +563,7 @@ function assembleSetting(version, setting, linkedSettings = false, overrideBaseT
                         break;
                     }
                 case "SearchBoxMMR":
+                case "Custom_Item[][]":
                     {
                         //ItemList. This type also renders with a Textinput on top that shows the assembled bit string
                         for (let option of resolvedSetting.ItemList) {
@@ -512,7 +573,7 @@ function assembleSetting(version, setting, linkedSettings = false, overrideBaseT
                                 continue;
                             }
 
-                            let optionName = option.Label;
+                            let optionName = "Value" in option ? option.Value : option.Label;
 
                             //Duplicate label protection
                             if (optionName in optionsObject) {
@@ -530,21 +591,24 @@ function assembleSetting(version, setting, linkedSettings = false, overrideBaseT
                             }
 
                             let arrayValue = {
-                                index: option.Index,
                                 name: optionName,
                                 text: option.Label,
                                 tags: {}
                             };
 
                             optionsObject[optionName] = {
-                                index: option.Index,
                                 text: option.Label,
                                 tags: {}
                             };
 
+                            if ("Index" in option) {
+                                arrayValue.index = option.Index;
+                                optionsObject[optionName].index = option.Index;
+                            }
+
                             if ("Tooltip" in option) {
-                                arrayValue.tooltip = option.Tooltip;
-                                optionsObject[optionName].tooltip = option.Tooltip;
+                                arrayValue.tooltip = generateTooltip(option.Tooltip);
+                                optionsObject[optionName].tooltip = generateTooltip(option.Tooltip);
                             }
 
                             //Dynamically process Additional Information
@@ -621,6 +685,10 @@ function assembleSetting(version, setting, linkedSettings = false, overrideBaseT
                     {
                         break;
                     }
+                case "Custom_Int32[]":
+                    {
+                        break;
+                    }
             }
 
             //Splice any available visibility settings into the options
@@ -633,7 +701,7 @@ function assembleSetting(version, setting, linkedSettings = false, overrideBaseT
                 text: resolvedSetting.Label,
                 type: settingType,
                 default: resolvedSetting.DefaultValue,
-                tooltip: resolvedSetting.Tooltip,
+                tooltip: generateTooltip(resolvedSetting.Tooltip),
                 shared: settingShared,
                 options: optionsArray
             };
@@ -642,7 +710,7 @@ function assembleSetting(version, setting, linkedSettings = false, overrideBaseT
                 text: resolvedSetting.Label,
                 type: settingType,
                 default: resolvedSetting.DefaultValue,
-                tooltip: resolvedSetting.Tooltip,
+                tooltip: generateTooltip(resolvedSetting.Tooltip),
                 shared: settingShared,
                 options: optionsObject
             };
@@ -690,24 +758,9 @@ function assembleSetting(version, setting, linkedSettings = false, overrideBaseT
                 case "SearchBox":
                     {
                         //String[]
-                        //Linked setting detection
-                        let linkedSetting = "LinkedSettingPath" in resolvedSetting ? resolvedSetting.LinkedSettingPath : null;
-
-                        if (linkedSetting == null && setting === "GameplaySettings.EnabledTricks")
-                            linkedSetting = "GameplaySettings.LogicMode"; //ToDo: Remove hardcode and rely on LinkedSettingPath instead
-
-                        //Set setting key if linked setting
-                        if (linkedSetting) {
-                            settingArray.linked_setting = linkedSetting;
-                            settingObject.linked_setting = linkedSetting;
-                        }
-
                         //Add tags (filter)
                         let finalTagsArray = [];
-
-                        if (linkedSetting) {
-                            finalTagsArray = {}; //Turn outer tags array into object when a linked setting exists
-                        }
+                        let linkedSetting = null;
 
                         const optionKeys = ["TrickInfo"]; //ToDo: Hacky...Identify options through key detection
 
@@ -716,15 +769,30 @@ function assembleSetting(version, setting, linkedSettings = false, overrideBaseT
                             if (!(optionKey in resolvedSetting))
                                 continue;
 
+                            let optionData = resolvedSetting[optionKey];
+
+                            //Linked setting detection
+                            linkedSetting = typeof (optionData) == "object" && !Array.isArray(optionData) && "KeySettingPath" in optionData ? optionData.KeySettingPath : null;
+
+                            //Set setting key if linked setting
+                            if (linkedSetting) {
+                                settingArray.linked_setting = linkedSetting;
+                                settingObject.linked_setting = linkedSetting;
+                            }
+
+                            if (linkedSetting) {
+                                finalTagsArray = {}; //Turn outer tags array into object when a linked setting exists
+                            }
+
                             if (linkedSetting) {
 
                                 //Linked setting parsing. Options are scoped by linked setting value
-                                for (let linkedSettingValue of Object.keys(resolvedSetting[optionKey])) {
+                                for (let linkedSettingValue of Object.keys(optionData.Values)) {
 
                                     finalTagsArray[linkedSettingValue] = [];
 
                                     //Options are further scoped by tags
-                                    for (let tagName of Object.keys(resolvedSetting[optionKey][linkedSettingValue])) {
+                                    for (let tagName of Object.keys(optionData.Values[linkedSettingValue])) {
                                         finalTagsArray[linkedSettingValue].push(tagName);
                                     }
                                 }
@@ -776,6 +844,7 @@ function assembleSetting(version, setting, linkedSettings = false, overrideBaseT
                         break;
                     }
                 case "SearchBoxMMR":
+                case "Custom_Item[][]":
                     {
                         //ItemList
                         //Collect all tags and presets
@@ -978,19 +1047,6 @@ function assembleSetting(version, setting, linkedSettings = false, overrideBaseT
                             settingArray.nullable = true;
                             settingObject.nullable = true;
                         }
-                       
-                        //ToDo: Ensure default value always exists in the source dump. Even if nullable and default = null
-                        if (resolvedSetting.DefaultValue == null) {
-
-                            if (resolvedSetting.Nullable) {
-                                settingArray.default = null;
-                                settingObject.default = null;
-                            }
-                            else {
-                                settingArray.default = settingArray.min;
-                                settingObject.default = settingArray.min;
-                            }
-                        }
 
                         break;
                     }
@@ -1022,8 +1078,8 @@ function assembleSetting(version, setting, linkedSettings = false, overrideBaseT
                             dictionaryKeysObject[keyObject.Value] = { text: keyObject.Label };
 
                             if ("Tooltip" in keyObject) {
-                                arrayValue.tooltip = keyObject.Tooltip;
-                                dictionaryKeysObject[keyObject.Value].tooltip = keyObject.Tooltip;
+                                arrayValue.tooltip = generateTooltip(keyObject.Tooltip);
+                                dictionaryKeysObject[keyObject.Value].tooltip = generateTooltip(keyObject.Tooltip);
                             }
 
                             dictionaryKeysArray.push(arrayValue);

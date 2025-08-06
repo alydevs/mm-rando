@@ -13,7 +13,6 @@
           "row_span": [ 1, 1, 1 ],
           "settings": [
             "OutputSettings.GenerateSpoilerLog",
-            "Web.RandomStartingItemsPool",
             "Web.output_type",
             "OutputSettings.InputROMFilename",
             "Web.wad_file",
@@ -255,6 +254,9 @@
             "GameplaySettings.HintsIndicateImportance",
             "GameplaySettings.MixGossipAndGaroHints",
             "Web.HintPriorities",
+            "GameplaySettings.OverrideHintPriorities",
+            "GameplaySettings.OverrideImportanceIndicatorTiers",
+            "GameplaySettings.OverrideHintItemCaps",
             "GameplaySettings.RemainsHint",
             "GameplaySettings.OathHint",
             "GameplaySettings.FairyAndSkullHint"

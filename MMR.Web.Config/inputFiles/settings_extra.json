@@ -240,6 +240,18 @@
     "shared": true
   },
   {
+    "name": "GameplaySettings.OverrideHintPriorities",
+    "invisible": true
+  },
+  {
+    "name": "GameplaySettings.OverrideImportanceIndicatorTiers",
+    "invisible": true
+  },
+  {
+    "name": "GameplaySettings.OverrideHintItemCaps",
+    "invisible": true
+  },
+  {
     "name": "CosmeticSettings.MusicLuckRollChance",
     "size": "small",
     "max_length": 5
