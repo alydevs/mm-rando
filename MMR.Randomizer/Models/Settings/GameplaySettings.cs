@@ -693,7 +693,7 @@ namespace MMR.Randomizer.Models.Settings
         public GossipHintStyle GossipHintStyle { get; set; } = GossipHintStyle.Competitive;
 
         [Description("Select a Garo hint style\n\n - Default: Vanilla Garo hints.\n - Random: Hints will contain locations of random items.\n - Relevant: Hints will contain locations of items loosely related to the vanilla hint or the area.\n - Competitive: Guaranteed hints about time-consuming checks, and hints regarding importance or non-importance of regions.")]
-        [SettingExclude(GossipHintStyle.Default, nameof(ClearHints),
+        [SettingExclude(GossipHintStyle.Default, nameof(ClearGaroHints),
             nameof(ImportanceCountGaro),
             nameof(OverrideNumberOfRequiredGaroHints),
             nameof(OverrideNumberOfNonRequiredGaroHints),
