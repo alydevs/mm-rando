@@ -29,6 +29,8 @@ namespace MMR.Randomizer.Patch
 
         private static readonly byte[] key;
         private static readonly byte[] iv;
+        private static readonly byte[] moduleId;
+        private static readonly byte[] version;
 
         static Patcher()
         {
@@ -39,6 +41,15 @@ namespace MMR.Randomizer.Patch
             key = buffer.ToArray();
             random.NextBytes(buffer);
             iv = buffer.ToArray();
+            random.NextBytes(buffer);
+            moduleId = buffer.ToArray();
+            version = new byte[4]
+            {
+                (byte)typeof(Randomizer).Assembly.GetName().Version.Major,
+                (byte)typeof(Randomizer).Assembly.GetName().Version.Minor,
+                (byte)typeof(Randomizer).Assembly.GetName().Version.Build,
+                (byte)typeof(Randomizer).Assembly.GetName().Version.MinorRevision,
+            };
         }
 
         /// <summary>
@@ -102,8 +113,10 @@ namespace MMR.Randomizer.Patch
                 var magicEncrypted = readerIn.ReadUInt32();
                 ValidateMagic(magicEncrypted, true);
 
-                var version = readerIn.ReadUInt32();
-                var moduleId = readerIn.ReadBytes(16);
+                var patchVersion = readerIn.ReadBytes(4);
+                ValidateVersion(patchVersion);
+                var patchModuleId = readerIn.ReadBytes(16);
+                ValidateModuleId(patchModuleId);
                 var compressedSize = readerIn.ReadUInt32();
                 var decompressedSize = readerIn.ReadUInt32();
 
@@ -230,8 +243,8 @@ namespace MMR.Randomizer.Patch
             var encryptedStream = new MemoryStream();
             var aes = Aes.Create();
             var hashAlg = new SHA256Managed();
-            using (var cryptoStream = new CryptoStream(encryptedStream, aes.CreateEncryptor(key, iv), CryptoStreamMode.Write))
-            using (var hashStream = new CryptoStream(cryptoStream, hashAlg, CryptoStreamMode.Write))
+            using (var cryptoStream = new CryptoStream(encryptedStream, aes.CreateEncryptor(key, iv), CryptoStreamMode.Write, true))
+            using (var hashStream = new CryptoStream(cryptoStream, hashAlg, CryptoStreamMode.Write, true))
             using (var compressStream = new GZipStream(hashStream, CompressionMode.Compress, leaveOpen: true))
             {
                 compressStream.Write(rawStream.ToArray());
@@ -246,8 +259,8 @@ namespace MMR.Randomizer.Patch
             var writerOut = new BeBinaryWriter(outStream);
 
             writerOut.WriteUInt32(PatchMagicEncrypted);
-            writerOut.WriteUInt32((uint)2); //ToDo: Add proper version
-            writerOut.Write(new byte[16]); //ToDo: Add module id
+            writerOut.Write(version);
+            writerOut.Write(moduleId);
             writerOut.WriteUInt32(compressedSize);
             writerOut.WriteUInt32(decompressedSize);
             writerOut.Write(encryptedStream.ToArray());
@@ -269,6 +282,23 @@ namespace MMR.Randomizer.Patch
                 throw new PatchMagicException(magic);
             }
         }
+
+        static void ValidateVersion(byte[] inVersion)
+        {
+            if (!inVersion.SequenceEqual(version))
+            {
+                throw new IOException($"Patch version {string.Join(".", inVersion)} does not match {string.Join(".", version)}.");
+            }
+        }
+
+        static void ValidateModuleId(byte[] inId)
+        {
+            if (!inId.SequenceEqual(moduleId))
+            {
+                throw new IOException($"Patch module id does not match.");
+            }
+        }
+
 
         /// <summary>
         /// Perform VCDiff decode (apply a diff).
