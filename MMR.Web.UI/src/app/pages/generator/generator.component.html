@@ -13,7 +13,7 @@
                   <p *ngIf="section.subheader && section.subheader.length > 0" class="subheaderLabel" [innerHTML]="section.subheader"></p>
                   <!--Auto Parsed Tabs based on JSON-->
                   <ng-template ngFor let-setting [ngForOf]="section.settings" let-itemIndex="index">
-                    <ng-container *ngIf="!setting.is_linked && (global.generator_settingsVisibilityMap[setting.name] || !setting.hide_when_disabled)">
+                    <ng-container *ngIf="!setting.invisible && (!setting.is_linked && (global.generator_settingsVisibilityMap[setting.name] || !setting.hide_when_disabled))">
                       <gui-settings-element [app]="this" [section]="section" [sectionSettings]="section.settings" [setting]="setting" [itemIndex]="itemIndex" [refEl]="refEl"
                                             [assignmentSettingsMap]="global.generator_settingsMap" [assignmentSettingName]="setting.name" [visibilitySettingsMap]="global.generator_settingsVisibilityMap"
                                             [tooltipComponent]="tooltipComponent" [settingDefault]="setting.default" [settingText]="setting.text" [settingTooltip]="setting.tooltip">
