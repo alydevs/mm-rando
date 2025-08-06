@@ -920,8 +920,22 @@ export class GUIGlobal implements OnDestroy {
     let didCast = false;
 
     //Skip checks if null value with nullable allowed
-    if (setting["nullable"] === true && settingValue === null)
+    if (setting["nullable"] === true && (settingValue === null || settingValue === ""))
+    {
+      //Cast to null if needed
+      if (settingValue === "") {
+
+        settingValue = null;
+        settingsFile[setting.name] = settingValue;
+
+        if (syncToGlobalMap) { //Global too if needed and refresh GUI after to signal change
+          this.generator_settingsMap[setting.name] = settingValue;
+          this.globalEmitter.emit({ name: "refresh_gui" });
+        }
+      }
+
       return error;
+    }
 
     if (typeof (settingValue) != "string" && typeof (settingValue) != "number") { //Can't recover, bad type
       error = true;
