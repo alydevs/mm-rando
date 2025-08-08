@@ -256,20 +256,29 @@
 
   <!--SearchBox-->
   <ng-container *ngSwitchCase="'SearchBox'">
-    <zsr-gui-listbox [disabled]="!visibilitySettingsMap[setting.name]"
+    <gui-modular-listbox [disabled]="!visibilitySettingsMap[setting.name]"
                      [source]="setting.linked_setting ? setting.options[assignmentSettingsMap[setting.linked_setting]] : setting.options"
                      [(destination)]="assignmentSettingsMap[assignmentSettingName]" (destinationChange)="app.checkVisibility($event, setting)"
                      height="100%" key="name" display="text" filter="true"
                      [tagFilter]="setting.tags && setting.linked_setting ? setting.tags[assignmentSettingsMap[setting.linked_setting]] : setting.tags && setting.tags.length > 0 ? setting.tags : null"
-                     [tooltipComponent]="tooltipComponent" tooltip="tooltip" [nbPopover]="tooltipComponent" [nbPopoverContext]="{tooltip: settingTooltip}" [nbPopoverTrigger]="settingTooltip && settingTooltip.length > 0 ? 'click' : 'noop'" nbPopoverPlacement="right" nbPopoverAdjustment="counterclockwise">
-    </zsr-gui-listbox>
+                     [tooltipComponent]="tooltipComponent" tooltip="tooltip" [nbPopover]="tooltipComponent" [nbPopoverContext]="{tooltip: settingTooltip}" [nbPopoverTrigger]="settingTooltip && settingTooltip.length > 0 ? 'click' : 'noop'" nbPopoverPlacement="right" nbPopoverAdjustment="counterclockwise"
+                     [enableHexString]="false"
+                     [enablePresets]="false"
+                     [enableCoDependentFilters]="false"
+                     [enableResponsiveDesign]="false"
+                     [valueIsHexString]="false">
+    </gui-modular-listbox>
   </ng-container>
 
   <!--SearchBox MMR-->
   <ng-container *ngSwitchCase="'SearchBoxMMR'">
-    <mmr-gui-listbox [disabled]="!visibilitySettingsMap[setting.name]" [source]="setting.options" [(destination)]="assignmentSettingsMap[assignmentSettingName]" (destinationChange)="app.checkVisibility($event, setting)"
-                     height="100%" key="name" display="text" valueIsHexString="true" [coDependentFilters]="setting.multi_tags" [presets]="setting.presets && setting.presets.presets && setting.presets.presets.length > 0 ? setting.presets : null" filter="true" [tagFilter]="setting.tags && setting.tags.length > 0 ? setting.tags : null" [tooltipComponent]="tooltipComponent" tooltip="tooltip" [nbPopover]="tooltipComponent" [nbPopoverContext]="{tooltip: settingTooltip}" [nbPopoverTrigger]="settingTooltip && settingTooltip.length > 0 ? 'click' : 'noop'" nbPopoverPlacement="right" nbPopoverAdjustment="counterclockwise">
-    </mmr-gui-listbox>
+    <gui-modular-listbox [disabled]="!visibilitySettingsMap[setting.name]" [source]="setting.options" [(destination)]="assignmentSettingsMap[assignmentSettingName]" (destinationChange)="app.checkVisibility($event, setting)"
+                     height="100%" key="name" display="text" valueIsHexString="true" [coDependentFilters]="setting.multi_tags" [presets]="setting.presets && setting.presets.presets && setting.presets.presets.length > 0 ? setting.presets : null" filter="true" [tagFilter]="setting.tags && setting.tags.length > 0 ? setting.tags : null" [tooltipComponent]="tooltipComponent" tooltip="tooltip" [nbPopover]="tooltipComponent" [nbPopoverContext]="{tooltip: settingTooltip}" [nbPopoverTrigger]="settingTooltip && settingTooltip.length > 0 ? 'click' : 'noop'" nbPopoverPlacement="right" nbPopoverAdjustment="counterclockwise"
+                     [enableHexString]="true"
+                     [enablePresets]="true"
+                     [enableCoDependentFilters]="true"
+                     [enableResponsiveDesign]="true">
+    </gui-modular-listbox>
   </ng-container>
 
   <!--Color Picker RGB-->

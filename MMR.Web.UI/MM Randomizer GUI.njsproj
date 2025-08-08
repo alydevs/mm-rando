@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -54,14 +54,8 @@
     <Content Include="src\app\%40theme\styles\themes.scss" />
     <Content Include="src\app\components\guiColorPicker\guiColorPicker.html" />
     <Content Include="src\app\components\guiColorPicker\guiColorPicker.scss" />
-    <Content Include="src\app\components\guiListboxMMR\guiListboxMMR.html">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="src\app\components\guiListboxMMR\guiListboxMMR.scss">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="src\app\components\guiListbox\guiListbox.html" />
-    <Content Include="src\app\components\guiListbox\guiListbox.scss" />
+    <Content Include="src\app\components\guiModularListbox\guiModularListbox.html" />
+    <Content Include="src\app\components\guiModularListbox\guiModularListbox.scss" />
     <Content Include="src\app\components\guiSettingsElement\guiSettingsElement.scss" />
     <Content Include="src\app\components\mmr\hintPrioritiesWindow\hintPrioritiesWindow.html" />
     <Content Include="src\app\components\mmr\hintPrioritiesWindow\hintPrioritiesWindow.scss" />
@@ -93,7 +87,7 @@
     <TypeScriptCompile Include="src\app\%40theme\layouts\GUI\gui.layout.ts" />
     <TypeScriptCompile Include="src\app\%40theme\theme.module.ts" />
     <TypeScriptCompile Include="src\app\components\guiColorPicker\guiColorPicker.ts" />
-    <TypeScriptCompile Include="src\app\components\guiListboxMMR\guiListboxMMR.ts">
+    <TypeScriptCompile Include="src\app\components\guiModularListbox\guiModularListbox.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
     <TypeScriptCompile Include="src\app\components\guiListbox\guiListbox.ts" />
@@ -155,9 +149,7 @@
     <Folder Include="src\app\components\" />
     <Folder Include="src\app\components\guiColorPicker\" />
     <Folder Include="src\app\components\guiListbox\" />
-    <Folder Include="src\app\components\guiListboxMMR\" />
-    <Folder Include="src\app\components\mmr\hintPrioritiesWindow\" />
-    <Folder Include="src\app\components\mmr\itemSelectorWindow\" />
+    <Folder Include="src\app\components\guiModularListbox\" />
     <Folder Include="src\app\components\mmr\randomStartingItemsWindow\" />
     <Folder Include="src\app\components\mmr\" />
     <Folder Include="src\app\directives\" />

@@ -11,11 +11,11 @@ import { BasicList } from 'angular-dual-listbox';
 import { DialogWindowComponent } from '../../pages/generator/dialogWindow/dialogWindow.component';
 
 @Component({
-  selector: 'mmr-gui-listbox',
-  templateUrl: './guiListboxMMR.html',
-  styleUrls: ['./guiListboxMMR.scss']
+  selector: 'gui-modular-listbox',
+  templateUrl: './guiModularListbox.html',
+  styleUrls: ['./guiModularListbox.scss']
 })
-export class GUIListboxComponentMMR extends DualListComponent {
+export class GUIModularListboxComponent extends DualListComponent {
 
   @Input() tooltip: any = 'tooltip';
   @Input() tooltipComponent: any = null;
@@ -25,6 +25,12 @@ export class GUIListboxComponentMMR extends DualListComponent {
   @Input() coDependentFilters: boolean = false;
   @Input() presets: any = null;
   @Input() disabled: boolean = false;
+
+  // Feature gates for backward compatibility
+  @Input() enableHexString: boolean = true;
+  @Input() enablePresets: boolean = true;
+  @Input() enableCoDependentFilters: boolean = true;
+  @Input() enableResponsiveDesign: boolean = true;
 
   selectedTag: any = {};
   currentHexString: string = "";
@@ -39,27 +45,29 @@ export class GUIListboxComponentMMR extends DualListComponent {
   constructor(differs: IterableDiffers, private cd: ChangeDetectorRef, private breakpointObserver: BreakpointObserver, public global: GUIGlobal, private dialogService: NbDialogService) {
     super(differs);
 
-    let breakpointMaxWidth = 1130;
-    let breakpointElectronMaxWidth = 730;
-    let breakpointMobile = 480;
+    // Only initialize responsive design if enabled
+    if (this.enableResponsiveDesign) {
+      let breakpointMaxWidth = 1130;
+      let breakpointElectronMaxWidth = 730;
+      let breakpointMobile = 480;
 
-    if (this.global.getGlobalVar('electronAvailable'))
-      breakpointMaxWidth = breakpointElectronMaxWidth;
-   
-    this.breakpointObserver.observe([
-      `(max-width: ${breakpointMaxWidth}px)`
-    ]).subscribe((result: BreakpointState) => {
-      this.reducedWindowSize = result.matches;
-      this.cd.markForCheck();
-    });
+      if (this.global.getGlobalVar('electronAvailable'))
+        breakpointMaxWidth = breakpointElectronMaxWidth;
+     
+      this.breakpointObserver.observe([
+        `(max-width: ${breakpointMaxWidth}px)`
+      ]).subscribe((result: BreakpointState) => {
+        this.reducedWindowSize = result.matches;
+        this.cd.markForCheck();
+      });
 
-    this.breakpointObserver.observe([
-      `(max-width: ${breakpointMobile}px)`
-    ]).subscribe((result: BreakpointState) => {
-      this.mobileWindowSize = result.matches;
-      this.cd.markForCheck();
-    });
-
+      this.breakpointObserver.observe([
+        `(max-width: ${breakpointMobile}px)`
+      ]).subscribe((result: BreakpointState) => {
+        this.mobileWindowSize = result.matches;
+        this.cd.markForCheck();
+      });
+    }
   }
   
   ngOnChanges(changeRecord) {
@@ -69,13 +77,15 @@ export class GUIListboxComponentMMR extends DualListComponent {
     if (changeRecord['tagFilter']) {
 
       //Rebuild available filter value list and set default value
-      this.selectedTag = {};
-
-      if (this.tagFilter) {
-
-        for (let filter of this.tagFilter) {
-          this.selectedTag[filter.name] = "(all)";
+      if (this.enableCoDependentFilters) {
+        this.selectedTag = {};
+        if (this.tagFilter) {
+          for (let filter of this.tagFilter) {
+            this.selectedTag[filter.name] = "(all)";
+          }
         }
+      } else {
+        this.selectedTag = "(all)";
       }
     }
 
@@ -98,11 +108,13 @@ export class GUIListboxComponentMMR extends DualListComponent {
   }
 
   hexInputFocusIn() {
+    if (!this.enableHexString) return;
     //Save current value on entering any input field
     this.currentHexStringOldValue = this.currentHexString;
   }
 
   hexInputFocusOut() {
+    if (!this.enableHexString) return;
 
     this.currentHexString = this.currentHexString.trim().toLowerCase();
     let newValue = this.currentHexString;
@@ -123,6 +135,7 @@ export class GUIListboxComponentMMR extends DualListComponent {
   }
 
   selectedPresetListChange(newSelections: any) {
+    if (!this.enablePresets) return;
     //console.log("Selected preset list changed, new:", newSelections);
 
     let oldSelections = this.selectedPresets;
@@ -178,6 +191,7 @@ export class GUIListboxComponentMMR extends DualListComponent {
   }
 
   applyHexString(hexString: string) {
+    if (!this.enableHexString) return false;
 
     let result = this.global.decodeSearchBoxHexString(hexString, this.source);
 
@@ -199,16 +213,22 @@ export class GUIListboxComponentMMR extends DualListComponent {
     }
     else {
       //Only need to calculate once after an emit happened
-      this.computeHexString();
-      this.computeActivePresets();
+      if (this.enableHexString && this.valueIsHexString) {
+        this.computeHexString();
+      }
+      if (this.enablePresets) {
+        this.computeActivePresets();
+      }
     }
   }
 
   computeHexString() {
+    if (!this.enableHexString) return;
     this.currentHexString = this.global.encodeSearchBoxSelectionsAsHexString(this.currentDestinationList, this.source);
   }
 
   computeActivePresets() {
+    if (!this.enablePresets) return;
 
     //ToDo: Performance slow with big list? If so, need to pre-built lookup lists on init. Only 5 ms at worst which seems fine?
     let newActivePresets = [];
@@ -252,8 +272,12 @@ export class GUIListboxComponentMMR extends DualListComponent {
     if (source) {
       source.picker = '';
 
-      for (let key of Object.keys(this.selectedTag)) {
-        this.selectedTag[key] = "(all)";
+      if (this.enableCoDependentFilters) {
+        for (let key of Object.keys(this.selectedTag)) {
+          this.selectedTag[key] = "(all)";
+        }
+      } else {
+        this.selectedTag = "(all)";
       }
 
       this.onFilter(source);
@@ -265,44 +289,70 @@ export class GUIListboxComponentMMR extends DualListComponent {
     //Filter by Tag
     if (source.name == "available" && Object.keys(this.selectedTag).length > 0) {
 
-      //Check if we really need to filter
-      let doFilter = false;
+      if (this.enableCoDependentFilters) {
+        //Check if we really need to filter
+        let doFilter = false;
 
-      for (let key of Object.keys(this.selectedTag)) {
+        for (let key of Object.keys(this.selectedTag)) {
 
-        if (this.selectedTag[key] != "(all)") {
-          doFilter = true;
-          break;
-        }
-      }
-
-      if (doFilter) {
-
-        //ToDo: Should eventually limit filter options to the ones that are still compatible with other filters not set to "all"
-        const filtered = source.list.filter((item: any) => {
-          if (Object.prototype.toString.call(item) === '[object Object]') {
-            if (item._tags !== undefined) {
-
-              for (let key of Object.keys(this.selectedTag)) {
-
-                if (this.selectedTag[key] != "(all)" && key in item._tags && item._tags[key].indexOf(this.selectedTag[key]) === -1)
-                  return false;
-              }
-
-              return true;
-            } else {
-              return true;
-            }
-          } else {
-            return false;
+          if (this.selectedTag[key] != "(all)") {
+            doFilter = true;
+            break;
           }
-        });
+        }
 
-        source.sift = filtered;
-        this.unpickExtended(source);
-      }
-      else {
-        source.sift = source.list;
+        if (doFilter) {
+
+          //ToDo: Should eventually limit filter options to the ones that are still compatible with other filters not set to "all"
+          const filtered = source.list.filter((item: any) => {
+            if (Object.prototype.toString.call(item) === '[object Object]') {
+              if (item._tags !== undefined) {
+
+                for (let key of Object.keys(this.selectedTag)) {
+
+                  if (this.selectedTag[key] != "(all)" && key in item._tags && item._tags[key].indexOf(this.selectedTag[key]) === -1)
+                    return false;
+                }
+
+                return true;
+              } else {
+                return true;
+              }
+            } else {
+              return false;
+            }
+          });
+
+          source.sift = filtered;
+          this.unpickExtended(source);
+        }
+        else {
+          source.sift = source.list;
+        }
+      } else {
+        // Simple tag filtering (original guiListbox behavior)
+        if (this.selectedTag != "(all)") {
+          const filtered = source.list.filter((item: any) => {
+            if (Object.prototype.toString.call(item) === '[object Object]') {
+              if (item._tags !== undefined) {
+                // Handle both string and array tags
+                if (Array.isArray(item._tags)) {
+                  return item._tags.indexOf(this.selectedTag) !== -1;
+                } else {
+                  return item._tags === this.selectedTag;
+                }
+              } else {
+                return true;
+              }
+            } else {
+              return false;
+            }
+          });
+          source.sift = filtered;
+          this.unpickExtended(source);
+        } else {
+          source.sift = source.list;
+        }
       }
     } else {
       source.sift = source.list;
@@ -388,7 +438,7 @@ export class GUIListboxComponentMMR extends DualListComponent {
     }
   }
 
-  private makeTagsExtended(item: any): string {
+  private makeTagsExtended(item: any): any {
     if (typeof item === 'object') {
       return item["tags"] ? item["tags"] : "";
     }
@@ -398,6 +448,8 @@ export class GUIListboxComponentMMR extends DualListComponent {
   }
 
   getNbMultipleSelectLabel(setting) {
+    if (!this.enablePresets) return "";
+    
     if (this.selectedPresets.length === this.presets.presets.length)
       return "All";
 
@@ -408,5 +460,30 @@ export class GUIListboxComponentMMR extends DualListComponent {
       return `Selected: ${this.selectedPresets.length}`;
     else
       return this.selectedPresets.join(", ");
+  }
+
+  // Override moveItem and drop to trigger change detection after moving items
+  moveItem(source: BasicList, target: BasicList, item?: any, trueup?: boolean): void {
+    super.moveItem(source, target, item, trueup);
+    
+    if (source.name === "available") {
+      this.onFilter(source);
+    }
+    if (target.name === "available") {
+      this.onFilter(target);
+    }
+    this.cd.detectChanges();
+  }
+
+  drop(event: DragEvent, list: BasicList): void {
+    super.drop(event, list);
+    
+    if (list.name === "available") {
+      this.onFilter(list);
+    }
+    if (list.name === "confirmed") {
+      this.onFilter(this.available);
+    }
+    this.cd.detectChanges();
   }
 }

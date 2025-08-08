@@ -31,8 +31,7 @@ import { ResponsiveColsDirective } from '../../directives/responsiveCols.directi
 
 //Custom Components
 import { GUITooltipComponent } from './guiTooltip/guiTooltip.component';
-import { GUIListboxComponent } from '../../components/guiListbox/guiListbox';
-import { GUIListboxComponentMMR } from '../../components/guiListboxMMR/guiListboxMMR';
+import { GUIModularListboxComponent } from '../../components/guiModularListbox/guiModularListbox';
 import { GUIColorPickerComponent } from '../../components/guiColorPicker/guiColorPicker';
 import { GUISettingsElement } from '../../components/guiSettingsElement/guiSettingsElement';
 
@@ -63,8 +62,7 @@ import { GUISettingsElement } from '../../components/guiSettingsElement/guiSetti
         GeneratorComponent,
         ResponsiveColsDirective,
         GUITooltipComponent,
-        GUIListboxComponent,
-        GUIListboxComponentMMR,
+        GUIModularListboxComponent,
         GUIColorPickerComponent,
         GUISettingsElement
     ],

@@ -68,7 +68,7 @@
           "name": "generation_section",
           "text": "Generation Settings",
           "col_span": 2,
-          "row_span": [ 2, 2, 3 ],
+          "row_span": [ 2, 2, 6 ],
           "settings": [
             "GameplaySettings.LogicMode",
             "GameplaySettings.UserLogicFileName",
@@ -79,7 +79,7 @@
           "name": "allowed_tricks_section",
           "text": "Enable Tricks",
           "col_span": 2,
-          "row_span": [ 3, 3, 3 ],
+          "row_span": [ 3, 3, 6 ],
           "settings": [
             "GameplaySettings.EnabledTricks"
           ]
@@ -88,7 +88,7 @@
           "name": "starting_items_section",
           "text": "Extra Starting Items",
           "col_span": 2,
-          "row_span": [ 3, 3, 3 ],
+          "row_span": [ 3, 3, 7 ],
           "settings": [
             "GameplaySettings.CustomStartingItemListString"
           ]
@@ -97,7 +97,7 @@
           "name": "junk_locations_section",
           "text": "Enforce Junk Locations",
           "col_span": 2,
-          "row_span": [ 3, 3, 3 ],
+          "row_span": [ 3, 3, 7 ],
           "settings": [
             "GameplaySettings.CustomJunkLocationsString"
           ]
