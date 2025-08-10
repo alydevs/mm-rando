@@ -1778,7 +1778,7 @@ export class GUIGlobal implements OnDestroy {
     console.log("Read Plando JSON file: " + plandoFile.name);
 
     try {
-      let plandoFileText = await this.readJsonFileIntoMemoryWeb(plandoFile, 500000); //Will return the JSON file contents as text
+      let plandoFileText = await this.readJsonFileIntoMemoryWeb(plandoFile, 2 * 1000 * 1000); //Will return the JSON file contents as text
       return plandoFileText;
     }
     catch (ex) {
@@ -1790,7 +1790,7 @@ export class GUIGlobal implements OnDestroy {
           throw { error: `The ${settingText} specified is not valid!` };
         }
         case "file_too_big": {
-          throw { error: `The ${settingText} specified is too big! The maximum file size allowed is 500 KB.` };
+          throw { error: `The ${settingText} specified is too big! The maximum file size allowed is 2 MB.` };
         }
         case "file_not_valid_json_empty": {
           throw { error: `The ${settingText} specified is not valid JSON! Please verify the syntax.` };
