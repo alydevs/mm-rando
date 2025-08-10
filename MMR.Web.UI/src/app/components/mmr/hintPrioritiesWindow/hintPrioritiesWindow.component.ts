@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy } from '@angular/core';
 import { NbDialogRef, NbDialogService } from '@nebular/theme';
 import { MMRItemSelectorWindowComponent } from '../itemSelectorWindow/itemSelectorWindow.component';
 
@@ -14,7 +14,7 @@ interface HintPriorityTier {
   templateUrl: './hintPrioritiesWindow.html',
   styleUrls: ['./hintPrioritiesWindow.scss'],
 })
-export class MMRHintPrioritiesWindowComponent implements OnInit {
+export class MMRHintPrioritiesWindowComponent implements OnInit, OnDestroy {
   @Input() dialogHeader: string = 'Customize Hint Priorities';
   @Input() setting: any = null;
   @Input() assignmentSettingsMap: any = null;
@@ -34,19 +34,32 @@ If a location should combine with another location, all the combined locations s
 The checkbox indicates that this tier of locations should indicate their importance.<br>
 The number (if non-zero) indicates how many of the locations will be hinted, and the rest will be forced to be junk.`;
 
+  private addedScrollBlockClass: boolean = false;
+
   ngOnInit() {
+    if (!document.body.classList.contains('cdk-global-scrollblock')) {
+      document.body.classList.add('cdk-global-scrollblock');
+      this.addedScrollBlockClass = true;
+    }
     this.loadItemListFromSetting();
     this.initializeTiersFromExistingData();
   }
 
+  ngOnDestroy() {
+    if (document.body && this.addedScrollBlockClass) {
+      document.body.classList.remove('cdk-global-scrollblock');
+      this.addedScrollBlockClass = false;
+    }
+  }
+
   loadItemListFromSetting() {
-    // Find the OverrideHintPriorities setting in sectionSettings
     const hintPrioritiesSetting = this.sectionSettings.find(s => s.name === "GameplaySettings.OverrideHintPriorities");
     
     if (hintPrioritiesSetting && hintPrioritiesSetting.options) {
       this.itemList = hintPrioritiesSetting.options.map((item: any) => ({
         label: item.text,
-        value: item.name
+        value: item.name,
+        tags: item.tags || {}
       }));
     } else {
       this.itemList = [];
@@ -54,14 +67,12 @@ The number (if non-zero) indicates how many of the locations will be hinted, and
   }
 
   initializeTiersFromExistingData() {
-    // Initialize from existing data if available
     const currentValues = this.assignmentSettingsMap || {};
     const overrideHintPriorities = currentValues['GameplaySettings.OverrideHintPriorities'] || [];
     const overrideImportanceIndicatorTiers = currentValues['GameplaySettings.OverrideImportanceIndicatorTiers'] || [];
     const overrideHintItemCaps = currentValues['GameplaySettings.OverrideHintItemCaps'] || [];
 
     if (overrideHintPriorities.length > 0) {
-      // Initialize from existing data
       this.tiers = overrideHintPriorities.map((tierItems: string[], index: number) => ({
         id: this.generateTierId(),
         items: tierItems || [],
@@ -70,7 +81,6 @@ The number (if non-zero) indicates how many of the locations will be hinted, and
         order: index
       }));
     } else {
-      // Create default empty tier
       this.tiers = [
         {
           id: this.generateTierId(),
@@ -169,7 +179,6 @@ The number (if non-zero) indicates how many of the locations will be hinted, and
       return 'Click + to add items';
     }
     
-    // Convert item values to labels for display
     const itemLabels = tier.items.map(itemValue => this.getItemLabel(itemValue));
     
     return itemLabels.join(', ');
@@ -177,20 +186,25 @@ The number (if non-zero) indicates how many of the locations will be hinted, and
 
   getItemLabel(itemValue: string): string {
     const item = this.itemList.find(i => i.value === itemValue);
-    return item ? item.label : itemValue;
+    if (!item) {
+      return itemValue;
+    }
+
+    const regions = item.tags.Regions as any[] | undefined;
+    const regionList: string[] = Array.isArray(regions)
+      ? regions.filter(r => r !== null && r !== undefined).map(r => String(r))
+      : [];
+    const regionsDisplay = regionList.join(', ');
+
+    return regionsDisplay ? `${item.label} (${regionsDisplay})` : item.label;
   }
 
   confirmDialog() {
-    // Format the data according to requirements:
-    // 1. OverrideHintPriorities: array of arrays with item pool values for each tier
     const overrideHintPriorities = this.tiers.map(tier => tier.items);
-    
-    // 2. OverrideImportanceIndicatorTiers: array of indexes where checkbox is checked
     const overrideImportanceIndicatorTiers = this.tiers
       .map((tier, index) => tier.indicateImportance ? index : -1)
       .filter(index => index !== -1);
     
-    // 3. OverrideHintItemCaps: array of numbers from the hint count inputs
     const overrideHintItemCaps = this.tiers.map(tier => tier.hintCount);
 
     const result = {
@@ -220,7 +234,9 @@ The number (if non-zero) indicates how many of the locations will be hinted, and
       const dialogElement = document.querySelector(selector) as HTMLElement;
       
       if (dialogElement) {
-        const targetWidth = appRect.width * widthRatio;
+        // Use 0.99 width ratio only when screen size is under 750px
+        const effectiveWidthRatio = window.innerWidth < 750 ? 0.99 : widthRatio;
+        const targetWidth = appRect.width * effectiveWidthRatio;
         const targetHeight = appRect.height * heightRatio;
         
         // Calculate position: horizontally centered in app container, vertically centered in viewport
@@ -240,17 +256,6 @@ The number (if non-zero) indicates how many of the locations will be hinted, and
         dialogElement.style.transform = 'none'; // Remove any existing transforms
         dialogElement.style.zIndex = '1000';
         
-      } else {
-        const alternativeSelectors = [
-          '.mmrItemSelector-window',
-          '.mmrHintPriorities-window',
-          '[class*="ItemSelector"]',
-          '[class*="HintPriorities"]'
-        ];
-        
-        for (const altSelector of alternativeSelectors) {
-          const altElement = document.querySelector(altSelector);
-        }
       }
     }
   }

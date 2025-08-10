@@ -307,6 +307,12 @@
         }
       }
 
+      @media (max-width: 550px) {
+        .headerButton {
+          display: none;
+        }
+      }
+
       img.select-info {
         content: "o";
         width: 26px;
@@ -389,7 +395,5 @@
         }
       }
     } 
-
-    // Removed fixed width constraint to allow responsive sizing
   }
 }

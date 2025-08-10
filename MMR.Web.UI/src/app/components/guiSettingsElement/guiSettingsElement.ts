@@ -313,7 +313,9 @@ export class GUISettingsElement implements OnInit {
       const dialogElement = document.querySelector(selector) as HTMLElement;
       
       if (dialogElement) {
-        const targetWidth = appRect.width * widthRatio;
+        // Use 0.99 width ratio only when screen size is under 750px
+        const effectiveWidthRatio = window.innerWidth < 750 ? 0.99 : widthRatio;
+        const targetWidth = appRect.width * effectiveWidthRatio;
         const targetHeight = appRect.height * heightRatio;
         
         // Calculate position: horizontally centered in app container, vertically centered in viewport

@@ -253,6 +253,24 @@
   .settingButton {
     margin-top: 14px !important;
     margin-right: 6px !important;
+    white-space: normal !important;
+    text-align: center !important;
+    min-height: 36px !important;
+    line-height: 1.2 !important;
+    height: auto !important;
+    max-width: 100% !important;
+    
+    // Make button adapt to available space
+    width: 100% !important; // Take full width of grid cell
+    box-sizing: border-box !important;
+    
+    // Ensure text wraps when needed
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    
+    // Responsive padding based on available width
+    // This will be handled by the button's natural text wrapping
+    padding: 8px 12px !important;
   }
 
   .dictSettingPadding {

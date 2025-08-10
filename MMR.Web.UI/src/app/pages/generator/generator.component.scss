@@ -19,12 +19,29 @@
 
   ::ng-deep .tabset {
     justify-content: start !important;
+    
+    // ONLY add horizontal scrolling - don't touch existing styling
+    @media (max-width: 650px) {
+      overflow-x: auto !important;
+      white-space: nowrap !important;
+      scrollbar-width: none !important;
+      -ms-overflow-style: none !important;
+      
+      &::-webkit-scrollbar {
+        display: none !important;
+      }
+      
+      // Force tabs to not wrap and trigger horizontal scrolling
+      li {
+        flex-shrink: 0 !important;
+      }
+    }
+    
     li.disabled {
       opacity: 0.4 !important;
       max-width: 0 !important;
       overflow: hidden !important;
     }
-
 
     li {
       line-height: 0;
@@ -50,18 +67,18 @@
       white-space: nowrap;
     }
     
-    a {
+      a {
+        @media (max-width: 827px) {
+          padding-right: 7px !important;
+          padding-left: 7px !important;
+        }
 
-      @media (max-width: 827px) {
-        padding-right: 7px !important;
-        padding-left: 7px !important;
-      }
-
-      @media (max-width: 550px) {
-        padding-right: 2.8px !important;
-        padding-left: 2.8px !important;
-      }
+            @media (max-width: 650px) {
+      padding-right: 8px !important;
+      padding-left: 8px !important;
+      font-size: 16px !important;
     }
+      }
 
     span {
       @media (max-width: 827px) {
@@ -86,6 +103,16 @@
     height: calc(91vh - 260px);
     min-height: 490px;
     padding: 0 7px !important;
+    position: relative; // For positioning the scroll indicator
+    
+    // Ensure tabset is constrained to trigger horizontal scrolling
+    @media (max-width: 650px) {
+      ::ng-deep .tabset {
+        width: 100% !important;
+      }
+    }
+    
+
     
     @media (max-width: 959px) {
       height: calc(91vh - 200px);
@@ -468,4 +495,43 @@
   input:disabled {
     opacity: 0.38;
   }
+
+  // Mobile scroll indicator
+  .mobile-scroll-indicator {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30px;
+    height: 55px;
+    background: linear-gradient(90deg, transparent 0%, nb-theme(background-basic-color-1) 70%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    z-index: 10;
+    opacity: 1;
+    transition: opacity 0.2s ease-out;
+    
+    @media (max-width: 650px) {
+      display: flex;
+    }
+    
+    @media (min-width: 651px) {
+      display: none;
+    }
+    
+    &.fade-out {
+      opacity: 0;
+    }
+    
+    &::after {
+      content: "▶";
+      color: nb-theme(text-basic-color);
+      opacity: 0.6;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  }
+  
+
 }

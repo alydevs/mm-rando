@@ -8,7 +8,8 @@
 
   <div class="dual-list" [ngClass]="{
     'dual-list-withTagFilterOneNoPreset': tagFilter && !presets && !coDependentFilters && !enableCoDependentFilters, 
-    'dual-list-withTagFilterMultiPreset': tagFilter && presets && coDependentFilters && enableCoDependentFilters
+    'dual-list-withTagFilterMultiPreset': tagFilter && presets && coDependentFilters && enableCoDependentFilters,
+    'dual-list-withHexString': valueIsHexString && enableHexString
   }">
 
     <div class="listbox" [ngStyle]="{ 'order' :  direction() ? 1 : 2, 'margin-left' : direction() ? 0 : '10px' }">

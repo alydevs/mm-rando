@@ -28,6 +28,8 @@
           </mat-grid-list>
         </nb-tab>
       </nb-tabset>
+      <!-- Mobile scroll indicator - only shown when scrolling is needed and not in generate_from_file mode -->
+      <div *ngIf="showMobileScrollIndicator" class="mobile-scroll-indicator"></div>
       <div class="tabsetPadding"></div>
       <!--Static Footer Tabset-->
       <nb-tabset #refTabFooter class="footerTabset" (changeTab)="changeFooterTabSelection($event)" [nbPopover]="tooltipComponent" [nbPopoverContext]="{tooltip: '\'' + generateFromSeedTabTitle + '\': Generate a fresh seed with your provided settings.<br><br>\'' + generateFromFileTabTitle + '\': Use your pre-existing patch file to generate your ROM.'}" [nbPopoverTrigger]="global.getGlobalVar('electronAvailable') || global.getGlobalVar('appType') === 'patcher' || global.getGlobalVar('appType') === 'patcher_only' ? 'noop' : 'hint'" nbPopoverPlacement="top" nbPopoverAdjustment="clockwise">

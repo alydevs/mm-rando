@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild, ElementRef, HostListener } from '@angular/core';
 
 import { OverlayContainer } from '@angular/cdk/overlay';
 
@@ -18,7 +18,7 @@ import { ConfirmationWindowComponent } from './confirmationWindow/confirmationWi
   templateUrl: './generator.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class GeneratorComponent implements OnInit {
+export class GeneratorComponent implements OnInit, OnDestroy {
 
   tooltipComponent = GUITooltipComponent;
 
@@ -28,6 +28,13 @@ export class GeneratorComponent implements OnInit {
   activeTab: string = "";
   activeFooterTab: string = "";
   settingsLocked: boolean = false;
+  
+  // Mobile scroll indicator properties
+  showMobileScrollIndicator: boolean = false;
+  private isScrolling: boolean = false;
+  private scrollTimeout: any;
+  private resizeObserver: ResizeObserver;
+  private scrollIndicatorElement: HTMLElement | null = null;
 
   //Busy Spinners
   generatorBusy: boolean = true;
@@ -71,6 +78,17 @@ export class GeneratorComponent implements OnInit {
           eventSub.unsubscribe();
         }
       });
+    }
+  }
+
+  ngOnDestroy() {
+    // Clean up ResizeObserver
+    if (this.resizeObserver) {
+      this.resizeObserver.disconnect();
+    }
+    // Clean up scroll timeout
+    if (this.scrollTimeout) {
+      clearTimeout(this.scrollTimeout);
     }
   }
 
@@ -123,6 +141,11 @@ export class GeneratorComponent implements OnInit {
 
     //Subscribe to event listeners after initial rendering has concluded
     setTimeout(() => {
+      
+      // Initialize mobile scroll indicator logic after ensuring ViewChild is available
+      setTimeout(() => {
+        this.initializeMobileScrollIndicator();
+      }, 100);
 
       this.tabSet.changeTab.subscribe(eventObj => {
         this.activeTab = eventObj.tabTitle;
@@ -780,6 +803,11 @@ export class GeneratorComponent implements OnInit {
     let newTabVisibility = { ...this.global.generator_tabsVisibilityMap };
     let tabNameList = this.global.getGlobalVar('generatorSettingsArray').filter(tab => !tab.footer).map(tab => tab.name);
     this.manageTabVisibilityAnimation(tabNameList, this.computeTabVisibilityChangeData(oldTabVisibility, newTabVisibility));
+    
+    // Update scroll indicator visibility after tab change
+    setTimeout(() => {
+      this.checkScrollIndicatorVisibility();
+    }, 100);
   }
 
   computeTabVisibilityChangeData(oldList, newList) {
@@ -1221,7 +1249,7 @@ export class GeneratorComponent implements OnInit {
           }
         }
 
-     //Kick user out of active tab and go back to root if it gets disabled here
+             //Kick user out of active tab and go back to root if it gets disabled here
         if (!targetValue && this.global.getGlobalVar("generatorSettingsObj")) {
 
           if (this.activeTab == this.global.getGlobalVar("generatorSettingsObj")[tab].text) {
@@ -1229,6 +1257,11 @@ export class GeneratorComponent implements OnInit {
             this.tabSet.selectTab(this.tabSet.tabs.first);
           }
         }
+        
+        // Update scroll indicator visibility after tab visibility change
+        setTimeout(() => {
+          this.checkScrollIndicatorVisibility();
+        }, 100);
       });
     }
 
@@ -1549,6 +1582,136 @@ export class GeneratorComponent implements OnInit {
         this.cd.detectChanges();
       }, 0);
     }
+  }
+
+  // Mobile scroll indicator methods
+  private initializeMobileScrollIndicator() {
+    console.log('Initializing mobile scroll indicator...');
+    console.log('tabSetNative:', this.tabSetNative);
+    console.log('tabSetNative.nativeElement:', this.tabSetNative?.nativeElement);
+    
+    if (!this.tabSetNative?.nativeElement) {
+      console.log('tabSetNative not available yet, returning');
+      return;
+    }
+    
+    // Create ResizeObserver to watch for size changes
+    this.resizeObserver = new ResizeObserver(() => {
+      this.checkScrollIndicatorVisibility();
+    });
+    
+    // Start observing the tabset - try different selectors
+    let tabsetElement = this.tabSetNative.nativeElement.querySelector('.tabset');
+    if (!tabsetElement) {
+      tabsetElement = this.tabSetNative.nativeElement.querySelector('ul');
+    }
+    if (!tabsetElement) {
+      tabsetElement = this.tabSetNative.nativeElement.querySelector('nb-tabset');
+    }
+    
+    console.log('tabsetElement found:', tabsetElement);
+    console.log('tabSetNative.nativeElement.innerHTML:', this.tabSetNative.nativeElement.innerHTML);
+    
+    if (tabsetElement) {
+      this.resizeObserver.observe(tabsetElement);
+      console.log('ResizeObserver attached to tabset');
+      
+      // Add scroll event listener to detect scroll position changes
+      tabsetElement.addEventListener('scroll', () => {
+        // Mark as currently scrolling
+        this.isScrolling = true;
+        
+        // Clear existing timeout
+        if (this.scrollTimeout) {
+          clearTimeout(this.scrollTimeout);
+        }
+        
+        // Add fade-out class for smooth transition
+        if (this.scrollIndicatorElement) {
+          this.scrollIndicatorElement.classList.add('fade-out');
+        }
+        
+        // Debounce: show indicator again after scrolling stops
+        this.scrollTimeout = setTimeout(() => {
+          this.isScrolling = false;
+          if (this.scrollIndicatorElement) {
+            this.scrollIndicatorElement.classList.remove('fade-out');
+          }
+          this.checkScrollIndicatorVisibility();
+        }, 150); // 150ms delay after scrolling stops
+      });
+      console.log('Scroll event listener attached to tabset');
+    }
+    
+    // Initial check
+    this.checkScrollIndicatorVisibility();
+    
+    // Get reference to scroll indicator element for fade transitions
+    setTimeout(() => {
+      this.scrollIndicatorElement = this.tabSetNative.nativeElement.querySelector('.mobile-scroll-indicator');
+    }, 100);
+  }
+  
+  private checkScrollIndicatorVisibility() {
+    if (!this.tabSetNative?.nativeElement) return;
+    
+    // Try different selectors to find the tabset element
+    let tabsetElement = this.tabSetNative.nativeElement.querySelector('.tabset');
+    if (!tabsetElement) {
+      tabsetElement = this.tabSetNative.nativeElement.querySelector('ul');
+    }
+    if (!tabsetElement) {
+      tabsetElement = this.tabSetNative.nativeElement.querySelector('nb-tabset');
+    }
+    
+    if (!tabsetElement) return;
+    
+    // Check if we're in generate_from_file mode (only 2 tabs)
+    const isGenerateFromFileMode = this.global.generator_settingsMap['Web.generate_from_file'] === true;
+    
+    // Check if we're under 650px width
+    const isMobileWidth = window.innerWidth <= 650;
+    
+    // Check if scrolling is actually needed
+    const needsScrolling = tabsetElement.scrollWidth > tabsetElement.clientWidth;
+    
+    // Check scroll position to determine if we're at the end
+    const isAtEnd = tabsetElement.scrollLeft >= (tabsetElement.scrollWidth - tabsetElement.clientWidth - 1); // -1 for rounding errors
+    const isAtStart = tabsetElement.scrollLeft <= 1;
+    
+    console.log('Scroll indicator check:', {
+      isGenerateFromFileMode,
+      isMobileWidth,
+      needsScrolling,
+      isAtEnd,
+      isAtStart,
+      scrollLeft: tabsetElement.scrollLeft,
+      scrollWidth: tabsetElement.scrollWidth,
+      clientWidth: tabsetElement.clientWidth,
+      windowWidth: window.innerWidth
+    });
+    
+    // Show indicator only when all conditions are met AND not at the end
+    this.showMobileScrollIndicator = isMobileWidth && needsScrolling && !isGenerateFromFileMode && !isAtEnd;
+    
+    console.log('showMobileScrollIndicator set to:', this.showMobileScrollIndicator);
+    
+    // Handle fade-out class for smooth transitions
+    if (this.scrollIndicatorElement) {
+      if (!this.showMobileScrollIndicator || isAtEnd) {
+        this.scrollIndicatorElement.classList.add('fade-out');
+      } else {
+        this.scrollIndicatorElement.classList.remove('fade-out');
+      }
+    }
+    
+    // Trigger change detection
+    this.cd.markForCheck();
+  }
+  
+  @HostListener('window:resize')
+  onWindowResize() {
+    this.checkScrollIndicatorVisibility();
   }
 
   checkAutoImportSettings() { //Web only

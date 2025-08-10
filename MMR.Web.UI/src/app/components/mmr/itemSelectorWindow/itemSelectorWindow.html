@@ -8,7 +8,7 @@
     <div class="search-container">
       <input nbInput 
              type="text" 
-             placeholder="Search items..." 
+             placeholder="Search name or region..." 
              [(ngModel)]="searchTerm" 
              (ngModelChange)="onSearchChange()"
              class="search-input">
@@ -18,9 +18,12 @@
         <div *ngFor="let item of filteredItems" 
              class="item-entry"
              [class.selected]="item.selected"
-             (click)="toggleItem(item)">
+             (click)="toggleItem(item)"
+             [nbTooltip]="item.regionDisplay ? 'Region: ' + item.regionDisplay : null"
+             nbTooltipPlacement="top">
           <input type="checkbox" 
                  [checked]="item.selected" 
+                 [name]="item.regionDisplay || null"
                  (click)="$event.stopPropagation()"
                  (change)="toggleItem(item)">
           <span class="item-label">{{ item.label }}</span>
@@ -36,7 +39,7 @@
   <nb-card-footer>
     <div class="footer-buttons" style="display:flex; justify-content:flex-end; gap:18px; margin:18px 0 6px 0;">
       <button nbButton status="basic" (click)="cancelDialog()" style="padding:8px 24px;">Cancel</button>
-      <button nbButton status="primary" (click)="confirmDialog()" style="padding:8px 24px;">Done</button>
+      <button nbButton status="primary" (click)="confirmDialog()" style="padding:8px 24px;">Save</button>
     </div>
   </nb-card-footer>
 </nb-card> 

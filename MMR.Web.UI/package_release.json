@@ -80,7 +80,7 @@
     }
   },
   "engines": {
-    "node": ">=14.15.0 <=21"
+    "node": ">=20 <=24"
   },
   "dependencies": {
     "@electron/remote": "^2.0.8",

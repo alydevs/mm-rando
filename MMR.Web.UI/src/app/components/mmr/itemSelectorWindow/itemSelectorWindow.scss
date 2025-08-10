@@ -11,7 +11,12 @@
       max-width: 80%;
       height: 80%;
       max-height: 80%;
-
+      
+      // Enable container queries for responsive column logic
+      container-type: inline-size;
+      container-name: item-selector-dialog;
+      
+      
       .headerButton {
         float: right;
         margin-top: -10px;
@@ -65,29 +70,64 @@
         
         .items-grid {
           display: grid;
-          grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
           gap: 5px;
           
-          @media (min-width: 1200px) {
+          // Dynamic column calculation based on available space
+          // Use CSS custom properties for responsive column adjustment
+          --min-column-width: 200px;
+          --preferred-column-width: 250px;
+          
+          // Default: auto-fit with flexible minimum width
+          grid-template-columns: repeat(auto-fit, minmax(var(--min-column-width), 1fr));
+          
+          // Responsive breakpoints based on dialog width, not viewport
+          @container (min-width: 800px) {
             grid-template-columns: repeat(3, 1fr);
           }
           
-          @media (max-width: 1199px) and (min-width: 900px) {
-            grid-template-columns: repeat(3, 1fr);
-          }
-          
-          @media (max-width: 899px) and (min-width: 600px) {
+          @container (min-width: 600px) and (max-width: 799px) {
             grid-template-columns: repeat(2, 1fr);
           }
           
-          @media (max-width: 599px) {
+          @container (max-width: 599px) {
             grid-template-columns: 1fr;
+          }
+          
+          // Fallback for browsers that don't support container queries
+          @supports not (container-type: inline-size) {
+            // Use viewport-based fallback with more conservative sizing
+            @media (min-width: 1200px) {
+              grid-template-columns: repeat(3, 1fr);
+            }
+            
+            @media (max-width: 1199px) and (min-width: 900px) {
+              grid-template-columns: repeat(2, 1fr);
+            }
+            
+            @media (max-width: 899px) and (min-width: 600px) {
+              grid-template-columns: repeat(2, 1fr);
+            }
+            
+            @media (max-width: 599px) {
+              grid-template-columns: 1fr;
+            }
+          }
+          
+          // Additional responsive adjustments for better column fitting
+          @container (max-width: 500px) {
+            --min-column-width: 180px;
+            gap: 4px;
+          }
+          
+          @container (max-width: 400px) {
+            --min-column-width: 160px;
+            gap: 3px;
           }
         }
         
         .item-entry {
           display: flex;
-          align-items: center;
+          align-items: flex-start; // Changed from center to allow text wrapping
           gap: 8px;
           padding: 8px 12px;
           background: #222;
@@ -95,6 +135,13 @@
           border-radius: 4px;
           cursor: pointer;
           transition: all 0.2s ease;
+          min-height: 44px; // Ensure consistent height for wrapped text
+          
+          // Better spacing for wrapped text
+          @container (max-width: 600px) {
+            padding: 10px 12px;
+            min-height: 48px;
+          }
           
           &:hover {
             background: #333;
@@ -111,15 +158,50 @@
             height: 16px;
             margin: 0;
             cursor: pointer;
+            flex-shrink: 0; // Prevent checkbox from shrinking
+            margin-top: 2px; // Align with first line of text
           }
           
           .item-label {
             color: #fff;
             font-size: 0.9em;
             flex: 1;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
+            line-height: 1.3;
+            
+            // Text wrapping logic based on dialog width
+            @container (max-width: 400px) {
+              white-space: normal; // Allow wrapping on very narrow dialogs
+              word-wrap: break-word;
+              hyphens: auto;
+              line-height: 1.4; // Better line height for wrapped text
+            }
+            
+            @container (min-width: 401px) and (max-width: 600px) {
+              white-space: normal; // Allow wrapping on narrow dialogs
+              word-wrap: break-word;
+              line-height: 1.35; // Slightly better line height for wrapped text
+            }
+            
+            @container (min-width: 601px) {
+              white-space: nowrap; // Keep single line on wider dialogs
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+            
+            // Fallback for browsers without container queries
+            @supports not (container-type: inline-size) {
+              @media (max-width: 600px) {
+                white-space: normal;
+                word-wrap: break-word;
+                line-height: 1.35;
+              }
+              
+              @media (min-width: 601px) {
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+              }
+            }
           }
         }
       }
@@ -222,6 +304,12 @@
         
         .selection-controls {
           margin: 0 8px;
+        }
+      }
+
+      @media (max-width: 550px) {
+        .headerButton {
+          display: none;
         }
       }
     } 
