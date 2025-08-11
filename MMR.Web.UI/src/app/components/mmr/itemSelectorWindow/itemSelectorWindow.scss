@@ -7,15 +7,16 @@
       padding: 10px;
       display: flex;
       flex-direction: column;
-      width: 80%;
-      max-width: 80%;
-      height: 80%;
-      max-height: 80%;
       
-      // Enable container queries for responsive column logic
       container-type: inline-size;
       container-name: item-selector-dialog;
       
+      overflow-x: hidden;
+      
+      box-sizing: border-box;
+      
+      min-width: 0;
+      min-height: 0;
       
       .headerButton {
         float: right;
@@ -66,21 +67,23 @@
         flex: 1 1 0;
         min-height: 0;
         overflow-y: auto;
+        overflow-x: hidden;
         margin-bottom: 20px;
+        
+        min-width: 0;
+        width: 100%;
         
         .items-grid {
           display: grid;
           gap: 5px;
+          width: 100%;
+          min-width: 0;
           
-          // Dynamic column calculation based on available space
-          // Use CSS custom properties for responsive column adjustment
           --min-column-width: 200px;
           --preferred-column-width: 250px;
           
-          // Default: auto-fit with flexible minimum width
           grid-template-columns: repeat(auto-fit, minmax(var(--min-column-width), 1fr));
           
-          // Responsive breakpoints based on dialog width, not viewport
           @container (min-width: 800px) {
             grid-template-columns: repeat(3, 1fr);
           }
@@ -93,9 +96,7 @@
             grid-template-columns: 1fr;
           }
           
-          // Fallback for browsers that don't support container queries
           @supports not (container-type: inline-size) {
-            // Use viewport-based fallback with more conservative sizing
             @media (min-width: 1200px) {
               grid-template-columns: repeat(3, 1fr);
             }
@@ -113,21 +114,20 @@
             }
           }
           
-          // Additional responsive adjustments for better column fitting
           @container (max-width: 500px) {
-            --min-column-width: 180px;
+            --min-column-width: 280px;
             gap: 4px;
           }
           
           @container (max-width: 400px) {
-            --min-column-width: 160px;
+            --min-column-width: 260px;
             gap: 3px;
           }
         }
         
         .item-entry {
           display: flex;
-          align-items: flex-start; // Changed from center to allow text wrapping
+          align-items: flex-start;
           gap: 8px;
           padding: 8px 12px;
           background: #222;
@@ -135,9 +135,11 @@
           border-radius: 4px;
           cursor: pointer;
           transition: all 0.2s ease;
-          min-height: 44px; // Ensure consistent height for wrapped text
+          min-height: 44px;
+          width: 100%;
+          box-sizing: border-box;
+          min-width: 0;
           
-          // Better spacing for wrapped text
           @container (max-width: 600px) {
             padding: 10px 12px;
             min-height: 48px;
@@ -158,8 +160,8 @@
             height: 16px;
             margin: 0;
             cursor: pointer;
-            flex-shrink: 0; // Prevent checkbox from shrinking
-            margin-top: 2px; // Align with first line of text
+            flex-shrink: 0;
+            margin-top: 2px;
           }
           
           .item-label {
@@ -167,41 +169,13 @@
             font-size: 0.9em;
             flex: 1;
             line-height: 1.3;
-            
-            // Text wrapping logic based on dialog width
-            @container (max-width: 400px) {
-              white-space: normal; // Allow wrapping on very narrow dialogs
-              word-wrap: break-word;
-              hyphens: auto;
-              line-height: 1.4; // Better line height for wrapped text
-            }
-            
-            @container (min-width: 401px) and (max-width: 600px) {
-              white-space: normal; // Allow wrapping on narrow dialogs
-              word-wrap: break-word;
-              line-height: 1.35; // Slightly better line height for wrapped text
-            }
-            
-            @container (min-width: 601px) {
-              white-space: nowrap; // Keep single line on wider dialogs
-              overflow: hidden;
-              text-overflow: ellipsis;
-            }
-            
-            // Fallback for browsers without container queries
-            @supports not (container-type: inline-size) {
-              @media (max-width: 600px) {
-                white-space: normal;
-                word-wrap: break-word;
-                line-height: 1.35;
-              }
-              
-              @media (min-width: 601px) {
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-              }
-            }
+            max-width: none;
+            white-space: normal;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+            overflow: hidden;
+            min-width: 0;
           }
         }
       }
@@ -211,11 +185,12 @@
         align-items: center;
         gap: 16px;
         padding: 12px 0;
-        border-top: 1px solid #333;
+        margin-bottom: 16px; // Add margin bottom instead of border-top
         
         button {
           padding: 6px 12px;
           font-size: 0.9em;
+          width: 100px; // Fixed width for both buttons
         }
         
         .selection-count {
@@ -233,7 +208,26 @@
       }
 
       .footer-buttons button {
-        padding: 8px 24px;
+        width: 90px !important;
+        height: 40px !important;
+        padding: 8px 24px !important;
+        font-size: 0.9rem !important;
+        font-weight: 500 !important;
+        border-radius: 4px !important;
+        transition: all 0.2s ease !important;
+        
+        // Ensure both buttons have the same box-sizing and line-height
+        box-sizing: border-box !important;
+        line-height: 1.2 !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        
+        // Override any Nebular-specific button styling
+        min-width: 90px !important;
+        max-width: 90px !important;
+        min-height: 40px !important;
+        max-height: 40px !important;
       }
 
       @media (max-width: 1280px) {
@@ -264,13 +258,17 @@
 
       @media (max-width: 800px) {
         .selection-controls {
-          flex-direction: column;
-          align-items: stretch;
+          flex-direction: row; // Keep buttons in a row on mobile
+          align-items: center;
           gap: 8px;
           
+          button {
+            width: 120px; // Fixed width on mobile
+          }
+          
           .selection-count {
-            margin-left: 0;
-            text-align: center;
+            margin-left: auto;
+            text-align: right; // Keep right-aligned when in row
           }
         }
       }
@@ -284,9 +282,6 @@
 
       @media (max-width: 650px) {
         width: 100vw;
-        height: 100vh;
-        max-width: 100vw;
-        max-height: 100vh;
         padding: 0;
         
         .dialog-title {
@@ -296,14 +291,17 @@
         
         .search-container {
           margin: 0 8px 16px 8px;
-        }
-        
-        .items-container {
-          margin: 0 8px 16px 8px;
+          flex-shrink: 0; // Don't shrink search container
         }
         
         .selection-controls {
-          margin: 0 8px;
+          margin: 0 8px 16px 8px;
+          flex-shrink: 0; // Don't shrink selection controls
+          
+          button {
+            width: 110px; // Fixed width on very small screens
+            padding: 8px 16px; // Larger padding for better touch targets
+          }
         }
       }
 

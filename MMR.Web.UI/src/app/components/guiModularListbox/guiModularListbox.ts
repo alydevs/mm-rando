@@ -32,6 +32,10 @@ export class GUIModularListboxComponent extends DualListComponent {
   @Input() enableCoDependentFilters: boolean = true;
   @Input() enableResponsiveDesign: boolean = true;
 
+  // Tooltip configuration
+  @Input() tooltipDelay: number = 2000; // Default 2 seconds (extended from 1 second)
+  @Input() enableCrossListTooltips: boolean = true; // Enable tooltips that wrap to the other list
+
   selectedTag: any = {};
   currentHexString: string = "";
   currentHexStringOldValue: string = "";
@@ -460,6 +464,18 @@ export class GUIModularListboxComponent extends DualListComponent {
       return `Selected: ${this.selectedPresets.length}`;
     else
       return this.selectedPresets.join(", ");
+  }
+
+  /**
+   * Get tooltip placement for cross-list tooltips
+   * Left list items show tooltips to the right, right list items show tooltips to the left
+   * Always use right/left placement for better visibility and to avoid cutoff
+   */
+  getTooltipPlacement(listName: string): string {
+    
+    // For left list (available), show tooltip to the right
+    // For right list (confirmed), show tooltip to the left
+    return listName === 'available' ? 'right' : 'left';
   }
 
   // Override moveItem and drop to trigger change detection after moving items

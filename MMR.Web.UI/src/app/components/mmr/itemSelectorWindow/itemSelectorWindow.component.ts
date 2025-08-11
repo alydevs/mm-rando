@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { NbDialogRef } from '@nebular/theme';
 import { GUIGlobal } from '../../../providers/GUIGlobal';
 
@@ -17,8 +17,6 @@ interface SelectableItem {
 export class MMRItemSelectorWindowComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() dialogHeader: string = 'Select Items';
   @Input() setting: any = null;
-  @Input() assignmentSettingsMap: any = null;
-  @Input() assignmentSettingName: string = '';
   @Input() settingTooltip: string = '';
   @Input() itemList: any[] = [];
   @Input() selectedItems: string[] = [];
@@ -26,6 +24,8 @@ export class MMRItemSelectorWindowComponent implements OnInit, OnDestroy, AfterV
   allItems: SelectableItem[] = [];
   searchTerm: string = '';
   filteredItems: SelectableItem[] = [];
+
+  @ViewChild('selectAllBtn', { static: false }) selectAllBtn: ElementRef;
 
   private resizeObserver: ResizeObserver | null = null;
   private resizeTimeout: any = null;
@@ -37,10 +37,18 @@ export class MMRItemSelectorWindowComponent implements OnInit, OnDestroy, AfterV
   }
 
   ngAfterViewInit() {
-    // Adjust columns after view is initialized
     setTimeout(() => {
       this.adjustColumnsForDialogWidth();
       this.setupResizeListener();
+      
+      // Focus the Select All button instead of the search input to prevent mobile keyboard
+      if (this.selectAllBtn && this.selectAllBtn.nativeElement) {
+        this.selectAllBtn.nativeElement.focus();
+      }
+      
+      setTimeout(() => {
+        this.adjustColumnsForDialogWidth();
+      }, 200);
     }, 100);
   }
 
@@ -132,12 +140,12 @@ export class MMRItemSelectorWindowComponent implements OnInit, OnDestroy, AfterV
   }
 
   selectAll() {
-    this.allItems.forEach(item => item.selected = true);
+    this.filteredItems.forEach(item => item.selected = true);
     this.filterItems();
   }
 
   deselectAll() {
-    this.allItems.forEach(item => item.selected = false);
+    this.filteredItems.forEach(item => item.selected = false);
     this.filterItems();
   }
 
@@ -174,39 +182,34 @@ export class MMRItemSelectorWindowComponent implements OnInit, OnDestroy, AfterV
     const itemsGrid = dialogElement.querySelector('.items-grid') as HTMLElement;
     if (!itemsGrid) return;
 
-    // Calculate optimal number of columns based on available width
-    const minColumnWidth = 200; // Minimum width per column
-    const gap = 5; // Gap between columns
-    const padding = 20; // Account for padding and margins
+    const minColumnWidth = 180;
+    const gap = 5;
+    const padding = 24;
     
     const availableWidth = dialogWidth - padding;
     const maxColumns = Math.floor((availableWidth + gap) / (minColumnWidth + gap));
     
-    // Ensure we have at least 1 column and at most 3
     const optimalColumns = Math.max(1, Math.min(3, maxColumns));
     
-    // Apply the column count
     itemsGrid.style.gridTemplateColumns = `repeat(${optimalColumns}, 1fr)`;
     
-    // Adjust minimum column width for very narrow dialogs
     if (dialogWidth < 500) {
-      const adjustedMinWidth = Math.max(160, (availableWidth - (gap * (optimalColumns - 1))) / optimalColumns);
+      const adjustedMinWidth = Math.max(140, (availableWidth - (gap * (optimalColumns - 1))) / optimalColumns);
       itemsGrid.style.setProperty('--min-column-width', `${adjustedMinWidth}px`);
     }
     
-    // Enable text wrapping for narrow dialogs
     const itemLabels = dialogElement.querySelectorAll('.item-label') as NodeListOf<HTMLElement>;
     itemLabels.forEach(label => {
-      if (dialogWidth < 600) {
-        label.style.whiteSpace = 'normal';
-        label.style.wordWrap = 'break-word';
-      } else {
-        label.style.whiteSpace = 'nowrap';
-        label.style.overflow = 'hidden';
-        label.style.textOverflow = 'ellipsis';
-      }
+      label.style.whiteSpace = 'normal';
+      label.style.wordWrap = 'break-word';
+      label.style.overflowWrap = 'break-word';
+      label.style.overflow = 'hidden';
     });
+    
+    itemsGrid.style.maxWidth = '100%';
+    itemsGrid.style.overflowX = 'hidden';
   }
+
 
   /**
    * Set up resize listener for the dialog
@@ -215,10 +218,8 @@ export class MMRItemSelectorWindowComponent implements OnInit, OnDestroy, AfterV
     const dialogElement = document.querySelector('.mmrItemSelector-window') as HTMLElement;
     if (!dialogElement) return;
 
-    // Use ResizeObserver if available, otherwise fall back to window resize
     if (window.ResizeObserver) {
       this.resizeObserver = new ResizeObserver((entries) => {
-        // Debounce resize events
         if (this.resizeTimeout) {
           clearTimeout(this.resizeTimeout);
         }
@@ -228,7 +229,6 @@ export class MMRItemSelectorWindowComponent implements OnInit, OnDestroy, AfterV
       });
       this.resizeObserver.observe(dialogElement);
     } else {
-      // Fallback for older browsers
       window.addEventListener('resize', () => {
         if (this.resizeTimeout) {
           clearTimeout(this.resizeTimeout);
@@ -238,5 +238,17 @@ export class MMRItemSelectorWindowComponent implements OnInit, OnDestroy, AfterV
         }, 100);
       });
     }
+    
+    const resizeCheckInterval = setInterval(() => {
+      if (dialogElement && dialogElement.offsetWidth > 0) {
+        this.adjustColumnsForDialogWidth();
+      } else {
+        clearInterval(resizeCheckInterval);
+      }
+    }, 500);
+    
+    this.resizeTimeout = setTimeout(() => {
+      clearInterval(resizeCheckInterval);
+    }, 10000);
   }
 } 

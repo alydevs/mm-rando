@@ -83,14 +83,14 @@
     "node": ">=20 <=24"
   },
   "dependencies": {
-    "@electron/remote": "^2.0.8",
+    "@electron/remote": "^2.0.12",
     "electron-window-state": "5.0.3",
     "post-robot": "https://github.com/dragonbane0/post-robot/tarball/dad59c1c0f6266d0dd4bd35e0fb7137d45c6c773",
-    "tree-kill": "1.2.1",
+    "tree-kill": "1.2.2",
     "tslib": "2.0.0"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "14.2.10",
+    "@angular-devkit/build-angular": "14.2.13",
     "@angular-eslint/builder": "14.2.1-alpha.13",
     "@angular-eslint/eslint-plugin": "14.2.1-alpha.13",
     "@angular-eslint/eslint-plugin-template": "14.2.1-alpha.13",
@@ -98,7 +98,7 @@
     "@angular-eslint/template-parser": "14.2.1-alpha.13",
     "@angular/animations": "14.2.12",
     "@angular/cdk": "14.2.7",
-    "@angular/cli": "14.2.10",
+    "@angular/cli": "14.2.13",
     "@angular/common": "14.2.12",
     "@angular/compiler": "14.2.12",
     "@angular/compiler-cli": "14.2.12",
@@ -111,7 +111,7 @@
     "@angular/platform-browser-dynamic": "14.2.12",
     "@angular/router": "14.2.12",
     "@angularclass/hmr": "3.0.0",
-    "@fortawesome/fontawesome-free": "6.2.0",
+    "@fortawesome/fontawesome-free": "6.2.1",
     "@nebular/eva-icons": "10.0.0",
     "@nebular/theme": "10.0.0",
     "@types/jasmine": "3.6.0",
@@ -121,8 +121,8 @@
     "@typescript-eslint/parser": "5.27.1",
     "angular-dual-listbox": "6.0.0",
     "angular-file": "3.6.0",
-    "browserslist": "4.21.4",
-    "core-js": "3.25.1",
+    "browserslist": "4.21.11",
+    "core-js": "3.25.5",
     "crc": "3.8.0",
     "electron": "^21.2.3",
     "electron-builder": "^23.6.0",
@@ -143,14 +143,14 @@
     "normalize.css": "6.0.0",
     "pace-js": "1.2.4",
     "protractor": "7.0.0",
-    "roboto-fontface": "0.8.0",
+    "roboto-fontface": "0.10.0",
     "rxjs": "6.6.7",
-    "rxjs-compat": "6.3.0",
-    "sass": "1.55.0",
+    "rxjs-compat": "6.3.3",
+    "sass": "1.90.0",
     "socicon": "3.0.5",
     "tcp-ping": "0.1.1",
     "ts-node": "7.0.1",
-    "typescript": "4.6.4",
-    "zone.js": "0.11.4"
+    "typescript": "^4.8",
+    "zone.js": "0.11.8"
   }
 }

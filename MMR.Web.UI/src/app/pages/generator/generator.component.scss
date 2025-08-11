@@ -81,7 +81,8 @@
       }
 
     span {
-      @media (max-width: 827px) {
+
+      @media (max-width: 1050px) {
         font-size: 14px;
       }
 
@@ -180,6 +181,18 @@
     height: nb-theme(footer-height);
     margin: 0 auto;
     margin-top: 5px;
+
+    // When in generate_from_file mode, make footer taller to prevent content overlap
+    &.generateFromFileMode {
+      height: calc(nb-theme(footer-height) + 50px);
+      
+      @media (max-width: 959px) {
+        height: 210px;
+      }
+      @media (max-width: 606px) {
+        height: 200px;
+      }
+    }
 
     @media (max-width: 959px) {
       height: 160px;

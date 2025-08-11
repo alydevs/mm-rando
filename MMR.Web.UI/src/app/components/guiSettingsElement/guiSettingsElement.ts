@@ -262,12 +262,11 @@ export class GUISettingsElement implements OnInit {
     });
 
     // Set dialog size based on app container immediately
-    this.resizeDialogToAppContainer('.mmrHintPriorities-window', 0.7, 0.7);
+    this.resizeDialogToAppContainer('.mmrHintPriorities-window', 0.78, 0.78);
 
     dialogRef.onClose.subscribe(result => {
 
       if (result) {
-        console.log('Hint priorities result valid:', result);
         //Save
         this.app.afterSettingChange();
       }
@@ -294,8 +293,6 @@ export class GUISettingsElement implements OnInit {
       // Set CSS custom properties for dialog sizing
       document.documentElement.style.setProperty('--app-width', `${appWidth}px`);
       document.documentElement.style.setProperty('--app-height', `${appHeight}px`);
-      
-      console.log(`App container dimensions: ${appWidth}px × ${appHeight}px`);
     } else {
       // Fallback to viewport dimensions if app container not found
       document.documentElement.style.setProperty('--app-width', `${window.innerWidth}px`);
@@ -313,29 +310,37 @@ export class GUISettingsElement implements OnInit {
       const dialogElement = document.querySelector(selector) as HTMLElement;
       
       if (dialogElement) {
-        // Use 0.99 width ratio only when screen size is under 750px
         const effectiveWidthRatio = window.innerWidth < 750 ? 0.99 : widthRatio;
         const targetWidth = appRect.width * effectiveWidthRatio;
-        const targetHeight = appRect.height * heightRatio;
         
-        // Calculate position: horizontally centered in app container, vertically centered in viewport
+        let targetHeight: number;
+        if (window.innerWidth <= 800) {
+          targetHeight = window.innerHeight * 0.75;
+        } else {
+          targetHeight = appRect.height * heightRatio;
+        }
+        
+        const maxAllowedHeight = window.innerHeight * 0.80;
+        targetHeight = Math.min(targetHeight, maxAllowedHeight);
+        
         const centerX = appRect.left + (appRect.width / 2);
-        const centerY = window.innerHeight / 2;
+        let centerY = window.innerHeight / 2;
         
-        // Set size
+        if (window.innerWidth > 1000) {
+          centerY = window.innerHeight / 2 + 40; // add 40 to account for top bar
+        }
+
         dialogElement.style.width = `${targetWidth}px`;
         dialogElement.style.height = `${targetHeight}px`;
         dialogElement.style.maxWidth = `${targetWidth}px`;
         dialogElement.style.maxHeight = `${targetHeight}px`;
         
-        // Set position: horizontally centered in app, vertically centered in viewport
         dialogElement.style.position = 'fixed';
         dialogElement.style.left = `${centerX - (targetWidth / 2)}px`;
         dialogElement.style.top = `${centerY - (targetHeight / 2)}px`;
-        dialogElement.style.transform = 'none'; // Remove any existing transforms
+        dialogElement.style.transform = 'none';
         dialogElement.style.zIndex = '1000';
       } else {
-        // Try alternative selectors
         const alternativeSelectors = [
           '.mmrItemSelector-window',
           '.mmrHintPriorities-window',

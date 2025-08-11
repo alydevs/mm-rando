@@ -19,7 +19,7 @@
                                             [tooltipComponent]="tooltipComponent" [settingDefault]="setting.default" [settingText]="setting.text" [settingTooltip]="setting.tooltip">
                       </gui-settings-element>
                       <!--Padding-->
-                      <div *ngIf="getNextVisibleSetting(section.settings, itemIndex + 1) && !setting.no_line_break" class="settingPadding" [ngClass]="{'settingCBPadding': setting.type !== 'Checkbutton' && getNextVisibleSetting(section.settings, itemIndex + 1).type === 'Checkbutton'}"></div>
+                      <div *ngIf="getNextVisibleSetting(section.settings, itemIndex + 1) && (!setting.no_line_break || !this.shouldRespectNoLineBreak(refEl, setting, section.settings, itemIndex))" class="settingPadding" [ngClass]="{'settingCBPadding': setting.type !== 'Checkbutton' && getNextVisibleSetting(section.settings, itemIndex + 1).type === 'Checkbutton'}"></div>
                     </ng-container>
                   </ng-template>
                 </div>
@@ -32,7 +32,7 @@
       <div *ngIf="showMobileScrollIndicator" class="mobile-scroll-indicator"></div>
       <div class="tabsetPadding"></div>
       <!--Static Footer Tabset-->
-      <nb-tabset #refTabFooter class="footerTabset" (changeTab)="changeFooterTabSelection($event)" [nbPopover]="tooltipComponent" [nbPopoverContext]="{tooltip: '\'' + generateFromSeedTabTitle + '\': Generate a fresh seed with your provided settings.<br><br>\'' + generateFromFileTabTitle + '\': Use your pre-existing patch file to generate your ROM.'}" [nbPopoverTrigger]="global.getGlobalVar('electronAvailable') || global.getGlobalVar('appType') === 'patcher' || global.getGlobalVar('appType') === 'patcher_only' ? 'noop' : 'hint'" nbPopoverPlacement="top" nbPopoverAdjustment="clockwise">
+      <nb-tabset #refTabFooter class="footerTabset" [ngClass]="{'generateFromFileMode': global.generator_settingsMap['Web.generate_from_file'] === true}" (changeTab)="changeFooterTabSelection($event)" [nbPopover]="tooltipComponent" [nbPopoverContext]="{tooltip: '\'' + generateFromSeedTabTitle + '\': Generate a fresh seed with your provided settings.<br><br>\'' + generateFromFileTabTitle + '\': Use your pre-existing patch file to generate your ROM.'}" [nbPopoverTrigger]="global.getGlobalVar('electronAvailable') || global.getGlobalVar('appType') === 'patcher' || global.getGlobalVar('appType') === 'patcher_only' ? 'noop' : 'hint'" nbPopoverPlacement="top" nbPopoverAdjustment="clockwise">
         <nb-tab *ngIf="global.getGlobalVar('appType') === 'generator'" [tabTitle]="generateFromSeedTabTitle" active>
           <!--Electron-->
           <ng-container *ngIf="global.getGlobalVar('electronAvailable')">

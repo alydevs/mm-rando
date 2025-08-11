@@ -5,6 +5,44 @@
     animation-duration: 2000ms !important;
   }
 
+  // Tooltip styling for cross-list tooltips
+  :host ::ng-deep nb-popover {
+    .popover-content {
+      font-size: 0.875rem; // Smaller font size for better fit
+      line-height: 1.4;
+      max-width: 300px; // Limit tooltip width
+      word-wrap: break-word;
+      
+      @media (max-width: 768px) {
+        font-size: 0.8rem; // Even smaller on mobile
+        max-width: 250px;
+      }
+      
+      @media (max-width: 480px) {
+        font-size: 0.75rem; // Smallest on very small screens
+        max-width: 200px;
+      }
+    }
+    
+    // Ensure proper positioning for right/left tooltips
+    &.nb-popover-right,
+    &.nb-popover-left {
+      .arrow {
+        border-width: 8px;
+      }
+    }
+    
+    &.nb-popover-right .arrow {
+      border-right-color: nb-theme(color-basic-800);
+      left: -8px;
+    }
+    
+    &.nb-popover-left .arrow {
+      border-left-color: nb-theme(color-basic-800);
+      right: -8px;
+    }
+  }
+
   div.record-picker {
     overflow-x: hidden;
     overflow-y: auto;
@@ -228,6 +266,17 @@
 
   .dual-list .button-bar button {
     width: 47%;
+    
+    // Responsive font sizing for mobile to prevent text clipping
+    @media (max-width: 768px) {
+      font-size: 11px !important;
+      padding: 4px 6px !important;
+    }
+    
+    @media (max-width: 480px) {
+      font-size: 10px !important;
+      padding: 3px 4px !important;
+    }
   }
 
   .buttonBox {
@@ -239,6 +288,17 @@
   .buttonBox button {
     width: 28%;
     margin-right: 3px;
+    
+    // Responsive font sizing for mobile to prevent text clipping
+    @media (max-width: 768px) {
+      font-size: 11px !important;
+      padding: 4px 6px !important;
+    }
+    
+    @media (max-width: 480px) {
+      font-size: 10px !important;
+      padding: 3px 4px !important;
+    }
   }
 
   .buttonBox .switchButton {
@@ -259,6 +319,15 @@
   button.btn {
     height: 28px;
     padding: 0;
+    
+    // Responsive font sizing for mobile to prevent text clipping
+    @media (max-width: 768px) {
+      font-size: 11px !important;
+    }
+    
+    @media (max-width: 480px) {
+      font-size: 10px !important;
+    }
   }
 
   button.pull-left {

@@ -50,8 +50,55 @@
   .oneLineComboBox {
     display: inline-block !important;
     margin-bottom: 10px;
+    
+    @media (max-width: 768px) {
+      display: block !important;
+      width: 100% !important;
+      margin-bottom: 15px;
+    }
   }
-  //One line combobox (e.g. Navi color options)
+  
+  .ignoreNoLineBreak {
+    left: 0 !important;
+    width: 100% !important;
+    
+    &.oLCBLabelFirst,
+    &.oLCBLabelSecond {
+      width: 100% !important;
+      margin-right: 0 !important;
+      text-align: left !important;
+    }
+    
+    &.oLCBSelect {
+      width: 100% !important;
+      margin-right: 0 !important;
+    }
+    
+    & + .settingPadding {
+      display: block !important;
+      height: 10px !important;
+    }
+    
+    mat-grid-tile {
+      min-width: 100% !important;
+      width: 100% !important;
+    }
+  }
+  
+  .oneLineComboBox {
+    mat-grid-tile {
+      min-width: auto !important;
+      width: auto !important;
+    }
+    
+    .oLCBLabelFirst,
+    .oLCBLabelSecond,
+    .oLCBSelect {
+      display: inline-block !important;
+      vertical-align: top !important;
+    }
+  }
+
   .oLCBLabelFirst {
     width: 160px;
     left: 0px;
@@ -190,6 +237,40 @@
 
   .secondaryInputLabel {
     margin-left: 25px;
+    
+    &.innerDictionaryLabel {
+      margin-left: 15px;
+      margin-right: 10px;
+      display: inline-block;
+      vertical-align: top;
+    }
+  }
+
+  .innerDictionarySetting {
+    display: inline-block;
+    margin-right: 15px;
+    vertical-align: top;
+    
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+
+  .ignoreNoLineBreak {
+    & + .settingPadding,
+    & + .dictSettingPadding {
+      display: block !important;
+      height: 5px !important;
+      margin-top: 2px !important;
+    }
+    
+    .innerDictionarySetting {
+      margin-bottom: 2px;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
   }
 
   .colorPickerContainer {
@@ -202,7 +283,7 @@
     position: relative;
     top: -7px;
     min-width: 100%;
-    pointer-events: none; //Reduces the clickable part to just the visible slider itself
+    pointer-events: none;
 
     ::ng-deep .mat-slider-wrapper {
       pointer-events: auto;
@@ -248,28 +329,30 @@
   .presetButton {
     margin-top: 14px !important;
     margin-right: 6px !important;
+    
+    @media (max-width: 768px) {
+      font-size: 11px !important;
+      padding: 6px 8px !important;
+    }
+    
+    @media (max-width: 480px) {
+      font-size: 10px !important;
+      padding: 4px 6px !important;
+    }
   }
 
   .settingButton {
-    margin-top: 14px !important;
     margin-right: 6px !important;
     white-space: normal !important;
     text-align: center !important;
-    min-height: 36px !important;
+    min-height: 30px !important;
     line-height: 1.2 !important;
     height: auto !important;
-    max-width: 100% !important;
-    
-    // Make button adapt to available space
-    width: 100% !important; // Take full width of grid cell
+    max-width: 95% !important;
+    width: 95% !important;
     box-sizing: border-box !important;
-    
-    // Ensure text wraps when needed
     word-wrap: break-word !important;
     overflow-wrap: break-word !important;
-    
-    // Responsive padding based on available width
-    // This will be handled by the button's natural text wrapping
     padding: 8px 12px !important;
   }
 
@@ -288,7 +371,72 @@
   .settingCBPadding {
     height: 13px;
   }
-  //Disabled elements
+
+  .noInnerLineBreakContainer {
+    min-height: auto;
+    height: auto;
+    padding: 2px 0;
+
+    .innerSetting {
+      margin-bottom: 2px;
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+
+  .dictionaryNoInnerLineBreak {
+    height: auto;
+    min-height: 36px;
+    display: flex;
+    flex-direction: row;
+    gap: 1px;
+    flex-wrap: wrap;
+    
+    &.wrapped {
+      flex-direction: column;
+      padding-bottom: 2px;
+      
+      .innerSetting {
+        margin-bottom: 2px;
+        
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+    
+    .innerSetting {
+      display: flex;
+      align-items: center;
+      min-height: 36px;
+      
+      &.noInnerLineBreakContainer {
+        margin-bottom: 2px;
+        
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+    
+    ::ng-deep nb-card {
+      height: auto;
+      min-height: inherit;
+
+      nb-card-body {
+        height: auto;
+        min-height: inherit;
+        padding: 1rem;
+
+        .wrapped & {
+          padding-bottom: 1rem;
+        }
+      }
+    }
+  }
+
   p.disabled {
     opacity: 0.38;
   }

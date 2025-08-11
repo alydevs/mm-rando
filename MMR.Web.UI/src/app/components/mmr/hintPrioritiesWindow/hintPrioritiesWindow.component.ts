@@ -143,7 +143,7 @@ The number (if non-zero) indicates how many of the locations will be hinted, and
     const tier = this.tiers.find(t => t.id === tierId);
     if (tier) {      
       const dialogRef = this.dialogService.open(MMRItemSelectorWindowComponent, {
-        autoFocus: true, 
+        autoFocus: false, 
         closeOnBackdropClick: true, 
         closeOnEsc: true, 
         hasBackdrop: true, 
@@ -157,7 +157,7 @@ The number (if non-zero) indicates how many of the locations will be hinted, and
       });
 
       // Set dialog size and position based on app container immediately
-      this.resizeDialogToAppContainer('.mmrItemSelector-window', 0.65, 0.65);
+      this.resizeDialogToAppContainer('.mmrItemSelector-window', 0.78, 0.78);
 
       dialogRef.onClose.subscribe((selectedItems: string[]) => {
         if (selectedItems !== null && selectedItems !== undefined) {
@@ -178,10 +178,10 @@ The number (if non-zero) indicates how many of the locations will be hinted, and
     if (tier.items.length === 0) {
       return 'Click + to add items';
     }
-    
-    const itemLabels = tier.items.map(itemValue => this.getItemLabel(itemValue));
-    
-    return itemLabels.join(', ');
+
+    const count = tier.items.length;
+    const noun = count === 1 ? 'location' : 'locations';
+    return `${count} ${noun} selected`;
   }
 
   getItemLabel(itemValue: string): string {
@@ -234,26 +234,31 @@ The number (if non-zero) indicates how many of the locations will be hinted, and
       const dialogElement = document.querySelector(selector) as HTMLElement;
       
       if (dialogElement) {
-        // Use 0.99 width ratio only when screen size is under 750px
         const effectiveWidthRatio = window.innerWidth < 750 ? 0.99 : widthRatio;
         const targetWidth = appRect.width * effectiveWidthRatio;
-        const targetHeight = appRect.height * heightRatio;
         
-        // Calculate position: horizontally centered in app container, vertically centered in viewport
+        let targetHeight: number;
+        if (window.innerWidth <= 800) {
+          targetHeight = window.innerHeight * 0.85;
+        } else {
+          targetHeight = appRect.height * heightRatio;
+        }
+        
+        const maxAllowedHeight = window.innerHeight * 0.9;
+        targetHeight = Math.min(targetHeight, maxAllowedHeight);
+        
         const centerX = appRect.left + (appRect.width / 2);
-        const centerY = window.innerHeight / 2;
-        
-        // Set size
+        let centerY = window.innerHeight / 2 + 50; 
+
         dialogElement.style.width = `${targetWidth}px`;
         dialogElement.style.height = `${targetHeight}px`;
         dialogElement.style.maxWidth = `${targetWidth}px`;
         dialogElement.style.maxHeight = `${targetHeight}px`;
         
-        // Set position: centered in viewport
         dialogElement.style.position = 'fixed';
         dialogElement.style.left = `${centerX - (targetWidth / 2)}px`;
         dialogElement.style.top = `${centerY - (targetHeight / 2)}px`;
-        dialogElement.style.transform = 'none'; // Remove any existing transforms
+        dialogElement.style.transform = 'none';
         dialogElement.style.zIndex = '1000';
         
       }

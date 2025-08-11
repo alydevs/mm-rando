@@ -33,8 +33,9 @@ export class GeneratorComponent implements OnInit, OnDestroy {
   showMobileScrollIndicator: boolean = false;
   private isScrolling: boolean = false;
   private scrollTimeout: any;
-  private resizeObserver: ResizeObserver;
+
   private scrollIndicatorElement: HTMLElement | null = null;
+
 
   //Busy Spinners
   generatorBusy: boolean = true;
@@ -54,6 +55,9 @@ export class GeneratorComponent implements OnInit, OnDestroy {
   //repatchCosmeticsCheckboxTooltipPatch: string = "Replaces the cosmetic and sound settings generated in the patch file<br>with those selected on this page.";
   //repatchCosmeticsCheckboxTooltipSeedPageWeb: string = "Replaces the cosmetic and sound settings generated in the seed<br>with those selected on this page.";
 
+  // Cache for no_line_break decisions to avoid unnecessary recalculations
+  private noLineBreakCache = new Map<string, boolean>();
+
   constructor(private overlayContainer: OverlayContainer, private cd: ChangeDetectorRef, public global: GUIGlobal, private dialogService: NbDialogService) {
   }
 
@@ -72,21 +76,26 @@ export class GeneratorComponent implements OnInit, OnDestroy {
       let eventSub = this.global.globalEmitter.subscribe(eventObj => {
 
         if (eventObj.name == "init_finished") {
-          console.log("Init finished event");
           this.generatorReady();
 
           eventSub.unsubscribe();
         }
       });
     }
+
+    this.runEventListeners();
+    
+    // Add window resize listener for no line break calculations
+    window.addEventListener('resize', () => {
+      this.onWindowResize();
+    });
   }
 
   ngOnDestroy() {
-    // Clean up ResizeObserver
-    if (this.resizeObserver) {
-      this.resizeObserver.disconnect();
-    }
-    // Clean up scroll timeout
+    window.removeEventListener('resize', () => {
+      this.onWindowResize();
+    });
+    
     if (this.scrollTimeout) {
       clearTimeout(this.scrollTimeout);
     }
@@ -94,6 +103,8 @@ export class GeneratorComponent implements OnInit, OnDestroy {
 
   generatorReady() {
     this.generatorBusy = false;
+
+
 
     //Set active tab on boot
     this.activeTab = this.global.getGlobalVar('generatorSettingsArray')[0].text;
@@ -143,10 +154,16 @@ export class GeneratorComponent implements OnInit, OnDestroy {
     setTimeout(() => {
       
       // Initialize mobile scroll indicator logic after ensuring ViewChild is available
-      setTimeout(() => {
-        this.initializeMobileScrollIndicator();
-      }, 100);
+      this.initializeMobileScrollIndicator();
+      
+      // Note: We don't force recalculation on initial load anymore
+      // The default behavior is now to assume unwrapped and only wrap when necessary
 
+
+
+
+
+      // Tab change subscriptions
       this.tabSet.changeTab.subscribe(eventObj => {
         this.activeTab = eventObj.tabTitle;
       });
@@ -155,6 +172,7 @@ export class GeneratorComponent implements OnInit, OnDestroy {
         this.activeFooterTab = eventObj.tabTitle;
       });
 
+      // Global event subscriptions
       this.global.globalEmitter.subscribe(eventObj => {
 
         if (eventObj.name == "refresh_gui") {
@@ -167,9 +185,11 @@ export class GeneratorComponent implements OnInit, OnDestroy {
           });
         }
       });
-
-    }, 0);
+      
+    }, 100);
   }
+
+
 
   getTabList(footer: boolean) {
     let filteredTabList = [];
@@ -414,6 +434,7 @@ export class GeneratorComponent implements OnInit, OnDestroy {
   }
 
   async cancelGeneration() { //Electron only
+
     return await this.global.cancelGenerateSeedElectron();
   }
 
@@ -466,8 +487,8 @@ export class GeneratorComponent implements OnInit, OnDestroy {
     });
   }
 
-  //Not relevant for MMR
   copySettingsString() {
+
     this.global.copyToClipboard(this.global.generator_settingsMap["settings_string"]);
   }
 
@@ -560,6 +581,7 @@ export class GeneratorComponent implements OnInit, OnDestroy {
   }
 
   browseForFile(setting: any) { //Electron only
+
     this.global.browseForFile(setting.file_types).then(res => {
       this.global.generator_settingsMap[setting.name] = res;
       this.cd.markForCheck();
@@ -570,6 +592,7 @@ export class GeneratorComponent implements OnInit, OnDestroy {
   }
 
   browseForDirectory(setting: any) { //Electron only
+
     this.global.browseForDirectory().then(res => {
       this.global.generator_settingsMap[setting.name] = res;
       this.cd.markForCheck();
@@ -765,6 +788,7 @@ export class GeneratorComponent implements OnInit, OnDestroy {
   }
 
   browseForPatchFile() { //Electron only
+
     this.global.browseForFile([{ name: 'Patch File Archive', 'extensions': ['zpfz', 'zpf', 'patch'] }, { 'name': 'All Files', 'extensions': ['*'] }]).then(res => {
       this.global.generator_settingsMap['Web.patch_file'] = res;
       this.cd.markForCheck();
@@ -903,14 +927,8 @@ export class GeneratorComponent implements OnInit, OnDestroy {
     }
   }
 
-  /*
-  updateCosmeticsCheckboxChange(value) {
-    let setting = this.global.findSettingByName("Web.repatch_cosmetics");
-    this.checkVisibility(value, setting, this.findOption(setting.options, value));
-  }
-  */
-
   calculateRowHeight(listRef: MatGridList, tab: any) {
+
     let columnCount = this.verifyColumnCount(listRef.cols);
     let absoluteRowCount = 0;
     let absoluteRowIndex = 0;
@@ -936,7 +954,8 @@ export class GeneratorComponent implements OnInit, OnDestroy {
   }
 
   getColumnCount(tileRef: MatGridTile) {
-    return this.verifyColumnCount(tileRef._gridList.cols);
+    const columnCount = this.verifyColumnCount(tileRef._gridList.cols);
+    return columnCount;
   }
 
   verifyColumnCount(count: number) {
@@ -1037,7 +1056,6 @@ export class GeneratorComponent implements OnInit, OnDestroy {
   }
 
   getColumnHeight(tileRef: MatGridTile, section: any, columnCount: number = -1) {
-
     if (columnCount == -1) {
       columnCount = this.getColumnCount(tileRef);
     }
@@ -1053,7 +1071,10 @@ export class GeneratorComponent implements OnInit, OnDestroy {
         break;
     }
 
-    return section.row_span[spanIndex];
+    // Get the base row span from the section configuration
+    let baseRowSpan = section.row_span[spanIndex];
+      
+    return baseRowSpan;
   }
 
   findOption(options: any, optionName: any) {
@@ -1078,6 +1099,503 @@ export class GeneratorComponent implements OnInit, OnDestroy {
     return null;
   }
 
+  /**
+   * Check if a section is wide enough to accommodate two settings side by side
+   * If not, we should ignore the no_line_break setting to prevent uncontrolled wrapping
+   */
+  shouldRespectNoLineBreak(refEl: any, setting: any, sectionSettings: any[] = null, itemIndex: number = null): boolean {
+    if (!refEl || !setting || !sectionSettings || itemIndex === null) {
+      return true;
+    }
+
+    // Handle no_inner_line_break settings differently
+    if (setting.no_inner_line_break) {
+      return this.shouldRespectNoInnerLineBreak(refEl, setting, sectionSettings, itemIndex);
+    }
+
+    // Handle regular no_line_break settings
+    if (!setting.no_line_break) {
+      return true;
+    }
+
+    const cacheKey = `${setting.name}_${this.getSectionWidth(refEl)}_${this.getColumnCount(refEl)}`;
+    
+    if (this.noLineBreakCache.has(cacheKey)) {
+      return this.noLineBreakCache.get(cacheKey)!;
+    }
+
+    const sectionWidth = this.getSectionWidth(refEl);
+    const columnCount = this.getColumnCount(refEl);
+    const shouldRespect = this.calculateNoLineBreakDecision(refEl, setting, sectionSettings, itemIndex, sectionWidth, columnCount);
+    
+    this.noLineBreakCache.set(cacheKey, shouldRespect);
+    return shouldRespect;
+  }
+
+  private getInnerSettingsForDictionary(parentSetting: any, sectionSettings: any[], itemIndex: number): any[] {
+    const innerSettings: any[] = [];
+    
+    // For dictionary settings with no_inner_line_break, the inner settings are the setting.keys array
+    if (parentSetting.keys && Array.isArray(parentSetting.keys)) {
+      // Convert the keys to a format that can be processed by the width calculation
+      for (const keySetting of parentSetting.keys) {
+        const mockInnerSetting = {
+          name: keySetting.name,
+          text: keySetting.text,
+          type: parentSetting.inner_type || 'Numberinput',
+          tooltip: keySetting.tooltip,
+          no_line_break: true
+        };
+        innerSettings.push(mockInnerSetting);
+      }
+    } else {
+      // Fallback: Find all inner settings that belong to this dictionary by name
+      for (let i = 0; i < sectionSettings.length; i++) {
+        if (sectionSettings[i] && sectionSettings[i].name && sectionSettings[i].name.startsWith(parentSetting.name + '.')) {
+          innerSettings.push(sectionSettings[i]);
+        }
+      }
+    }
+    
+    return innerSettings;
+  }
+  
+  private calculateInnerSettingsWidthNeeded(innerSettings: any[], refEl: any): number {
+    let totalWidth = 0;
+    
+    for (const innerSetting of innerSettings) {
+      const width = this.estimateSettingWidth(innerSetting, refEl);
+      totalWidth += width + 20;
+    }
+  
+    totalWidth += 40;
+    
+    return totalWidth;
+  }
+
+  shouldRespectNoInnerLineBreak(refEl: any, setting: any, sectionSettings: any[] = null, itemIndex: number = null): boolean {
+    if (!refEl || !setting || !sectionSettings || itemIndex === null) {
+      return true;
+    }
+
+    // Check if the current setting is a Dictionary with no_inner_line_break
+    if (setting.type === 'Dictionary' && setting.no_inner_line_break) {
+      
+      const sectionWidth = this.getSectionWidth(refEl);
+      const columnCount = this.getColumnCount(refEl);
+      
+      
+      // If width is 0, don't cache and assume unwrapped (this happens on initial load)
+      if (sectionWidth === 0) {
+        return true; // Assume unwrapped when we don't have width data yet
+      }
+      
+      // Use the same caching approach as no_line_break, but with valid width data
+      const cacheKey = `inner_${setting.name}_${sectionWidth}_${columnCount}`;
+      
+      if (this.noLineBreakCache.has(cacheKey)) {
+        const cachedResult = this.noLineBreakCache.get(cacheKey)!;
+        return cachedResult;
+      }
+      
+      // Use the existing calculateNoLineBreakDecision logic for consistency
+      const shouldRespect = this.calculateNoLineBreakDecision(refEl, setting, sectionSettings, itemIndex, sectionWidth, columnCount);
+      
+      
+      // Only cache results when we have valid width data
+      this.noLineBreakCache.set(cacheKey, shouldRespect);
+      
+      return shouldRespect;
+    }
+    return true;
+  }
+
+  private getSectionWidth(refEl: any): number {
+    
+    let gridTileElement: HTMLElement | null = null;
+    
+    if (refEl._element && refEl._element.nativeElement) {
+      gridTileElement = refEl._element.nativeElement;
+    } else if (refEl.nativeElement) {
+      gridTileElement = refEl.nativeElement;
+    } else if (refEl.closest) {
+      gridTileElement = refEl;
+    }
+    
+    if (!gridTileElement) {
+      return 0;
+    }
+    
+    // The issue is that we're getting a child element, not the actual grid tile container
+    // We need to find the mat-grid-tile element that contains this
+    let actualGridTile: HTMLElement | null = gridTileElement;
+    
+    // Walk up the DOM tree to find the actual mat-grid-tile element
+    while (actualGridTile && !actualGridTile.classList.contains('mat-grid-tile')) {
+      actualGridTile = actualGridTile.parentElement;
+    }
+    
+    if (actualGridTile) {
+      gridTileElement = actualGridTile;
+    }
+    
+    // Also try to find the parent mat-grid-list to get the total width
+    let gridListElement: HTMLElement | null = gridTileElement;
+    while (gridListElement && !gridListElement.classList.contains('mat-grid-list')) {
+      gridListElement = gridListElement.parentElement;
+    }
+    
+    if (gridListElement) {
+      const gridListRect = gridListElement.getBoundingClientRect();
+    }
+    
+    // Try to get the grid list width from the refEl if it has _gridList
+    if (refEl._gridList && refEl._gridList._element && refEl._gridList._element.nativeElement) {
+      const gridListNative = refEl._gridList._element.nativeElement;
+      const gridListRect = gridListNative.getBoundingClientRect();
+      
+      if (gridListRect.width > 0) {
+        // Calculate width based on colspan (6 out of 12 columns)
+        const columnWidth = gridListRect.width / 12;
+        const tileWidth = columnWidth * 6; // colspan = 6
+        return tileWidth;
+      }
+    }
+    
+    // Try getBoundingClientRect first
+    let tileRect = gridTileElement.getBoundingClientRect();
+    
+    // If width is 0, try alternative methods
+    if (tileRect.width === 0) {
+      
+      // Try offsetWidth
+      if (gridTileElement.offsetWidth > 0) {
+        return gridTileElement.offsetWidth;
+      }
+      
+      // Try clientWidth
+      if (gridTileElement.clientWidth > 0) {
+        return gridTileElement.clientWidth;
+      }
+      
+      // Try computed style - this might give us the percentage
+      const computedStyle = window.getComputedStyle(gridTileElement);
+      const width = computedStyle.width;
+      
+      if (width && width !== 'auto' && width !== '0px') {
+        // Check if it's a percentage
+        if (width.includes('%')) {
+          const percentage = parseFloat(width);
+          
+          // Try to get the parent grid list width to calculate the actual width
+          if (gridListElement) {
+            const gridListRect = gridListElement.getBoundingClientRect();
+            const actualWidth = (percentage / 100) * gridListRect.width;
+            if (actualWidth > 0) {
+              return actualWidth;
+            }
+          }
+          
+          // If grid list width is also 0, try to estimate based on viewport width
+          // This is a fallback for when the grid hasn't fully rendered yet
+          const viewportWidth = window.innerWidth;
+          if (viewportWidth > 0) {
+            // Estimate: if we're in a 2-column layout, each section gets roughly 50% of viewport
+            // But account for margins, padding, and the fact that we're in a tab container
+            const estimatedWidth = (percentage / 100) * (viewportWidth * 0.8); // 80% of viewport as estimate
+            return estimatedWidth;
+          }
+        } else {
+          const numericWidth = parseFloat(width);
+          return numericWidth;
+        }
+      }
+      
+      // Try parent element width as fallback
+      const parentElement = gridTileElement.parentElement;
+      if (parentElement) {
+        const parentRect = parentElement.getBoundingClientRect();
+        return parentRect.width;
+      }
+    }
+    
+    return tileRect.width;
+  }
+
+  private calculateNoLineBreakDecision(refEl: any, setting: any, sectionSettings: any[], itemIndex: number, sectionWidth: number, columnCount: number): boolean {
+    if (sectionWidth < 500) {
+      return false;
+    }
+
+    if (columnCount <= 2) {
+      return false;
+    }
+
+    // Find all settings in the same row that have no_line_break
+    const rowSettings = this.getRowSettings(sectionSettings, itemIndex);
+    
+    if (rowSettings.length <= 1) {
+      return true; // Single setting or no no_line_break settings
+    }
+
+    // Calculate total width needed for the row
+    const totalWidthNeeded = this.calculateRowWidthNeeded(rowSettings, refEl);
+    
+    // Add some buffer for spacing and margins
+    const bufferWidth = 20;
+    const totalNeeded = totalWidthNeeded + bufferWidth;
+
+    // Check if there's enough space
+    const hasEnoughSpace = sectionWidth >= totalNeeded;
+    
+    return hasEnoughSpace;
+  }
+
+  private getRowSettings(sectionSettings: any[], currentIndex: number): any[] {
+    const rowSettings: any[] = [];
+    
+    // Find the start of the current row
+    let rowStartIndex = currentIndex;
+    while (rowStartIndex > 0 && sectionSettings[rowStartIndex - 1].no_line_break) {
+      rowStartIndex--;
+    }
+    
+    // Collect all settings in the same row
+    let i = rowStartIndex;
+    while (i < sectionSettings.length && sectionSettings[i].no_line_break) {
+      rowSettings.push(sectionSettings[i]);
+      i++;
+    }
+    
+    // Also include the current setting if it's not already in the row
+    if (!rowSettings.includes(sectionSettings[currentIndex])) {
+      rowSettings.push(sectionSettings[currentIndex]);
+    }
+    
+    // If we still don't have any settings, try a broader approach
+    if (rowSettings.length === 0) {
+      // Look for any nearby settings that might be part of the same logical row
+      const nearbyRange = 2; // Check 2 settings before and after
+      for (let j = Math.max(0, currentIndex - nearbyRange); j <= Math.min(sectionSettings.length - 1, currentIndex + nearbyRange); j++) {
+        if (sectionSettings[j].no_line_break && !rowSettings.includes(sectionSettings[j])) {
+          rowSettings.push(sectionSettings[j]);
+        }
+      }
+    }
+    
+    return rowSettings;
+  }
+
+  private calculateRowWidthNeeded(rowSettings: any[], refEl: any): number {
+    let totalWidth = 0;
+    
+    for (const rowSetting of rowSettings) {
+      const settingWidth = this.estimateSettingWidth(rowSetting, refEl);
+      totalWidth += settingWidth;
+      
+      // Add spacing between settings (10px as requested)
+      if (rowSetting !== rowSettings[rowSettings.length - 1]) {
+        totalWidth += 10;
+      }
+    }
+    
+    return totalWidth;
+  }
+
+  private estimateSettingWidth(setting: any, refEl: any): number {
+    let totalWidth = 0;
+    
+    try {
+      const settingElements = this.findSettingElements(refEl, setting);
+      
+      if (settingElements.label && settingElements.input) {
+        const labelRect = settingElements.label.getBoundingClientRect();
+        const inputRect = settingElements.input.getBoundingClientRect();
+        
+        totalWidth = labelRect.width + 10 + inputRect.width;
+        return totalWidth;
+      }
+    } catch (error) {
+      // Fallback to estimates if measurement fails
+    }
+    
+    // Fallback estimates
+    const labelWidth = this.estimateLabelWidth(setting);
+    const inputWidth = this.estimateInputWidth(setting);
+    
+    totalWidth = labelWidth + 10 + inputWidth;
+    return totalWidth;
+  }
+
+  private getGridTileElement(refEl: any): HTMLElement | null {
+    if (refEl._element && refEl._element.nativeElement) {
+      return refEl._element.nativeElement;
+    } else if (refEl.nativeElement) {
+      return refEl.nativeElement;
+    } else if (refEl.closest) {
+      return refEl;
+    }
+    return null;
+  }
+
+  private findSettingElements(gridTileElement: HTMLElement, setting: any): { label: HTMLElement | null, input: HTMLElement | null } {
+    try {
+      let labelElement: HTMLElement | null = null;
+      let inputElement: HTMLElement | null = null;
+      
+      // Try different selectors for the label
+      const labelSelectors = [
+        '.comboBoxLabel',
+        '.numberTextInputLabel',
+        '.ioInputLabel',
+        '.settingButton'
+      ];
+      
+      for (const selector of labelSelectors) {
+        const element = gridTileElement.querySelector(selector) as HTMLElement;
+        if (element) {
+          labelElement = element;
+          break;
+        }
+      }
+      
+      // Try different selectors for the input
+      const inputSelectors = [
+        'input',
+        'nb-select',
+        'button',
+        '.settingButton'
+      ];
+      
+      for (const selector of inputSelectors) {
+        const element = gridTileElement.querySelector(selector) as HTMLElement;
+        if (element) {
+          inputElement = element;
+          break;
+        }
+      }
+      
+      return { label: labelElement, input: inputElement };
+    } catch (error) {
+      return { label: null, input: null };
+    }
+  }
+
+  private estimateLabelWidth(setting: any): number {
+    // Conservative estimates for different setting types
+    const baseWidth = 120; // Base width for most labels
+    
+    // Adjust based on setting name length (rough estimate)
+    const nameLength = setting.name?.length || 0;
+    const charWidth = 8; // Rough estimate per character
+    
+    return Math.max(baseWidth, nameLength * charWidth);
+  }
+
+  private estimateInputWidth(setting: any): number {
+    // Conservative estimates for different input types
+    switch (setting.type) {
+      case 'Combobox':
+      case 'Indexed Combobox':
+        return 150;
+      case 'Text':
+        return 120;
+      case 'Number':
+        return 80;
+      case 'Checkbutton':
+        return 20;
+      case 'Radiobutton':
+        return 20;
+      case 'Color':
+        return 60;
+      case 'Button':
+        return 100;
+      case 'Numberinput':
+        return 80;
+      case 'Dictionary':
+        // For dictionary settings, estimate based on inner type
+        if (setting.inner_type) {
+          switch (setting.inner_type) {
+            case 'Numberinput':
+              return 80;
+            case 'Combobox':
+              return 150;
+            case 'Text':
+              return 120;
+            default:
+              return 120;
+          }
+        }
+        return 120;
+      default:
+        return 120;
+    }
+  }
+
+  // Method to invalidate cache when dialog size changes
+  invalidateNoLineBreakCache(): void {
+    this.noLineBreakCache.clear();
+  }
+
+  // Method to calculate optimal height for sections with no_inner_line_break settings
+  calculateOptimalHeightForNoInnerLineBreak(setting: any, refEl: any): number {
+    if (!setting.no_inner_line_break || !setting.keys || !Array.isArray(setting.keys)) {
+      return 0; // No height adjustment needed
+    }
+
+    const sectionWidth = this.getSectionWidth(refEl);
+    const columnCount = this.getColumnCount(refEl);
+    
+    // If we should respect no_inner_line_break, no height adjustment needed
+    if (this.shouldRespectNoLineBreak(refEl, setting, null, 0)) {
+      return 0;
+    }
+
+    // Calculate how many rows the inner settings will need when wrapped
+    const innerSettings = this.getInnerSettingsForDictionary(setting, [], 0);
+    if (innerSettings.length === 0) {
+      return 0;
+    }
+
+    // Estimate the width needed for all inner settings
+    const totalWidthNeeded = this.calculateInnerSettingsWidthNeeded(innerSettings, refEl);
+    
+    // If there's enough space, no height adjustment needed
+    if (totalWidthNeeded <= sectionWidth) {
+      return 0;
+    }
+
+    // Calculate how many rows will be needed
+    const settingsPerRow = Math.max(1, Math.floor(sectionWidth / (totalWidthNeeded / innerSettings.length)));
+    const rowsNeeded = Math.ceil(innerSettings.length / settingsPerRow);
+    
+    // Calculate height adjustment (each row needs about 36px + 8px spacing)
+    const baseRowHeight = 44; // 36px for the setting + 8px spacing
+    const heightAdjustment = (rowsNeeded - 1) * baseRowHeight;
+    
+    return heightAdjustment;
+  }
+
+
+  // Method to handle window resize and recalculate no line break decisions
+  onWindowResize(): void {
+    // Invalidate the cache when window is resized
+    this.invalidateNoLineBreakCache();
+        
+    // Trigger change detection to update the UI
+    this.cd.detectChanges();
+  }
+
+  // Method to handle dialog resize (for Electron apps)
+  onDialogResize(): void {
+    // Invalidate the cache when dialog is resized
+    this.invalidateNoLineBreakCache();
+        
+    // Trigger change detection to update the UI
+    this.cd.detectChanges();
+  }
+
+  
   checkVisibility(newValue: any, setting: any, option: any = null, refColorPicker: HTMLInputElement = null, disableOnly: boolean = false, noValueChange: boolean = false) {
 
     if (!disableOnly && !noValueChange)
@@ -1194,6 +1712,7 @@ export class GeneratorComponent implements OnInit, OnDestroy {
   }
 
   executeVisibilityForSetting(targetSetting: any, targetValue: boolean) {
+
     let triggeredChange = false;
 
     if ("controls_visibility_tab" in targetSetting) {
@@ -1413,6 +1932,7 @@ export class GeneratorComponent implements OnInit, OnDestroy {
   }
 
   inputFocusIn(settingName: string, subSettingName: string = null) {
+
     //Save current value on entering any input field
     if (subSettingName)
       this.inputOldValue = this.global.generator_settingsMap[settingName][subSettingName];
@@ -1528,7 +2048,6 @@ export class GeneratorComponent implements OnInit, OnDestroy {
   }
 
   afterSettingChange(saveOnly: boolean = false) {
-
     if (this.global.getGlobalVar('electronAvailable')) { //Electron
 
       //Show waiting spinner if another settings action is currently running and delay the task
@@ -1586,19 +2105,10 @@ export class GeneratorComponent implements OnInit, OnDestroy {
 
   // Mobile scroll indicator methods
   private initializeMobileScrollIndicator() {
-    console.log('Initializing mobile scroll indicator...');
-    console.log('tabSetNative:', this.tabSetNative);
-    console.log('tabSetNative.nativeElement:', this.tabSetNative?.nativeElement);
-    
+
     if (!this.tabSetNative?.nativeElement) {
-      console.log('tabSetNative not available yet, returning');
       return;
     }
-    
-    // Create ResizeObserver to watch for size changes
-    this.resizeObserver = new ResizeObserver(() => {
-      this.checkScrollIndicatorVisibility();
-    });
     
     // Start observing the tabset - try different selectors
     let tabsetElement = this.tabSetNative.nativeElement.querySelector('.tabset');
@@ -1609,12 +2119,7 @@ export class GeneratorComponent implements OnInit, OnDestroy {
       tabsetElement = this.tabSetNative.nativeElement.querySelector('nb-tabset');
     }
     
-    console.log('tabsetElement found:', tabsetElement);
-    console.log('tabSetNative.nativeElement.innerHTML:', this.tabSetNative.nativeElement.innerHTML);
-    
     if (tabsetElement) {
-      this.resizeObserver.observe(tabsetElement);
-      console.log('ResizeObserver attached to tabset');
       
       // Add scroll event listener to detect scroll position changes
       tabsetElement.addEventListener('scroll', () => {
@@ -1640,7 +2145,6 @@ export class GeneratorComponent implements OnInit, OnDestroy {
           this.checkScrollIndicatorVisibility();
         }, 150); // 150ms delay after scrolling stops
       });
-      console.log('Scroll event listener attached to tabset');
     }
     
     // Initial check
@@ -1679,22 +2183,8 @@ export class GeneratorComponent implements OnInit, OnDestroy {
     const isAtEnd = tabsetElement.scrollLeft >= (tabsetElement.scrollWidth - tabsetElement.clientWidth - 1); // -1 for rounding errors
     const isAtStart = tabsetElement.scrollLeft <= 1;
     
-    console.log('Scroll indicator check:', {
-      isGenerateFromFileMode,
-      isMobileWidth,
-      needsScrolling,
-      isAtEnd,
-      isAtStart,
-      scrollLeft: tabsetElement.scrollLeft,
-      scrollWidth: tabsetElement.scrollWidth,
-      clientWidth: tabsetElement.clientWidth,
-      windowWidth: window.innerWidth
-    });
-    
     // Show indicator only when all conditions are met AND not at the end
     this.showMobileScrollIndicator = isMobileWidth && needsScrolling && !isGenerateFromFileMode && !isAtEnd;
-    
-    console.log('showMobileScrollIndicator set to:', this.showMobileScrollIndicator);
     
     // Handle fade-out class for smooth transitions
     if (this.scrollIndicatorElement) {
@@ -1709,10 +2199,7 @@ export class GeneratorComponent implements OnInit, OnDestroy {
     this.cd.markForCheck();
   }
   
-  @HostListener('window:resize')
-  onWindowResize() {
-    this.checkScrollIndicatorVisibility();
-  }
+
 
   checkAutoImportSettings() { //Web only
 

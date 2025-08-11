@@ -18,14 +18,14 @@
   </ng-container>
   <!--Combo-->
   <ng-container *ngSwitchCase="'Combobox'">
-    <span *ngIf="!skipLabel && section.is_colors && assignmentSettingsMap[assignmentSettingName] === 'Custom Color' && global.generator_customColorMap[setting.name].length > 0" class="comboBoxLabel" [ngClass]="{'disabled': !visibilitySettingsMap[setting.name], 'oneLineComboBox': app.getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break)), 'oLCBLabelFirst': app.getColumnCount(refEl) > 2 && setting.no_line_break, 'oLCBLabelSecond': app.getColumnCount(refEl) > 2 && itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break}">{{settingText}} ({{global.generator_customColorMap[setting.name]}})</span>
-    <span *ngIf="!skipLabel && (!section.is_colors || assignmentSettingsMap[assignmentSettingName] !== 'Custom Color' || global.generator_customColorMap[setting.name].length === 0)" class="comboBoxLabel" [ngClass]="{'disabled': !visibilitySettingsMap[setting.name], 'oneLineComboBox': app.getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break)), 'oLCBLabelFirst': app.getColumnCount(refEl) > 2 && setting.no_line_break, 'oLCBLabelSecond': app.getColumnCount(refEl) > 2 && itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break}">{{settingText}}</span>
+    <span *ngIf="!skipLabel && section.is_colors && assignmentSettingsMap[assignmentSettingName] === 'Custom Color' && global.generator_customColorMap[setting.name].length > 0" class="comboBoxLabel" [ngClass]="{'disabled': !visibilitySettingsMap[setting.name], 'oneLineComboBox': app.getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break)) && app.shouldRespectNoLineBreak(refEl, setting, sectionSettings, itemIndex), 'ignoreNoLineBreak': app.getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break)) && !app.shouldRespectNoLineBreak(refEl, setting, sectionSettings, itemIndex), 'oLCBLabelFirst': app.getColumnCount(refEl) > 2 && setting.no_line_break && app.shouldRespectNoLineBreak(refEl, setting, sectionSettings, itemIndex), 'oLCBLabelSecond': app.getColumnCount(refEl) > 2 && itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break && app.shouldRespectNoLineBreak(refEl, setting, sectionSettings, itemIndex)}">{{settingText}} ({{global.generator_customColorMap[setting.name]}})</span>
+    <span *ngIf="!skipLabel && (!section.is_colors || assignmentSettingsMap[assignmentSettingName] !== 'Custom Color' || global.generator_customColorMap[setting.name].length === 0)" class="comboBoxLabel" [ngClass]="{'disabled': !visibilitySettingsMap[setting.name], 'oneLineComboBox': app.getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break)) && app.shouldRespectNoLineBreak(refEl, setting, sectionSettings, itemIndex), 'ignoreNoLineBreak': app.getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break)) && !app.shouldRespectNoLineBreak(refEl, setting, sectionSettings, itemIndex), 'oLCBLabelFirst': app.getColumnCount(refEl) > 2 && setting.no_line_break && app.shouldRespectNoLineBreak(refEl, setting, sectionSettings, itemIndex), 'oLCBLabelSecond': app.getColumnCount(refEl) > 2 && itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break && app.shouldRespectNoLineBreak(refEl, setting, sectionSettings, itemIndex)}">{{settingText}}</span>
     <div [ngClass]="{'selectContainerWithInfo': app.getColumnCount(refEl) === 1}">
 
       <!--Custom Color Picker for Cosmetics-->
       <ng-container *ngIf="section.is_colors">
         <div class="colorPickerContainer"
-             [ngClass]="{'oneLineComboBox oLCBPicker': app.getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break))}">
+             [ngClass]="{'oneLineComboBox oLCBPicker': app.getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break)) && app.shouldRespectNoLineBreak(refEl, setting, sectionSettings, itemIndex), 'ignoreNoLineBreak': app.getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break)) && !app.shouldRespectNoLineBreak(refEl, setting, sectionSettings, itemIndex)}">
           <input #refColorPicker [(colorPicker)]="global.generator_customColorMap[setting.name]"
                  cpAlphaChannel="disabled" cpOutputFormat="hex" cpUseRootViewContainer="true"
                  cpAddColorButton="true" [cpPresetColors]="['#fff', '#000']"
@@ -36,7 +36,7 @@
 
       <!--Combobox-->
       <nb-select class="selectXSmall"
-                 [ngClass]="{'oneLineComboBox oLCBSelect': app.getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break)), 'select-colors': section.is_colors, 'spaceForInfo': app.getColumnCount(refEl) === 1}"
+                 [ngClass]="{'oneLineComboBox oLCBSelect': app.getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break)) && app.shouldRespectNoLineBreak(refEl, setting, sectionSettings, itemIndex), 'ignoreNoLineBreak': app.getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break)) && !app.shouldRespectNoLineBreak(refEl, setting, sectionSettings, itemIndex), 'select-colors': section.is_colors, 'spaceForInfo': app.getColumnCount(refEl) === 1}"
                  [disabled]="!visibilitySettingsMap[setting.name]"
                  [(selected)]="assignmentSettingsMap[assignmentSettingName]"
                  (selectedChange)="app.checkVisibility($event, setting, app.findOption(setting.options, $event), refColorPicker ? refColorPicker : null)"
@@ -66,11 +66,11 @@
 
     <ng-template ngFor let-subItem [ngForOf]="setting.index_text" let-subItemIndex="index">
 
-      <span *ngIf="!skipLabel" class="comboBoxLabel" [ngClass]="{'disabled': !visibilitySettingsMap[setting.name], 'oneLineComboBox': app.getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break)), 'oLCBLabelFirst': app.getColumnCount(refEl) > 2 && setting.no_line_break, 'oLCBLabelSecond': app.getColumnCount(refEl) > 2 && itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break}">{{subItem}}</span>
+      <span *ngIf="!skipLabel" class="comboBoxLabel" [ngClass]="{'disabled': !visibilitySettingsMap[setting.name], 'oneLineComboBox': app.getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break)) && app.shouldRespectNoLineBreak(refEl, setting, sectionSettings, itemIndex), 'ignoreNoLineBreak': app.getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break)) && !app.shouldRespectNoLineBreak(refEl, setting, sectionSettings, itemIndex), 'oLCBLabelFirst': app.getColumnCount(refEl) > 2 && setting.no_line_break && app.shouldRespectNoLineBreak(refEl, setting, sectionSettings, itemIndex), 'oLCBLabelSecond': app.getColumnCount(refEl) > 2 && itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break && app.shouldRespectNoLineBreak(refEl, setting, sectionSettings, itemIndex)}">{{subItem}}</span>
       <div [ngClass]="{'selectContainerWithInfo': app.getColumnCount(refEl) === 1}">
         <!--Indexed Combobox-->
         <nb-select class="selectXSmall"
-                   [ngClass]="{'oneLineComboBox oLCBSelect': app.getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break)), 'spaceForInfo': app.getColumnCount(refEl) === 1}"
+                   [ngClass]="{'oneLineComboBox oLCBSelect': app.getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break)) && app.shouldRespectNoLineBreak(refEl, setting, sectionSettings, itemIndex), 'ignoreNoLineBreak': app.getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break)) && !app.shouldRespectNoLineBreak(refEl, setting, sectionSettings, itemIndex), 'spaceForInfo': app.getColumnCount(refEl) === 1}"
                    [disabled]="!visibilitySettingsMap[setting.name]"
                    [(selected)]="assignmentSettingsMap[assignmentSettingName][subItemIndex]"
                    (selectedChange)="app.checkVisibility($event, setting, app.findOption(setting.options, $event), null)"
@@ -98,15 +98,16 @@
   <!--Multiple Select-->
   <ng-container *ngSwitchCase="'MultipleSelect'">
     <span *ngIf="!skipLabel" class="comboBoxLabel" [ngClass]="{'disabled': !visibilitySettingsMap[setting.name],
-      'oneLineComboBox': app.getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break)),
-      'oLCBLabelFirst': app.getColumnCount(refEl) > 2 && setting.no_line_break,
-      'oLCBLabelSecond': app.getColumnCount(refEl) > 2 && itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break
+      'oneLineComboBox': app.getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break)) && app.shouldRespectNoLineBreak(refEl, setting, sectionSettings, itemIndex),
+      'ignoreNoLineBreak': app.getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break)) && !app.shouldRespectNoLineBreak(refEl, setting, sectionSettings, itemIndex),
+      'oLCBLabelFirst': app.getColumnCount(refEl) > 2 && setting.no_line_break && app.shouldRespectNoLineBreak(refEl, setting, sectionSettings, itemIndex),
+      'oLCBLabelSecond': app.getColumnCount(refEl) > 2 && itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break && app.shouldRespectNoLineBreak(refEl, setting, sectionSettings, itemIndex)
       }">
       {{settingText}}
     </span>
     <div class="select-wrapper" [ngClass]="{'selectContainerWithInfo': app.getColumnCount(refEl) === 1}">
       <nb-select multiple placeholder="None" class="selectXSmall"
-                 [ngClass]="{'oneLineComboBox oLCBSelect': app.getColumnCount(refEl) > 2 && setting.no_line_break, 'spaceForInfo': app.getColumnCount(refEl) === 1}"
+                 [ngClass]="{'oneLineComboBox oLCBSelect': app.getColumnCount(refEl) > 2 && setting.no_line_break && app.shouldRespectNoLineBreak(refEl, setting, sectionSettings, itemIndex), 'ignoreNoLineBreak': app.getColumnCount(refEl) > 2 && setting.no_line_break && !app.shouldRespectNoLineBreak(refEl, setting, sectionSettings, itemIndex), 'spaceForInfo': app.getColumnCount(refEl) === 1}"
                  [disabled]="!visibilitySettingsMap[setting.name]"
                  [(selected)]="assignmentSettingsMap[assignmentSettingName]"
                  (selectedChange)="app.checkVisibility($event, setting, app.findOption(setting.options, $event))"
@@ -142,7 +143,7 @@
 
   <!--Text Input-->
   <ng-container *ngSwitchCase="'Textinput'">
-    <span *ngIf="!skipLabel && (!setting.size || setting.size === 'small' || setting.size === 'medium')" class="numberTextInputLabel" [ngClass]="{'disabled': !visibilitySettingsMap[setting.name], 'secondaryInputLabel': sectionSettings[itemIndex-1].no_line_break}">{{settingText}}:</span>
+    <span *ngIf="!skipLabel && (!setting.size || setting.size === 'small' || setting.size === 'medium')" class="numberTextInputLabel" [ngClass]="{'disabled': !visibilitySettingsMap[setting.name], 'secondaryInputLabel': sectionSettings[itemIndex-1].no_line_break && app.shouldRespectNoLineBreak(refEl, sectionSettings[itemIndex-1], sectionSettings, itemIndex-1)}">{{settingText}}:</span>
     <p *ngIf="!skipLabel && setting.size === 'full'" class="numberTextInputLabel" [ngClass]="{'disabled': !visibilitySettingsMap[setting.name]}">{{settingText}}</p>
     <input class="numberTextInput" [disabled]="!visibilitySettingsMap[setting.name]" [ngClass]="{numberTextInputSmall: setting.size === 'small', numberTextInputMedium: setting.size === 'medium', numberTextInputFull: setting.size === 'full'}" nbInput [disabled]="!visibilitySettingsMap[setting.name]" type="text" [maxlength]="setting.max_length ? setting.max_length : 260" fieldSize="small"
            (focus)="app.inputFocusIn(setting.name, subSetting ? subSetting.name : null)" (focusout)="app.inputFocusOut(setting.name, false, undefined, subSetting ? subSetting.name : null)" [(ngModel)]="assignmentSettingsMap[assignmentSettingName]" [nbPopover]="tooltipComponent" [nbPopoverContext]="{tooltip: settingTooltip}" [nbPopoverTrigger]="settingTooltip && settingTooltip.length > 0 ? 'hint' : 'noop'" nbPopoverPlacement="right" nbPopoverAdjustment="counterclockwise">
@@ -156,7 +157,7 @@
 
   <!--Number-->
   <ng-container *ngSwitchCase="'Numberinput'">
-    <span *ngIf="!skipLabel && (!setting.size || setting.size === 'small' || setting.size === 'medium')" class="numberTextInputLabel" [ngClass]="{'disabled': !visibilitySettingsMap[setting.name], 'secondaryInputLabel': subSettingIndex > 0 && setting.no_inner_line_break}">{{settingText}}:</span>
+    <span *ngIf="!skipLabel && (!setting.size || setting.size === 'small' || setting.size === 'medium')" class="numberTextInputLabel" [ngClass]="{'disabled': !visibilitySettingsMap[setting.name], 'secondaryInputLabel': subSettingIndex > 0 && setting.no_inner_line_break && app.shouldRespectNoLineBreak(refEl, setting, sectionSettings, itemIndex)}">{{settingText}}:</span>
     <p *ngIf="!skipLabel && setting.size === 'full'" class="numberTextInputLabel" [ngClass]="{'disabled': !visibilitySettingsMap[setting.name]}">{{settingText}}</p>
     <input class="numberTextInput" [disabled]="!visibilitySettingsMap[setting.name]" [ngClass]="{numberTextInputSmall: setting.size === 'small', numberTextInputMedium: setting.size === 'medium', numberTextInputFull: setting.size === 'full'}" nbInput [disabled]="!visibilitySettingsMap[setting.name]" type="text" [maxlength]="setting.max_length ? setting.max_length : setting.max ? setting.max.toString().length : 6" fieldSize="small"
            (focus)="app.inputFocusIn(setting.name, subSetting ? subSetting.name : null)" (focusout)="app.numberInputFocusOut(setting, true, subSetting)" [(ngModel)]="assignmentSettingsMap[assignmentSettingName]" [nbPopover]="tooltipComponent" [nbPopoverContext]="{tooltip: settingTooltip}" [nbPopoverTrigger]="settingTooltip && settingTooltip.length > 0 ? 'hint' : 'noop'" nbPopoverPlacement="right" nbPopoverAdjustment="counterclockwise">
@@ -291,19 +292,25 @@
 
   <!--Dictionary Single-->
   <ng-container *ngSwitchCase="'Dictionary'">
-    <span class="comboBoxLabel" [ngClass]="{'disabled': !visibilitySettingsMap[setting.name], 'oneLineComboBox': app.getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break)), 'oLCBLabelFirst': app.getColumnCount(refEl) > 2 && setting.no_line_break, 'oLCBLabelSecond': app.getColumnCount(refEl) > 2 && itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break}">{{settingText}}</span>
-    <ng-template ngFor let-keySetting [ngForOf]="setting.keys" let-keyItemIndex="index">
-      <!--<ng-container *ngIf="visibilitySettingsMap[setting.name] || !setting.hide_when_disabled">-->
-      <span *ngIf="!setting.no_inner_line_break" class="comboBoxLabel" [ngClass]="{'disabled': !visibilitySettingsMap[setting.name], 'oneLineComboBox': app.getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break)), 'oLCBLabelFirst': app.getColumnCount(refEl) > 2 && setting.no_line_break, 'oLCBLabelSecond': app.getColumnCount(refEl) > 2 && itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break}">{{keySetting.text}}</span>
-      <gui-settings-element [app]="app" [section]="section" [sectionSettings]="sectionSettings" [setting]="setting" [itemIndex]="itemIndex" [subSetting]="generateDictSetting(setting, keySetting)" [subSettingIndex]="keyItemIndex" [refEl]="refEl"
-                            [assignmentSettingsMap]="assignmentSettingsMap[assignmentSettingName]" [assignmentSettingName]="keySetting.name" [visibilitySettingsMap]="visibilitySettingsMap"
-                            [tooltipComponent]="tooltipComponent" [settingDefault]="setting.default" [settingText]="keySetting.text" [settingTooltip]="keySetting.tooltip" [skipLabel]="!setting.no_inner_line_break">
+    <span class="comboBoxLabel" [ngClass]="{'disabled': !visibilitySettingsMap[setting.name], 'oneLineComboBox': app.getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break)) && app.shouldRespectNoLineBreak(refEl, setting, sectionSettings, itemIndex), 'ignoreNoLineBreak': app.getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break)) && !app.shouldRespectNoLineBreak(refEl, setting, sectionSettings, itemIndex), 'oLCBLabelFirst': app.getColumnCount(refEl) > 2 && setting.no_line_break && app.shouldRespectNoLineBreak(refEl, setting, sectionSettings, itemIndex), 'oLCBLabelSecond': app.getColumnCount(refEl) > 2 && itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break && app.shouldRespectNoLineBreak(refEl, setting, sectionSettings, itemIndex)}">{{settingText}}</span>
+    <div class="dictionaryNoInnerLineBreak" 
+         [ngClass]="{'wrapped': setting.no_inner_line_break && !app.shouldRespectNoInnerLineBreak(refEl, setting, sectionSettings, itemIndex)}"
+         [style.min-height.px]="setting.no_inner_line_break ? 36 + app.calculateOptimalHeightForNoInnerLineBreak(setting, refEl) : 36">
+      <ng-template ngFor let-keySetting [ngForOf]="setting.keys" let-keyItemIndex="index">
+        <!--<ng-container *ngIf="visibilitySettingsMap[setting.name] || !setting.hide_when_disabled">-->
+        <span *ngIf="!setting.no_inner_line_break" class="comboBoxLabel" [ngClass]="{'disabled': !visibilitySettingsMap[setting.name], 'oneLineComboBox': app.getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break)) && app.shouldRespectNoLineBreak(refEl, setting, sectionSettings, itemIndex), 'ignoreNoLineBreak': app.getColumnCount(refEl) > 2 && (setting.no_line_break || (itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break)) && !app.shouldRespectNoLineBreak(refEl, setting, sectionSettings, itemIndex), 'oLCBLabelFirst': app.getColumnCount(refEl) > 2 && setting.no_line_break && app.shouldRespectNoLineBreak(refEl, setting, sectionSettings, itemIndex), 'oLCBLabelSecond': app.getColumnCount(refEl) > 2 && itemIndex > 0 && sectionSettings[itemIndex-1].no_line_break && app.shouldRespectNoLineBreak(refEl, setting, sectionSettings, itemIndex)}">{{keySetting.text}}</span>
+        <div class="innerSetting" [ngClass]="{'noInnerLineBreakContainer': setting.no_inner_line_break}">
+          <gui-settings-element [app]="app" [section]="section" [sectionSettings]="sectionSettings" [setting]="setting" [itemIndex]="itemIndex" [subSetting]="generateDictSetting(setting, keySetting)" [subSettingIndex]="keyItemIndex" [refEl]="refEl"
+                                [assignmentSettingsMap]="assignmentSettingsMap[assignmentSettingName]" [assignmentSettingName]="keySetting.name" [visibilitySettingsMap]="visibilitySettingsMap"
+                                [tooltipComponent]="tooltipComponent" [settingDefault]="setting.default" [settingText]="keySetting.text" [settingTooltip]="keySetting.tooltip" [skipLabel]="!setting.no_inner_line_break">
 
-      </gui-settings-element>
-      <!--Padding-->
-      <div *ngIf="setting.keys.length > keyItemIndex && !setting.no_inner_line_break" class="dictSettingPadding"></div>
-      <!--</ng-container>-->
-    </ng-template>
+          </gui-settings-element>
+        </div>
+        <!--Padding - only show when not wrapped -->
+        <div *ngIf="setting.keys.length > keyItemIndex && setting.no_inner_line_break && app.shouldRespectNoInnerLineBreak(refEl, setting, sectionSettings, itemIndex)" class="dictSettingPadding"></div>
+        <!--</ng-container>-->
+      </ng-template>
+    </div>
   </ng-container>
 
   <!--Dictionary Linked-->
@@ -331,7 +338,7 @@
           </gui-settings-element>
 
           <!--Padding-->
-          <div *ngIf="app.getNextVisibleSetting(setting.options, keyItemIndex + 1) && !keySetting.no_line_break" class="linkedDictSettingPadding"
+          <div *ngIf="app.getNextVisibleSetting(setting.options, keyItemIndex + 1) && (!keySetting.no_line_break || !app.shouldRespectNoLineBreak(refEl, keySetting, setting.options, keyItemIndex))" class="linkedDictSettingPadding"
                [ngClass]="{'settingCBPadding': keySetting.type !== 'Checkbutton' && app.getNextVisibleSetting(setting.options, keyItemIndex + 1).type === 'Checkbutton'}">
           </div>
         </ng-container>
