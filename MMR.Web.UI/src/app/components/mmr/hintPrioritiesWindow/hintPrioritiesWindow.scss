@@ -13,6 +13,10 @@
       container-type: inline-size;
       container-name: hint-priorities-dialog;
 
+      nb-card-body {
+        overscroll-behavior: contain;
+      }
+
       .headerButton {
         float: right;
         margin-top: -10px;
@@ -26,7 +30,6 @@
       button + button {
         margin-left: 14px;
       }
-      
       // Ensure footer buttons have identical dimensions
       .footer-buttons {
         button {
@@ -37,14 +40,12 @@
           font-weight: 500 !important;
           border-radius: 4px !important;
           transition: all 0.2s ease !important;
-          
           // Ensure both buttons have the same box-sizing and line-height
           box-sizing: border-box !important;
           line-height: 1.2 !important;
           display: inline-flex !important;
           align-items: center !important;
           justify-content: center !important;
-          
           // Override any Nebular-specific button styling
           min-width: 90px !important;
           max-width: 90px !important;
@@ -52,7 +53,7 @@
           max-height: 40px !important;
         }
       }
-      
+
       .dialog-title {
         text-align: center;
         font-size: 1.7em;
@@ -270,12 +271,12 @@
         }
       }
 
-              @container (max-width: 700px) {
-          .tier-row {
-            flex-direction: column;
-            align-items: stretch;
-            gap: 8px;
-          }
+      @container (max-width: 700px) {
+        .tier-row {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 8px;
+        }
 
         .tier-controls {
           flex-direction: row;
@@ -319,7 +320,7 @@
 
         @media (max-width: 1000px) {
           padding: 8px 4px 0 4px;
-          
+
           .tier-row {
             gap: 4px;
             padding: 6px;
@@ -340,7 +341,7 @@
               flex-direction: column;
               align-items: flex-start;
             }
-            
+
             .item-tag {
               width: 200px;
             }
@@ -397,7 +398,7 @@
           padding-left: 0;
           padding-right: 0;
         }
-        
+
         height: 90vh;
         max-height: 90vh;
       }
@@ -406,7 +407,7 @@
         max-width: 100vw;
         max-height: 90vh;
         padding: 0;
-        
+
         .dialog-title {
           margin-bottom: 0.1em;
           padding-bottom: 2px;
@@ -484,7 +485,7 @@
           font-size: 0.7em;
           width: 100vw !important;
         }
-        
+
         &::before {
           content: '';
           position: absolute;
@@ -504,8 +505,7 @@
           border: 5px solid transparent;
           border-bottom-color: nb-theme(color-success-100);
         }
-
       }
-    } 
+    }
   }
 }

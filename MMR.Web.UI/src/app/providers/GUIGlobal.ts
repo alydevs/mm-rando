@@ -1330,7 +1330,7 @@ export class GUIGlobal implements OnDestroy {
     });
   }
 
-  createSettingsFileObject(includeFromPatchFileSettings: boolean = true, includeSeedSettingsOnly: boolean = false, sanitizeForBrowserCache: boolean = false, cancelWhenError: boolean = false) {
+  createSettingsFileObject(includeFromPatchFileSettings: boolean = true, includeSeedSettingsOnly: boolean = false, sanitizeForBrowserCache: boolean = false, cancelWhenError: boolean = false, sanitizeForServer: boolean = false) {
 
     let settingsFile: any = {};
 
@@ -1416,15 +1416,16 @@ export class GUIGlobal implements OnDestroy {
       }
     }
 
-    //Delete keys not included in the seed
-    if (includeSeedSettingsOnly) {
+    //Delete keys not included in the seed or should be skipped for server processing
+    if (includeSeedSettingsOnly || sanitizeForServer) {
 
       //Not mapped settings need to be deleted manually
       delete settingsFile["settings_string"];
       delete settingsFile["theme"]
 
       //Delete all shared = false keys from map since they aren't included in the seed
-      this.deleteSettingsFromMapWithCondition(settingsFile, "shared", false);
+      if (includeSeedSettingsOnly)
+        this.deleteSettingsFromMapWithCondition(settingsFile, "shared", false);
 
       //Delete all DictionaryLinked as they are only intended for GUI design
       this.deleteSettingsFromMapWithCondition(settingsFile, "type", "DictionaryLinked");
@@ -1810,6 +1811,7 @@ export class GUIGlobal implements OnDestroy {
 
     //Plando Files are read to a string before sending them to the server
     let customUserFiles: any[] = [
+      /*
       //Standard
       {
         enablerSetting: "enable_distribution_file",
@@ -1824,6 +1826,7 @@ export class GUIGlobal implements OnDestroy {
         raceSeedAllowed: true,
         errorRomEntered: "Your ROM doesn't belong in a plandomizer setting. This entirely optional setting is used to give you more control over your cosmetic and sound settings. If you want to generate a normal seed with regular cosmetics instead, please click YES!"
       },
+      */
       //MMR
       {
         enablerSetting: null,
@@ -1860,7 +1863,7 @@ export class GUIGlobal implements OnDestroy {
       }
     }
 
-    let settingsFile = this.createSettingsFileObject(false, false, true, true);
+    let settingsFile = this.createSettingsFileObject(false, false, true, true, true);
 
     if (!settingsFile) {
       throw { error: "The generation was aborted due to previous errors!" };

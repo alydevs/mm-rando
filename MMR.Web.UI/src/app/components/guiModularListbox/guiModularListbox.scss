@@ -4,7 +4,6 @@
   :host ::ng-deep .cdk-overlay-pane > nb-popover {
     animation-duration: 2000ms !important;
   }
-
   // Tooltip styling for cross-list tooltips
   :host ::ng-deep nb-popover {
     .popover-content {
@@ -12,18 +11,17 @@
       line-height: 1.4;
       max-width: 300px; // Limit tooltip width
       word-wrap: break-word;
-      
+
       @media (max-width: 768px) {
         font-size: 0.8rem; // Even smaller on mobile
         max-width: 250px;
       }
-      
+
       @media (max-width: 480px) {
         font-size: 0.75rem; // Smallest on very small screens
         max-width: 200px;
       }
     }
-    
     // Ensure proper positioning for right/left tooltips
     &.nb-popover-right,
     &.nb-popover-left {
@@ -31,12 +29,12 @@
         border-width: 8px;
       }
     }
-    
+
     &.nb-popover-right .arrow {
       border-right-color: nb-theme(color-basic-800);
       left: -8px;
     }
-    
+
     &.nb-popover-left .arrow {
       border-left-color: nb-theme(color-basic-800);
       right: -8px;
@@ -46,6 +44,7 @@
   div.record-picker {
     overflow-x: hidden;
     overflow-y: auto;
+    overscroll-behavior: contain;
     border: 1px solid nb-theme(color-info-800);
     border-radius: 8px;
     position: relative;
@@ -231,7 +230,6 @@
     flex-direction: row;
     align-content: flex-start;
   }
-
   /* When hex string input is enabled, give a bit less overall height to avoid overflow */
   .dual-list-withHexString {
     max-height: 93% !important;
@@ -266,13 +264,12 @@
 
   .dual-list .button-bar button {
     width: 47%;
-    
     // Responsive font sizing for mobile to prevent text clipping
     @media (max-width: 768px) {
       font-size: 11px !important;
       padding: 4px 6px !important;
     }
-    
+
     @media (max-width: 480px) {
       font-size: 10px !important;
       padding: 3px 4px !important;
@@ -288,13 +285,12 @@
   .buttonBox button {
     width: 28%;
     margin-right: 3px;
-    
     // Responsive font sizing for mobile to prevent text clipping
     @media (max-width: 768px) {
       font-size: 11px !important;
       padding: 4px 6px !important;
     }
-    
+
     @media (max-width: 480px) {
       font-size: 10px !important;
       padding: 3px 4px !important;
@@ -319,12 +315,11 @@
   button.btn {
     height: 28px;
     padding: 0;
-    
     // Responsive font sizing for mobile to prevent text clipping
     @media (max-width: 768px) {
       font-size: 11px !important;
     }
-    
+
     @media (max-width: 480px) {
       font-size: 10px !important;
     }
@@ -378,9 +373,11 @@
     @media (max-width: 1350px) {
       height: 48px;
     }
+
     @media (max-width: 986px) {
       height: 46.5px;
     }
+
     @media (max-width: 959px) {
       height: 36px;
     }
@@ -392,12 +389,14 @@
     @media (max-width: 1350px) {
       height: 95.5px;
     }
+
     @media (max-width: 1000px) {
       height: 94px;
     }
+
     @media (max-width: 959px) {
       height: 72px;
-    }    
+    }
   }
 
   .hexTextInput {
@@ -423,12 +422,15 @@
     @media (max-width: 1350px) {
       margin-top: 49px;
     }
+
     @media (max-width: 1000px) {
       margin-top: 48px;
     }
+
     @media (max-width: 959px) {
       margin-top: 40px;
     }
+
     @media (max-width: 399px) {
       margin-top: 38px;
     }

@@ -2047,6 +2047,61 @@ export class GeneratorComponent implements OnInit, OnDestroy {
     }
   }
 
+  seedInputFocusIn() {
+    //Save current seed on entering the input field
+    this.inputOldValue = this.seedString;
+  }
+
+  seedInputFocusOut() {
+
+    //Test if seed string is valid
+    let newValue = this.seedString;
+
+    //Existence check
+    if (!newValue || newValue.length == 0) {
+      return;
+    }
+
+    //Numbers test
+    if (Number(parseInt(newValue)) != Number(newValue)) {
+
+      this.seedString = this.inputOldValue;
+
+      this.dialogService.open(DialogWindowComponent, {
+        autoFocus: true, closeOnBackdropClick: true, closeOnEsc: true, hasBackdrop: true, hasScroll: false, context: { dialogHeader: "Error", dialogMessage: "The seed may only contain numbers!" }
+      });
+
+      return;
+    }
+    
+    //Min/Max check
+    let settingMin: number = 0;
+    let settingMax: number = 2147483647;
+
+    if (Number(newValue) < settingMin) {
+
+      this.seedString = settingMin.toString();
+      this.dialogService.open(DialogWindowComponent, {
+        autoFocus: true, closeOnBackdropClick: true, closeOnEsc: true, hasBackdrop: true, hasScroll: false, context: { dialogHeader: "Error", dialogMessage: "The smallest seed possible is 0!" }
+      });
+    }
+    else if (Number(newValue) > settingMax) {
+   
+      this.seedString = settingMax.toString();
+      this.dialogService.open(DialogWindowComponent, {
+        autoFocus: true, closeOnBackdropClick: true, closeOnEsc: true, hasBackdrop: true, hasScroll: false, context: { dialogHeader: "Error", dialogMessage: "The largest seed possible is 2147483647!" }
+      });
+    }
+    else { //Update setting with new seed value
+
+      if (newValue != this.inputOldValue) {
+        setTimeout(() => {
+          this.seedString = newValue;
+        }, 0);
+      }
+    }
+  }
+
   afterSettingChange(saveOnly: boolean = false) {
     if (this.global.getGlobalVar('electronAvailable')) { //Electron
 

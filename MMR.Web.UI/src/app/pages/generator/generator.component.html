@@ -37,7 +37,7 @@
           <!--Electron-->
           <ng-container *ngIf="global.getGlobalVar('electronAvailable')">
             <p class="footerInputLabel">Seed</p>
-            <input class="footerInput" nbInput type="text" maxlength="260" fieldSize="small" [(ngModel)]="seedString">
+            <input class="footerInput" nbInput type="text" maxlength="10" fieldSize="small" (focus)="seedInputFocusIn()" (focusout)="seedInputFocusOut()" [(ngModel)]="seedString">
             <!--Padding-->
             <div class="tabsetPadding"></div>
             <button class="footerGenerateButton" nbButton fullWidth status="success" [disabled]="!generateSeedButtonEnabled" (click)="generateSeed()">Generate!</button>
@@ -45,7 +45,7 @@
           <!--Web-->
           <ng-container *ngIf="!global.getGlobalVar('electronAvailable')">
             <p class="footerInputLabel">Seed</p>
-            <input class="footerInputShort" nbInput type="text" maxlength="260" fieldSize="small" [(ngModel)]="seedString">
+            <input class="footerInputShort" nbInput type="text" maxlength="10" fieldSize="small" (focus)="seedInputFocusIn()" (focusout)="seedInputFocusOut()" [(ngModel)]="seedString">
             <!--Padding-->
             <div class="tabsetPadding"></div>
             <!--Release Versions Only (not available in MMR for now)

@@ -17,6 +17,10 @@
       
       min-width: 0;
       min-height: 0;
+
+      nb-card-body {
+          overscroll-behavior: contain;
+      }
       
       .headerButton {
         float: right;

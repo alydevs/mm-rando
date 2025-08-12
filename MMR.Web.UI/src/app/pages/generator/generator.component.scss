@@ -19,24 +19,22 @@
 
   ::ng-deep .tabset {
     justify-content: start !important;
-    
     // ONLY add horizontal scrolling - don't touch existing styling
     @media (max-width: 650px) {
       overflow-x: auto !important;
       white-space: nowrap !important;
       scrollbar-width: none !important;
       -ms-overflow-style: none !important;
-      
+
       &::-webkit-scrollbar {
         display: none !important;
       }
-      
       // Force tabs to not wrap and trigger horizontal scrolling
       li {
         flex-shrink: 0 !important;
       }
     }
-    
+
     li.disabled {
       opacity: 0.4 !important;
       max-width: 0 !important;
@@ -66,19 +64,19 @@
     li.decollapsing a span {
       white-space: nowrap;
     }
-    
-      a {
-        @media (max-width: 827px) {
-          padding-right: 7px !important;
-          padding-left: 7px !important;
-        }
 
-            @media (max-width: 650px) {
-      padding-right: 8px !important;
-      padding-left: 8px !important;
-      font-size: 16px !important;
-    }
+    a {
+      @media (max-width: 827px) {
+        padding-right: 7px !important;
+        padding-left: 7px !important;
       }
+
+      @media (max-width: 650px) {
+        padding-right: 8px !important;
+        padding-left: 8px !important;
+        font-size: 16px !important;
+      }
+    }
 
     span {
 
@@ -105,16 +103,15 @@
     min-height: 490px;
     padding: 0 7px !important;
     position: relative; // For positioning the scroll indicator
-    
     // Ensure tabset is constrained to trigger horizontal scrolling
     @media (max-width: 650px) {
       ::ng-deep .tabset {
         width: 100% !important;
       }
     }
-    
 
-    
+
+
     @media (max-width: 959px) {
       height: calc(91vh - 200px);
     }
@@ -134,13 +131,13 @@
     transform-origin: top;
     animation: rollUp 1s forwards ease-in-out;
   }
-  
+
   .rolledUp {
     height: 0 !important;
     min-height: 0 !important;
     padding: 0 !important;
   }
-  
+
   .rollupBox::after {
     content: '';
     position: absolute;
@@ -155,20 +152,22 @@
     transform: scaleY(0);
     animation: curl 1s forwards ease-in-out;
   }
-  
+
   @keyframes rollUp {
     0% {
       transform: perspective(1000px) rotateX(0deg) scaleY(1);
     }
+
     100% {
       transform: perspective(1000px) rotateX(-90deg) scaleY(0);
     }
   }
-  
+
   @keyframes curl {
     0% {
       transform: scaleY(0);
     }
+
     100% {
       transform: scaleY(1);
     }
@@ -181,14 +180,14 @@
     height: nb-theme(footer-height);
     margin: 0 auto;
     margin-top: 5px;
-
     // When in generate_from_file mode, make footer taller to prevent content overlap
     &.generateFromFileMode {
       height: calc(nb-theme(footer-height) + 50px);
-      
+
       @media (max-width: 959px) {
         height: 210px;
       }
+
       @media (max-width: 606px) {
         height: 200px;
       }
@@ -197,6 +196,7 @@
     @media (max-width: 959px) {
       height: 160px;
     }
+
     @media (max-width: 606px) {
       height: 150px;
     }
@@ -247,6 +247,7 @@
     top: 0px;
     overflow: hidden;
     overflow-y: auto;
+    overscroll-behavior: contain;
 
     .tileContent {
       position: relative;
@@ -321,7 +322,6 @@
     padding-right: 5.25px !important;
     margin-right: 28px;
   }
-
   //Footer
   .footerInputLabel {
     position: relative;
@@ -495,7 +495,6 @@
   .settingCBPadding {
     height: 13px;
   }
-
   //Disabled elements
   p.disabled {
     opacity: 0.38;
@@ -508,7 +507,6 @@
   input:disabled {
     opacity: 0.38;
   }
-
   // Mobile scroll indicator
   .mobile-scroll-indicator {
     position: absolute;
@@ -524,19 +522,19 @@
     z-index: 10;
     opacity: 1;
     transition: opacity 0.2s ease-out;
-    
+
     @media (max-width: 650px) {
       display: flex;
     }
-    
+
     @media (min-width: 651px) {
       display: none;
     }
-    
+
     &.fade-out {
       opacity: 0;
     }
-    
+
     &::after {
       content: "▶";
       color: nb-theme(text-basic-color);
@@ -545,6 +543,4 @@
       font-weight: bold;
     }
   }
-  
-
 }

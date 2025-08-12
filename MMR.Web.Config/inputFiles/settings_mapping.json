@@ -437,6 +437,7 @@
             "CosmeticSettings.BombTrapsRandomizeTunicColor",
             "CosmeticSettings.CameraStyle",
             "CosmeticSettings.DPad.State",
+            "Web.CosmeticDPadPreset",
             "CosmeticSettings.DPad.Display",
             "CosmeticSettings.DPad.Pad.Values"
           ]

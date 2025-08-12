@@ -20,23 +20,6 @@
     "hide_when_disabled": true
   },
   {
-    "name": "OutputSettings.InputROMFilename",
-    "type": "Fileinput",
-    "default": "",
-    "shared": false,
-    "file_types": [
-      {
-        "name": "ROM Files",
-        "extensions": [ "z64", "n64" ]
-      },
-      {
-        "name": "All Files",
-        "extensions": [ "*" ]
-      }
-    ],
-    "hide_when_disabled": true
-  },
-  {
     "name": "Web.wad_file",
     "options": [],
     "default": "",
@@ -240,6 +223,30 @@
     "shared": true
   },
   {
+    "name": "Web.CosmeticDPadPreset",
+    "text": "D-Pad Mapping",
+    "default": "Default",
+    "tooltip": "",
+    "type": "Combobox",
+    "shared": false,
+    "options": [
+      {
+        "name": "Default",
+        "text": "Default",
+        "controls_visibility_setting": "CosmeticSettings.DPad.Pad.Values"
+      },
+      {
+        "name": "VC",
+        "text": "Virtual Console",
+        "controls_visibility_setting": "CosmeticSettings.DPad.Pad.Values"
+      },
+      {
+        "name": "Custom",
+        "text": "Custom"
+      }
+    ]
+  },
+  {
     "name": "GameplaySettings.OverrideHintPriorities",
     "invisible": true
   },
@@ -250,16 +257,6 @@
   {
     "name": "GameplaySettings.OverrideHintItemCaps",
     "invisible": true
-  },
-  {
-    "name": "CosmeticSettings.MusicLuckRollChance",
-    "size": "small",
-    "max_length": 5
-  },
-  {
-    "name": "OutputSettings.GenerateSpoilerLog",
-    "text": "Create Spoiler Log",
-    "shared": true
   },
   {
     "name": "GameplaySettings.DrawHash",
@@ -322,5 +319,68 @@
         "controls_visibility_setting": "CosmeticSettings.EnergyColors"
       }
     ]
+  },
+  {
+    "name": "CosmeticSettings.Music",
+    "tooltip": "Select a music option<br><br> - Default: Vanilla background music.<br> - None: No background music.",
+    "options": [
+      {
+        "name": "Default",
+        "text": "Default",
+        "controls_visibility_setting": "CosmeticSettings.MusicLuckRollChance"
+      },
+      {
+        "name": "None",
+        "text": "None",
+        "controls_visibility_setting": "CosmeticSettings.MusicLuckRollChance"
+      }
+    ]
+  },
+  {
+    "name": "CosmeticSettings.MusicLuckRollChance",
+    "size": "small",
+    "max_length": 5,
+    "invisible": true
+  },
+  {
+    "name": "CosmeticSettings.DPad.State",
+    "text": "D-Pad State",
+    "options": [
+      {
+        "name": "Disabled",
+        "text": "Disabled",
+        "controls_visibility_setting": "Web.CosmeticDPadPreset,CosmeticSettings.DPad.Display,CosmeticSettings.DPad.Pad.Values"
+      },
+      {
+        "name": "Enabled",
+        "text": "Enabled"
+      }
+    ]
+  },
+  {
+    "name": "CosmeticSettings.DPad.Display",
+    "text": "D-Pad Display"
+  },
+  {
+    "name": "OutputSettings.InputROMFilename",
+    "type": "Fileinput",
+    "default": "",
+    "shared": false,
+    "file_types": [
+      {
+        "name": "ROM Files",
+        "extensions": [ "z64", "n64" ]
+      },
+      {
+        "name": "All Files",
+        "extensions": [ "*" ]
+      }
+    ],
+    "hide_when_disabled": true
+  },
+  {
+    "name": "OutputSettings.GenerateSpoilerLog",
+    "text": "Create Spoiler Log",
+    "shared": true
   }
 ]

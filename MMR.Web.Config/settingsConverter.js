@@ -302,6 +302,28 @@ function wrapTooltipLine(line) {
     return results;
 }
 
+function convertArrayStyleOptionsToObjectStyle(optionsArray) {
+
+    let optionsArrayClone = JSON.parse(JSON.stringify(optionsArray));
+    let optionsObject = {};
+
+    for (let option of optionsArrayClone) {
+        optionsObject[option.name] = option;
+        delete optionsObject[option.name]["name"];
+    }
+
+    return optionsObject;
+}
+
+function convertArrayStyleSettingToObjectStyle(settingArrayType) {
+    delete settingArrayType["name"];
+
+    if ("options" in settingArrayType) {
+        let optionsObject = convertArrayStyleOptionsToObjectStyle(settingArrayType["options"]);
+        settingArrayType["options"] = optionsObject;
+    }
+}
+
 function assembleSetting(version, setting, linkedSettings = false, overrideBaseType = null) {
 
     let settingName;
@@ -344,7 +366,9 @@ function assembleSetting(version, setting, linkedSettings = false, overrideBaseT
                 settingArray = JSON.parse(JSON.stringify(resolvedSettingExtra));
 
                 let settingCopy = JSON.parse(JSON.stringify(resolvedSettingExtra));
-                delete settingCopy["name"];
+
+                //Convert setting to object style
+                convertArrayStyleSettingToObjectStyle(settingCopy);
 
                 settingObject = settingCopy;
             }
@@ -1117,7 +1141,11 @@ function assembleSetting(version, setting, linkedSettings = false, overrideBaseT
                     settingArray[key] = resolvedSettingExtra[key];
 
                     if (key != "name") {
-                        settingObject[key] = resolvedSettingExtra[key];
+
+                        if (key != "options")
+                            settingObject[key] = resolvedSettingExtra[key];
+                        else
+                            settingObject[key] = convertArrayStyleOptionsToObjectStyle(resolvedSettingExtra[key]);
                     }
                 }
             }
