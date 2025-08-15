@@ -7,7 +7,9 @@ export enum MMR_THEME {
   LIGHT = 'nb-theme-mmr-light'
 }
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class ThemeSwitcher {
 
   themeReady: boolean;

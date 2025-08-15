@@ -19,6 +19,7 @@ import { ConfirmationWindowComponent } from '../../../pages/generator/confirmati
       <a href="https://www.youtube.com/ZSRVideos" target="_blank" class="ion ion-social-youtube"></a>
     </div>
   `,
+  standalone: false
 })
 export class FooterComponent implements OnInit {
 

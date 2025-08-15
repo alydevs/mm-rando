@@ -1,11 +1,12 @@
 import { APP_BASE_HREF } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgModule, ComponentFactoryResolver, ApplicationRef, CUSTOM_ELEMENTS_SCHEMA, DoBootstrap } from '@angular/core';
-import { NbDialogModule } from '@nebular/theme';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NbDialogModule, NbPopoverModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 
 import { HttpClientModule } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent, BypassSecurityPipe } from './app.component';
@@ -68,13 +69,9 @@ import { MMRItemSelectorWindowComponent } from './components/mmr/itemSelectorWin
         HttpClientModule,
         FormsModule,
         ReactiveFormsModule,
+        CommonModule,
         CdkTableModule,
         DragDropModule,
-        ThemeModule.forRoot(),
-        NbDialogModule.forRoot(),
-        NbEvaIconsModule
-    ],
-    exports: [
         MatButtonModule,
         MatButtonToggleModule,
         MatCardModule,
@@ -88,7 +85,27 @@ import { MMRItemSelectorWindowComponent } from './components/mmr/itemSelectorWin
         MatProgressSpinnerModule,
         MatRadioModule,
         MatSelectModule,
+        MatSlideToggleModule,
         MatSliderModule,
+        MatTableModule,
+        ThemeModule.forRoot(),
+        NbDialogModule.forRoot(),
+        NbPopoverModule,
+        NbEvaIconsModule
+    ],
+    exports: [
+        MatButtonModule,
+        MatCardModule,
+        MatCheckboxModule,
+        MatDialogModule,
+        MatGridListModule,
+        MatIconModule,
+        MatInputModule,
+        MatListModule,
+        MatProgressBarModule,
+        MatProgressSpinnerModule,
+        MatRadioModule,
+        MatSelectModule,
         MatSlideToggleModule,
         MatTableModule
     ],
@@ -98,34 +115,9 @@ import { MMRItemSelectorWindowComponent } from './components/mmr/itemSelectorWin
     providers: [
         { provide: APP_BASE_HREF, useValue: '/' },
         GUIGlobal
-    ]
+    ],
+    bootstrap: [AppComponent]
 })
-export class AppModule implements DoBootstrap {
-
-  constructor(private resolver: ComponentFactoryResolver) { }
-
-  ngDoBootstrap(appRef: ApplicationRef) { //Custom bootstrapper allows to intialize multiple instances of the same app, e.g. generator and patcher
-    const factory = this.resolver.resolveComponentFactory(AppComponent);
-    const selectorName = factory.selector;
-
-    let elements = document.getElementsByTagName(selectorName);
-
-    //Return if no elements found
-    if (elements.length == 0) {
-      return;
-    }
-
-    //More than one root level component found, bootstrap unique instances
-    if (elements.length > 1) {
-
-      for (let i = 0; i < elements.length; i++) {
-        console.log("Bootstrap:", elements[i].id);
-        appRef.bootstrap(factory, elements[i]);
-      }
-    }
-    else { //Only a single root level component found, bootstrap as usual
-      console.log("Bootstrap single GUI app");
-      appRef.bootstrap(factory);
-    }
-  }
+export class AppModule {
+  constructor() { }
 }

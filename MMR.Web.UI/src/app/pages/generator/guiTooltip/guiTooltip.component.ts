@@ -1,15 +1,17 @@
 import { AfterViewChecked, Component, Inject, Input } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
+import { WINDOW } from '@ng-web-apis/common';
 
 @Component({
   selector: 'mmr-gui-tooltip',
   template: `
-    <nb-card class="popover-card" style="height:100%;margin-bottom:0px">
+    <nb-card class="popover-card" style="height:100%;margin-bottom:0px;">
       <nb-card-body>
-        <span [innerHTML]="tooltip"></span>
+        <div [innerHTML]="tooltip"></div>
       </nb-card-body>
     </nb-card>
-  `
+  `,
+  standalone: false
 })
 export class GUITooltipComponent implements AfterViewChecked {
 
@@ -17,7 +19,7 @@ export class GUITooltipComponent implements AfterViewChecked {
   tooltip: string = '';
 
   constructor(@Inject(DOCUMENT) private readonly document: Document,
-              private readonly window: Window,
+              @Inject(WINDOW) private readonly window: Window,
   ) {
   }
 

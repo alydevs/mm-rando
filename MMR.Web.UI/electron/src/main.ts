@@ -206,21 +206,22 @@ app.on('web-contents-created', (event, contents) => {
     event.preventDefault();
   });
 
-  contents.on('new-window', (event, navigationUrl) => {
-
-    const parsedUrl = new URL(navigationUrl);
+  // Handle new window creation (replaces deprecated 'new-window' event)
+  contents.setWindowOpenHandler(({ url }) => {
+    const parsedUrl = new URL(url);
 
     //console.log("New window creation attempt:", parsedUrl.origin);
 
     //Whitelist for dev server in dev mode
     if (!isRelease) {
       if (parsedUrl.origin === 'http://localhost:4200') {
-        return;
+        return { action: 'allow' };
       }
     }
 
-    event.preventDefault();
-    shell.openExternal(navigationUrl);
+    // Open external URLs in default browser
+    shell.openExternal(url);
+    return { action: 'deny' };
   });
 
   contents.on("did-fail-load", () => {

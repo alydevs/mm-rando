@@ -19,7 +19,8 @@ import { GeneratorComponent } from '../../pages/generator/generator.component';
 @Component({
   selector: 'gui-settings-element',
   templateUrl: './guiSettingsElement.html',
-  styleUrls: ['./guiSettingsElement.scss']
+  styleUrls: ['./guiSettingsElement.scss'],
+  standalone: false
 })
 export class GUISettingsElement implements OnInit {
 
@@ -84,6 +85,9 @@ export class GUISettingsElement implements OnInit {
 
         this.app.recheckAllSettings("", false, true);
         this.app.afterSettingChange();
+
+        // Trigger a refresh_gui event to notify the parent component to update
+        this.global.globalEmitter.emit({ name: "refresh_gui" });
 
         //console.log("Preset loaded");
       }
@@ -403,5 +407,10 @@ export class GUISettingsElement implements OnInit {
     }
 
     return visibilityObj;
+  }
+
+  onFileInputChange(event: any) {
+    // Handle the input change and call the original afterSettingChange method
+    this.app.afterSettingChange();
   }
 }

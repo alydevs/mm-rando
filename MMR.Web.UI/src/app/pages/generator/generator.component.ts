@@ -9,14 +9,13 @@ import {NbDialogService, NbTabsetComponent} from '@nebular/theme';
 import { GUITooltipComponent } from './guiTooltip/guiTooltip.component';
 import { ProgressWindowComponent } from './progressWindow/progressWindow.component';
 import { DialogWindowComponent } from './dialogWindow/dialogWindow.component';
-import { ErrorDetailsWindowComponent } from './errorDetailsWindow/errorDetailsWindow.component';
 import { ConfirmationWindowComponent } from './confirmationWindow/confirmationWindow.component';
 
 @Component({
   selector: 'mmr-generator',
-  styleUrls: ['./generator.component.scss'],
   templateUrl: './generator.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./generator.component.scss'],
+  standalone: false
 })
 export class GeneratorComponent implements OnInit, OnDestroy {
 
@@ -507,46 +506,6 @@ export class GeneratorComponent implements OnInit, OnDestroy {
 
     this.cd.markForCheck();
     this.cd.detectChanges();
-
-    //Old (not relevant for MMR)
-    /*
-    this.settingsLocked = true;
-
-    this.global.convertSettingsToString().then(res => {
-
-      //console.log("String got:", res);
-      this.global.generator_settingsMap["settings_string"] = res;
-      this.global.saveCurrentSettingsToFile();
-
-      this.settingsLocked = false;
-
-      if (this.settingsBusy) { //Execute delayed task
-        this.settingsBusy = false;
-        this.afterSettingChange(this.settingsBusySaveOnly);
-        this.settingsBusySaveOnly = true;
-      }
-
-      this.cd.markForCheck();
-      this.cd.detectChanges();
-
-    }).catch((err) => {
-
-      this.settingsLocked = false;
-
-      if (this.settingsBusy) { //Execute delayed task
-        this.settingsBusy = false;
-        this.afterSettingChange(this.settingsBusySaveOnly);
-        this.settingsBusySaveOnly = true;
-      }
-
-      this.cd.markForCheck();
-      this.cd.detectChanges();
-
-      this.dialogService.open(ErrorDetailsWindowComponent, {
-        autoFocus: true, closeOnBackdropClick: true, closeOnEsc: true, hasBackdrop: true, hasScroll: false, context: { errorMessage: err }
-      });
-    });
-    */
   }
 
   //Not relevant for MMR
@@ -2345,5 +2304,10 @@ export class GeneratorComponent implements OnInit, OnDestroy {
         }
       }
     }
+  }
+
+  onPatchFileInputChange(event: any) {
+    // Handle the input change and call the original afterSettingChange method
+    this.afterSettingChange(true);
   }
 }

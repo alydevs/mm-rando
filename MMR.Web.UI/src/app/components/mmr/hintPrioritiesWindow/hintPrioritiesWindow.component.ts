@@ -13,6 +13,7 @@ interface HintPriorityTier {
 @Component({
   templateUrl: './hintPrioritiesWindow.html',
   styleUrls: ['./hintPrioritiesWindow.scss'],
+  standalone: false
 })
 export class MMRHintPrioritiesWindowComponent implements OnInit, OnDestroy {
   @Input() dialogHeader: string = 'Customize Hint Priorities';

@@ -1,8 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NbDialogRef } from '@nebular/theme';
 import { GUIGlobal } from '../../../providers/GUIGlobal';
 
 @Component({
+  selector: 'mmr-error-details-window',
   template: `
     <nb-card class="error-window">
       <nb-card-header class="errorHeader">
@@ -21,12 +22,16 @@ import { GUIGlobal } from '../../../providers/GUIGlobal';
     </nb-card>
   `,
   styleUrls: ['./errorDetailsWindow.scss'],
+  standalone: false
 })
-export class ErrorDetailsWindowComponent {
+export class ErrorDetailsWindowComponent implements OnInit {
 
   @Input() errorMessage: string = "";
 
-  constructor(protected ref: NbDialogRef<ErrorDetailsWindowComponent>, public global: GUIGlobal) {
+  constructor(protected ref: NbDialogRef<ErrorDetailsWindowComponent>) {}
+
+  ngOnInit() {
+    // Implementation for OnInit interface
   }
 
   closeDialog() {
@@ -34,6 +39,6 @@ export class ErrorDetailsWindowComponent {
   }
 
   copyErrorMessage() {
-    this.global.copyToClipboard(this.errorMessage);
+    navigator.clipboard.writeText(this.errorMessage);
   }
 }

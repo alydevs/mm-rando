@@ -154,21 +154,21 @@
   }
 
   @keyframes rollUp {
-    0% {
+    from {
       transform: perspective(1000px) rotateX(0deg) scaleY(1);
     }
 
-    100% {
+    to {
       transform: perspective(1000px) rotateX(-90deg) scaleY(0);
     }
   }
 
   @keyframes curl {
-    0% {
+    from {
       transform: scaleY(0);
     }
 
-    100% {
+    to {
       transform: scaleY(1);
     }
   }

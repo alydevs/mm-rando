@@ -1,4 +1,4 @@
-import { Component, ViewContainerRef, ElementRef, ViewEncapsulation, Renderer2, Inject } from '@angular/core';
+import { Component, ViewContainerRef, ElementRef, ViewEncapsulation, Renderer2, Inject, ChangeDetectionStrategy } from '@angular/core';
 import { PipeTransform, Pipe } from '@angular/core';
 import { Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -7,7 +7,7 @@ import { GUIGlobal } from './providers/GUIGlobal';
 import { DOCUMENT } from '@angular/common';
 import { MMR_THEME, ThemeSwitcher } from './providers/theme-switcher.service';
 
-@Pipe({ name: 'bypassSecurity' })
+@Pipe({ name: 'bypassSecurity', standalone: false })
 export class BypassSecurityPipe implements PipeTransform {
   constructor(private sanitizer: DomSanitizer) { }
 
@@ -27,7 +27,9 @@ export class BypassSecurityPipe implements PipeTransform {
   `,
   // Shadow-DOM requires code tweaks within Nebular.
   // Style interference with website is addressed by usage of selector specificity.
-  encapsulation: ViewEncapsulation.None
+  encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: false
 })
 export class AppComponent {
 

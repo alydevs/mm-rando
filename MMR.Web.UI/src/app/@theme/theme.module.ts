@@ -1,4 +1,4 @@
-import { ModuleWithProviders, NgModule } from '@angular/core';
+import { NgModule, Provider, EnvironmentProviders } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -84,11 +84,9 @@ const COMPONENTS = [
 ];
 
 const NB_THEME_PROVIDERS = [
-  ...NbThemeModule.forRoot(
-    {
-      name: 'mmr-dark',
-    },
-  ).providers,
+  ...NbThemeModule.forRoot({
+    name: 'mmr-dark',
+  }).providers,
   ...NbSidebarModule.forRoot().providers,
   ...NbMenuModule.forRoot().providers,
   ...NbDialogModule.forRoot().providers,
@@ -103,7 +101,7 @@ const NB_THEME_PROVIDERS = [
     declarations: [...COMPONENTS]
 })
 export class ThemeModule {
-  static forRoot(): ModuleWithProviders<ThemeModule> {
+  static forRoot(): { ngModule: typeof ThemeModule; providers: (Provider | EnvironmentProviders)[] } {
     return {
       ngModule: ThemeModule,
       providers: [...NB_THEME_PROVIDERS],

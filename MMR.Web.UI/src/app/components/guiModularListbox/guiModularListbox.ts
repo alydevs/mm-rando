@@ -1,19 +1,20 @@
-import { Component, Input, IterableDiffers, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { BreakpointObserver, BreakpointState } from '@angular/cdk/layout';
 
 import { GUIGlobal } from '../../providers/GUIGlobal';
 
 import { NbDialogService } from '@nebular/theme';
 
-import { DualListComponent } from 'angular-dual-listbox';
-import { BasicList } from 'angular-dual-listbox';
+import { DualListComponent } from 'zsr-dual-listbox';
+import { BasicList } from 'zsr-dual-listbox';
 
 import { DialogWindowComponent } from '../../pages/generator/dialogWindow/dialogWindow.component';
 
 @Component({
   selector: 'gui-modular-listbox',
   templateUrl: './guiModularListbox.html',
-  styleUrls: ['./guiModularListbox.scss']
+  styleUrls: ['./guiModularListbox.scss'],
+  standalone: false
 })
 export class GUIModularListboxComponent extends DualListComponent {
 
@@ -46,8 +47,20 @@ export class GUIModularListboxComponent extends DualListComponent {
   reducedWindowSize: boolean = false;
   mobileWindowSize: boolean = false;
 
-  constructor(differs: IterableDiffers, private cd: ChangeDetectorRef, private breakpointObserver: BreakpointObserver, public global: GUIGlobal, private dialogService: NbDialogService) {
-    super(differs);
+  constructor(private cd: ChangeDetectorRef, private breakpointObserver: BreakpointObserver, public global: GUIGlobal, private dialogService: NbDialogService) {
+    super(cd);
+
+    // Initialize selectedTag with default values
+    if (this.enableCoDependentFilters && this.tagFilter) {
+      this.selectedTag = {};
+      for (let filter of this.tagFilter) {
+        this.selectedTag[filter.name] = "(all)";
+      }
+    } else if (this.tagFilter) {
+      this.selectedTag = "(all)";
+    } else {
+      this.selectedTag = {};
+    }
 
     // Only initialize responsive design if enabled
     if (this.enableResponsiveDesign) {
@@ -75,7 +88,6 @@ export class GUIModularListboxComponent extends DualListComponent {
   }
   
   ngOnChanges(changeRecord) {
-
     super.ngOnChanges(changeRecord);
 
     if (changeRecord['tagFilter']) {
@@ -91,6 +103,7 @@ export class GUIModularListboxComponent extends DualListComponent {
       } else {
         this.selectedTag = "(all)";
       }
+      
     }
 
     if (changeRecord['destination']) {
@@ -109,6 +122,92 @@ export class GUIModularListboxComponent extends DualListComponent {
         this.setNewDestinationList(destinationList, false);
       });
     }
+  }
+
+  // Override buildAvailable to add tooltip support
+  buildAvailable(source: Array<any>): boolean {
+    const result = super.buildAvailable(source);
+    
+    // Always process items to add tooltip and tags support, regardless of base class result
+    if (this.tooltip || this.tagFilter) {
+      this.available.list.forEach((item, index) => {
+        if (item) {
+          // Find the original source item to get tooltip and tags data
+          const sourceItem = source.find(src => {
+            if (typeof src === 'object') {
+              return src[this.key] === item._id;
+            }
+            return src === item._id;
+          });
+          
+          if (sourceItem) {
+            // Add tooltip if not present
+            if (!item._tooltip && this.tooltip) {
+              item._tooltip = this.makeTooltipExtended(sourceItem);
+            }
+            
+            // Add tags if not present (needed for filtering)
+            if (!item._tags && this.tagFilter) {
+              item._tags = this.makeTagsExtended(sourceItem);
+            }
+          }
+        }
+      });
+    }
+    
+    return result;
+  }
+
+  private makeTooltipExtended(item: any): string {
+    if (typeof item === 'object') {
+      return item[this.tooltip] ? item[this.tooltip] : "";
+    }
+    else {
+      return item;
+    }
+  }
+
+  private makeTagsExtended(item: any): any {
+    if (typeof item === 'object') {
+      return item["tags"] ? item["tags"] : "";
+    }
+    else {
+      return item;
+    }
+  }
+
+  // Override buildConfirmed to add tooltip support
+  buildConfirmed(destination: Array<any>): boolean {
+    const result = super.buildConfirmed(destination);
+    
+    // Add tooltip and tags support to the built items
+    if (result && (this.tooltip || this.tagFilter)) {
+      this.confirmed.list.forEach(item => {
+        if (item) {
+          // Find the original source item to get tooltip and tags data
+          const sourceItem = this.source.find(src => {
+            if (typeof src === 'object') {
+              return src[this.key] === item._id;
+            }
+            return src === item._id;
+          });
+          
+          if (sourceItem) {
+            // Add tooltip if not present
+            if (!item._tooltip && this.tooltip) {
+              item._tooltip = this.makeTooltipExtended(sourceItem);
+            }
+            
+            // Add tags if not present (needed for filtering)
+            if (!item._tags && this.tagFilter) {
+              item._tags = this.makeTagsExtended(sourceItem);
+            }
+          }
+        }
+      });
+    }
+    
+    return result;
   }
 
   hexInputFocusIn() {
@@ -130,7 +229,6 @@ export class GUIModularListboxComponent extends DualListComponent {
         this.currentHexString = this.currentHexStringOldValue;
 
         //Show error dialog
-        console.log("Invalid hex string, revert");
         this.dialogService.open(DialogWindowComponent, {
           autoFocus: true, closeOnBackdropClick: true, closeOnEsc: true, hasBackdrop: true, hasScroll: false, context: { dialogHeader: "Error", dialogMessage: "The entered hex string is invalid!" }
         });
@@ -288,17 +386,33 @@ export class GUIModularListboxComponent extends DualListComponent {
     }
   }
 
+  // Handle filter select changes explicitly
+  onFilterChange() {
+    this.onFilter(this.available);
+  }
+
   onFilter(source: BasicList) {
-
-    //Filter by Tag
-    if (source.name == "available" && Object.keys(this.selectedTag).length > 0) {
-
+    // Ensure selectedTag is properly initialized
+    if (!this.selectedTag || Object.keys(this.selectedTag).length === 0) {
+      if (this.enableCoDependentFilters && this.tagFilter) {
+        this.selectedTag = {};
+        for (let filter of this.tagFilter) {
+          this.selectedTag[filter.name] = "(all)";
+        }
+      } else if (this.tagFilter) {
+        this.selectedTag = "(all)";
+      }
+    }
+    
+    // Call the base class onFilter FIRST for search picker functionality
+    super.onFilter(source);
+    
+    // Filter by Tag AFTER base class processing
+    if (source.name === "available" && this.tagFilter && Object.keys(this.selectedTag).length > 0) {
       if (this.enableCoDependentFilters) {
-        //Check if we really need to filter
+        // Check if we really need to filter
         let doFilter = false;
-
         for (let key of Object.keys(this.selectedTag)) {
-
           if (this.selectedTag[key] != "(all)") {
             doFilter = true;
             break;
@@ -306,18 +420,13 @@ export class GUIModularListboxComponent extends DualListComponent {
         }
 
         if (doFilter) {
-
-          //ToDo: Should eventually limit filter options to the ones that are still compatible with other filters not set to "all"
           const filtered = source.list.filter((item: any) => {
             if (Object.prototype.toString.call(item) === '[object Object]') {
               if (item._tags !== undefined) {
-
                 for (let key of Object.keys(this.selectedTag)) {
-
                   if (this.selectedTag[key] != "(all)" && key in item._tags && item._tags[key].indexOf(this.selectedTag[key]) === -1)
                     return false;
                 }
-
                 return true;
               } else {
                 return true;
@@ -326,11 +435,9 @@ export class GUIModularListboxComponent extends DualListComponent {
               return false;
             }
           });
-
           source.sift = filtered;
           this.unpickExtended(source);
-        }
-        else {
+        } else {
           source.sift = source.list;
         }
       } else {
@@ -358,100 +465,18 @@ export class GUIModularListboxComponent extends DualListComponent {
           source.sift = source.list;
         }
       }
-    } else {
-      source.sift = source.list;
     }
+  }
 
-    //Filter by Search Picker
-    if (source.picker.length > 0) {
-      try {
-        const filtered = source.sift.filter((item: any) => {
-          if (Object.prototype.toString.call(item) === '[object Object]') {
-            if (item._name !== undefined) {
-              // @ts-ignore: remove when d.ts has locale as an argument.
-              return item._name.toLocaleLowerCase(this.format.locale).indexOf(source.picker.toLocaleLowerCase(this.format.locale)) !== -1;
-            } else {
-              // @ts-ignore: remove when d.ts has locale as an argument.
-              return JSON.stringify(item).toLocaleLowerCase(this.format.locale).indexOf(source.picker.toLocaleLowerCase(this.format.locale)) !== -1;
-            }
-          } else {
-            // @ts-ignore: remove when d.ts has locale as an argument.
-            return item.toLocaleLowerCase(this.format.locale).indexOf(source.picker.toLocaleLowerCase(this.format.locale)) !== -1;
-          }
-        });
-        source.sift = filtered;
-        this.unpickExtended(source);
-      } catch (e) {
-        if (e instanceof RangeError) {
-          this.format.locale = undefined;
-        }
+  private unpickExtended(list: any): void {
+    for (let i = list.pick.length - 1; i >= 0; i -= 1) {
+      if (list.sift.indexOf(list.pick[i]) === -1) {
+        list.pick.splice(i, 1);
       }
     }
   }
 
-  private unpickExtended(source: BasicList) {
-    for (let i = source.pick.length - 1; i >= 0; i -= 1) {
-      if (source.sift.indexOf(source.pick[i]) === -1) {
-        source.pick.splice(i, 1);
-      }
-    }
-  }
-
-  buildAvailable(source: Array<any>): boolean {
-    const sourceChanges = this.sourceDiffer.diff(source);
-    if (sourceChanges) {
-      sourceChanges.forEachRemovedItem((r: any) => {
-        const idx = this.findItemIndex(this.available.list, r.item, this.key);
-        if (idx !== -1) {
-          this.available.list.splice(idx, 1);
-        }
-      });
-
-      sourceChanges.forEachAddedItem((r: any) => {
-        // Do not add duplicates even if source has duplicates.
-        if (this.findItemIndex(this.available.list, r.item, this.key) === -1) {
-          this.available.list.push({ _id: this.makeIdExtended(r.item), _name: this.makeName(r.item), _tags: this.makeTagsExtended(r.item), _tooltip: this.makeTooltipExtended(r.item) });
-        }
-      });
-
-      if (this.compare !== undefined) {
-        this.available.list.sort(this.compare);
-      }
-      this.available.sift = this.available.list;
-
-      return true;
-    }
-    return false;
-  }
-
-  private makeIdExtended(item: any): string | number {
-    if (typeof item === 'object') {
-      return item[this.key];
-    }
-    else {
-      return item;
-    }
-  }
-
-  private makeTooltipExtended(item: any): string {
-    if (typeof item === 'object') {
-      return item[this.tooltip] ? item[this.tooltip] : "";
-    }
-    else {
-      return item;
-    }
-  }
-
-  private makeTagsExtended(item: any): any {
-    if (typeof item === 'object') {
-      return item["tags"] ? item["tags"] : "";
-    }
-    else {
-      return item;
-    }
-  }
-
-  getNbMultipleSelectLabel(setting) {
+  getNbMultipleSelectLabel(setting: any): string {
     if (!this.enablePresets) return "";
     
     if (this.selectedPresets.length === this.presets.presets.length)
@@ -476,30 +501,5 @@ export class GUIModularListboxComponent extends DualListComponent {
     // For left list (available), show tooltip to the right
     // For right list (confirmed), show tooltip to the left
     return listName === 'available' ? 'right' : 'left';
-  }
-
-  // Override moveItem and drop to trigger change detection after moving items
-  moveItem(source: BasicList, target: BasicList, item?: any, trueup?: boolean): void {
-    super.moveItem(source, target, item, trueup);
-    
-    if (source.name === "available") {
-      this.onFilter(source);
-    }
-    if (target.name === "available") {
-      this.onFilter(target);
-    }
-    this.cd.detectChanges();
-  }
-
-  drop(event: DragEvent, list: BasicList): void {
-    super.drop(event, list);
-    
-    if (list.name === "available") {
-      this.onFilter(list);
-    }
-    if (list.name === "confirmed") {
-      this.onFilter(this.available);
-    }
-    this.cd.detectChanges();
   }
 }

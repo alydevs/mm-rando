@@ -2,14 +2,14 @@
 
   <!--Toggle-->
   <ng-container *ngSwitchCase="'Checkbutton'">
-    <mat-slide-toggle [disabled]="!visibilitySettingsMap[setting.name]" labelPosition="after" [(ngModel)]="assignmentSettingsMap[assignmentSettingName]" (ngModelChange)="app.checkVisibility($event, setting, app.findOption(setting.options, $event))"
-                      [nbPopover]="tooltipComponent" [nbPopoverContext]="{tooltip: settingTooltip}" [nbPopoverTrigger]="settingTooltip && settingTooltip.length > 0 ? 'hint' : 'noop'" nbPopoverPlacement="right" nbPopoverAdjustment="clockwise">{{settingText}}</mat-slide-toggle>
+    <mat-slide-toggle name="toggle-{{setting.name}}" [disabled]="!visibilitySettingsMap[setting.name]" labelPosition="after" [(ngModel)]="assignmentSettingsMap[assignmentSettingName]" (ngModelChange)="app.checkVisibility($event, setting, app.findOption(setting.options, $event))"
+                      [nbPopover]="tooltipComponent" [nbPopoverContext]="{tooltip: settingTooltip}" [nbPopoverTrigger]="settingTooltip && settingTooltip.length > 0 ? 'hint' : 'noop'" nbPopoverPlacement="right" nbPopoverAdjustment="counterclockwise">{{settingText}}</mat-slide-toggle>
   </ng-container>
 
   <!--Radio-->
   <ng-container *ngSwitchCase="'Radiobutton'">
     <p *ngIf="!skipLabel" class="radioGroupLabel" [ngClass]="{'disabled': !visibilitySettingsMap[setting.name]}">{{settingText}}</p>
-    <mat-radio-group [disabled]="!visibilitySettingsMap[setting.name]" labelPosition="after" [(ngModel)]="assignmentSettingsMap[assignmentSettingName]" (ngModelChange)="app.checkVisibility($event, setting, app.findOption(setting.options, $event))"
+    <mat-radio-group name="radio-{{setting.name}}" [disabled]="!visibilitySettingsMap[setting.name]" labelPosition="after" [(ngModel)]="assignmentSettingsMap[assignmentSettingName]" (ngModelChange)="app.checkVisibility($event, setting, app.findOption(setting.options, $event))"
                      [nbPopover]="tooltipComponent" [nbPopoverContext]="{tooltip: settingTooltip}" [nbPopoverTrigger]="settingTooltip && settingTooltip.length > 0 ? 'hint' : 'noop'" nbPopoverPlacement="top" nbPopoverAdjustment="clockwise">
       <mat-radio-button *ngFor="let option of setting.options; index as optionIndex" class="radioButton" [value]="option.name">
         {{option.text}}
@@ -131,14 +131,80 @@
     </div>
   </ng-container>
 
-  <!--Scale-->
+  <!--Slider-->
+  <ng-container *ngSwitchCase="'Slider'">
+    <div class="slider-header">
+      <span *ngIf="!skipLabel && (!setting.size || setting.size === 'small' || setting.size === 'medium')" class="numberTextInputLabel" [ngClass]="{'disabled': !visibilitySettingsMap[setting.name]}">{{settingText}}:</span>
+      <p *ngIf="!skipLabel && setting.size === 'full'" class="numberTextInputLabel" [ngClass]="{'disabled': !visibilitySettingsMap[setting.name]}">{{settingText}}</p>
+      
+      <input class="slider-value-input" 
+             nbInput 
+             type="number" 
+             [min]="setting.min" 
+             [max]="setting.max" 
+             [value]="assignmentSettingsMap[assignmentSettingName]"
+             (input)="assignmentSettingsMap[assignmentSettingName] = $event.target.value; app.afterSettingChange()"
+             [disabled]="!visibilitySettingsMap[setting.name]"
+             fieldSize="small">
+    </div>
+    
+    <div class="slider-container">
+      <mat-slider 
+             class="mat-slider" 
+             [min]="setting.min" 
+             [max]="setting.max" 
+             step="1" 
+             [disabled]="!visibilitySettingsMap[setting.name]"
+             [nbPopover]="tooltipComponent" 
+             [nbPopoverContext]="{tooltip: settingTooltip}" 
+             [nbPopoverTrigger]="settingTooltip && settingTooltip.length > 0 ? 'hint' : 'noop'" 
+             nbPopoverPlacement="bottom" 
+             nbPopoverAdjustment="counterclockwise"
+             [discrete]="true"
+             [showTickMarks]="true">
+        <input matSliderThumb 
+               [value]="assignmentSettingsMap[assignmentSettingName]"
+               (valueChange)="assignmentSettingsMap[assignmentSettingName] = $event; app.afterSettingChange()">
+      </mat-slider>
+    </div>
+  </ng-container>
+
+  <!--Scale (same as Slider)-->
   <ng-container *ngSwitchCase="'Scale'">
-    <span *ngIf="!skipLabel && (!setting.size || setting.size === 'small' || setting.size === 'medium')" class="numberTextInputLabel" [ngClass]="{'disabled': !visibilitySettingsMap[setting.name]}">{{settingText}}:</span>
-    <p *ngIf="!skipLabel && setting.size === 'full'" class="numberTextInputLabel" [ngClass]="{'disabled': !visibilitySettingsMap[setting.name]}">{{settingText}}</p>
-    <input class="numberTextInput" [ngClass]="{numberTextInputSmall: setting.size === 'small', numberTextInputMedium: setting.size === 'medium', numberTextInputFull: setting.size === 'full'}" nbInput [disabled]="!visibilitySettingsMap[setting.name]" type="text" [maxlength]="setting.max.toString().length" fieldSize="small"
-           (focus)="app.inputFocusIn(setting.name, subSetting ? subSetting.name : null)" (focusout)="app.numberInputFocusOut(setting, true, subSetting)" [(ngModel)]="assignmentSettingsMap[assignmentSettingName]" [nbPopover]="tooltipComponent" [nbPopoverContext]="{tooltip: settingTooltip}" [nbPopoverTrigger]="settingTooltip && settingTooltip.length > 0 ? 'hint' : 'noop'" nbPopoverPlacement="right" nbPopoverAdjustment="counterclockwise">
-    <mat-slider class="scale" [disabled]="!visibilitySettingsMap[setting.name]" [min]="setting.min" [max]="setting.max" step="1" [(ngModel)]="assignmentSettingsMap[assignmentSettingName]"
-                (ngModelChange)="app.afterSettingChange()" tickInterval="1" thumbLabel [nbPopover]="tooltipComponent" [nbPopoverContext]="{tooltip: settingTooltip}" [nbPopoverTrigger]="settingTooltip && settingTooltip.length > 0 ? 'hint' : 'noop'" nbPopoverPlacement="right" nbPopoverAdjustment="counterclockwise"></mat-slider>
+    <div class="slider-header">
+      <span *ngIf="!skipLabel && (!setting.size || setting.size === 'small' || setting.size === 'medium')" class="numberTextInputLabel" [ngClass]="{'disabled': !visibilitySettingsMap[setting.name]}">{{settingText}}:</span>
+      <p *ngIf="!skipLabel && setting.size === 'full'" class="numberTextInputLabel" [ngClass]="{'disabled': !visibilitySettingsMap[setting.name]}">{{settingText}}</p>
+      
+      <input class="slider-value-input" 
+             nbInput 
+             type="number" 
+             [min]="setting.min" 
+             [max]="setting.max" 
+             [value]="assignmentSettingsMap[assignmentSettingName]"
+             (input)="assignmentSettingsMap[assignmentSettingName] = $event.target.value; app.afterSettingChange()"
+             [disabled]="!visibilitySettingsMap[setting.name]"
+             fieldSize="small">
+    </div>
+    
+    <div class="slider-container">
+      <mat-slider 
+             class="mat-slider" 
+             [min]="setting.min" 
+             [max]="setting.max" 
+             step="1" 
+             [disabled]="!visibilitySettingsMap[setting.name]"
+             [nbPopover]="tooltipComponent" 
+             [nbPopoverContext]="{tooltip: settingTooltip}" 
+             [nbPopoverTrigger]="settingTooltip && settingTooltip.length > 0 ? 'hint' : 'noop'" 
+             nbPopoverPlacement="bottom" 
+             nbPopoverAdjustment="counterclockwise"
+             [discrete]="true"
+             [showTickMarks]="true">
+        <input matSliderThumb 
+               [value]="assignmentSettingsMap[assignmentSettingName]"
+               (valueChange)="assignmentSettingsMap[assignmentSettingName] = $event; app.afterSettingChange()">
+      </mat-slider>
+    </div>
   </ng-container>
 
   <!--Text Input-->
@@ -182,12 +248,12 @@
     <ng-container *ngIf="!global.getGlobalVar('electronAvailable')">
       <!--Visible: Drag Enabled-->
       <ng-container *ngIf="visibilitySettingsMap[setting.name]">
-        <input class="ioInputWeb" nbInput [disabled]="!visibilitySettingsMap[setting.name]" readonly type="text" maxlength="260" fieldSize="small" [(ngModel)]="app.getVariableType(assignmentSettingsMap[assignmentSettingName]) === 'string' ? assignmentSettingsMap[assignmentSettingName] : assignmentSettingsMap[assignmentSettingName].name"
+        <input class="ioInputWeb" nbInput [disabled]="!visibilitySettingsMap[setting.name]" readonly type="text" maxlength="260" fieldSize="small" [ngModel]="app.getVariableType(assignmentSettingsMap[assignmentSettingName]) === 'string' ? assignmentSettingsMap[assignmentSettingName] : assignmentSettingsMap[assignmentSettingName].name"
                (ngModelChange)="app.afterSettingChange()" [nbPopover]="tooltipComponent" [nbPopoverContext]="{tooltip: settingTooltip}" [nbPopoverTrigger]="settingTooltip && settingTooltip.length > 0 ? 'hint' : 'noop'" nbPopoverPlacement="top" nbPopoverAdjustment="clockwise" ngfDrop [(file)]="assignmentSettingsMap[assignmentSettingName]">
       </ng-container>
       <!--Not Visible: Drag Disabled-->
       <ng-container *ngIf="!visibilitySettingsMap[setting.name]">
-        <input class="ioInputWeb" nbInput [disabled]="!visibilitySettingsMap[setting.name]" readonly type="text" maxlength="260" fieldSize="small" [(ngModel)]="app.getVariableType(assignmentSettingsMap[assignmentSettingName]) === 'string' ? assignmentSettingsMap[assignmentSettingName] : assignmentSettingsMap[assignmentSettingName].name"
+        <input class="ioInputWeb" nbInput [disabled]="!visibilitySettingsMap[setting.name]" readonly type="text" maxlength="260" fieldSize="small" [ngModel]="app.getVariableType(assignmentSettingsMap[assignmentSettingName]) === 'string' ? assignmentSettingsMap[assignmentSettingName] : assignmentSettingsMap[assignmentSettingName].name"
                (ngModelChange)="app.afterSettingChange()" [nbPopover]="tooltipComponent" [nbPopoverContext]="{tooltip: settingTooltip}" [nbPopoverTrigger]="settingTooltip && settingTooltip.length > 0 ? 'hint' : 'noop'" nbPopoverPlacement="top" nbPopoverAdjustment="clockwise">
       </ng-container>
       <button class="ioInputBrowseButton" [disabled]="!visibilitySettingsMap[setting.name]" nbButton status="info" size="small" ngfSelect [(file)]="assignmentSettingsMap[assignmentSettingName]">Browse</button>
@@ -207,7 +273,7 @@
     </ng-container>
     <!--Web-->
     <ng-container *ngIf="!global.getGlobalVar('electronAvailable')">
-      <input class="ioInputWeb" nbInput [disabled]="!visibilitySettingsMap[setting.name]" readonly type="text" maxlength="260" fieldSize="small" [(ngModel)]="app.getVariableType(assignmentSettingsMap[assignmentSettingName]) === 'string' ? assignmentSettingsMap[assignmentSettingName] : assignmentSettingsMap[assignmentSettingName].name"
+      <input class="ioInputWeb" nbInput [disabled]="!visibilitySettingsMap[setting.name]" readonly type="text" maxlength="260" fieldSize="small" [ngModel]="app.getVariableType(assignmentSettingsMap[assignmentSettingName]) === 'string' ? assignmentSettingsMap[assignmentSettingName] : assignmentSettingsMap[assignmentSettingName].name"
              (ngModelChange)="app.afterSettingChange()" [nbPopover]="tooltipComponent" [nbPopoverContext]="{tooltip: settingTooltip}" [nbPopoverTrigger]="settingTooltip && settingTooltip.length > 0 ? 'hint' : 'noop'" nbPopoverPlacement="top" nbPopoverAdjustment="clockwise" (dragover)="app.onDirectoryDragOverWeb($event, setting)" (drop)="app.onDirectoryDropWeb($event, setting)">
 
       <!--Desktop supports directory picker, mobile only a file picker-->
@@ -274,11 +340,11 @@
   <!--SearchBox MMR-->
   <ng-container *ngSwitchCase="'SearchBoxMMR'">
     <gui-modular-listbox [disabled]="!visibilitySettingsMap[setting.name]" [source]="setting.options" [(destination)]="assignmentSettingsMap[assignmentSettingName]" (destinationChange)="app.checkVisibility($event, setting)"
-                     height="100%" key="name" display="text" valueIsHexString="true" [coDependentFilters]="setting.multi_tags" [presets]="setting.presets && setting.presets.presets && setting.presets.presets.length > 0 ? setting.presets : null" filter="true" [tagFilter]="setting.tags && setting.tags.length > 0 ? setting.tags : null" [tooltipComponent]="tooltipComponent" tooltip="tooltip" [nbPopover]="tooltipComponent" [nbPopoverContext]="{tooltip: settingTooltip}" [nbPopoverTrigger]="settingTooltip && settingTooltip.length > 0 ? 'click' : 'noop'" nbPopoverPlacement="right" nbPopoverAdjustment="counterclockwise"
-                     [enableHexString]="true"
-                     [enablePresets]="true"
-                     [enableCoDependentFilters]="true"
-                     [enableResponsiveDesign]="true">
+                  height="100%" key="name" display="text" valueIsHexString="true" [coDependentFilters]="setting.multi_tags" [presets]="setting.presets && setting.presets.presets && setting.presets.presets.length > 0 ? setting.presets : null" filter="true" [tagFilter]="setting.tags && setting.tags.length > 0 ? setting.tags : null" [tooltipComponent]="tooltipComponent" tooltip="tooltip" [nbPopover]="tooltipComponent" [nbPopoverContext]="{tooltip: settingTooltip}" [nbPopoverTrigger]="settingTooltip && settingTooltip.length > 0 ? 'click' : 'noop'" nbPopoverPlacement="right" nbPopoverAdjustment="counterclockwise"
+                  [enableHexString]="true"
+                  [enablePresets]="true"
+                  [enableCoDependentFilters]="true"
+                  [enableResponsiveDesign]="true">
     </gui-modular-listbox>
   </ng-container>
 
@@ -315,7 +381,7 @@
 
   <!--Dictionary Linked-->
   <ng-container *ngSwitchCase="'DictionaryLinked'">
-    <mat-radio-group [disabled]="!visibilitySettingsMap[setting.name]" labelPosition="after" [(ngModel)]="assignmentSettingsMap[assignmentSettingName]"
+    <mat-radio-group name="radio-linked-{{setting.name}}" [disabled]="!visibilitySettingsMap[setting.name]" labelPosition="after" [(ngModel)]="assignmentSettingsMap[assignmentSettingName]"
                      (ngModelChange)="app.checkVisibility($event, setting)"
                      [nbPopover]="tooltipComponent" [nbPopoverContext]="{tooltip: settingTooltip}" [nbPopoverTrigger]="settingTooltip && settingTooltip.length > 0 ? 'hint' : 'noop'"
                      nbPopoverPlacement="top" nbPopoverAdjustment="clockwise">

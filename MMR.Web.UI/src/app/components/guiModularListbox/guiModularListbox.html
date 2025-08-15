@@ -42,7 +42,7 @@
       <form *ngIf="filter" class="filter">
         <!-- Simple tag filter (original guiListbox behavior) -->
         <ng-container *ngIf="!enableCoDependentFilters">
-          <nb-select *ngIf="tagFilter" class="tagFilterSelect" [(selected)]="selectedTag" (selectedChange)="onFilter(available)" size="xsmall">
+          <nb-select *ngIf="tagFilter" class="tagFilterSelect" [(selected)]="selectedTag" (selectedChange)="onFilterChange()" size="xsmall">
             <nb-option *ngFor="let tag of tagFilter; index as tagIndex" [value]="tag">{{tag}}</nb-option>
           </nb-select>
         </ng-container>
@@ -52,7 +52,7 @@
           <ng-template ngFor let-filter [ngForOf]="tagFilter" let-itemIndex="index">
             <div class="form-filter-box">
               <span *ngIf="filter.tags" class="comboBoxLabel">{{filter.text}}</span>
-              <nb-select *ngIf="filter.tags" class="tagFilterSelect" [(selected)]="selectedTag[filter.name]" (selectedChange)="onFilter(available)" size="xsmall" [disabled]="disabled">
+              <nb-select *ngIf="filter.tags" class="tagFilterSelect" [(selected)]="selectedTag[filter.name]" (selectedChange)="onFilterChange()" size="xsmall" [disabled]="disabled">
                 <nb-option *ngFor="let tag of filter.tags; index as tagIndex" [value]="tag">{{tag}}</nb-option>
               </nb-select>
             </div>

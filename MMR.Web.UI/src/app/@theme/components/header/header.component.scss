@@ -129,7 +129,7 @@
   }
 
   @include keyframes(pulse) {
-    0% {
+    from {
       box-shadow: 0 0 1px 0 rgba(nb-theme(text-hint-color), 0);
     }
 
@@ -137,13 +137,13 @@
       box-shadow: 0 0 3px 10px rgba(nb-theme(text-hint-color), 0.4);
     }
 
-    100% {
+    to {
       box-shadow: 0 0 5px 20px rgba(nb-theme(text-hint-color), 0);
     }
   }
 
   @include keyframes(pulse-light) {
-    0% {
+    from {
       box-shadow: 0 0 1px 0 rgba(115, 255, 208, 0);
     }
 
@@ -151,7 +151,7 @@
       box-shadow: 0 0 3px 10px rgba(115, 255, 208, 0.4);
     }
 
-    100% {
+    to {
       box-shadow: 0 0 5px 20px rgba(115, 255, 208, 0);
     }
   }

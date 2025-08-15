@@ -65,7 +65,7 @@
           <!--Electron-->
           <ng-container *ngIf="global.getGlobalVar('electronAvailable')">
             <p class="footerInputLabel">Patch File</p>
-            <input class="footerInput" nbInput type="text" maxlength="260" fieldSize="small" (focus)="inputFocusIn('Web.patch_file')" (focusout)="inputFocusOut('Web.patch_file', true)" [(ngModel)]="global.generator_settingsMap['Web.patch_file']">
+            <input class="footerInput" nbInput type="text" maxlength="260" fieldSize="small" (focus)="inputFocusIn('Web.patch_file')" (focusout)="inputFocusOut('Web.patch_file', true)" [(ngModel)]="global.generator_settingsMap['Web.patch_file']" name="patch-file-input">
             <button class="footerButtonPatchFileBrowse" nbButton status="info" size="small" (click)="browseForPatchFile()">Select File</button>
             <!--Padding-->
             <div class="tabsetPadding"></div>
@@ -76,7 +76,7 @@
             <!--Generator-->
             <ng-container *ngIf="global.getGlobalVar('appType') === 'generator'">
               <p class="footerInputLabel">Patch File</p>
-              <input class="footerInputWeb" nbInput readonly type="text" maxlength="260" fieldSize="small" [(ngModel)]="getVariableType(global.generator_settingsMap['Web.patch_file']) === 'string' ? global.generator_settingsMap['Web.patch_file'] : global.generator_settingsMap['Web.patch_file'].name" (ngModelChange)="afterSettingChange(true)" ngfDrop [(file)]="global.generator_settingsMap['Web.patch_file']">
+              <input class="footerInputWeb" nbInput readonly type="text" maxlength="260" fieldSize="small" [ngModel]="getVariableType(global.generator_settingsMap['Web.patch_file']) === 'string' ? global.generator_settingsMap['Web.patch_file'] : global.generator_settingsMap['Web.patch_file'].name" (ngModelChange)="onPatchFileInputChange($event)" name="patch-file-web-input">
               <button class="footerButtonPatchFileBrowse" nbButton status="info" size="small" ngfSelect [(file)]="global.generator_settingsMap['Web.patch_file']">Select File</button>
               <button class="footerButtonPatchFileBrowse" nbButton status="info" size="small" (click)="global.generator_settingsMap['Web.patch_file'] = ''">Clear</button>
               <!--Padding-->

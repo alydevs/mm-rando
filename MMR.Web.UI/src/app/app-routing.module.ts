@@ -9,8 +9,7 @@ const routes: Routes = [
 
 const config: ExtraOptions = {
     useHash: true,
-    initialNavigation: 'disabled', //Route manually at the start to avoid URL changes in the browser
-    relativeLinkResolution: 'legacy'
+    initialNavigation: 'disabled'
 };
 
 @NgModule({

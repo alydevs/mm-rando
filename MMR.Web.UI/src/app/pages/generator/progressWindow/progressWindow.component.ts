@@ -1,8 +1,9 @@
-import { Component, Input, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input, ChangeDetectorRef } from '@angular/core';
 import { NbDialogRef, NbDialogService } from '@nebular/theme';
 import { ErrorDetailsWindowComponent } from '../errorDetailsWindow/errorDetailsWindow.component';
 
 @Component({
+  selector: 'mmr-progress-window',
   template: `
     <nb-card class="progress-window">
       <nb-card-header>
@@ -25,11 +26,12 @@ import { ErrorDetailsWindowComponent } from '../errorDetailsWindow/errorDetailsW
     </nb-card>
   `,
   styleUrls: ['./progressWindow.scss'],
+  standalone: false
 })
-export class ProgressWindowComponent {
+export class ProgressWindowComponent implements OnInit, OnDestroy {
 
   @Input() dashboardRef: any;
-  @Input() totalGenerationCount: number;
+  @Input() totalGenerationCount: number = 0;
 
   currentGenerationIndex: number = 1;
 
@@ -44,6 +46,14 @@ export class ProgressWindowComponent {
   closed: boolean = false;
 
   constructor(protected ref: NbDialogRef<ProgressWindowComponent>, private cd: ChangeDetectorRef, private dialogService: NbDialogService) {
+  }
+
+  ngOnInit() {
+    // Implementation for OnInit interface
+  }
+
+  ngOnDestroy() {
+    // Implementation for OnDestroy interface
   }
 
   refreshLayout() {

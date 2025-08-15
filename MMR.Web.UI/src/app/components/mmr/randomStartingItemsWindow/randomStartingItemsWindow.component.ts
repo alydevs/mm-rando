@@ -11,6 +11,7 @@ interface RandomStartingItemPool {
 @Component({
   templateUrl: './randomStartingItemsWindow.html',
   styleUrls: ['./randomStartingItemsWindow.scss'],
+  standalone: false
 })
 export class MMRRandomStartingItemsWindowComponent implements OnInit {
   @Input() dialogHeader: string = '';

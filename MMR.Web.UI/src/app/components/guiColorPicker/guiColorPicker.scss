@@ -9,6 +9,7 @@
     height: 0px;
     width: 0px;
     overflow: hidden;
+    position: relative;
   }
 
   .randomizeButton {
@@ -23,4 +24,10 @@
       font-size: 0.65rem !important;
     }
   }
+
+  ::ng-deep .color-picker {
+    transition: none !important;
+    will-change: auto;
+  }
 }
+

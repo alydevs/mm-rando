@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { NbDialogRef } from '@nebular/theme';
 
 @Component({
+  selector: 'mmr-confirmation-window',
   template: `
     <nb-card class="confirmation-window">
       <nb-card-header>
@@ -20,13 +21,17 @@ import { NbDialogRef } from '@nebular/theme';
     </nb-card>
   `,
   styleUrls: ['./confirmationWindow.scss'],
+  standalone: false
 })
-export class ConfirmationWindowComponent {
+export class ConfirmationWindowComponent implements OnInit {
 
-  @Input() dialogHeader: string = "Confirmation";
-  @Input() dialogMessage: string = "";
+  @Input() dialogHeader: string = "Confirm";
+  @Input() dialogMessage: string = "Are you sure?";
 
-  constructor(protected ref: NbDialogRef<ConfirmationWindowComponent>) {
+  constructor(protected ref: NbDialogRef<ConfirmationWindowComponent>) {}
+
+  ngOnInit() {
+    // Implementation for OnInit interface
   }
 
   closeDialogYes() {

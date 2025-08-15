@@ -1,6 +1,7 @@
 @use '@nebular/theme/styles/globals' as *;
 @use 'themes' as *;
 
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import 'material';
 
 // loading progress bar theme
@@ -11,6 +12,8 @@
 
   // loading progress bar
   @include ngx-pace-theme();
+
+
 
   ngx-app {
     // framework global styles
@@ -97,6 +100,11 @@
 
       nb-select {
         line-height: 0.8 !important;
+      }
+
+      // Generator tab styling
+      nb-tab li, nb-tab p {
+        font-family: Roboto, "Helvetica Neue", sans-serif;
       }
 
       nb-option, nb-option.selected {
@@ -686,13 +694,13 @@
 
     //DB: Tooltip delay
     @keyframes tooltipFadeIn {
-      0% {
+      from {
         opacity: 0;
       }
       75% {
         opacity: 0;
       }
-      100% {
+      to {
         opacity: 1;
       }
     }

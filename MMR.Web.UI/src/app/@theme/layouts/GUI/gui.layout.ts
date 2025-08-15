@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { takeWhile } from 'rxjs/operators';
+import { takeWhile } from 'rxjs';
 import {
   NbThemeService,
 } from '@nebular/theme';
@@ -25,6 +25,7 @@ import { GUIGlobal } from '../../../providers/GUIGlobal';
       </nb-layout-footer>
     </nb-layout>
   `,
+  standalone: false
 })
 export class GUILayoutComponent implements OnDestroy, OnInit {
 

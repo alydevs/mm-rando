@@ -1,6 +1,6 @@
 import { Directive, Input, OnInit, ChangeDetectorRef } from '@angular/core';
 import { MatGridList } from '@angular/material/grid-list';
-import { MediaObserver, MediaChange } from '@angular/flex-layout';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 export interface IResponsiveColumnsMap {
   xs?: number;
@@ -12,7 +12,8 @@ export interface IResponsiveColumnsMap {
 
 // Usage: <mat-grid-list [responsiveCols]="{xs: 2, sm: 2, md: 4, lg: 6, xl: 8}">
 @Directive({
-  selector: '[responsiveCols]'
+  selector: '[responsiveCols]',
+  standalone: false
 })
 export class ResponsiveColsDirective implements OnInit {
   private countBySize: IResponsiveColumnsMap = {xs: 2, sm: 2, md: 4, lg: 6, xl: 8};
@@ -31,7 +32,7 @@ export class ResponsiveColsDirective implements OnInit {
 
   public constructor(
     private grid: MatGridList,
-    private media: MediaObserver,
+    private breakpointObserver: BreakpointObserver,
     private cd: ChangeDetectorRef
   ) {
 
@@ -55,26 +56,43 @@ export class ResponsiveColsDirective implements OnInit {
     this.cd.markForCheck();
     this.cd.detectChanges();
 
-    this.media.asObservable().subscribe((changes: MediaChange[]) => {
-      if (changes[0]) {
-        this.grid.cols = this.countBySize[changes[0].mqAlias];
+    this.breakpointObserver.observe([
+      Breakpoints.XSmall,
+      Breakpoints.Small,
+      Breakpoints.Medium,
+      Breakpoints.Large,
+      Breakpoints.XLarge
+    ]).subscribe(result => {
+      if (result.matches) {
+        // Find which breakpoint is active
+        if (this.breakpointObserver.isMatched(Breakpoints.XSmall)) {
+          this.grid.cols = this.countBySize.xs || 2;
+        } else if (this.breakpointObserver.isMatched(Breakpoints.Small)) {
+          this.grid.cols = this.countBySize.sm || 2;
+        } else if (this.breakpointObserver.isMatched(Breakpoints.Medium)) {
+          this.grid.cols = this.countBySize.md || 4;
+        } else if (this.breakpointObserver.isMatched(Breakpoints.Large)) {
+          this.grid.cols = this.countBySize.lg || 6;
+        } else if (this.breakpointObserver.isMatched(Breakpoints.XLarge)) {
+          this.grid.cols = this.countBySize.xl || 8;
+        }
         this.cd?.markForCheck();
       }
     });
   }
 
   private initializeColsCount(): void {
-    Object.keys(this.countBySize).some(
-      (mqAlias: string): boolean => {
-        const isActive = this.media.isActive(mqAlias);
-
-        this.grid.cols = this.countBySize[mqAlias];
-
-        if (isActive) {
-          this.grid.cols = this.countBySize[mqAlias];
-        }
-
-        return isActive;
-    });
+    // Set initial columns based on current breakpoint
+    if (this.breakpointObserver.isMatched(Breakpoints.XSmall)) {
+      this.grid.cols = this.countBySize.xs || 2;
+    } else if (this.breakpointObserver.isMatched(Breakpoints.Small)) {
+      this.grid.cols = this.countBySize.sm || 2;
+    } else if (this.breakpointObserver.isMatched(Breakpoints.Medium)) {
+      this.grid.cols = this.countBySize.md || 4;
+    } else if (this.breakpointObserver.isMatched(Breakpoints.Large)) {
+      this.grid.cols = this.countBySize.lg || 6;
+    } else if (this.breakpointObserver.isMatched(Breakpoints.XLarge)) {
+      this.grid.cols = this.countBySize.xl || 8;
+    }
   }
 }

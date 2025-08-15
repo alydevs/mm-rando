@@ -2,6 +2,7 @@ import { Component, Input, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { NbDialogRef } from '@nebular/theme';
 
 @Component({
+  selector: 'mmr-text-input-window',
   template: `
     <nb-card class="textInput-window">
       <nb-card-header>
@@ -21,28 +22,25 @@ import { NbDialogRef } from '@nebular/theme';
     </nb-card>
   `,
   styleUrls: ['./textInputWindow.scss'],
+  standalone: false
 })
 export class TextInputWindowComponent implements OnInit {
 
-  @Input() dialogHeader: string = "Enter name";
-  @Input() dialogMessage: string = "";
+  @Input() dialogHeader: string = "Info";
+  @Input() dialogMessage: string = "Message";
+  @Input() inputText: string = "";
 
-  inputText: string = "";
-
-  @ViewChild("inputBar", { static: true }) inputBarRef: ElementRef;
-
-  constructor(protected ref: NbDialogRef<TextInputWindowComponent>) {
-  }
+  constructor(protected ref: NbDialogRef<TextInputWindowComponent>) {}
 
   ngOnInit() {
-    this.inputBarRef.nativeElement.focus();
-  }
-
-  cancelDialog() {
-    this.ref.close();
+    // Implementation for OnInit interface
   }
 
   confirmDialog() {
     this.ref.close(this.inputText);
+  }
+
+  cancelDialog() {
+    this.ref.close(null);
   }
 }

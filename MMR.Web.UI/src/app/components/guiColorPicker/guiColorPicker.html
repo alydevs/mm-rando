@@ -3,11 +3,12 @@
   <ng-container *ngIf="colorArraySize != null">
     <ng-container *ngFor="let dummy of [].constructor(colorArraySize); index as pickerIndex">
       <div class="colorPickerContainer">
-        <input #refColorPicker [colorPicker]="convertValueRGBToColorPickerRGB(colorValue[pickerIndex])"
-                cpAlphaChannel="disabled" cpOutputFormat="rgba" cpUseRootViewContainer="true"
-                cpAddColorButton="true" [cpPresetColors]="['rgb(255,255,255)', 'rgb(0,0,0)']"
-                (colorPickerChange)="pickNewColor($event, pickerIndex)"
-                (colorPickerClose)="afterColorPickerClosed(pickerIndex)" />
+                 <input #refColorPicker [colorPicker]="convertValueRGBToColorPickerRGB(colorValue[pickerIndex])"
+                 cpAlphaChannel="disabled" cpOutputFormat="rgba"
+                 cpAddColorButton="true" [cpPresetColors]="['rgb(255,255,255)', 'rgb(0,0,0)']"
+                 cpUseRootViewContainer="true" cpSaveClickOutside="true"
+                 (colorPickerChange)="pickNewColor($event, pickerIndex)"
+                 (colorPickerClose)="afterColorPickerClosed(pickerIndex)" />
       </div>
       <nb-user size="medium"
                showName="false"
@@ -27,12 +28,11 @@
   <ng-container *ngIf="colorArraySize == null">
 
     <div class="colorPickerContainer">
-      <input #refColorPicker [colorPicker]="convertValueRGBToColorPickerRGB(colorValue)"
-             cpAlphaChannel="disabled" cpOutputFormat="rgba" cpUseRootViewContainer="true"
-             cpAddColorButton="true" [cpPresetColors]="['rgb(255,255,255)', 'rgb(0,0,0)']"
-             cpMaxPresetColorsLength="5"
-             (colorPickerChange)="pickNewColor($event)"
-             (colorPickerClose)="afterColorPickerClosed()" />
+             <input #refColorPicker [colorPicker]="convertValueRGBToColorPickerRGB(colorValue)"
+              cpAlphaChannel="disabled" cpOutputFormat="rgba"
+              cpAddColorButton="true" [cpPresetColors]="['rgb(255,255,255)', 'rgb(0,0,0)']" cpUseRootViewContainer="true" cpSaveClickOutside="true"
+              (colorPickerChange)="pickNewColor($event)"
+              (colorPickerClose)="afterColorPickerClosed()" />
     </div>
     <nb-user size="medium"
              showName="false"
