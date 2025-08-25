@@ -203,7 +203,7 @@ namespace MMR.DiscordBot.Services
             var seed = await GetSeed();
             var processInfo = new ProcessStartInfo("dotnet");
             processInfo.WorkingDirectory = _cliPath;
-            processInfo.Arguments = $"{cliDllPath} -output \"{output}.z64\" -seed {seed} -spoiler -patch";
+            processInfo.Arguments = $"{cliDllPath} -output \"{output}.z64\" -seed {seed} -spoiler -outputpatch";
             if (!string.IsNullOrWhiteSpace(settingsPath))
             {
                 processInfo.Arguments += $" -settings \"{settingsPath}\"";
