@@ -426,13 +426,16 @@ namespace MMR.CLI
                     Console.WriteLine($"File not found \"{settingsPath}\".");
                     return -1;
                 }
-                if (loadedConfiguration.GameplaySettings == null)
+                if (!argsDictionary.ContainsKey("-inputpatch"))
                 {
-                    Console.WriteLine($"Error loading GameplaySettings from \"{settingsPath}\".");
-                    return -1;
+                    if (loadedConfiguration.GameplaySettings == null)
+                    {
+                        Console.WriteLine($"Error loading GameplaySettings from \"{settingsPath}\".");
+                        return -1;
+                    }
+                    configuration.GameplaySettings = loadedConfiguration.GameplaySettings;
+                    Console.WriteLine($"Loaded ${nameof(Configuration.GameplaySettings)} from \"{settingsPath}\".");
                 }
-                configuration.GameplaySettings = loadedConfiguration.GameplaySettings;
-                Console.WriteLine($"Loaded ${nameof(Configuration.GameplaySettings)} from \"{settingsPath}\".");
                 if (loadedConfiguration.CosmeticSettings != null && argsDictionary.ContainsKey("-cosmeticSettings"))
                 {
                     configuration.CosmeticSettings = loadedConfiguration.CosmeticSettings;
