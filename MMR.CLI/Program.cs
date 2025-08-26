@@ -699,14 +699,17 @@ namespace MMR.CLI
                     configuration = Configuration.FromJson(Req.ReadToEnd());
                 }
 
-                if (configuration.GameplaySettings.Logic != null)
+                if (configuration.GameplaySettings != null)
                 {
-                    configuration.GameplaySettings.UserLogicFileName = path;
-                    configuration.GameplaySettings.Logic = null;
-                }
-                if (!File.Exists(configuration.GameplaySettings.UserLogicFileName))
-                {
-                    configuration.GameplaySettings.UserLogicFileName = string.Empty;
+                    if (configuration.GameplaySettings.Logic != null)
+                    {
+                        configuration.GameplaySettings.UserLogicFileName = path;
+                        configuration.GameplaySettings.Logic = null;
+                    }
+                    if (!File.Exists(configuration.GameplaySettings.UserLogicFileName))
+                    {
+                        configuration.GameplaySettings.UserLogicFileName = string.Empty;
+                    }
                 }
                 return configuration;
             }
