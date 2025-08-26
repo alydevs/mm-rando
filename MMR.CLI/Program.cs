@@ -492,6 +492,7 @@ namespace MMR.CLI
             configuration.OutputSettings.GenerateSpoilerLogJson |= argsDictionary.ContainsKey("-spoilerJson");
             configuration.OutputSettings.GenerateSettingsJson |= argsDictionary.ContainsKey("-infoJson");
             configuration.OutputSettings.GenerateHashJson |= argsDictionary.ContainsKey("-hashJson");
+            configuration.OutputSettings.IsPatchForVC |= argsDictionary.ContainsKey("-vcPatch");
 
             int seed;
             if (argsDictionary.ContainsKey("-seed"))
