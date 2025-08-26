@@ -6375,6 +6375,8 @@ namespace MMR.Randomizer
             var originalMMFileList = RomData.MMFileList.Select(file => file.Clone()).ToList();
             List<MMFile> cosmeticMMFileList;
 
+            var shouldApplyCosmetics = outputSettings.GenerateROM || outputSettings.OutputVC || outputSettings.GenerateCosmeticsPatch;
+
             byte[] hash;
             AsmContext asm;
             if (!string.IsNullOrWhiteSpace(outputSettings.InputPatchFilename))
@@ -6507,8 +6509,11 @@ namespace MMR.Randomizer
 
                 cosmeticMMFileList = RomData.MMFileList.Select(file => file.Clone()).ToList();
 
-                // Write subset of Asm config post-patch
-                WriteAsmConfig(asm, hash);
+                if (shouldApplyCosmetics)
+                {
+                    // Write subset of Asm config post-patch
+                    WriteAsmConfig(asm, hash);
+                }
 
                 if (_randomized.Settings.DrawHash || outputSettings.GeneratePatch)
                 {
@@ -6525,22 +6530,25 @@ namespace MMR.Randomizer
                 }
             }
 
-            WriteMiscellaneousChanges();
+            if (shouldApplyCosmetics)
+            {
+                WriteMiscellaneousChanges();
 
-            progressReporter.ReportProgress(72, "Writing cosmetics...");
-            WriteTatlColour(new Random(BitConverter.ToInt32(hash, 0)));
-            WriteInstruments(new Random(BitConverter.ToInt32(hash, 0)));
+                progressReporter.ReportProgress(72, "Writing cosmetics...");
+                WriteTatlColour(new Random(BitConverter.ToInt32(hash, 0)));
+                WriteInstruments(new Random(BitConverter.ToInt32(hash, 0)));
 
-            progressReporter.ReportProgress(73, "Writing sound effects...");
-            WriteSoundEffects(new Random(BitConverter.ToInt32(hash, 0)));
-            WriteLowHealthSound(new Random(BitConverter.ToInt32(hash, 0)));
+                progressReporter.ReportProgress(73, "Writing sound effects...");
+                WriteSoundEffects(new Random(BitConverter.ToInt32(hash, 0)));
+                WriteLowHealthSound(new Random(BitConverter.ToInt32(hash, 0)));
 
-            progressReporter.ReportProgress(74, "Writing music...");
-            SequenceUtils.MoveAudioBankTable();
-            WriteMuteMusic();
-            WriteEnemyCombatMusicMute();
-            WriteRemoveMinorMusic();
-            WriteDisableFanfares();
+                progressReporter.ReportProgress(74, "Writing music...");
+                SequenceUtils.MoveAudioBankTable();
+                WriteMuteMusic();
+                WriteEnemyCombatMusicMute();
+                WriteRemoveMinorMusic();
+                WriteDisableFanfares();
+            }
 
             if (outputSettings.GenerateCosmeticsPatch)
             {
@@ -6554,10 +6562,10 @@ namespace MMR.Randomizer
                 Patch.Patcher.CreatePatch(Path.Combine(directory, filename + "_Cosmetics.mmr"), cosmeticMMFileList);
             }
 
-            WriteAudioSeq(new Random(BitConverter.ToInt32(hash, 0)), outputSettings);
-
             if (outputSettings.GenerateROM || outputSettings.OutputVC)
             {
+                WriteAudioSeq(new Random(BitConverter.ToInt32(hash, 0)), outputSettings);
+
                 progressReporter.ReportProgress(75, "Building ROM...");
 
                 if (outputSettings.GenerateROM)
