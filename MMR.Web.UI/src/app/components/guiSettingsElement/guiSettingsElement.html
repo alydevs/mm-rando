@@ -142,8 +142,8 @@
              type="number" 
              [min]="setting.min" 
              [max]="setting.max" 
-             [value]="assignmentSettingsMap[assignmentSettingName]"
-             (input)="assignmentSettingsMap[assignmentSettingName] = $event.target.value; app.afterSettingChange()"
+             [(ngModel)]="assignmentSettingsMap[assignmentSettingName]"
+             (blur)="app.afterSettingChange()"
              [disabled]="!visibilitySettingsMap[setting.name]"
              fieldSize="small">
     </div>
@@ -180,8 +180,8 @@
              type="number" 
              [min]="setting.min" 
              [max]="setting.max" 
-             [value]="assignmentSettingsMap[assignmentSettingName]"
-             (input)="assignmentSettingsMap[assignmentSettingName] = $event.target.value; app.afterSettingChange()"
+             [(ngModel)]="assignmentSettingsMap[assignmentSettingName]"
+             (blur)="app.afterSettingChange()"
              [disabled]="!visibilitySettingsMap[setting.name]"
              fieldSize="small">
     </div>

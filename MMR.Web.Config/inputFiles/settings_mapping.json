@@ -19,8 +19,7 @@
             "Web.common_key_file",
             "Web.common_key_string",
             "Web.wad_channel_id",
-            "Web.wad_channel_title",
-            "Web.wad_legacy_mode"
+            "Web.wad_channel_title"
           ]
         },
         {
@@ -52,8 +51,7 @@
             "Web.common_key_file",
             "Web.common_key_string",
             "Web.wad_channel_id",
-            "Web.wad_channel_title",
-            "Web.wad_legacy_mode"
+            "Web.wad_channel_title"
           ]
         }
       ]

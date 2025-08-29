@@ -76,7 +76,7 @@
             <!--Generator-->
             <ng-container *ngIf="global.getGlobalVar('appType') === 'generator'">
               <p class="footerInputLabel">Patch File</p>
-              <input class="footerInputWeb" nbInput readonly type="text" maxlength="260" fieldSize="small" [ngModel]="getVariableType(global.generator_settingsMap['Web.patch_file']) === 'string' ? global.generator_settingsMap['Web.patch_file'] : global.generator_settingsMap['Web.patch_file'].name" (ngModelChange)="onPatchFileInputChange($event)" name="patch-file-web-input">
+              <input class="footerInputWeb" nbInput readonly type="text" maxlength="260" fieldSize="small" [ngModel]="getVariableType(global.generator_settingsMap['Web.patch_file']) === 'string' ? global.generator_settingsMap['Web.patch_file'] : global.generator_settingsMap['Web.patch_file'].name" (ngModelChange)="onPatchFileInputChange($event)" name="patch-file-web-input" ngfDrop [(file)]="global.generator_settingsMap['Web.patch_file']">
               <button class="footerButtonPatchFileBrowse" nbButton status="info" size="small" ngfSelect [(file)]="global.generator_settingsMap['Web.patch_file']">Select File</button>
               <button class="footerButtonPatchFileBrowse" nbButton status="info" size="small" (click)="global.generator_settingsMap['Web.patch_file'] = ''">Clear</button>
               <!--Padding-->

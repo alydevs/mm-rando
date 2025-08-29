@@ -5,7 +5,7 @@
       {
         "name": "z64",
         "text": ".z64 (N64/Emulator)",
-        "controls_visibility_setting": "Web.wad_file,Web.common_key_file,Web.common_key_string,Web.wad_channel_id,Web.wad_channel_title,Web.wad_legacy_mode"
+        "controls_visibility_setting": "Web.wad_file,Web.common_key_file,Web.common_key_string,Web.wad_channel_id,Web.wad_channel_title"
       },
       {
         "name": "wad",
@@ -97,26 +97,6 @@
     "hide_when_disabled": true
   },
   {
-    "name": "Web.wad_legacy_mode",
-    "options": [
-      {
-        "name": true,
-        "text": "checked"
-      },
-      {
-        "name": false,
-        "text": "unchecked"
-      }
-    ],
-    "default": false,
-    "text": "WAD Legacy Mode",
-    "tooltip": "Enabling this will avoid any patching of the VC emulator in case your Wii does not have support for it. Recommended to be left unchecked.",
-    "type": "Checkbutton",
-    "shared": false,
-    "no_line_break": false,
-    "hide_when_disabled": true
-  },
-  {
     "name": "Web.presets",
     "options": [],
     "default": "[New Preset]",
@@ -138,7 +118,7 @@
       {
         "name": false,
         "text": "unchecked",
-        "controls_visibility_setting": "Web.repatch_cosmetics,OutputSettings.InputROMFilename,Web.output_type,Web.wad_file,Web.common_key_file,Web.common_key_string,Web.wad_channel_id,Web.wad_channel_title,Web.wad_legacy_mode",
+        "controls_visibility_setting": "Web.repatch_cosmetics,OutputSettings.InputROMFilename,Web.output_type,Web.wad_file,Web.common_key_file,Web.common_key_string,Web.wad_channel_id,Web.wad_channel_title",
         "controls_visibility_tab": "cosmetics_tab"
       }
     ],
@@ -381,6 +361,7 @@
   {
     "name": "OutputSettings.GenerateSpoilerLog",
     "text": "Create Spoiler Log",
-    "shared": true
+    "shared": true,
+    "hide_when_disabled": true
   }
 ]

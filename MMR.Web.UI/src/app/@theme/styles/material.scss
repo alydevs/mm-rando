@@ -4,11 +4,16 @@
 :root {
   @include mat.slider-overrides((
     active-track-color: #d620a2,
-    inactive-track-color: #af9aad,
+    inactive-track-color: #380432,
     handle-color: #d620a2,
     with-tick-marks-active-container-color: white,
-    with-tick-marks-inactive-container-color: black,
+    with-tick-marks-inactive-container-color: white,
   ));
+  
+  --mdc-slider-with-tick-marks-container-shape: 2px;
+  --mdc-slider-with-tick-marks-container-size: 4px;
+  --mdc-slider-label-container-color: #d620a2;
+  --mat-slider-value-indicator-opacity: 0.9;
 }
 
 @include nb-install() {
@@ -47,7 +52,7 @@
     min-width: 90% !important;
     
     .mdc-slider__track--inactive { background-color: #d620a2 !important; }
-    .mdc-slider__track--active { background-color: #af9aad !important; }
+    .mdc-slider__track--active { background-color: #380432 !important; }
     
     .mdc-slider__thumb-knob,
     .mdc-slider__thumb-knob:active,
@@ -85,6 +90,8 @@
     display: flex;
     align-items: center;
     margin-bottom: 8px;
+    flex-wrap: wrap;
+    gap: 8px;
     
     .numberTextInputLabel { 
       margin-right: 10px; 
@@ -94,7 +101,7 @@
     .slider-value-input {
       min-width: 40px;
       max-width: 48px !important;
-      text-align: center;
+      text-align: center !important;
       font-weight: 600;
       color: #333;
       font-size: 14px;
@@ -102,10 +109,44 @@
       background: rgba(255, 107, 157, 0.1);
       border-radius: 4px;
       border: 1px solid rgba(255, 107, 157, 0.3);
+      flex-shrink: 0;
+      
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      
+      &[type=number] {
+        -moz-appearance: textfield;
+      }
       
       &:focus {
         border-color: #ff6b9d;
         box-shadow: 0 0 0 2px rgba(255, 107, 157, 0.2);
+      }
+    }
+    
+    // Responsive adjustments for smaller screens
+    @media (max-width: 768px) {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+      
+      .numberTextInputLabel {
+        margin-right: 0;
+        margin-bottom: 4px;
+      }
+      
+      .slider-value-input {
+        align-self: flex-start;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .slider-value-input {
+        min-width: 60px;
+        max-width: 80px !important;
       }
     }
   }

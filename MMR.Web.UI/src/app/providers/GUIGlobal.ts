@@ -1391,14 +1391,6 @@ export class GUIGlobal implements OnDestroy {
       });
     });
 
-    //Abort if any invalid settings were found
-    if (invalidSettingsList && invalidSettingsList.length > 0) {
-      this.globalEmitter.emit({ name: "dialog_error", message: "Some invalid settings were detected and had to be reset! This can happen if you type too fast into an input box. Please try again. The following settings were affected: " + invalidSettingsList.join(", ") });
-
-      if (cancelWhenError)
-        return null;
-    }
-
     //Delete keys the python source doesn't need
     delete settingsFile["Web.presets"];
     delete settingsFile["open_output_dir"]; //Unneeded

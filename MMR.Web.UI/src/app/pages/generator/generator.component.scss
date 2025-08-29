@@ -180,9 +180,8 @@
     height: nb-theme(footer-height);
     margin: 0 auto;
     margin-top: 5px;
-    // When in generate_from_file mode, make footer taller to prevent content overlap
     &.generateFromFileMode {
-      height: calc(nb-theme(footer-height) + 50px);
+      height: calc(nb-theme(footer-height) + 15px);
 
       @media (max-width: 959px) {
         height: 210px;

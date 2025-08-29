@@ -407,7 +407,6 @@ export class GUIModularListboxComponent extends DualListComponent {
     // Call the base class onFilter FIRST for search picker functionality
     super.onFilter(source);
     
-    // Filter by Tag AFTER base class processing
     if (source.name === "available" && this.tagFilter && Object.keys(this.selectedTag).length > 0) {
       if (this.enableCoDependentFilters) {
         // Check if we really need to filter
@@ -420,7 +419,9 @@ export class GUIModularListboxComponent extends DualListComponent {
         }
 
         if (doFilter) {
-          const filtered = source.list.filter((item: any) => {
+          // Start with the current sift (which includes text filtering from base class)
+          let currentSift = source.sift || source.list;
+          const filtered = currentSift.filter((item: any) => {
             if (Object.prototype.toString.call(item) === '[object Object]') {
               if (item._tags !== undefined) {
                 for (let key of Object.keys(this.selectedTag)) {
@@ -437,13 +438,12 @@ export class GUIModularListboxComponent extends DualListComponent {
           });
           source.sift = filtered;
           this.unpickExtended(source);
-        } else {
-          source.sift = source.list;
         }
       } else {
         // Simple tag filtering (original guiListbox behavior)
         if (this.selectedTag != "(all)") {
-          const filtered = source.list.filter((item: any) => {
+          let currentSift = source.sift || source.list;
+          const filtered = currentSift.filter((item: any) => {
             if (Object.prototype.toString.call(item) === '[object Object]') {
               if (item._tags !== undefined) {
                 // Handle both string and array tags
@@ -461,8 +461,6 @@ export class GUIModularListboxComponent extends DualListComponent {
           });
           source.sift = filtered;
           this.unpickExtended(source);
-        } else {
-          source.sift = source.list;
         }
       }
     }
@@ -491,15 +489,15 @@ export class GUIModularListboxComponent extends DualListComponent {
       return this.selectedPresets.join(", ");
   }
 
-  /**
-   * Get tooltip placement for cross-list tooltips
-   * Left list items show tooltips to the right, right list items show tooltips to the left
-   * Always use right/left placement for better visibility and to avoid cutoff
-   */
   getTooltipPlacement(listName: string): string {
-    
-    // For left list (available), show tooltip to the right
-    // For right list (confirmed), show tooltip to the left
     return listName === 'available' ? 'right' : 'left';
+  }
+
+  moveItem(source: BasicList, target: BasicList, item?: any, trueup?: boolean): void {
+    super.moveItem(source, target, item, trueup);
+    this.onFilter(source);
+    this.onFilter(target);
+    
+    this.cd.markForCheck();
   }
 }

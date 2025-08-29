@@ -17,6 +17,8 @@ export class GUIColorPickerComponent implements AfterViewInit {
 
   @Output() colorValueChange: EventEmitter<any> = null;
 
+  private observer: MutationObserver;
+
   constructor(
     private cd: ChangeDetectorRef,
     private elementRef: ElementRef,
@@ -31,7 +33,10 @@ export class GUIColorPickerComponent implements AfterViewInit {
   }
 
   ngOnDestroy() {
-    // Clean up event listeners
+    // Clean up the mutation observer
+    if (this.observer) {
+      this.observer.disconnect();
+    }
   }
 
   ngOnChanges(changeRecord) {
@@ -39,17 +44,16 @@ export class GUIColorPickerComponent implements AfterViewInit {
 
   private setupColorPickerPositioning() {
     // Create a mutation observer to watch for color picker elements
-    const observer = new MutationObserver((mutations) => {
+    this.observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         if (mutation.type === 'childList') {
           mutation.addedNodes.forEach((node) => {
             if (node.nodeType === Node.ELEMENT_NODE) {
               const element = node as Element;
               if (element.classList && element.classList.contains('color-picker')) {
-                // Only position once when first added
                 if (!element.hasAttribute('data-positioned')) {
-                  this.fixColorPickerPosition(element as HTMLElement);
                   element.setAttribute('data-positioned', 'true');
+                  this.fixColorPickerPosition(element as HTMLElement);
                 }
               }
             }
@@ -59,53 +63,51 @@ export class GUIColorPickerComponent implements AfterViewInit {
     });
 
     // Start observing the document body for color picker additions
-    observer.observe(document.body, {
+    this.observer.observe(document.body, {
       childList: true,
       subtree: true
-    });
+    });    
   }
 
   private fixColorPickerPosition(colorPicker: HTMLElement) {
     // Find the trigger element (the nb-user that was clicked)
     const triggerElement = this.findTriggerElement();
-    if (!triggerElement) return;
+    if (!triggerElement) {
+      return;
+    }
 
     // Get the trigger element's position
     const triggerRect = triggerElement.getBoundingClientRect();
     const viewportHeight = window.innerHeight;
     const viewportWidth = window.innerWidth;
-    const pickerHeight = colorPicker.offsetHeight || 300; // Approximate height if not yet rendered
-    const pickerWidth = colorPicker.offsetWidth || 230; // Approximate width if not yet rendered
+    const pickerHeight = colorPicker.offsetHeight || 300;
+    const pickerWidth = colorPicker.offsetWidth || 230;
 
-    // Calculate optimal position
-    let top: number;
-    let left: number;
+    // Position the color picker right next to the trigger element
+    // Use the same top coordinate as the trigger element
+    let top = triggerRect.top;
+    let left = triggerRect.right + 10; // 10px to the right of the trigger
 
-    // Position horizontally - prefer right, fallback to left if not enough space
-    const rightSpace = viewportWidth - triggerRect.right;
-    const leftSpace = triggerRect.left;
-    
-    if (rightSpace >= pickerWidth + 10) {
-      // Position to the right with 10px offset
-      left = triggerRect.right + 10;
-    } else if (leftSpace >= pickerWidth + 10) {
-      // Position to the left with 10px offset
+    // Check if there's enough space to the right
+    if (left + pickerWidth > viewportWidth - 10) {
+      // Not enough space to the right, position to the left
       left = triggerRect.left - pickerWidth - 10;
-    } else {
-      // Center on the trigger element if no good side positioning
-      left = triggerRect.left + (triggerRect.width / 2) - (pickerWidth / 2);
+      
+      // If still not enough space to the left, center it on the trigger
+      if (left < 10) {
+        left = Math.max(10, triggerRect.left + (triggerRect.width / 2) - (pickerWidth / 2));
+      }
     }
 
-    // Position vertically - prefer above, with standard offset plus 300px down
-    if (triggerRect.top - pickerHeight - 5 >= 0) {
-      // Position above the trigger with 5px offset plus 300px down
-      top = triggerRect.top - pickerHeight - 5 + 300;
-    } else if (triggerRect.bottom + pickerHeight + 5 <= viewportHeight) {
-      // Position below the trigger if no space above
-      top = triggerRect.bottom + 5;
-    } else {
-      // Center in viewport if no good position
-      top = Math.max(10, (viewportHeight - pickerHeight) / 2);
+    // Check if the picker would go off the bottom of the viewport
+    if (top + pickerHeight > viewportHeight - 10) {
+      // Adjust top position to keep picker in viewport
+      top = Math.max(10, viewportHeight - pickerHeight - 10);
+    }
+
+    // Check if the picker would go off the top of the viewport
+    if (top < 10) {
+      top = 10;
     }
 
     // Final boundary checks to ensure we don't go off-screen
@@ -113,16 +115,16 @@ export class GUIColorPickerComponent implements AfterViewInit {
     if (left + pickerWidth > viewportWidth - 10) {
       left = viewportWidth - pickerWidth - 10;
     }
-    if (top < 10) top = 10;
-    if (top + pickerHeight > viewportHeight - 10) {
-      top = viewportHeight - pickerHeight - 10;
-    }
 
-    // Apply the positioning immediately
+    // Apply the positioning
     this.renderer.setStyle(colorPicker, 'position', 'fixed');
     this.renderer.setStyle(colorPicker, 'top', `${top}px`);
     this.renderer.setStyle(colorPicker, 'left', `${left}px`);
     this.renderer.setStyle(colorPicker, 'z-index', '9999');
+
+    setTimeout(() => {
+      colorPicker.classList.add('positioned');
+    }, 25);
   }
 
   private findTriggerElement(): HTMLElement | null {
@@ -136,13 +138,14 @@ export class GUIColorPickerComponent implements AfterViewInit {
     if (refColorPicker && !this.disabled) {
       refColorPicker.click();
       
-      // Wait a bit for the color picker to render, then fix its position
+      // The mutation observer will handle positioning automatically
+      // Keep a small fallback delay just in case
       setTimeout(() => {
         const colorPicker = document.querySelector('.color-picker');
-        if (colorPicker) {
+        if (colorPicker && !colorPicker.hasAttribute('data-positioned')) {
           this.fixColorPickerPosition(colorPicker as HTMLElement);
         }
-      }, 100);
+      }, 50);
     }
   }
 

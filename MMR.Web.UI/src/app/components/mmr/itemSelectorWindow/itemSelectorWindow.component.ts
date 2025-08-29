@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, OnInit, OnDestroy, AfterViewInit, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
 import { NbDialogRef } from '@nebular/theme';
 import { GUIGlobal } from '../../../providers/GUIGlobal';
 
@@ -13,6 +13,7 @@ interface SelectableItem {
 @Component({
   templateUrl: './itemSelectorWindow.html',
   styleUrls: ['./itemSelectorWindow.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: false
 })
 export class MMRItemSelectorWindowComponent implements OnInit, OnDestroy, AfterViewInit {
@@ -46,15 +47,14 @@ export class MMRItemSelectorWindowComponent implements OnInit, OnDestroy, AfterV
       this.adjustColumnsForDialogWidth();
       this.setupResizeListener();
       
-      // Focus the Select All button instead of the search input to prevent mobile keyboard
       if (this.selectAllBtn && this.selectAllBtn.nativeElement) {
         this.selectAllBtn.nativeElement.focus();
       }
       
       setTimeout(() => {
         this.adjustColumnsForDialogWidth();
-      }, 200);
-    }, 100);
+      }, 50);
+    }, 50);
   }
 
   ngOnDestroy() {
