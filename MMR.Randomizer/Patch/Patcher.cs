@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Numerics;
 using System.Security.Cryptography;
 using VCDiff.Decoders;
 using VCDiff.Encoders;
@@ -27,15 +26,21 @@ namespace MMR.Randomizer.Patch
         /// </summary>
         public const uint PatchMagicEncrypted = 0x4D4D5245;
 
+        private static readonly byte[] version;
         private static readonly byte[] key;
         private static readonly byte[] iv;
         private static readonly byte[] moduleId;
-        private static readonly byte[] version;
 
         static Patcher()
         {
-            var bigInt = new BigInteger(typeof(Patcher).Assembly.ManifestModule.ModuleVersionId.ToByteArray());
-            var random = new Random((int)(bigInt & int.MaxValue));
+            version = new byte[4]
+            {
+                (byte)typeof(Randomizer).Assembly.GetName().Version.Major,
+                (byte)typeof(Randomizer).Assembly.GetName().Version.Minor,
+                (byte)typeof(Randomizer).Assembly.GetName().Version.Build,
+                0,
+            };
+            var random = new Random(ConvertUtils.BytesToInt(version));
             var buffer = new byte[16];
             random.NextBytes(buffer);
             key = buffer.ToArray();
@@ -43,13 +48,6 @@ namespace MMR.Randomizer.Patch
             iv = buffer.ToArray();
             random.NextBytes(buffer);
             moduleId = buffer.ToArray();
-            version = new byte[4]
-            {
-                (byte)typeof(Randomizer).Assembly.GetName().Version.Major,
-                (byte)typeof(Randomizer).Assembly.GetName().Version.Minor,
-                (byte)typeof(Randomizer).Assembly.GetName().Version.Build,
-                (byte)typeof(Randomizer).Assembly.GetName().Version.MinorRevision,
-            };
         }
 
         /// <summary>
