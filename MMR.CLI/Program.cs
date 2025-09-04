@@ -341,9 +341,7 @@ namespace MMR.CLI
                     }
                 }
                 processType(new Configuration());
-                //Console.WriteLine(JsonSerializer.Serialize(settings));
-                File.WriteAllText("settingsDump.json", JsonSerializer.Serialize(settings));
-                Console.WriteLine("Done");
+                Console.WriteLine(JsonSerializer.Serialize(settings));
                 return 0;
             }
             if (argsDictionary.ContainsKey("-help"))
