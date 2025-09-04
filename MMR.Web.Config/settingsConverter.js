@@ -268,37 +268,38 @@ function wrapTooltipLine(line) {
     let results = [];
 
     while (line.length > maxLen) {
-        // Consider only first maxLen characters
+        //Consider only first maxLen characters
         let segment = line.slice(0, maxLen);
         let breakPos = -1;
 
-        // 1. Look for dot between dotMinPos and maxLen
+        //1. Look for dot between dotMinPos and maxLen
         for (let i = maxLen; i >= dotMinPos; i--) {
             if (segment[i - 1] === '.') { breakPos = i; break; }
         }
 
-        // 2. If no dot, look for comma between commaMinPos and maxLen
+        //2. If no dot, look for comma between commaMinPos and maxLen
         if (breakPos === -1) {
             for (let i = maxLen; i >= commaMinPos; i--) {
                 if (segment[i - 1] === ',') { breakPos = i; break; }
             }
         }
 
-        // 3. If still no break, find last space before maxLen
+        //3. If still no break, find last space before maxLen
         if (breakPos === -1) {
             const lastSpace = segment.lastIndexOf(' ');
             breakPos = lastSpace > 0 ? lastSpace : maxLen;
         }
 
-        // Extract and trim
         let part = line.slice(0, breakPos).trim();
         results.push(part);
-        // Prepare remainder, trim leading spaces
+
         line = line.slice(breakPos).trimStart();
     }
 
-    // Push any remaining text
-    if (line.length > 0) results.push(line);
+    //Push any remaining text
+    if (line.length > 0)
+        results.push(line);
+
     return results;
 }
 
@@ -1305,4 +1306,5 @@ function applyVersionMods(version, setting, linkedSettings, overrideBaseType, se
     }
 }
 
+//Currently fixed to 1.0.0, can make abstract later once the need arises
 createSettingsList("1.0.0");

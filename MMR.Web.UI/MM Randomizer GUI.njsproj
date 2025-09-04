@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -8,7 +8,8 @@
     </ProjectHome>
     <ProjectView>ProjectFiles</ProjectView>
     <StartupFile>ng serve</StartupFile>
-    <WorkingDirectory>F:\OneDrive\ZSRStuff\oot-remote-control</WorkingDirectory>
+    <WorkingDirectory>
+    </WorkingDirectory>
     <OutputPath>.</OutputPath>
     <ProjectTypeGuids>{3AF33F2E-1136-4D97-BBB7-1795711AC8B8};{349c5851-65df-11da-9384-00065b846f21};{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}</ProjectTypeGuids>
     <TypeScriptSourceMap>true</TypeScriptSourceMap>
@@ -71,6 +72,14 @@
     <Content Include="src\app\pages\generator\progressWindow\progressWindow.scss" />
     <Content Include="src\app\components\guiSettingsElement\guiSettingsElement.html" />
     <Content Include="src\app\pages\generator\textInputWindow\textInputWindow.scss" />
+    <Content Include="src\assets\img\headerIcon.png" />
+    <Content Include="src\assets\img\max.png" />
+    <Content Include="src\assets\img\min.png" />
+    <Content Include="src\assets\img\moon.svg" />
+    <Content Include="src\assets\img\notMax.png" />
+    <Content Include="src\assets\img\sun.svg" />
+    <Content Include="src\assets\img\X.png" />
+    <Content Include="src\karma.conf.js" />
     <Content Include="tsconfig.json" />
     <Content Include="e2e\tsconfig.e2e.json" />
     <Content Include="electron\tsconfig.json" />
@@ -87,10 +96,7 @@
     <TypeScriptCompile Include="src\app\%40theme\layouts\GUI\gui.layout.ts" />
     <TypeScriptCompile Include="src\app\%40theme\theme.module.ts" />
     <TypeScriptCompile Include="src\app\components\guiColorPicker\guiColorPicker.ts" />
-    <TypeScriptCompile Include="src\app\components\guiModularListbox\guiModularListbox.ts">
-      <SubType>Code</SubType>
-    </TypeScriptCompile>
-    <TypeScriptCompile Include="src\app\components\guiListbox\guiListbox.ts" />
+    <TypeScriptCompile Include="src\app\components\guiModularListbox\guiModularListbox.ts" />
     <TypeScriptCompile Include="src\app\components\mmr\hintPrioritiesWindow\hintPrioritiesWindow.component.ts" />
     <TypeScriptCompile Include="src\app\components\mmr\itemSelectorWindow\itemSelectorWindow.component.ts" />
     <TypeScriptCompile Include="src\app\components\mmr\randomStartingItemsWindow\randomStartingItemsWindow.component.ts" />
@@ -110,13 +116,13 @@
     <TypeScriptCompile Include="src\app\pages\pages-routing.module.ts" />
     <TypeScriptCompile Include="src\app\pages\pages.component.ts" />
     <TypeScriptCompile Include="src\app\pages\pages.module.ts" />
+    <TypeScriptCompile Include="src\app\providers\GuiEvent.ts" />
     <TypeScriptCompile Include="src\app\providers\GUIGlobal.ts" />
+    <TypeScriptCompile Include="src\app\providers\theme-switcher.service.ts" />
     <TypeScriptCompile Include="src\environments\environment.hmr.ts" />
-    <TypeScriptCompile Include="src\hmr.ts" />
     <TypeScriptCompile Include="src\main.ts" />
     <TypeScriptCompile Include="src\polyfills.ts" />
     <TypeScriptCompile Include="src\test.ts" />
-    <TypeScriptCompile Include="e2e\src\app.e2e-spec.ts" />
     <TypeScriptCompile Include="e2e\src\app.po.ts" />
     <TypeScriptCompile Include="src\app\app-routing.module.ts" />
     <TypeScriptCompile Include="src\app\app.component.ts" />
@@ -134,7 +140,6 @@
     <Folder Include="electron\src\assets\icon\mac\" />
     <Folder Include="electron\src\assets\icon\png\" />
     <Folder Include="electron\src\assets\icon\win\" />
-    <Folder Include="electron\src\modules\" />
     <Folder Include="src" />
     <Folder Include="src\app" />
     <Folder Include="src\app\%40theme\" />
@@ -148,7 +153,8 @@
     <Folder Include="src\app\%40theme\styles\" />
     <Folder Include="src\app\components\" />
     <Folder Include="src\app\components\guiColorPicker\" />
-    <Folder Include="src\app\components\guiListbox\" />
+    <Folder Include="src\app\components\mmr\hintPrioritiesWindow\" />
+    <Folder Include="src\app\components\mmr\itemSelectorWindow\" />
     <Folder Include="src\app\components\guiModularListbox\" />
     <Folder Include="src\app\components\mmr\randomStartingItemsWindow\" />
     <Folder Include="src\app\components\mmr\" />
@@ -164,6 +170,7 @@
     <Folder Include="src\app\pages\generator\textInputWindow\" />
     <Folder Include="src\app\providers\" />
     <Folder Include="src\assets" />
+    <Folder Include="src\assets\img\" />
     <Folder Include="src\environments" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />

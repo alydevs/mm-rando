@@ -10,6 +10,9 @@
 /installer
 /python
 
+# currently unneeded
+/webTest
+
 # dependencies
 /node_modules
 
