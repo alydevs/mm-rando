@@ -26,21 +26,21 @@ namespace MMR.Randomizer.Patch
         /// </summary>
         public const uint PatchMagicEncrypted = 0x4D4D5245;
 
-        private static readonly byte[] version;
+        public static readonly byte[] Version;
         private static readonly byte[] key;
         private static readonly byte[] iv;
         private static readonly byte[] moduleId;
 
         static Patcher()
         {
-            version = new byte[4]
+            Version = new byte[4]
             {
                 (byte)typeof(Randomizer).Assembly.GetName().Version.Major,
                 (byte)typeof(Randomizer).Assembly.GetName().Version.Minor,
                 (byte)typeof(Randomizer).Assembly.GetName().Version.Build,
                 0,
             };
-            var random = new Random(ConvertUtils.BytesToInt(version));
+            var random = new Random(ConvertUtils.BytesToInt(Version));
             var buffer = new byte[16];
             random.NextBytes(buffer);
             key = buffer.ToArray();
@@ -257,7 +257,7 @@ namespace MMR.Randomizer.Patch
             var writerOut = new BeBinaryWriter(outStream);
 
             writerOut.WriteUInt32(PatchMagicEncrypted);
-            writerOut.Write(version);
+            writerOut.Write(Version);
             writerOut.Write(moduleId);
             writerOut.WriteUInt32(compressedSize);
             writerOut.WriteUInt32(decompressedSize);
@@ -283,9 +283,9 @@ namespace MMR.Randomizer.Patch
 
         static void ValidateVersion(byte[] inVersion)
         {
-            if (!inVersion.SequenceEqual(version))
+            if (!inVersion.SequenceEqual(Version))
             {
-                throw new IOException($"Patch version {string.Join(".", inVersion)} does not match {string.Join(".", version)}.");
+                throw new IOException($"Patch version {string.Join(".", inVersion)} does not match {string.Join(".", Version)}.");
             }
         }
 

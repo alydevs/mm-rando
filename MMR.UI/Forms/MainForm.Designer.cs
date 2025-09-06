@@ -179,7 +179,6 @@ namespace MMR.UI.Forms
             this.lLink = new System.Windows.Forms.Label();
             this.cLink = new System.Windows.Forms.ComboBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.cEasyFrameByFrame = new System.Windows.Forms.CheckBox();
             this.cGossipsTolerant = new System.Windows.Forms.CheckBox();
             this.cQuestItemKeep = new System.Windows.Forms.CheckBox();
             this.cUpdateNpcText = new System.Windows.Forms.CheckBox();
@@ -206,6 +205,7 @@ namespace MMR.UI.Forms
             this.cDisableCritWiggle = new System.Windows.Forms.CheckBox();
             this.cQuestItemStorage = new System.Windows.Forms.CheckBox();
             this.cNoDowngrades = new System.Windows.Forms.CheckBox();
+            this.cEasyFrameByFrame = new System.Windows.Forms.CheckBox();
             this.tabShortenCutscenes = new System.Windows.Forms.TabPage();
             this.tShortenCutscenes = new System.Windows.Forms.TabControl();
             this.tabCosmetics = new System.Windows.Forms.TabPage();
@@ -281,6 +281,7 @@ namespace MMR.UI.Forms
             this.tPatch = new System.Windows.Forms.TextBox();
             this.bLoadPatch = new System.Windows.Forms.Button();
             this.bSkip = new System.Windows.Forms.Button();
+            this.lPatchVersion = new System.Windows.Forms.Label();
             this.tSettings.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.tOtherCustomizations.SuspendLayout();
@@ -2193,17 +2194,6 @@ namespace MMR.UI.Forms
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Comfort Options";
             // 
-            // cEasyFrameByFrame
-            // 
-            this.cEasyFrameByFrame.AutoSize = true;
-            this.cEasyFrameByFrame.Location = new System.Drawing.Point(10, 245);
-            this.cEasyFrameByFrame.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.cEasyFrameByFrame.Name = "cEasyFrameByFrame";
-            this.cEasyFrameByFrame.Size = new System.Drawing.Size(137, 19);
-            this.cEasyFrameByFrame.TabIndex = 51;
-            this.cEasyFrameByFrame.Text = "Easy Frame By Frame";
-            this.cEasyFrameByFrame.UseVisualStyleBackColor = true;
-            // 
             // cGossipsTolerant
             // 
             this.cGossipsTolerant.AutoSize = true;
@@ -2507,6 +2497,17 @@ namespace MMR.UI.Forms
             this.cNoDowngrades.TabIndex = 18;
             this.cNoDowngrades.Text = "No downgrades";
             this.cNoDowngrades.UseVisualStyleBackColor = false;
+            // 
+            // cEasyFrameByFrame
+            // 
+            this.cEasyFrameByFrame.AutoSize = true;
+            this.cEasyFrameByFrame.Location = new System.Drawing.Point(10, 245);
+            this.cEasyFrameByFrame.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.cEasyFrameByFrame.Name = "cEasyFrameByFrame";
+            this.cEasyFrameByFrame.Size = new System.Drawing.Size(137, 19);
+            this.cEasyFrameByFrame.TabIndex = 51;
+            this.cEasyFrameByFrame.Text = "Easy Frame By Frame";
+            this.cEasyFrameByFrame.UseVisualStyleBackColor = true;
             // 
             // tabShortenCutscenes
             // 
@@ -3289,11 +3290,12 @@ namespace MMR.UI.Forms
             this.tpOutputSettings.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tpOutputSettings.Size = new System.Drawing.Size(586, 75);
             this.tpOutputSettings.TabIndex = 0;
-            this.tpOutputSettings.Text = "Output settings";
+            this.tpOutputSettings.Text = "Generate New Seed";
             this.tpOutputSettings.UseVisualStyleBackColor = true;
             // 
             // tpPatchSettings
             // 
+            this.tpPatchSettings.Controls.Add(this.lPatchVersion);
             this.tpPatchSettings.Controls.Add(this.tPatch);
             this.tpPatchSettings.Controls.Add(this.bApplyPatch);
             this.tpPatchSettings.Controls.Add(this.bLoadPatch);
@@ -3303,7 +3305,7 @@ namespace MMR.UI.Forms
             this.tpPatchSettings.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.tpPatchSettings.Size = new System.Drawing.Size(586, 75);
             this.tpPatchSettings.TabIndex = 1;
-            this.tpPatchSettings.Text = "Patch settings";
+            this.tpPatchSettings.Text = "Generate From Patch File";
             this.tpPatchSettings.UseVisualStyleBackColor = true;
             // 
             // tPatch
@@ -3336,6 +3338,15 @@ namespace MMR.UI.Forms
             this.bSkip.UseVisualStyleBackColor = true;
             this.bSkip.Visible = false;
             this.bSkip.Click += new System.EventHandler(this.bSkip_Click);
+            // 
+            // lPatchVersion
+            // 
+            this.lPatchVersion.AutoSize = true;
+            this.lPatchVersion.Location = new System.Drawing.Point(133, 15);
+            this.lPatchVersion.Name = "lPatchVersion";
+            this.lPatchVersion.Size = new System.Drawing.Size(280, 15);
+            this.lPatchVersion.TabIndex = 18;
+            this.lPatchVersion.Text = "Patch must be .mmr file generated by MMR v0.0.0.x";
             // 
             // MainForm
             // 
@@ -3680,6 +3691,7 @@ namespace MMR.UI.Forms
         private System.Windows.Forms.CheckBox cMoonCrashFileErase;
         private System.Windows.Forms.ComboBox cCameraStyle;
         private System.Windows.Forms.Label lCameraStyle;
+        private System.Windows.Forms.Label lPatchVersion;
     }
 }
 
