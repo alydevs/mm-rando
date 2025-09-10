@@ -299,7 +299,7 @@ namespace MMR.Randomizer.Asm
 
         public bool SkulltulaTokenSounds { get; set; }
 
-        public bool MinorDropSparkle { get; set; } = true;
+        public bool MinorDropSparkle { get; set; }
 
         public bool TakeDamageOnEpona { get; set; }
 
