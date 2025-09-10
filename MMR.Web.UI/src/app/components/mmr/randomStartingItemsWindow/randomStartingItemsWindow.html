@@ -1,0 +1,43 @@
+<nb-card class="mmrRandomStartingItems-window">
+  <nb-card-header>
+    <div class="dialog-title" style="text-align:center; font-size:1.5em; font-weight:bold;">{{ dialogHeader }}</div>
+    <div class="dialog-tooltip" style="text-align:center; font-size:0.95em; color:#888;">{{ settingTooltip }}</div>
+    <button nbButton class="headerButton" size="xsmall" status="danger" (click)="cancelDialog()" style="position:absolute; right:16px; top:16px;">X</button>
+  </nb-card-header>
+  <hr style="margin: 0 0 18px 0;" />
+  <nb-card-body>
+    <div class="listbox-row" style="display:flex; gap:32px; align-items:flex-start; justify-content:center;">
+      <div class="source-listbox">
+        <div class="listbox-label">Global Item Pool</div>
+        <div cdkDropList [cdkDropListData]="allItems" [cdkDropListConnectedTo]="['pool1','pool2','pool3','pool4']" class="item-listbox">
+          <div *ngFor="let item of allItems" cdkDrag [cdkDragData]="item" class="item-entry">
+            {{ item.name || item.Label }}
+          </div>
+        </div>
+      </div>
+      <div class="vertical-divider"></div>
+      <ng-container *ngFor="let pool of pools; let i = index">
+        <div class="pool-listbox">
+          <div class="listbox-label">{{ pool.name }}</div>
+          <div cdkDropList id="pool{{i+1}}" [cdkDropListData]="pool.items" [cdkDropListConnectedTo]="['pool1','pool2','pool3','pool4','source']" class="item-listbox"
+            (cdkDropListDropped)="onItemDrop($event, i)">
+            <div *ngFor="let item of pool.items" cdkDrag [cdkDragData]="item" class="item-entry">
+              <span>{{ item.name || item.Label }}</span>
+              <button nbButton size="tiny" status="danger" (click)="onRemoveFromPool(item, i)">&times;</button>
+            </div>
+          </div>
+          <div class="listbox-counter">
+            <label style="font-size:0.95em;"># Given:</label>
+            <input nbInput type="number" min="0" max="100" [(ngModel)]="pool.itemCount" />
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </nb-card-body>
+  <nb-card-footer>
+    <div class="footer-buttons" style="display:flex; justify-content:flex-end; gap:18px; margin:18px 0 6px 0;">
+      <button nbButton status="basic" (click)="cancelDialog()" style="padding:8px 24px;">Discard</button>
+      <button nbButton status="primary" (click)="confirmDialog()" style="padding:8px 24px;">Confirm</button>
+    </div>
+  </nb-card-footer>
+</nb-card>

@@ -71,6 +71,8 @@ namespace MMR.UI.Forms
 
 
             Text = $"Majora's Mask Randomizer v{Randomizer.AssemblyVersion}";
+
+            lPatchVersion.Text = lPatchVersion.Text.Replace("v0.0.0", "v" + string.Join(".", MMR.Randomizer.Patch.Patcher.Version.Take(3)));
         }
 
         private void InitializeSimpleControls()

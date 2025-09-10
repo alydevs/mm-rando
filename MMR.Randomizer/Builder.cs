@@ -6610,6 +6610,27 @@ namespace MMR.Randomizer
             _extraMessages.Add(new MessageEntry(Item.Nothing.ExclusiveItemEntry().Message, Item.Nothing.ExclusiveItemMessage()));
         }
 
+        private void WriteSmithyTextureFixes(AsmContext asm)
+        {
+            var smithyFiles = new List<int> { 958 };
+            var extObjectsFileTableAddr = (int)asm.Symbols["EXT_OBJECTS"];
+            var extObjectsFileAddr = ReadWriteUtils.ReadU32(extObjectsFileTableAddr + 8);
+            if (extObjectsFileAddr > 0)
+            {
+                var extObjectsFile = RomUtils.GetFileIndexForWriting((int)extObjectsFileAddr);
+                smithyFiles.Add(extObjectsFile);
+            }
+            foreach (var file in smithyFiles)
+            {
+                RomUtils.CheckCompressed(file);
+                RomData.MMFileList[file].Data = RomData.MMFileList[file].Data
+                    .FindAndReplace(
+                        new byte[] { 0xFC, 0x27, 0x2C, 0x40, 0x21, 0x0E, 0x92, 0xFF },
+                        new byte[] { 0xFC, 0x27, 0x2C, 0x03, 0x21, 0x0C, 0x92, 0xFF }
+                    );
+            }
+        }
+
         public void MakeROM(OutputSettings outputSettings, IProgressReporter progressReporter)
         {
             using (BinaryReader OldROM = new BinaryReader(File.OpenRead(outputSettings.InputROMFilename)))
@@ -6622,6 +6643,8 @@ namespace MMR.Randomizer
 
             var originalMMFileList = RomData.MMFileList.Select(file => file.Clone()).ToList();
             List<MMFile> cosmeticMMFileList;
+
+            var shouldApplyCosmetics = outputSettings.GenerateROM || outputSettings.OutputVC || outputSettings.GenerateCosmeticsPatch;
 
             byte[] hash;
             AsmContext asm;
@@ -6757,8 +6780,11 @@ namespace MMR.Randomizer
 
                 cosmeticMMFileList = RomData.MMFileList.Select(file => file.Clone()).ToList();
 
-                // Write subset of Asm config post-patch
-                WriteAsmConfig(asm, hash);
+                if (shouldApplyCosmetics)
+                {
+                    // Write subset of Asm config post-patch
+                    WriteAsmConfig(asm, hash);
+                }
 
                 if (_randomized.Settings.DrawHash || outputSettings.GeneratePatch)
                 {
@@ -6775,35 +6801,42 @@ namespace MMR.Randomizer
                 }
             }
 
-            WriteMiscellaneousChanges();
+            if (shouldApplyCosmetics)
+            {
+                WriteMiscellaneousChanges();
 
-            progressReporter.ReportProgress(72, "Writing cosmetics...");
-            WriteTatlColour(new Random(BitConverter.ToInt32(hash, 0)));
-            WriteInstruments(new Random(BitConverter.ToInt32(hash, 0)));
+                progressReporter.ReportProgress(72, "Writing cosmetics...");
+                WriteTatlColour(new Random(BitConverter.ToInt32(hash, 0)));
+                WriteInstruments(new Random(BitConverter.ToInt32(hash, 0)));
 
-            progressReporter.ReportProgress(73, "Writing sound effects...");
-            WriteSoundEffects(new Random(BitConverter.ToInt32(hash, 0)));
-            WriteLowHealthSound(new Random(BitConverter.ToInt32(hash, 0)));
+                progressReporter.ReportProgress(73, "Writing sound effects...");
+                WriteSoundEffects(new Random(BitConverter.ToInt32(hash, 0)));
+                WriteLowHealthSound(new Random(BitConverter.ToInt32(hash, 0)));
 
-            progressReporter.ReportProgress(74, "Writing music...");
-            SequenceUtils.MoveAudioBankTable();
-            WriteMuteMusic();
-            WriteEnemyCombatMusicMute();
-            WriteRemoveMinorMusic();
-            WriteDisableFanfares();
+                progressReporter.ReportProgress(74, "Writing music...");
+                SequenceUtils.MoveAudioBankTable();
+                WriteMuteMusic();
+                WriteEnemyCombatMusicMute();
+                WriteRemoveMinorMusic();
+                WriteDisableFanfares();
+            }
 
             if (outputSettings.GenerateCosmeticsPatch)
             {
+                if (outputSettings.IsPatchForVC)
+                {
+                    WriteSmithyTextureFixes(asm);
+                }
                 var directory = Path.GetDirectoryName(outputSettings.OutputROMFilename);
                 var filename = Path.GetFileNameWithoutExtension(outputSettings.OutputROMFilename);
 
                 Patch.Patcher.CreatePatch(Path.Combine(directory, filename + "_Cosmetics.mmr"), cosmeticMMFileList);
             }
 
-            WriteAudioSeq(new Random(BitConverter.ToInt32(hash, 0)), outputSettings);
-
             if (outputSettings.GenerateROM || outputSettings.OutputVC)
             {
+                WriteAudioSeq(new Random(BitConverter.ToInt32(hash, 0)), outputSettings);
+
                 progressReporter.ReportProgress(75, "Building ROM...");
 
                 if (outputSettings.GenerateROM)
@@ -6819,23 +6852,7 @@ namespace MMR.Randomizer
 
                 if (outputSettings.OutputVC)
                 {
-                    var smithyFiles = new List<int> { 958 };
-                    var extObjectsFileTableAddr = (int)asm.Symbols["EXT_OBJECTS"];
-                    var extObjectsFileAddr = ReadWriteUtils.ReadU32(extObjectsFileTableAddr + 8);
-                    if (extObjectsFileAddr > 0)
-                    {
-                        var extObjectsFile = RomUtils.GetFileIndexForWriting((int)extObjectsFileAddr);
-                        smithyFiles.Add(extObjectsFile);
-                    }
-                    foreach (var file in smithyFiles)
-                    {
-                        RomUtils.CheckCompressed(file);
-                        RomData.MMFileList[file].Data = RomData.MMFileList[file].Data
-                            .FindAndReplace(
-                                new byte[] { 0xFC, 0x27, 0x2C, 0x40, 0x21, 0x0E, 0x92, 0xFF },
-                                new byte[] { 0xFC, 0x27, 0x2C, 0x03, 0x21, 0x0C, 0x92, 0xFF }
-                            );
-                    }
+                    WriteSmithyTextureFixes(asm);
 
                     byte[] ROM = RomUtils.BuildROM();
                     if (ROM.Length > 0x2800000) // Over 40MB. The upper limit is likely 48MB, but let's stick with 40 for now.
