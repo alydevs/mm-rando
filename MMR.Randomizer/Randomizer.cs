@@ -314,14 +314,16 @@ namespace MMR.Randomizer
                 DungeonEntranceShuffle();
             }
 
-            if (_settings.EntranceMode.HasFlag(EntranceMode.Grottos))
+            foreach (var entranceMode in Enum.GetValues<EntranceMode>())
             {
-                OtherEntranceShuffle(EntranceType.Grotto);
-            }
-
-            if (_settings.EntranceMode.HasFlag(EntranceMode.SimpleInteriors))
-            {
-                OtherEntranceShuffle(EntranceType.Interior);
+                if (_settings.EntranceMode.HasFlag(entranceMode))
+                {
+                    var entranceType = entranceMode.EntranceType();
+                    if (entranceType.HasValue)
+                    {
+                        OtherEntranceShuffle(entranceType.Value);
+                    }
+                }
             }
         }
 
@@ -1193,8 +1195,16 @@ namespace MMR.Randomizer
                 }
             }
 
+            var unrandomizedEntranceTypes = Enum.GetValues<EntranceMode>()
+                .Where(em => !_settings.EntranceMode.HasFlag(em))
+                .Select(em => em.EntranceType())
+                .Where(entranceType => entranceType.HasValue)
+                .Append(null)
+                .ToList();
+
             Func<ItemObject, bool> filter = io => !io.ItemOverride.HasValue
                 && !_settings.CustomItemList.Contains(io.Item)
+                && unrandomizedEntranceTypes.Contains(io.Item.EntranceType())
                 && (!io.Item.MainLocation().HasValue || !_settings.CustomItemList.Contains(io.Item.MainLocation().Value))
                 && io.DependsOnItems.Count == 0
                 && io.Conditionals.Count == 0;

@@ -19,6 +19,33 @@ namespace MMR.Randomizer.Tests
         private GameplaySettings _settings;
         private const int seed = 0;
 
+        private void CreateLogic(Action<ItemList> updateItemList)
+        {
+            tempLogicFile = Path.GetTempFileName();
+            var itemList = LogicUtils.PopulateItemListWithoutLogic();
+            updateItemList(itemList);
+            File.WriteAllText(tempLogicFile, new LogicFile
+            {
+                Version = LogicMigrator.Migrator.CurrentVersion,
+                Logic = itemList.Select(itemObject => new JsonFormatLogicItem
+                {
+                    Id = itemObject.Name,
+                    TimeNeeded = (TimeOfDay)itemObject.TimeNeeded,
+                    TimeAvailable = (TimeOfDay)itemObject.TimeAvailable,
+                    TimeSetup = (TimeOfDay)itemObject.TimeSetup,
+                    IsTrick = itemObject.IsTrick,
+                    TrickTooltip = itemObject.TrickTooltip,
+                    RequiredItems = itemObject.DependsOnItems.Select(item => itemList[item].Name).ToList(),
+                    ConditionalItems = itemObject.Conditionals.Select(c => c.Select(item => itemList[item].Name).ToList()).ToList(),
+                    TrickCategory = itemObject.TrickCategory,
+                    TrickUrl = itemObject.TrickUrl,
+                    SettingExpression = itemObject.SettingExpression,
+                }).ToList()
+            }.ToString());
+            _settings.LogicMode = LogicMode.UserLogic;
+            _settings.UserLogicFileName = tempLogicFile;
+        }
+
         [SetUp]
         public void SetupRandomizerTests()
         {
@@ -158,30 +185,11 @@ namespace MMR.Randomizer.Tests
         [Test]
         public void ShouldPreventTemporaryItemsBeingPlacedInLocationsOnlyReachableAtALaterTimeOfDay()
         {
-            tempLogicFile = Path.GetTempFileName();
-            var itemList = LogicUtils.PopulateItemListWithoutLogic();
-            itemList[Item.TradeItemKafeiLetter].TimeNeeded = (int)TimeOfDay.Day1;
-            itemList[Item.MaskAllNight].TimeAvailable = (int)(TimeOfDay.Night1 | TimeOfDay.Day2 | TimeOfDay.Night2 | TimeOfDay.Day3 | TimeOfDay.Night3);
-            File.WriteAllText(tempLogicFile, new LogicFile
+            CreateLogic(itemList =>
             {
-                Version = LogicMigrator.Migrator.CurrentVersion,
-                Logic = itemList.Select(itemObject => new JsonFormatLogicItem
-                {
-                    Id = itemObject.Name,
-                    TimeNeeded = (TimeOfDay)itemObject.TimeNeeded,
-                    TimeAvailable = (TimeOfDay)itemObject.TimeAvailable,
-                    TimeSetup = (TimeOfDay)itemObject.TimeSetup,
-                    IsTrick = itemObject.IsTrick,
-                    TrickTooltip = itemObject.TrickTooltip,
-                    RequiredItems = itemObject.DependsOnItems.Select(item => itemList[item].Name).ToList(),
-                    ConditionalItems = itemObject.Conditionals.Select(c => c.Select(item => itemList[item].Name).ToList()).ToList(),
-                    TrickCategory = itemObject.TrickCategory,
-                    TrickUrl = itemObject.TrickUrl,
-                    SettingExpression = itemObject.SettingExpression,
-                }).ToList()
-            }.ToString());
-            _settings.LogicMode = LogicMode.UserLogic;
-            _settings.UserLogicFileName = tempLogicFile;
+                itemList[Item.TradeItemKafeiLetter].TimeNeeded = (int)TimeOfDay.Day1;
+                itemList[Item.MaskAllNight].TimeAvailable = (int)(TimeOfDay.Night1 | TimeOfDay.Day2 | TimeOfDay.Night2 | TimeOfDay.Day3 | TimeOfDay.Night3);
+            });
             _settings.CustomItemList.Add(Item.TradeItemKafeiLetter);
             _settings.CustomItemList.Add(Item.MaskAllNight);
             _settings.CustomStartingItemList.Add(Item.MaskAllNight);
@@ -199,30 +207,11 @@ namespace MMR.Randomizer.Tests
         [Test]
         public void ShouldNotPreventPermanentItemsBeingPlacedInLocationsOnlyReachableAtALaterTimeOfDay()
         {
-            tempLogicFile = Path.GetTempFileName();
-            var itemList = LogicUtils.PopulateItemListWithoutLogic();
-            itemList[Item.MaskKafei].TimeNeeded = (int)TimeOfDay.Day1;
-            itemList[Item.MaskAllNight].TimeAvailable = (int)(TimeOfDay.Night1 | TimeOfDay.Day2 | TimeOfDay.Night2 | TimeOfDay.Day3 | TimeOfDay.Night3);
-            File.WriteAllText(tempLogicFile, new LogicFile
+            CreateLogic(itemList =>
             {
-                Version = LogicMigrator.Migrator.CurrentVersion,
-                Logic = itemList.Select(itemObject => new JsonFormatLogicItem
-                {
-                    Id = itemObject.Name,
-                    TimeNeeded = (TimeOfDay)itemObject.TimeNeeded,
-                    TimeAvailable = (TimeOfDay)itemObject.TimeAvailable,
-                    TimeSetup = (TimeOfDay)itemObject.TimeSetup,
-                    IsTrick = itemObject.IsTrick,
-                    TrickTooltip = itemObject.TrickTooltip,
-                    RequiredItems = itemObject.DependsOnItems.Select(item => itemList[item].Name).ToList(),
-                    ConditionalItems = itemObject.Conditionals.Select(c => c.Select(item => itemList[item].Name).ToList()).ToList(),
-                    TrickCategory = itemObject.TrickCategory,
-                    TrickUrl = itemObject.TrickUrl,
-                    SettingExpression = itemObject.SettingExpression,
-                }).ToList()
-            }.ToString());
-            _settings.LogicMode = LogicMode.UserLogic;
-            _settings.UserLogicFileName = tempLogicFile;
+                itemList[Item.MaskKafei].TimeNeeded = (int)TimeOfDay.Day1;
+                itemList[Item.MaskAllNight].TimeAvailable = (int)(TimeOfDay.Night1 | TimeOfDay.Day2 | TimeOfDay.Night2 | TimeOfDay.Day3 | TimeOfDay.Night3);
+            });
             _settings.CustomItemList.Add(Item.MaskKafei);
             _settings.CustomItemList.Add(Item.MaskAllNight);
             _settings.CustomStartingItemList.Add(Item.MaskAllNight);
@@ -239,33 +228,14 @@ namespace MMR.Randomizer.Tests
         [Test]
         public void ShouldPreventEntrancesBeingPlacedInLocationsOnlyReachableAtALaterTimeOfDay()
         {
-            tempLogicFile = Path.GetTempFileName();
-            var itemList = LogicUtils.PopulateItemListWithoutLogic();
-            itemList[Item.GrottoDekuPlayground].TimeNeeded = (int)TimeOfDay.Day1;
-            foreach (var grotto in Enum.GetValues<Item>().Where(item => item.EntranceType() == EntranceType.Grotto))
+            CreateLogic(itemList =>
             {
-                itemList[grotto].TimeAvailable = (int)(TimeOfDay.Night1 | TimeOfDay.Day2 | TimeOfDay.Night2 | TimeOfDay.Day3 | TimeOfDay.Night3);
-            }
-            File.WriteAllText(tempLogicFile, new LogicFile
-            {
-                Version = LogicMigrator.Migrator.CurrentVersion,
-                Logic = itemList.Select(itemObject => new JsonFormatLogicItem
+                itemList[Item.GrottoDekuPlayground].TimeNeeded = (int)TimeOfDay.Day1;
+                foreach (var grotto in Enum.GetValues<Item>().Where(item => item.EntranceType() == EntranceType.Grotto))
                 {
-                    Id = itemObject.Name,
-                    TimeNeeded = (TimeOfDay)itemObject.TimeNeeded,
-                    TimeAvailable = (TimeOfDay)itemObject.TimeAvailable,
-                    TimeSetup = (TimeOfDay)itemObject.TimeSetup,
-                    IsTrick = itemObject.IsTrick,
-                    TrickTooltip = itemObject.TrickTooltip,
-                    RequiredItems = itemObject.DependsOnItems.Select(item => itemList[item].Name).ToList(),
-                    ConditionalItems = itemObject.Conditionals.Select(c => c.Select(item => itemList[item].Name).ToList()).ToList(),
-                    TrickCategory = itemObject.TrickCategory,
-                    TrickUrl = itemObject.TrickUrl,
-                    SettingExpression = itemObject.SettingExpression,
-                }).ToList()
-            }.ToString());
-            _settings.LogicMode = LogicMode.UserLogic;
-            _settings.UserLogicFileName = tempLogicFile;
+                    itemList[grotto].TimeAvailable = (int)(TimeOfDay.Night1 | TimeOfDay.Day2 | TimeOfDay.Night2 | TimeOfDay.Day3 | TimeOfDay.Night3);
+                }
+            });
             _settings.EntranceMode = EntranceMode.Grottos;
 
             var randomizer = new Randomizer(_settings, seed);
@@ -280,40 +250,69 @@ namespace MMR.Randomizer.Tests
         [Test]
         public void ShouldPreventTemporaryItemsBeingPlacedInLocationsWhoseEntranceIsOnlyReachableAtALaterTimeOfDay()
         {
-            tempLogicFile = Path.GetTempFileName();
-            var itemList = LogicUtils.PopulateItemListWithoutLogic();
-            itemList[Item.TradeItemKafeiLetter].TimeNeeded = (int)TimeOfDay.Day1;
-            itemList[Item.ChestWoodsGrotto].DependsOnItems.Add(Item.GrottoGenericWoodsOfMystery);
-            foreach (var grotto in Enum.GetValues<Item>().Where(item => item.EntranceType() == EntranceType.Grotto))
+            CreateLogic(itemList =>
             {
-                itemList[grotto].TimeAvailable = (int)(TimeOfDay.Night1 | TimeOfDay.Day2 | TimeOfDay.Night2 | TimeOfDay.Day3 | TimeOfDay.Night3);
-            }
-            File.WriteAllText(tempLogicFile, new LogicFile
-            {
-                Version = LogicMigrator.Migrator.CurrentVersion,
-                Logic = itemList.Select(itemObject => new JsonFormatLogicItem
-                {
-                    Id = itemObject.Name,
-                    TimeNeeded = (TimeOfDay)itemObject.TimeNeeded,
-                    TimeAvailable = (TimeOfDay)itemObject.TimeAvailable,
-                    TimeSetup = (TimeOfDay)itemObject.TimeSetup,
-                    IsTrick = itemObject.IsTrick,
-                    TrickTooltip = itemObject.TrickTooltip,
-                    RequiredItems = itemObject.DependsOnItems.Select(item => itemList[item].Name).ToList(),
-                    ConditionalItems = itemObject.Conditionals.Select(c => c.Select(item => itemList[item].Name).ToList()).ToList(),
-                    TrickCategory = itemObject.TrickCategory,
-                    TrickUrl = itemObject.TrickUrl,
-                    SettingExpression = itemObject.SettingExpression,
-                }).ToList()
-            }.ToString());
-            _settings.LogicMode = LogicMode.UserLogic;
-            _settings.UserLogicFileName = tempLogicFile;
+                itemList[Item.TradeItemKafeiLetter].TimeNeeded = (int)TimeOfDay.Day1;
+                itemList[Item.ChestWoodsGrotto].DependsOnItems.Add(Item.GrottoGenericWoodsOfMystery);
+                itemList[Item.GrottoGenericWoodsOfMystery].TimeAvailable = (int)(TimeOfDay.Night1 | TimeOfDay.Day2 | TimeOfDay.Night2 | TimeOfDay.Day3 | TimeOfDay.Night3);
+            });
             _settings.CustomItemList.Add(Item.TradeItemKafeiLetter);
             _settings.CustomItemList.Add(Item.ChestWoodsGrotto);
-            _settings.CustomItemList.Add(Item.ChestLensCavePurpleRupee);
+            _settings.CustomJunkLocations.Add(Item.TradeItemKafeiLetter);
+
+            var randomizer = new Randomizer(_settings, seed);
+
+            var exception = Assert.Throws<RandomizationException>(() =>
+            {
+                randomizer.Randomize(new NoProgressReporter());
+            });
+            Assert.AreEqual("Unable to place Letter to Kafei anywhere.", exception.Message);
+        }
+
+        [Test]
+        public void ShouldNotPreventTemporaryItemsBeingPlacedInLocationsWhoseEntranceIsReachableAtAnyTimeOfDay()
+        {
+            CreateLogic(itemList =>
+            {
+                itemList[Item.TradeItemKafeiLetter].TimeNeeded = (int)TimeOfDay.Day1;
+                itemList[Item.ChestWoodsGrotto].DependsOnItems.Add(Item.GrottoGenericWoodsOfMystery);
+                itemList[Item.GrottoGenericWoodsOfMystery].TimeAvailable = (int)(TimeOfDay.Night1 | TimeOfDay.Day2 | TimeOfDay.Night2 | TimeOfDay.Day3 | TimeOfDay.Night3);
+            });
+            _settings.CustomItemList.Add(Item.TradeItemKafeiLetter);
+            _settings.CustomItemList.Add(Item.ChestWoodsGrotto);
+            _settings.CustomItemList.Add(Item.ChestLensCavePurpleRupee); // this ensures "purple rupee" isn't uniquely randomized
             _settings.CustomJunkLocations.Add(Item.TradeItemKafeiLetter);
             _settings.CustomJunkLocations.Add(Item.ChestLensCavePurpleRupee);
             _settings.EntranceMode = EntranceMode.Grottos;
+
+            // TODO flaky - relies on seed not randomizing woods of mystery grotto to vanilla
+            var randomizer = new Randomizer(_settings, seed);
+
+            Assert.DoesNotThrow(() =>
+            {
+                randomizer.Randomize(new NoProgressReporter());
+            });
+        }
+
+        [Test]
+        public void ShouldPreventTemporaryItemsBeingPlacedInLocationsWhoseEntranceChainIsOnlyReachableAtALaterTimeOfDay()
+        {
+            CreateLogic(itemList =>
+            {
+                itemList[Item.TradeItemKafeiLetter].TimeNeeded = (int)TimeOfDay.Day1;
+                itemList[Item.ChestWoodsGrotto].DependsOnItems.Add(Item.GrottoGenericWoodsOfMystery);
+                itemList[Item.GrottoGenericWoodsOfMystery].DependsOnItems.Add(Item.InteriorWoodsOfMystery);
+                foreach (var grotto in Enum.GetValues<Item>().Where(item => item.EntranceType() == EntranceType.Interior))
+                {
+                    itemList[grotto].TimeAvailable = (int)(TimeOfDay.Night1 | TimeOfDay.Day2 | TimeOfDay.Night2 | TimeOfDay.Day3 | TimeOfDay.Night3);
+                }
+            });
+            _settings.CustomItemList.Add(Item.TradeItemKafeiLetter);
+            _settings.CustomItemList.Add(Item.ChestWoodsGrotto);
+            _settings.CustomItemList.Add(Item.ChestLensCavePurpleRupee); // this ensures "purple rupee" isn't uniquely randomized
+            _settings.CustomJunkLocations.Add(Item.TradeItemKafeiLetter);
+            _settings.CustomJunkLocations.Add(Item.ChestLensCavePurpleRupee);
+            _settings.EntranceMode = EntranceMode.SimpleInteriors;
 
             var randomizer = new Randomizer(_settings, seed);
 
