@@ -425,6 +425,7 @@ namespace MMR.Randomizer.Models.Settings
             nameof(PreventDowngrades),
             nameof(FairyMaskShimmer),
             nameof(SkulltulaTokenSounds),
+            nameof(MinorDropSparkle),
             nameof(EnabledTricks)
         )]
         [SettingExclude(LogicMode.NoLogic, nameof(UserLogicFileName), nameof(EnabledTricks))]

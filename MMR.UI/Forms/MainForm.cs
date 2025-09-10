@@ -184,6 +184,7 @@ namespace MMR.UI.Forms
                 { cAddKegDrops, cfg => cfg.GameplaySettings.KegDrops },
                 { cFairyMaskShimmer, cfg => cfg.GameplaySettings.FairyMaskShimmer },
                 { cSkulltulaTokenSounds, cfg => cfg.GameplaySettings.SkulltulaTokenSounds },
+                { cMinorDropSparkle, cfg => cfg.GameplaySettings.MinorDropSparkle },
                 { nMaxGossipWotH, cfg => cfg.GameplaySettings.OverrideNumberOfRequiredGossipHints },
                 { nMaxGossipFoolish, cfg => cfg.GameplaySettings.OverrideNumberOfNonRequiredGossipHints },
                 { nMaxGossipCT, cfg => cfg.GameplaySettings.OverrideMaxNumberOfClockTownGossipHints },
@@ -1484,6 +1485,7 @@ namespace MMR.UI.Forms
             cChestGameMinimap.SelectedIndex = (int)_configuration.GameplaySettings.ChestGameMinimap;
             cFairyMaskShimmer.Checked = _configuration.GameplaySettings.FairyMaskShimmer;
             cSkulltulaTokenSounds.Checked = _configuration.GameplaySettings.SkulltulaTokenSounds;
+            cMinorDropSparkle.Checked = _configuration.GameplaySettings.MinorDropSparkle;
 
             foreach (var trapType in Enum.GetValues<TrapType>())
             {
