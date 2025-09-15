@@ -68,6 +68,11 @@ namespace MMR.Randomizer.Utils
             for (var i = 0; i < logic.Count; i++)
             {
                 var logicItem = logic[i];
+                var item = (Item)i;
+                if (Enum.IsDefined(item) && item.ToString() != logicItem.Id)
+                {
+                    throw new Exception($"Logic doesn't line up with code at {logicItem.Id}");
+                }
                 itemList.Add(new ItemObject
                 {
                     ID = i,
