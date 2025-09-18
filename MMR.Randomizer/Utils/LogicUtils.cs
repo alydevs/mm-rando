@@ -109,7 +109,7 @@ namespace MMR.Randomizer.Utils
                 var currentItem = new ItemObject
                 {
                     ID = (int)item,
-                    Name = item.Name() ?? item.ToString(),
+                    Name = item.ToString(),
                     TimeAvailable = 63
                 };
 
