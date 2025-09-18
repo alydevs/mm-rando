@@ -1,5 +1,5 @@
 {
-  "Version": 28,
+  "Version": 29,
   "Logic": [
     {
       "Id": "MaskDeku",
@@ -118,7 +118,9 @@
     },
     {
       "Id": "ItemBombBag",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorBombShop"
+      ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
@@ -171,24 +173,9 @@
     {
       "Id": "ItemLens",
       "RequiredItems": [
-        "AreaNorthAccess"
+        "InteriorLensCave"
       ],
-      "ConditionalItems": [
-        [
-          "ItemLens",
-          "Magic Meter"
-        ],
-        [
-          "Play Song of Soaring"
-        ],
-        [
-          "Lensless Jumping"
-        ],
-        [
-          "SettingDeathModeDefault",
-          "OtherExplosive"
-        ]
-      ],
+      "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
       "TimeSetup": "None",
@@ -216,7 +203,8 @@
     {
       "Id": "FairyMagic",
       "RequiredItems": [
-        "CollectibleStrayFairyClockTown"
+        "CollectibleStrayFairyClockTown",
+        "InteriorFairyFountainTown"
       ],
       "ConditionalItems": [
         [
@@ -254,39 +242,10 @@
         "CollectibleStrayFairyWoodfall12",
         "CollectibleStrayFairyWoodfall13",
         "CollectibleStrayFairyWoodfall14",
-        "CollectibleStrayFairyWoodfall15"
+        "CollectibleStrayFairyWoodfall15",
+        "InteriorFairyFountainWoodfall"
       ],
-      "ConditionalItems": [
-        [
-          "AreaSouthAccess",
-          "MaskDeku"
-        ],
-        [
-          "AreaSouthAccess",
-          "SettingClimbMostSurfaces"
-        ],
-        [
-          "AreaSouthAccess",
-          "FD Difficult Jumps",
-          "SettingDamageModeDefault"
-        ],
-        [
-          "Index Warp",
-          "MaskDeku"
-        ],
-        [
-          "Index Warp",
-          "SettingClimbMostSurfaces"
-        ],
-        [
-          "Index Warp",
-          "FD Difficult Jumps",
-          "SettingDamageModeDefault"
-        ],
-        [
-          "Long Bomb Hovers"
-        ]
-      ],
+      "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
       "TimeSetup": "None",
@@ -295,7 +254,6 @@
     {
       "Id": "FairyDoubleMagic",
       "RequiredItems": [
-        "Snowhead Owl",
         "CollectibleStrayFairySnowhead1",
         "CollectibleStrayFairySnowhead2",
         "CollectibleStrayFairySnowhead3",
@@ -310,34 +268,10 @@
         "CollectibleStrayFairySnowhead12",
         "CollectibleStrayFairySnowhead13",
         "CollectibleStrayFairySnowhead14",
-        "CollectibleStrayFairySnowhead15"
+        "CollectibleStrayFairySnowhead15",
+        "InteriorFairyFountainSnowhead"
       ],
-      "ConditionalItems": [
-        [
-          "Play Goron Lullaby as Goron"
-        ],
-        [
-          "SongLullaby",
-          "MaskGoron",
-          "Ocarina Items",
-          "SettingNotRandomizedBottleCatchHotSpringWater",
-          "OtherAnyBottle"
-        ],
-        [
-          "Lullaby Skip",
-          "MaskGoron",
-          "Magic Meter"
-        ],
-        [
-          "Lullaby Skip",
-          "Any Shield",
-          "OtherAnyBombBag",
-          "OtherAnyBombchuPack"
-        ],
-        [
-          "Remote Hookshot"
-        ]
-      ],
+      "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
       "TimeSetup": "None",
@@ -346,8 +280,6 @@
     {
       "Id": "FairyDoubleDefense",
       "RequiredItems": [
-        "OtherExplosive",
-        "AreaWestAccess",
         "CollectibleStrayFairyGreatBay1",
         "CollectibleStrayFairyGreatBay2",
         "CollectibleStrayFairyGreatBay3",
@@ -362,41 +294,10 @@
         "CollectibleStrayFairyGreatBay12",
         "CollectibleStrayFairyGreatBay13",
         "CollectibleStrayFairyGreatBay14",
-        "CollectibleStrayFairyGreatBay15"
+        "CollectibleStrayFairyGreatBay15",
+        "InteriorFairyFountainZoraCape"
       ],
-      "ConditionalItems": [
-        [
-          "ItemHookshot"
-        ],
-        [
-          "Clever Ice Platforms",
-          "Tall Character"
-        ],
-        [
-          "Clever Ice Platforms",
-          "Goron Bomb Jump",
-          "SettingDamageModeDefault",
-          "OtherAnyBombBag"
-        ],
-        [
-          "Clever Ice Platforms",
-          "Goron Bomb Jump",
-          "SettingDamageModeDefault",
-          "Powder Kegs as Explosives",
-          "ItemPowderKeg",
-          "MaskBlast"
-        ],
-        [
-          "MaskZora",
-          "GBT Iceless"
-        ],
-        [
-          "Long Bomb Hovers"
-        ],
-        [
-          "SettingClimbMostSurfaces"
-        ]
-      ],
+      "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
       "TimeSetup": "None",
@@ -405,7 +306,6 @@
     {
       "Id": "ItemFairySword",
       "RequiredItems": [
-        "AreaIkanaCanyonAccess",
         "CollectibleStrayFairyStoneTower1",
         "CollectibleStrayFairyStoneTower2",
         "CollectibleStrayFairyStoneTower3",
@@ -420,7 +320,8 @@
         "CollectibleStrayFairyStoneTower12",
         "CollectibleStrayFairyStoneTower13",
         "CollectibleStrayFairyStoneTower14",
-        "CollectibleStrayFairyStoneTower15"
+        "CollectibleStrayFairyStoneTower15",
+        "InteriorFairyFountainIkanaCanyon"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -431,7 +332,14 @@
     {
       "Id": "ItemBottleWitch",
       "RequiredItems": [],
-      "ConditionalItems": [],
+      "ConditionalItems": [
+        [
+          "ItemBottleWitchInWoodsOfMystery"
+        ],
+        [
+          "ItemBottleWitchInPotionShop"
+        ]
+      ],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
       "TimeSetup": "None",
@@ -460,7 +368,8 @@
       "RequiredItems": [
         "AreaSnowheadTempleClear",
         "MaskGoron",
-        "Magic Meter"
+        "Magic Meter",
+        "InteriorGoronRacetrack"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "Day2, Night2",
@@ -471,20 +380,10 @@
     {
       "Id": "ItemBottleBeavers",
       "RequiredItems": [
-        "AreaWestAccess",
+        "InteriorWaterfallRapids",
         "MaskZora"
       ],
-      "ConditionalItems": [
-        [
-          "ItemHookshot"
-        ],
-        [
-          "Extremely Long Bomb Hovers"
-        ],
-        [
-          "SettingClimbMostSurfaces"
-        ]
-      ],
+      "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
       "TimeSetup": "None",
@@ -522,7 +421,8 @@
       "Id": "ItemBottleMadameAroma",
       "RequiredItems": [
         "TradeItemMamaLetter",
-        "MaskKafei"
+        "MaskKafei",
+        "InteriorMilkBar"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -549,8 +449,8 @@
     {
       "Id": "UpgradeRazorSword",
       "RequiredItems": [
-        "AreaNorthAccess",
-        "Any Wallet"
+        "Any Wallet",
+        "InteriorMountainSmithy"
       ],
       "ConditionalItems": [
         [
@@ -576,8 +476,8 @@
     {
       "Id": "UpgradeGildedSword",
       "RequiredItems": [
-        "AreaNorthAccess",
-        "ItemBottleGoronRace"
+        "ItemBottleGoronRace",
+        "InteriorMountainSmithy"
       ],
       "ConditionalItems": [
         [
@@ -640,7 +540,8 @@
     {
       "Id": "UpgradeBigQuiver",
       "RequiredItems": [
-        "OtherArrow"
+        "OtherArrow",
+        "InteriorTownShootingGallery"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -651,7 +552,8 @@
     {
       "Id": "UpgradeBiggestQuiver",
       "RequiredItems": [
-        "OtherArrow"
+        "OtherArrow",
+        "InteriorSwampShootingGallery"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -664,24 +566,15 @@
       "RequiredItems": [],
       "ConditionalItems": [
         [
-          "MaskGoron"
+          "UpgradeBigBombBagInBombShop"
         ],
         [
-          "MaskZora"
-        ],
-        [
-          "Any Sword"
-        ],
-        [
-          "SettingAllowFierceDeityAnywhere"
-        ],
-        [
-          "Any Wallet"
+          "UpgradeBigBombBagInCuriosityShop"
         ]
       ],
       "TimeNeeded": "None",
-      "TimeAvailable": "Night3",
-      "TimeSetup": "Night3",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
       "IsTrick": false
     },
     {
@@ -712,7 +605,6 @@
     {
       "Id": "UpgradeGiantWallet",
       "RequiredItems": [
-        "AreaWestAccess",
         "CollectibleOceanSpiderToken1",
         "CollectibleOceanSpiderToken2",
         "CollectibleOceanSpiderToken3",
@@ -742,7 +634,8 @@
         "CollectibleOceanSpiderToken27",
         "CollectibleOceanSpiderToken28",
         "CollectibleOceanSpiderToken29",
-        "CollectibleOceanSpiderToken30"
+        "CollectibleOceanSpiderToken30",
+        "InteriorOceanSpiderHouse"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -847,7 +740,8 @@
         "AreaZoraHallAccess",
         "Zora Guard",
         "MaskGoron",
-        "TradeItemMountainDeed"
+        "TradeItemMountainDeed",
+        "InteriorLuluRoom"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -927,7 +821,8 @@
     {
       "Id": "HeartPieceNotebookMayor",
       "RequiredItems": [
-        "MaskCouple"
+        "MaskCouple",
+        "InteriorMayorsResidence"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -937,7 +832,9 @@
     },
     {
       "Id": "HeartPieceNotebookPostman",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorPostOffice"
+      ],
       "ConditionalItems": [
         [
           "MaskBunnyHood"
@@ -1046,7 +943,8 @@
     {
       "Id": "HeartPieceTownArchery",
       "RequiredItems": [
-        "OtherArrow"
+        "OtherArrow",
+        "InteriorTownShootingGallery"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -1057,7 +955,8 @@
     {
       "Id": "HeartPieceHoneyAndDarling",
       "RequiredItems": [
-        "OtherAnyBombBag"
+        "OtherAnyBombBag",
+        "InteriorHoneyAndDarling"
       ],
       "ConditionalItems": [
         [
@@ -1075,7 +974,8 @@
     {
       "Id": "HeartPieceSwordsmanSchool",
       "RequiredItems": [
-        "Any B Sword"
+        "Any B Sword",
+        "InteriorSwordsmanSchool"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -1169,7 +1069,8 @@
     {
       "Id": "HeartPieceSwampArchery",
       "RequiredItems": [
-        "OtherArrow"
+        "OtherArrow",
+        "InteriorSwampShootingGallery"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -1219,20 +1120,10 @@
     {
       "Id": "HeartPieceBeaverRace",
       "RequiredItems": [
-        "AreaWestAccess",
+        "InteriorWaterfallRapids",
         "MaskZora"
       ],
-      "ConditionalItems": [
-        [
-          "ItemHookshot"
-        ],
-        [
-          "Extremely Long Bomb Hovers"
-        ],
-        [
-          "SettingClimbMostSurfaces"
-        ]
-      ],
+      "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
       "TimeSetup": "None",
@@ -1268,7 +1159,8 @@
       "RequiredItems": [
         "AreaZoraHallAccess",
         "Zora Guard",
-        "Play Scarecrow's Song"
+        "Play Scarecrow's Song",
+        "InteriorEvanRoom"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -1278,7 +1170,9 @@
     },
     {
       "Id": "HeartPieceDogRace",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorDoggyRacetrack"
+      ],
       "ConditionalItems": [
         [
           "MaskTruth"
@@ -1288,14 +1182,14 @@
         ]
       ],
       "TimeNeeded": "None",
-      "TimeAvailable": "Day3",
+      "TimeAvailable": "None",
       "TimeSetup": "Day1, Night1, Day2, Night2, Day3",
       "IsTrick": false
     },
     {
       "Id": "HeartPiecePoeHut",
       "RequiredItems": [
-        "AreaIkanaCanyonAccess"
+        "InteriorPoeHut"
       ],
       "ConditionalItems": [
         [
@@ -1327,7 +1221,8 @@
     {
       "Id": "HeartPieceTreasureChestGame",
       "RequiredItems": [
-        "MaskGoron"
+        "MaskGoron",
+        "InteriorTreasureChestShop"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -1513,7 +1408,8 @@
     {
       "Id": "MaskAllNight",
       "RequiredItems": [
-        "Wallet (500)"
+        "Wallet (500)",
+        "InteriorCuriosityShop"
       ],
       "ConditionalItems": [
         [
@@ -1602,7 +1498,8 @@
     {
       "Id": "MaskGreatFairy",
       "RequiredItems": [
-        "CollectibleStrayFairyClockTown"
+        "CollectibleStrayFairyClockTown",
+        "InteriorFairyFountainTown"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -1660,11 +1557,12 @@
     {
       "Id": "MaskBunnyHood",
       "RequiredItems": [
-        "MaskBremen"
+        "MaskBremen",
+        "InteriorCuccoShack"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
-      "TimeAvailable": "Day3",
+      "TimeAvailable": "None",
       "TimeSetup": "Day1, Night1, Day2, Night2, Day3",
       "IsTrick": false
     },
@@ -1731,7 +1629,7 @@
         "MaskDeku",
         "MaskGoron",
         "MaskZora",
-        "MaskRomani"
+        "InteriorMilkBar"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -1741,7 +1639,9 @@
     },
     {
       "Id": "MaskKafei",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorMayorsResidence"
+      ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "Day1, Night1, Day2, Night2",
@@ -1817,30 +1717,10 @@
     {
       "Id": "MaskGibdo",
       "RequiredItems": [
-        "AreaIkanaCanyonAccess",
+        "InteriorMusicBoxHouse",
         "Play Song of Healing"
       ],
-      "ConditionalItems": [
-        [
-          "Play Song of Storms"
-        ],
-        [
-          "Recoil Flip",
-          "Out of Bounds"
-        ],
-        [
-          "MaskGoron",
-          "Out of Bounds"
-        ],
-        [
-          "ItemHookshot",
-          "Out of Bounds"
-        ],
-        [
-          "Recoil Flip Off Enemies",
-          "Out of Bounds"
-        ]
-      ],
+      "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
       "TimeSetup": "None",
@@ -1905,10 +1785,10 @@
     {
       "Id": "MaskGoron",
       "RequiredItems": [
-        "AreaNorthAccess",
         "ItemLens",
         "Magic Meter",
-        "Play Song of Healing"
+        "Play Song of Healing",
+        "InteriorGoronGraveyard"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -2144,9 +2024,9 @@
     {
       "Id": "SongNewWaveBossaNova",
       "RequiredItems": [
-        "AreaWestAccess",
         "MaskZora",
-        "BottleCatchEgg"
+        "BottleCatchEgg",
+        "InteriorMarineResearchLab"
       ],
       "ConditionalItems": [
         [
@@ -2445,6 +2325,9 @@
         [
           "SettingClimbMostSurfaces",
           "Out of Bounds"
+        ],
+        [
+          "TimeDayThreeNightThree"
         ]
       ],
       "TimeNeeded": "None",
@@ -2696,41 +2579,9 @@
     {
       "Id": "AreaStoneTowerTempleAccess",
       "RequiredItems": [
-        "Stone Tower Owl"
+        "InteriorStoneTowerTemple"
       ],
-      "ConditionalItems": [
-        [
-          "Play Elegy of Emptiness",
-          "MaskGoron",
-          "MaskZora"
-        ],
-        [
-          "Play Elegy of Emptiness",
-          "Climb Stone Tower with One Transformation"
-        ],
-        [
-          "Play Elegy of Emptiness",
-          "FD Jumps"
-        ],
-        [
-          "FD Difficult Jumps"
-        ],
-        [
-          "Long Bomb Hovers"
-        ],
-        [
-          "Time Stop",
-          "Repeatable Scoop"
-        ],
-        [
-          "Time Stop",
-          "SettingNotRandomizedBottleCatchHotSpringWater",
-          "OtherAnyBottle"
-        ],
-        [
-          "SettingClimbMostSurfaces"
-        ]
-      ],
+      "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
       "TimeSetup": "None",
@@ -2757,6 +2608,91 @@
       "TimeNeeded": "None",
       "TimeAvailable": "None",
       "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "TimeDayThreeNightThree",
+      "RequiredItems": [],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "Day3, Night3",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "OtherMilkBarDay",
+      "RequiredItems": [],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "Day1, Day2, Day3",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "OtherMilkBarNight1Or2",
+      "RequiredItems": [
+        "MaskRomani"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "Night1, Night2",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "OtherMilkBarNight3",
+      "RequiredItems": [],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "Night3",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "OtherPostOfficeNormal",
+      "RequiredItems": [],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "Day1, Night1, Night3",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "OtherPostOfficeDay2",
+      "RequiredItems": [
+        "TradeItemKafeiLetter"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "Day2, Night2",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "OtherRomaniInHouseNight1",
+      "RequiredItems": [],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "Night1",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "OtherRomaniInHouseNight2Or3",
+      "RequiredItems": [
+        "OtherEpona"
+      ],
+      "ConditionalItems": [
+        [
+          "OtherArrow"
+        ],
+        [
+          "Bowless Aliens"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "Night2, Night3",
+      "TimeSetup": "Day1, Night1",
       "IsTrick": false
     },
     {
@@ -3299,7 +3235,9 @@
     },
     {
       "Id": "GrottoGenericWoodsOfMystery",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorWoodsOfMystery"
+      ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "Day2, Night2",
@@ -3585,6 +3523,757 @@
       "RequiredItems": [],
       "ConditionalItems": [],
       "TimeNeeded": "Day1",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorMayorsResidence",
+      "RequiredItems": [],
+      "ConditionalItems": [],
+      "TimeNeeded": "Day1, Day2",
+      "TimeAvailable": "Day1, Day2, Day3",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorPotionShop",
+      "RequiredItems": [],
+      "ConditionalItems": [],
+      "TimeNeeded": "Day1, Night1",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorRanchBarn",
+      "RequiredItems": [
+        "OtherEpona"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "Day1, Night1, Day2, Night2, Day3",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorRanchHouse",
+      "RequiredItems": [
+        "OtherEpona"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "Day1, Day2, Day3",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorHoneyAndDarling",
+      "RequiredItems": [],
+      "ConditionalItems": [],
+      "TimeNeeded": "Day1",
+      "TimeAvailable": "Day1, Day2, Day3",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorCuriosityShop",
+      "RequiredItems": [],
+      "ConditionalItems": [],
+      "TimeNeeded": "Night1, Night2, Night3",
+      "TimeAvailable": "Night1, Night2, Night3",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorMilkBar",
+      "RequiredItems": [],
+      "ConditionalItems": [
+        [
+          "OtherMilkBarDay"
+        ],
+        [
+          "OtherMilkBarNight1Or2"
+        ],
+        [
+          "OtherMilkBarNight3"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorTreasureChestShop",
+      "RequiredItems": [],
+      "ConditionalItems": [],
+      "TimeNeeded": "Day1, Day2, Day3",
+      "TimeAvailable": "Day1, Day2, Day3",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorTownShootingGallery",
+      "RequiredItems": [],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "Day1, Day2, Day3",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorSwampShootingGallery",
+      "RequiredItems": [],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "Day1, Day2, Day3",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorMountainSmithy",
+      "RequiredItems": [
+        "AreaNorthAccess"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "Day1, Night1",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorPostOffice",
+      "RequiredItems": [],
+      "ConditionalItems": [
+        [
+          "OtherPostOfficeNormal"
+        ],
+        [
+          "OtherPostOfficeDay2"
+        ]
+      ],
+      "TimeNeeded": "Day1, Night1",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorMarineResearchLab",
+      "RequiredItems": [
+        "AreaWestAccess"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorTradingPost",
+      "RequiredItems": [],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorLotteryShop",
+      "RequiredItems": [],
+      "ConditionalItems": [],
+      "TimeNeeded": "Day1, Day2, Day3",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorDoggyRacetrack",
+      "RequiredItems": [
+        "OtherEpona"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "Day1, Day2, Day3",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorCuccoShack",
+      "RequiredItems": [
+        "OtherEpona"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "Day1, Day2, Day3",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorMikauTijoRoom",
+      "RequiredItems": [
+        "AreaWestAccess",
+        "MaskZora"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorJapasRoom",
+      "RequiredItems": [
+        "AreaWestAccess",
+        "MaskZora"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorLuluRoom",
+      "RequiredItems": [
+        "AreaWestAccess",
+        "MaskZora"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorEvanRoom",
+      "RequiredItems": [
+        "AreaWestAccess",
+        "MaskZora"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorZoraShop",
+      "RequiredItems": [
+        "AreaZoraHallAccess"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorSwordsmanSchool",
+      "RequiredItems": [],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorMusicBoxHouse",
+      "RequiredItems": [
+        "AreaIkanaCanyonAccess"
+      ],
+      "ConditionalItems": [
+        [
+          "Play Song of Storms",
+          "InteriorIkanaPoolCave"
+        ],
+        [
+          "Recoil Flip",
+          "Out of Bounds"
+        ],
+        [
+          "MaskGoron",
+          "Out of Bounds"
+        ],
+        [
+          "ItemHookshot",
+          "Out of Bounds"
+        ],
+        [
+          "Recoil Flip Off Enemies",
+          "Out of Bounds"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorBombShop",
+      "RequiredItems": [],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorLensCave",
+      "RequiredItems": [
+        "AreaNorthAccess"
+      ],
+      "ConditionalItems": [
+        [
+          "ItemLens",
+          "Magic Meter"
+        ],
+        [
+          "Play Song of Soaring"
+        ],
+        [
+          "Lensless Jumping"
+        ],
+        [
+          "SettingDeathModeDefault",
+          "OtherExplosive"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorIkanaPoolCave",
+      "RequiredItems": [
+        "AreaIkanaCanyonAccess"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorPinnacleRock",
+      "RequiredItems": [
+        "AreaWestAccess"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorFairyFountainTown",
+      "RequiredItems": [],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorFairyFountainWoodfall",
+      "RequiredItems": [],
+      "ConditionalItems": [
+        [
+          "AreaSouthAccess",
+          "MaskDeku"
+        ],
+        [
+          "AreaSouthAccess",
+          "SettingClimbMostSurfaces"
+        ],
+        [
+          "AreaSouthAccess",
+          "FD Difficult Jumps",
+          "SettingDamageModeDefault"
+        ],
+        [
+          "Index Warp",
+          "MaskDeku"
+        ],
+        [
+          "Index Warp",
+          "SettingClimbMostSurfaces"
+        ],
+        [
+          "Index Warp",
+          "FD Difficult Jumps",
+          "SettingDamageModeDefault"
+        ],
+        [
+          "Long Bomb Hovers"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorFairyFountainSnowhead",
+      "RequiredItems": [
+        "Snowhead Owl"
+      ],
+      "ConditionalItems": [
+        [
+          "Play Goron Lullaby as Goron"
+        ],
+        [
+          "SongLullaby",
+          "MaskGoron",
+          "Ocarina Items",
+          "SettingNotRandomizedBottleCatchHotSpringWater",
+          "OtherAnyBottle"
+        ],
+        [
+          "Lullaby Skip",
+          "MaskGoron",
+          "Magic Meter"
+        ],
+        [
+          "Lullaby Skip",
+          "Any Shield",
+          "OtherAnyBombBag",
+          "OtherAnyBombchuPack"
+        ],
+        [
+          "Remote Hookshot"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorFairyFountainZoraCape",
+      "RequiredItems": [
+        "OtherExplosive",
+        "AreaWestAccess"
+      ],
+      "ConditionalItems": [
+        [
+          "ItemHookshot"
+        ],
+        [
+          "Clever Ice Platforms",
+          "Tall Character"
+        ],
+        [
+          "Clever Ice Platforms",
+          "Goron Bomb Jump",
+          "SettingDamageModeDefault",
+          "OtherAnyBombBag"
+        ],
+        [
+          "Clever Ice Platforms",
+          "Goron Bomb Jump",
+          "SettingDamageModeDefault",
+          "Powder Kegs as Explosives",
+          "ItemPowderKeg",
+          "MaskBlast"
+        ],
+        [
+          "MaskZora",
+          "GBT Iceless"
+        ],
+        [
+          "Long Bomb Hovers"
+        ],
+        [
+          "SettingClimbMostSurfaces"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorFairyFountainIkanaCanyon",
+      "RequiredItems": [
+        "AreaIkanaCanyonAccess"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorFishermanHut",
+      "RequiredItems": [
+        "AreaWestAccess"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorGoronShop",
+      "RequiredItems": [
+        "AreaNorthAccess"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "Day1, Night1",
+      "TimeSetup": "Day1, Night1",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorWaterfallRapids",
+      "RequiredItems": [
+        "AreaWestAccess"
+      ],
+      "ConditionalItems": [
+        [
+          "ItemHookshot"
+        ],
+        [
+          "Extremely Long Bomb Hovers"
+        ],
+        [
+          "SettingClimbMostSurfaces"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorGoronGraveyard",
+      "RequiredItems": [
+        "AreaNorthAccess"
+      ],
+      "ConditionalItems": [
+        [
+          "ItemLens",
+          "Magic Meter"
+        ],
+        [
+          "Lensless Climbing"
+        ],
+        [
+          "SettingClimbMostSurfaces"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorPoeHut",
+      "RequiredItems": [
+        "AreaIkanaCanyonAccess"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorDekuShrine",
+      "RequiredItems": [
+        "AreaDekuPalaceAccess"
+      ],
+      "ConditionalItems": [
+        [
+          "Kill Deku Shrine Big Octo",
+          "OtherArrow",
+          "SettingDamageModeDefault"
+        ],
+        [
+          "Kill Deku Shrine Big Octo",
+          "MaskZora",
+          "SettingDamageModeDefault"
+        ],
+        [
+          "Kill Deku Shrine Big Octo",
+          "ItemHookshot",
+          "SettingDamageModeDefault"
+        ],
+        [
+          "Hookshot Clip"
+        ],
+        [
+          "AreaWoodFallTempleClear"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorSecretShrine",
+      "RequiredItems": [
+        "AreaEastAccess"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorWoodsOfMystery",
+      "RequiredItems": [],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorGoronRacetrack",
+      "RequiredItems": [
+        "Goron Racetrack Access"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorStoneTowerTemple",
+      "RequiredItems": [
+        "Stone Tower Owl"
+      ],
+      "ConditionalItems": [
+        [
+          "Play Elegy of Emptiness",
+          "MaskGoron",
+          "MaskZora"
+        ],
+        [
+          "Play Elegy of Emptiness",
+          "Climb Stone Tower with One Transformation"
+        ],
+        [
+          "Play Elegy of Emptiness",
+          "FD Jumps"
+        ],
+        [
+          "FD Difficult Jumps"
+        ],
+        [
+          "Long Bomb Hovers"
+        ],
+        [
+          "Time Stop",
+          "Repeatable Scoop"
+        ],
+        [
+          "Time Stop",
+          "SettingNotRandomizedBottleCatchHotSpringWater",
+          "OtherAnyBottle"
+        ],
+        [
+          "SettingClimbMostSurfaces"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorSwampSpiderHouse",
+      "RequiredItems": [],
+      "ConditionalItems": [
+        [
+          "MaskDeku",
+          "Kill Big Octo"
+        ],
+        [
+          "Run Through Poisoned Water",
+          "SettingDamageModeDefault",
+          "MaskZora"
+        ],
+        [
+          "Run Through Poisoned Water",
+          "SettingDamageModeDefault",
+          "Tall Character",
+          "Kill Big Octo"
+        ],
+        [
+          "Poisoned Water as Goron",
+          "SettingDamageModeDefault",
+          "Kill Big Octo"
+        ],
+        [
+          "Big Octo Skip",
+          "SettingDamageModeDefault",
+          "MaskDeku"
+        ],
+        [
+          "Big Octo Skip",
+          "SettingDamageModeDefault",
+          "Poisoned Water as Goron",
+          "Play Song of Soaring"
+        ],
+        [
+          "Big Octo Skip",
+          "SettingDamageModeDefault",
+          "Run Through Poisoned Water",
+          "FD Jumps",
+          "Play Song of Soaring"
+        ],
+        [
+          "Big Octo Skip",
+          "SettingDamageModeDefault",
+          "Recoil Flip",
+          "Run Through Poisoned Water",
+          "SettingCharacterAdultLink",
+          "Play Song of Soaring"
+        ],
+        [
+          "Big Octo Skip",
+          "SettingDamageModeDefault",
+          "Run Through Poisoned Water",
+          "FD Difficult Jumps"
+        ],
+        [
+          "AreaSouthAccess",
+          "FD Difficult Jumps"
+        ],
+        [
+          "Long Bomb Hovers"
+        ],
+        [
+          "SettingClimbMostSurfaces",
+          "Kill Big Octo",
+          "SettingDamageModeDefault"
+        ],
+        [
+          "SettingClimbMostSurfaces",
+          "Big Octo Skip",
+          "SettingDamageModeDefault"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "InteriorOceanSpiderHouse",
+      "RequiredItems": [
+        "AreaWestAccess"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
       "TimeAvailable": "None",
       "TimeSetup": "None",
       "IsTrick": false
@@ -4306,7 +4995,9 @@
     },
     {
       "Id": "ShopItemTradingPostRedPotion",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorTradingPost"
+      ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
@@ -4315,7 +5006,9 @@
     },
     {
       "Id": "ShopItemTradingPostGreenPotion",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorTradingPost"
+      ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
@@ -4324,7 +5017,9 @@
     },
     {
       "Id": "ShopItemTradingPostShield",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorTradingPost"
+      ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
@@ -4333,7 +5028,9 @@
     },
     {
       "Id": "ShopItemTradingPostFairy",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorTradingPost"
+      ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
@@ -4342,7 +5039,9 @@
     },
     {
       "Id": "ShopItemTradingPostStick",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorTradingPost"
+      ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
@@ -4351,7 +5050,9 @@
     },
     {
       "Id": "ShopItemTradingPostArrow30",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorTradingPost"
+      ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
@@ -4360,7 +5061,9 @@
     },
     {
       "Id": "ShopItemTradingPostNut10",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorTradingPost"
+      ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
@@ -4369,7 +5072,9 @@
     },
     {
       "Id": "ShopItemTradingPostArrow50",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorTradingPost"
+      ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
@@ -4379,7 +5084,8 @@
     {
       "Id": "ShopItemWitchBluePotion",
       "RequiredItems": [
-        "BottleCatchMushroom"
+        "BottleCatchMushroom",
+        "InteriorPotionShop"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -4389,7 +5095,9 @@
     },
     {
       "Id": "ShopItemWitchRedPotion",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorPotionShop"
+      ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
@@ -4398,7 +5106,9 @@
     },
     {
       "Id": "ShopItemWitchGreenPotion",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorPotionShop"
+      ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
@@ -4407,7 +5117,9 @@
     },
     {
       "Id": "ShopItemBombsBomb10",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorBombShop"
+      ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
@@ -4416,7 +5128,9 @@
     },
     {
       "Id": "ShopItemBombsBombchu10",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorBombShop"
+      ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
@@ -4474,7 +5188,7 @@
     {
       "Id": "ShopItemZoraShield",
       "RequiredItems": [
-        "AreaZoraHallAccess"
+        "InteriorZoraShop"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -4485,7 +5199,7 @@
     {
       "Id": "ShopItemZoraArrow10",
       "RequiredItems": [
-        "AreaZoraHallAccess"
+        "InteriorZoraShop"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -4496,7 +5210,7 @@
     {
       "Id": "ShopItemZoraRedPotion",
       "RequiredItems": [
-        "AreaZoraHallAccess"
+        "InteriorZoraShop"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -4803,7 +5517,7 @@
     {
       "Id": "ChestLensCaveRedRupee",
       "RequiredItems": [
-        "AreaNorthAccess"
+        "InteriorLensCave"
       ],
       "ConditionalItems": [
         [
@@ -4811,16 +5525,6 @@
           "Magic Meter"
         ],
         [
-          "Play Song of Soaring",
-          "Lensless Chests"
-        ],
-        [
-          "Lensless Jumping",
-          "Lensless Chests"
-        ],
-        [
-          "SettingDeathModeDefault",
-          "OtherExplosive",
           "Lensless Chests"
         ]
       ],
@@ -4832,20 +5536,10 @@
     {
       "Id": "ChestLensCavePurpleRupee",
       "RequiredItems": [
-        "AreaNorthAccess",
+        "InteriorLensCave",
         "OtherExplosive"
       ],
-      "ConditionalItems": [
-        [
-          "Play Song of Soaring"
-        ],
-        [
-          "Jump along invisible platforms"
-        ],
-        [
-          "SettingDeathModeDefault"
-        ]
-      ],
+      "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
       "TimeSetup": "None",
@@ -5352,10 +6046,12 @@
     },
     {
       "Id": "ChestDogRacePurpleRupee",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorDoggyRacetrack"
+      ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
-      "TimeAvailable": "Day3",
+      "TimeAvailable": "None",
       "TimeSetup": "Day1, Night1, Day2, Night2, Day3",
       "IsTrick": false
     },
@@ -5669,7 +6365,8 @@
     {
       "Id": "ChestSecretShrineHeartPiece",
       "RequiredItems": [
-        "Secret Shrine Access"
+        "Secret Shrine Access",
+        "InteriorSecretShrine"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -5680,7 +6377,8 @@
     {
       "Id": "ChestSecretShrineDinoGrotto",
       "RequiredItems": [
-        "Secret Shrine Access"
+        "Secret Shrine Access",
+        "InteriorSecretShrine"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -5691,7 +6389,8 @@
     {
       "Id": "ChestSecretShrineWizzGrotto",
       "RequiredItems": [
-        "Secret Shrine Access"
+        "Secret Shrine Access",
+        "InteriorSecretShrine"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -5702,7 +6401,8 @@
     {
       "Id": "ChestSecretShrineWartGrotto",
       "RequiredItems": [
-        "Secret Shrine Access"
+        "Secret Shrine Access",
+        "InteriorSecretShrine"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -5713,7 +6413,8 @@
     {
       "Id": "ChestSecretShrineGaroGrotto",
       "RequiredItems": [
-        "Secret Shrine Access"
+        "Secret Shrine Access",
+        "InteriorSecretShrine"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -5991,8 +6692,8 @@
     {
       "Id": "HeartPieceLabFish",
       "RequiredItems": [
-        "AreaWestAccess",
-        "BottleCatchFish"
+        "BottleCatchFish",
+        "InteriorMarineResearchLab"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -6034,7 +6735,8 @@
       "Id": "HeartPieceZoraHallScrub",
       "RequiredItems": [
         "AreaZoraHallAccess",
-        "Zora Guard"
+        "Zora Guard",
+        "InteriorLuluRoom"
       ],
       "ConditionalItems": [
         [
@@ -6813,9 +7515,16 @@
       "Id": "ItemRanchBarnMainCowMilk",
       "RequiredItems": [
         "Play Epona's Song",
-        "OtherEpona"
+        "InteriorRanchBarn"
       ],
-      "ConditionalItems": [],
+      "ConditionalItems": [
+        [
+          "OtherRomaniInHouseNight1"
+        ],
+        [
+          "OtherRomaniInHouseNight2Or3"
+        ]
+      ],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
       "TimeSetup": "None",
@@ -6825,9 +7534,16 @@
       "Id": "ItemRanchBarnOtherCowMilk1",
       "RequiredItems": [
         "Play Epona's Song",
-        "OtherEpona"
+        "InteriorRanchBarn"
       ],
-      "ConditionalItems": [],
+      "ConditionalItems": [
+        [
+          "OtherRomaniInHouseNight1"
+        ],
+        [
+          "OtherRomaniInHouseNight2Or3"
+        ]
+      ],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
       "TimeSetup": "None",
@@ -6837,14 +7553,24 @@
       "Id": "ItemRanchBarnOtherCowMilk2",
       "RequiredItems": [
         "Play Epona's Song",
-        "OtherEpona"
+        "InteriorRanchBarn"
       ],
       "ConditionalItems": [
         [
-          "ItemOcarina"
+          "ItemOcarina",
+          "OtherRomaniInHouseNight1"
         ],
         [
-          "SettingClimbMostSurfaces"
+          "ItemOcarina",
+          "OtherRomaniInHouseNight2Or3"
+        ],
+        [
+          "SettingClimbMostSurfaces",
+          "OtherRomaniInHouseNight1"
+        ],
+        [
+          "SettingClimbMostSurfaces",
+          "OtherRomaniInHouseNight2Or3"
         ]
       ],
       "TimeNeeded": "None",
@@ -7707,8 +8433,8 @@
     {
       "Id": "CollectibleOceanSpiderToken12",
       "RequiredItems": [
-        "AreaWestAccess",
-        "OtherExplosive"
+        "OtherExplosive",
+        "InteriorOceanSpiderHouse"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -7719,8 +8445,8 @@
     {
       "Id": "CollectibleOceanSpiderToken13",
       "RequiredItems": [
-        "AreaWestAccess",
-        "OtherExplosive"
+        "OtherExplosive",
+        "InteriorOceanSpiderHouse"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -7753,8 +8479,8 @@
     {
       "Id": "CollectibleOceanSpiderToken15",
       "RequiredItems": [
-        "AreaWestAccess",
-        "OtherExplosive"
+        "OtherExplosive",
+        "InteriorOceanSpiderHouse"
       ],
       "ConditionalItems": [
         [
@@ -10180,7 +10906,9 @@
     },
     {
       "Id": "MundaneItemLotteryPurpleRupee",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorLotteryShop"
+      ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "Night1, Night2, Night3",
@@ -10207,7 +10935,8 @@
       "Id": "ShopItemMilkBarChateau",
       "RequiredItems": [
         "MaskRomani",
-        "Any Wallet"
+        "Any Wallet",
+        "InteriorMilkBar"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -10218,7 +10947,8 @@
     {
       "Id": "ShopItemMilkBarMilk",
       "RequiredItems": [
-        "MaskRomani"
+        "MaskRomani",
+        "InteriorMilkBar"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -10240,7 +10970,9 @@
     },
     {
       "Id": "MundaneItemHoneyAndDarlingPurpleRupee",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorHoneyAndDarling"
+      ],
       "ConditionalItems": [
         [
           "OtherArrow"
@@ -10261,7 +10993,8 @@
     {
       "Id": "MundaneItemKotakeMushroomSaleRedRupee",
       "RequiredItems": [
-        "BottleCatchMushroom"
+        "BottleCatchMushroom",
+        "InteriorPotionShop"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -10370,7 +11103,6 @@
     {
       "Id": "MundaneItemOceanSpiderHouseDay2PurpleRupee",
       "RequiredItems": [
-        "AreaWestAccess",
         "CollectibleOceanSpiderToken1",
         "CollectibleOceanSpiderToken2",
         "CollectibleOceanSpiderToken3",
@@ -10400,7 +11132,8 @@
         "CollectibleOceanSpiderToken27",
         "CollectibleOceanSpiderToken28",
         "CollectibleOceanSpiderToken29",
-        "CollectibleOceanSpiderToken30"
+        "CollectibleOceanSpiderToken30",
+        "InteriorOceanSpiderHouse"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -10411,7 +11144,6 @@
     {
       "Id": "MundaneItemOceanSpiderHouseDay3RedRupee",
       "RequiredItems": [
-        "AreaWestAccess",
         "CollectibleOceanSpiderToken1",
         "CollectibleOceanSpiderToken2",
         "CollectibleOceanSpiderToken3",
@@ -10441,7 +11173,8 @@
         "CollectibleOceanSpiderToken27",
         "CollectibleOceanSpiderToken28",
         "CollectibleOceanSpiderToken29",
-        "CollectibleOceanSpiderToken30"
+        "CollectibleOceanSpiderToken30",
+        "InteriorOceanSpiderHouse"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -10477,7 +11210,9 @@
     },
     {
       "Id": "MundaneItemTreasureChestGamePurpleRupee",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorTreasureChestShop"
+      ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "Day1, Day2, Day3",
@@ -10487,7 +11222,8 @@
     {
       "Id": "MundaneItemTreasureChestGameRedRupee",
       "RequiredItems": [
-        "MaskZora"
+        "MaskZora",
+        "InteriorTreasureChestShop"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -10498,7 +11234,8 @@
     {
       "Id": "MundaneItemTreasureChestGameDekuNuts",
       "RequiredItems": [
-        "MaskDeku"
+        "MaskDeku",
+        "InteriorTreasureChestShop"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -10508,7 +11245,9 @@
     },
     {
       "Id": "MundaneItemCuriosityShopBlueRupee",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorCuriosityShop"
+      ],
       "ConditionalItems": [
         [
           "BottleCatchMushroom"
@@ -10524,7 +11263,9 @@
     },
     {
       "Id": "MundaneItemCuriosityShopRedRupee",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorCuriosityShop"
+      ],
       "ConditionalItems": [
         [
           "BottleCatchFish"
@@ -10569,7 +11310,8 @@
     {
       "Id": "MundaneItemCuriosityShopPurpleRupee",
       "RequiredItems": [
-        "BottleCatchPoe"
+        "BottleCatchPoe",
+        "InteriorCuriosityShop"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -10579,7 +11321,9 @@
     },
     {
       "Id": "MundaneItemCuriosityShopGoldRupee",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorCuriosityShop"
+      ],
       "ConditionalItems": [
         [
           "ItemBottleGoronRace"
@@ -10604,7 +11348,8 @@
       "Id": "MundaneItemSeahorse",
       "RequiredItems": [
         "AreaPiratesFortressAccess",
-        "ItemPictobox"
+        "ItemPictobox",
+        "InteriorFishermanHut"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -10686,10 +11431,12 @@
     },
     {
       "Id": "CollectableCuccoShackWoodenCrateLarge1",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorCuccoShack"
+      ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
-      "TimeAvailable": "Day3",
+      "TimeAvailable": "None",
       "TimeSetup": "Day1, Night1, Day2, Night2, Day3",
       "IsTrick": false
     },
@@ -11015,7 +11762,8 @@
     {
       "Id": "CollectableSecretShrineMainRoomPot1",
       "RequiredItems": [
-        "Secret Shrine Access"
+        "Secret Shrine Access",
+        "InteriorSecretShrine"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -11026,7 +11774,8 @@
     {
       "Id": "CollectableSecretShrineMainRoomPot2",
       "RequiredItems": [
-        "Secret Shrine Access"
+        "Secret Shrine Access",
+        "InteriorSecretShrine"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -11459,37 +12208,45 @@
     },
     {
       "Id": "CollectableDoggyRacetrackPot1",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorDoggyRacetrack"
+      ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
-      "TimeAvailable": "Day3",
+      "TimeAvailable": "None",
       "TimeSetup": "None",
       "IsTrick": false
     },
     {
       "Id": "CollectableDoggyRacetrackPot2",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorDoggyRacetrack"
+      ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
-      "TimeAvailable": "Day3",
+      "TimeAvailable": "None",
       "TimeSetup": "None",
       "IsTrick": false
     },
     {
       "Id": "CollectableDoggyRacetrackPot3",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorDoggyRacetrack"
+      ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
-      "TimeAvailable": "Day3",
+      "TimeAvailable": "None",
       "TimeSetup": "None",
       "IsTrick": false
     },
     {
       "Id": "CollectableDoggyRacetrackPot4",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorDoggyRacetrack"
+      ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
-      "TimeAvailable": "Day3",
+      "TimeAvailable": "None",
       "TimeSetup": "None",
       "IsTrick": false
     },
@@ -11899,19 +12656,23 @@
     },
     {
       "Id": "CollectableRanchHouseBarnBarnItem1",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorRanchBarn"
+      ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
-      "TimeAvailable": "Day3, Night3",
+      "TimeAvailable": "None",
       "TimeSetup": "None",
       "IsTrick": false
     },
     {
       "Id": "CollectableRanchHouseBarnBarnItem2",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorRanchBarn"
+      ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
-      "TimeAvailable": "Day3, Night3",
+      "TimeAvailable": "None",
       "TimeSetup": "None",
       "IsTrick": false
     },
@@ -12812,7 +13573,9 @@
     },
     {
       "Id": "CollectableSwordsmanSSchoolPot1",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorSwordsmanSchool"
+      ],
       "ConditionalItems": [
         [
           "Any B Sword"
@@ -12828,7 +13591,9 @@
     },
     {
       "Id": "CollectableSwordsmanSSchoolPot2",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorSwordsmanSchool"
+      ],
       "ConditionalItems": [
         [
           "Any B Sword"
@@ -12844,7 +13609,9 @@
     },
     {
       "Id": "CollectableSwordsmanSSchoolPot3",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorSwordsmanSchool"
+      ],
       "ConditionalItems": [
         [
           "Any B Sword"
@@ -12860,7 +13627,9 @@
     },
     {
       "Id": "CollectableSwordsmanSSchoolPot4",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorSwordsmanSchool"
+      ],
       "ConditionalItems": [
         [
           "Any B Sword"
@@ -12876,7 +13645,9 @@
     },
     {
       "Id": "CollectableSwordsmanSSchoolPot5",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorSwordsmanSchool"
+      ],
       "ConditionalItems": [
         [
           "Any B Sword"
@@ -14123,7 +14894,9 @@
     },
     {
       "Id": "CollectableMagicHagsPotionShopItem1",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorPotionShop"
+      ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
@@ -14496,7 +15269,7 @@
     {
       "Id": "CollectableGoronRacetrackPot1",
       "RequiredItems": [
-        "Goron Racetrack Access"
+        "InteriorGoronRacetrack"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -14507,7 +15280,7 @@
     {
       "Id": "CollectableGoronRacetrackPot2",
       "RequiredItems": [
-        "Goron Racetrack Access"
+        "InteriorGoronRacetrack"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -14518,7 +15291,7 @@
     {
       "Id": "CollectableGoronRacetrackPot3",
       "RequiredItems": [
-        "Goron Racetrack Access"
+        "InteriorGoronRacetrack"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -14529,7 +15302,7 @@
     {
       "Id": "CollectableGoronRacetrackPot4",
       "RequiredItems": [
-        "Goron Racetrack Access"
+        "InteriorGoronRacetrack"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -14540,7 +15313,7 @@
     {
       "Id": "CollectableGoronRacetrackPot5",
       "RequiredItems": [
-        "Goron Racetrack Access"
+        "InteriorGoronRacetrack"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -14551,7 +15324,7 @@
     {
       "Id": "CollectableGoronRacetrackPot6",
       "RequiredItems": [
-        "Goron Racetrack Access"
+        "InteriorGoronRacetrack"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -14562,7 +15335,7 @@
     {
       "Id": "CollectableGoronRacetrackPot7",
       "RequiredItems": [
-        "Goron Racetrack Access"
+        "InteriorGoronRacetrack"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -14573,7 +15346,7 @@
     {
       "Id": "CollectableGoronRacetrackPot8",
       "RequiredItems": [
-        "Goron Racetrack Access"
+        "InteriorGoronRacetrack"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -14584,7 +15357,7 @@
     {
       "Id": "CollectableGoronRacetrackPot9",
       "RequiredItems": [
-        "Goron Racetrack Access"
+        "InteriorGoronRacetrack"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -14595,7 +15368,7 @@
     {
       "Id": "CollectableGoronRacetrackPot10",
       "RequiredItems": [
-        "Goron Racetrack Access"
+        "InteriorGoronRacetrack"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -14606,7 +15379,7 @@
     {
       "Id": "CollectableGoronRacetrackPot11",
       "RequiredItems": [
-        "Goron Racetrack Access"
+        "InteriorGoronRacetrack"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -14617,7 +15390,7 @@
     {
       "Id": "CollectableGoronRacetrackPot12",
       "RequiredItems": [
-        "Goron Racetrack Access"
+        "InteriorGoronRacetrack"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -14628,7 +15401,7 @@
     {
       "Id": "CollectableGoronRacetrackPot13",
       "RequiredItems": [
-        "Goron Racetrack Access"
+        "InteriorGoronRacetrack"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -14639,7 +15412,7 @@
     {
       "Id": "CollectableGoronRacetrackPot14",
       "RequiredItems": [
-        "Goron Racetrack Access"
+        "InteriorGoronRacetrack"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -14650,7 +15423,7 @@
     {
       "Id": "CollectableGoronRacetrackPot15",
       "RequiredItems": [
-        "Goron Racetrack Access"
+        "InteriorGoronRacetrack"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -14661,7 +15434,7 @@
     {
       "Id": "CollectableGoronRacetrackPot16",
       "RequiredItems": [
-        "Goron Racetrack Access"
+        "InteriorGoronRacetrack"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -14672,7 +15445,7 @@
     {
       "Id": "CollectableGoronRacetrackPot17",
       "RequiredItems": [
-        "Goron Racetrack Access"
+        "InteriorGoronRacetrack"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -14683,7 +15456,7 @@
     {
       "Id": "CollectableGoronRacetrackPot18",
       "RequiredItems": [
-        "Goron Racetrack Access"
+        "InteriorGoronRacetrack"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -14694,7 +15467,7 @@
     {
       "Id": "CollectableGoronRacetrackPot19",
       "RequiredItems": [
-        "Goron Racetrack Access"
+        "InteriorGoronRacetrack"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -14705,7 +15478,7 @@
     {
       "Id": "CollectableGoronRacetrackPot20",
       "RequiredItems": [
-        "Goron Racetrack Access"
+        "InteriorGoronRacetrack"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -14716,7 +15489,7 @@
     {
       "Id": "CollectableGoronRacetrackPot21",
       "RequiredItems": [
-        "Goron Racetrack Access"
+        "InteriorGoronRacetrack"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -14727,7 +15500,7 @@
     {
       "Id": "CollectableGoronRacetrackPot22",
       "RequiredItems": [
-        "Goron Racetrack Access"
+        "InteriorGoronRacetrack"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -14738,7 +15511,7 @@
     {
       "Id": "CollectableGoronRacetrackPot23",
       "RequiredItems": [
-        "Goron Racetrack Access"
+        "InteriorGoronRacetrack"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -14749,7 +15522,7 @@
     {
       "Id": "CollectableGoronRacetrackPot24",
       "RequiredItems": [
-        "Goron Racetrack Access"
+        "InteriorGoronRacetrack"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -14760,7 +15533,7 @@
     {
       "Id": "CollectableGoronRacetrackPot25",
       "RequiredItems": [
-        "Goron Racetrack Access"
+        "InteriorGoronRacetrack"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -14771,7 +15544,7 @@
     {
       "Id": "CollectableGoronRacetrackPot26",
       "RequiredItems": [
-        "Goron Racetrack Access"
+        "InteriorGoronRacetrack"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -14782,7 +15555,7 @@
     {
       "Id": "CollectableGoronRacetrackPot27",
       "RequiredItems": [
-        "Goron Racetrack Access"
+        "InteriorGoronRacetrack"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -16117,7 +16890,7 @@
     {
       "Id": "CollectableGoronRacetrackPot28",
       "RequiredItems": [
-        "Goron Racetrack Access"
+        "InteriorGoronRacetrack"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -16128,7 +16901,7 @@
     {
       "Id": "CollectableGoronRacetrackPot29",
       "RequiredItems": [
-        "Goron Racetrack Access"
+        "InteriorGoronRacetrack"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -16139,7 +16912,7 @@
     {
       "Id": "CollectableGoronRacetrackPot30",
       "RequiredItems": [
-        "Goron Racetrack Access"
+        "InteriorGoronRacetrack"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -16961,7 +17734,8 @@
     {
       "Id": "CollectableSecretShrineMainRoomPot3",
       "RequiredItems": [
-        "Secret Shrine Access"
+        "Secret Shrine Access",
+        "InteriorSecretShrine"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -16972,7 +17746,8 @@
     {
       "Id": "CollectableSecretShrineMainRoomPot4",
       "RequiredItems": [
-        "Secret Shrine Access"
+        "Secret Shrine Access",
+        "InteriorSecretShrine"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -17771,7 +18546,9 @@
     },
     {
       "Id": "CollectableSwordsmanSchoolGong1",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorSwordsmanSchool"
+      ],
       "ConditionalItems": [
         [
           "MaskDeku"
@@ -17858,11 +18635,12 @@
     {
       "Id": "CollectableDoggyRacetrackSoftSoil1",
       "RequiredItems": [
-        "BottleCatchBug"
+        "BottleCatchBug",
+        "InteriorDoggyRacetrack"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
-      "TimeAvailable": "Day3",
+      "TimeAvailable": "None",
       "TimeSetup": "Day1, Night1, Day2, Night2, Day3",
       "IsTrick": false
     },
@@ -17918,8 +18696,8 @@
     {
       "Id": "CollectableSecretShrineSoftSoil1",
       "RequiredItems": [
-        "AreaEastAccess",
-        "BottleCatchBug"
+        "BottleCatchBug",
+        "InteriorSecretShrine"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -19751,55 +20529,67 @@
     },
     {
       "Id": "CollectableCuccoShackHitTag1",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorCuccoShack"
+      ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
-      "TimeAvailable": "Day3",
+      "TimeAvailable": "None",
       "TimeSetup": "None",
       "IsTrick": false
     },
     {
       "Id": "CollectableCuccoShackHitTag2",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorCuccoShack"
+      ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
-      "TimeAvailable": "Day3",
+      "TimeAvailable": "None",
       "TimeSetup": "None",
       "IsTrick": false
     },
     {
       "Id": "CollectableCuccoShackHitTag3",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorCuccoShack"
+      ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
-      "TimeAvailable": "Day3",
+      "TimeAvailable": "None",
       "TimeSetup": "None",
       "IsTrick": false
     },
     {
       "Id": "CollectableCuccoShackHitTag4",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorCuccoShack"
+      ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
-      "TimeAvailable": "Day3",
+      "TimeAvailable": "None",
       "TimeSetup": "None",
       "IsTrick": false
     },
     {
       "Id": "CollectableCuccoShackHitTag5",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorCuccoShack"
+      ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
-      "TimeAvailable": "Day3",
+      "TimeAvailable": "None",
       "TimeSetup": "None",
       "IsTrick": false
     },
     {
       "Id": "CollectableCuccoShackHitTag6",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorCuccoShack"
+      ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
-      "TimeAvailable": "Day3",
+      "TimeAvailable": "None",
       "TimeSetup": "None",
       "IsTrick": false
     },
@@ -21063,10 +21853,12 @@
     },
     {
       "Id": "CollectableCuccoShackPottedPlant1",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorCuccoShack"
+      ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
-      "TimeAvailable": "Day3",
+      "TimeAvailable": "None",
       "TimeSetup": "None",
       "IsTrick": false
     },
@@ -21222,30 +22014,47 @@
     },
     {
       "Id": "NotebookMeetRomani",
-      "RequiredItems": [
-        "ItemNotebook"
+      "RequiredItems": [],
+      "ConditionalItems": [
+        [
+          "NotebookMeetRomaniInRanch"
+        ],
+        [
+          "NotebookMeetRomaniInHouse"
+        ],
+        [
+          "NotebookMeetRomaniInBarn"
+        ]
       ],
-      "ConditionalItems": [],
       "TimeNeeded": "None",
-      "TimeAvailable": "Day3",
-      "TimeSetup": "Day1, Night1, Day2, Night2, Day3",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
       "IsTrick": false
     },
     {
       "Id": "NotebookMeetCremia",
-      "RequiredItems": [
-        "ItemNotebook"
+      "RequiredItems": [],
+      "ConditionalItems": [
+        [
+          "NotebookMeetCremiaInRanch"
+        ],
+        [
+          "NotebookMeetCremiaInHouse"
+        ],
+        [
+          "NotebookMeetCremiaInBarn"
+        ]
       ],
-      "ConditionalItems": [],
       "TimeNeeded": "None",
-      "TimeAvailable": "Day3",
-      "TimeSetup": "Day1, Night1, Day2, Night2, Day3",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
       "IsTrick": false
     },
     {
       "Id": "NotebookMeetMayorDotour",
       "RequiredItems": [
-        "ItemNotebook"
+        "ItemNotebook",
+        "InteriorMayorsResidence"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -21255,24 +22064,34 @@
     },
     {
       "Id": "NotebookMeetMadameAroma",
-      "RequiredItems": [
-        "ItemNotebook"
+      "RequiredItems": [],
+      "ConditionalItems": [
+        [
+          "NotebookMeetMadameAromaInOffice"
+        ],
+        [
+          "NotebookMeetMadameAromaInBar"
+        ]
       ],
-      "ConditionalItems": [],
       "TimeNeeded": "None",
-      "TimeAvailable": "Day1, Night1, Day2, Night2",
-      "TimeSetup": "Day1, Night1, Day2, Night2",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
       "IsTrick": false
     },
     {
       "Id": "NotebookMeetToto",
-      "RequiredItems": [
-        "ItemNotebook"
+      "RequiredItems": [],
+      "ConditionalItems": [
+        [
+          "NotebookMeetTotoInOffice"
+        ],
+        [
+          "NotebookMeetTotoInBar"
+        ]
       ],
-      "ConditionalItems": [],
       "TimeNeeded": "None",
-      "TimeAvailable": "Day1, Night1, Day2, Night2",
-      "TimeSetup": "Day1, Night1, Day2, Night2",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
       "IsTrick": false
     },
     {
@@ -21284,6 +22103,12 @@
         ],
         [
           "NotebookMeetGormanInInn"
+        ],
+        [
+          "NotebookMeetGormanInOffice"
+        ],
+        [
+          "NotebookMeetGormanInBar"
         ]
       ],
       "TimeNeeded": "None",
@@ -21312,6 +22137,12 @@
         ],
         [
           "NotebookMeetPostmanInLaundryPool"
+        ],
+        [
+          "NotebookMeetPostmanInPostOffice"
+        ],
+        [
+          "NotebookMeetPostmanInMilkBar"
         ]
       ],
       "TimeNeeded": "None",
@@ -21376,11 +22207,12 @@
     {
       "Id": "NotebookMeetGrog",
       "RequiredItems": [
-        "ItemNotebook"
+        "ItemNotebook",
+        "InteriorCuccoShack"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
-      "TimeAvailable": "Day3",
+      "TimeAvailable": "None",
       "TimeSetup": "Day1, Night1, Day2, Night2, Day3",
       "IsTrick": false
     },
@@ -21655,7 +22487,8 @@
       "Id": "NotebookDeliverLetterToMama",
       "RequiredItems": [
         "TradeItemMamaLetter",
-        "MaskKafei"
+        "MaskKafei",
+        "InteriorMilkBar"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -21682,7 +22515,8 @@
     {
       "Id": "NotebookDotoursThanks",
       "RequiredItems": [
-        "MaskCouple"
+        "MaskCouple",
+        "InteriorMayorsResidence"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -21753,7 +22587,9 @@
     },
     {
       "Id": "NotebookPostmansGame",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorPostOffice"
+      ],
       "ConditionalItems": [
         [
           "MaskBunnyHood"
@@ -21769,7 +22605,9 @@
     },
     {
       "Id": "NotebookPromiseMadameAroma",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorMayorsResidence"
+      ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "Day1, Night1, Day2, Night2",
@@ -21779,7 +22617,8 @@
     {
       "Id": "NotebookPurchaseCuriosityShopItem",
       "RequiredItems": [
-        "Wallet (500)"
+        "Wallet (500)",
+        "InteriorCuriosityShop"
       ],
       "ConditionalItems": [
         [
@@ -21812,11 +22651,12 @@
     {
       "Id": "NotebookGrogsThanks",
       "RequiredItems": [
-        "MaskBremen"
+        "MaskBremen",
+        "InteriorCuccoShack"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
-      "TimeAvailable": "Day3",
+      "TimeAvailable": "None",
       "TimeSetup": "Day1, Night1, Day2, Night2, Day3",
       "IsTrick": false
     },
@@ -21837,7 +22677,7 @@
         "MaskDeku",
         "MaskGoron",
         "MaskZora",
-        "MaskRomani"
+        "InteriorMilkBar"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -22184,7 +23024,8 @@
     {
       "Id": "CollectableSecretShrineMainRoomPot5",
       "RequiredItems": [
-        "Secret Shrine Access"
+        "Secret Shrine Access",
+        "InteriorSecretShrine"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -22559,22 +23400,24 @@
     {
       "Id": "CollectableCuccoShackGossipFairy1",
       "RequiredItems": [
-        "Summon Fairy"
+        "Summon Fairy",
+        "InteriorCuccoShack"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
-      "TimeAvailable": "Day3",
+      "TimeAvailable": "None",
       "TimeSetup": "Day1, Night1, Day2, Night2, Day3",
       "IsTrick": false
     },
     {
       "Id": "CollectableDoggyRacetrackGossipFairy1",
       "RequiredItems": [
-        "Summon Fairy"
+        "Summon Fairy",
+        "InteriorDoggyRacetrack"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
-      "TimeAvailable": "Day3",
+      "TimeAvailable": "None",
       "TimeSetup": "None",
       "IsTrick": false
     },
@@ -24781,18 +25624,19 @@
     {
       "Id": "ShopItemGoronBomb10InWinter",
       "RequiredItems": [
-        "AreaNorthAccess"
+        "InteriorGoronShop"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
-      "TimeAvailable": "Day1, Night1",
-      "TimeSetup": "Day1, Night1",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
       "IsTrick": false
     },
     {
       "Id": "ShopItemGoronBomb10InSpring",
       "RequiredItems": [
-        "AreaSnowheadTempleClear"
+        "AreaSnowheadTempleClear",
+        "InteriorGoronShop"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -24803,18 +25647,19 @@
     {
       "Id": "ShopItemGoronArrow10InWinter",
       "RequiredItems": [
-        "AreaNorthAccess"
+        "InteriorGoronShop"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
-      "TimeAvailable": "Day1, Night1",
-      "TimeSetup": "Day1, Night1",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
       "IsTrick": false
     },
     {
       "Id": "ShopItemGoronArrow10InSpring",
       "RequiredItems": [
-        "AreaSnowheadTempleClear"
+        "AreaSnowheadTempleClear",
+        "InteriorGoronShop"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -24825,18 +25670,19 @@
     {
       "Id": "ShopItemGoronRedPotionInWinter",
       "RequiredItems": [
-        "AreaNorthAccess"
+        "InteriorGoronShop"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
-      "TimeAvailable": "Day1, Night1",
-      "TimeSetup": "Day1, Night1",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
       "IsTrick": false
     },
     {
       "Id": "ShopItemGoronRedPotionInSpring",
       "RequiredItems": [
-        "AreaSnowheadTempleClear"
+        "AreaSnowheadTempleClear",
+        "InteriorGoronShop"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -24902,7 +25748,8 @@
       "Id": "ShopItemBusinessScrubGreenPotionInOcean",
       "RequiredItems": [
         "AreaZoraHallAccess",
-        "MaskZora"
+        "MaskZora",
+        "InteriorLuluRoom"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -24955,7 +25802,8 @@
         "TradeItemSwampDeed",
         "TradeItemMountainDeed",
         "TradeItemOceanDeed",
-        "Any Wallet"
+        "Any Wallet",
+        "InteriorLuluRoom"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -25174,7 +26022,8 @@
     {
       "Id": "NotebookMeetCuriosityShopManInWCT",
       "RequiredItems": [
-        "ItemNotebook"
+        "ItemNotebook",
+        "InteriorCuriosityShop"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -25234,7 +26083,8 @@
     {
       "Id": "NotebookMeetOldLadyInWCT",
       "RequiredItems": [
-        "ItemNotebook"
+        "ItemNotebook",
+        "InteriorBombShop"
       ],
       "ConditionalItems": [
         [
@@ -25246,6 +26096,141 @@
       ],
       "TimeNeeded": "None",
       "TimeAvailable": "Day2, Night2, Day3, Night3",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "NotebookMeetRomaniInRanch",
+      "RequiredItems": [
+        "ItemNotebook",
+        "OtherEpona"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "Day1, Day3",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "NotebookMeetRomaniInHouse",
+      "RequiredItems": [
+        "ItemNotebook",
+        "InteriorRanchHouse"
+      ],
+      "ConditionalItems": [
+        [
+          "OtherRomaniInHouseNight1"
+        ],
+        [
+          "OtherRomaniInHouseNight2Or3"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "NotebookMeetRomaniInBarn",
+      "RequiredItems": [
+        "OtherEpona",
+        "ItemNotebook",
+        "InteriorRanchBarn"
+      ],
+      "ConditionalItems": [
+        [
+          "OtherArrow"
+        ],
+        [
+          "Bowless Aliens"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "Day2, Night3",
+      "TimeSetup": "Day1, Night1",
+      "IsTrick": false
+    },
+    {
+      "Id": "NotebookMeetCremiaInRanch",
+      "RequiredItems": [
+        "ItemNotebook",
+        "OtherEpona"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "Day1, Night2, Day3",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "NotebookMeetCremiaInHouse",
+      "RequiredItems": [
+        "ItemNotebook",
+        "InteriorRanchHouse"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "Night1, Night2, Night3",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "NotebookMeetCremiaInBarn",
+      "RequiredItems": [
+        "ItemNotebook",
+        "InteriorRanchBarn"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "Day2, Day3, Night3",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "NotebookMeetMadameAromaInOffice",
+      "RequiredItems": [
+        "ItemNotebook",
+        "InteriorMayorsResidence"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "Day1, Day2",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "NotebookMeetMadameAromaInBar",
+      "RequiredItems": [
+        "ItemNotebook",
+        "InteriorMilkBar"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "Night3",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "NotebookMeetTotoInOffice",
+      "RequiredItems": [
+        "ItemNotebook",
+        "InteriorMayorsResidence"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "Day1, Day2",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "NotebookMeetTotoInBar",
+      "RequiredItems": [
+        "ItemNotebook",
+        "InteriorMilkBar"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "Night1, Night2",
       "TimeSetup": "None",
       "IsTrick": false
     },
@@ -25268,6 +26253,30 @@
       "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "Day1, Day2",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "NotebookMeetGormanInOffice",
+      "RequiredItems": [
+        "ItemNotebook",
+        "InteriorMayorsResidence"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "Day1",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "NotebookMeetGormanInBar",
+      "RequiredItems": [
+        "ItemNotebook",
+        "InteriorMilkBar"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "Day1, Night1, Night2",
       "TimeSetup": "None",
       "IsTrick": false
     },
@@ -25339,6 +26348,30 @@
       "IsTrick": false
     },
     {
+      "Id": "NotebookMeetPostmanInPostOffice",
+      "RequiredItems": [
+        "ItemNotebook",
+        "InteriorPostOffice"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "NotebookMeetPostmanInMilkBar",
+      "RequiredItems": [
+        "ItemNotebook",
+        "InteriorMilkBar"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "Night3",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
       "Id": "NotebookMeetRosaSistersInWCT",
       "RequiredItems": [
         "ItemNotebook"
@@ -25374,7 +26407,8 @@
     {
       "Id": "NotebookMeetAnjusGrandmotherInRanch",
       "RequiredItems": [
-        "ItemNotebook"
+        "ItemNotebook",
+        "InteriorRanchHouse"
       ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
@@ -25463,6 +26497,68 @@
       ],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "ItemBottleWitchInWoodsOfMystery",
+      "RequiredItems": [
+        "InteriorWoodsOfMystery"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "Day2, Night2, Day3, Night3",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "ItemBottleWitchInPotionShop",
+      "RequiredItems": [
+        "InteriorPotionShop",
+        "InteriorWoodsOfMystery"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "Day1, Night1",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "UpgradeBigBombBagInBombShop",
+      "RequiredItems": [
+        "InteriorBombShop"
+      ],
+      "ConditionalItems": [
+        [
+          "MaskGoron"
+        ],
+        [
+          "MaskZora"
+        ],
+        [
+          "Any Sword"
+        ],
+        [
+          "SettingAllowFierceDeityAnywhere"
+        ],
+        [
+          "Any Wallet"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "Night3",
+      "TimeSetup": "Night3",
+      "IsTrick": false
+    },
+    {
+      "Id": "UpgradeBigBombBagInCuriosityShop",
+      "RequiredItems": [
+        "InteriorCuriosityShop",
+        "Any Wallet"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "Night3",
       "TimeSetup": "None",
       "IsTrick": false
     },
@@ -25707,7 +26803,9 @@
     },
     {
       "Id": "GossipRanchCuccoShack",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorCuccoShack"
+      ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
@@ -25716,7 +26814,9 @@
     },
     {
       "Id": "GossipRanchRacetrack",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "InteriorDoggyRacetrack"
+      ],
       "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
@@ -25804,7 +26904,20 @@
     {
       "Id": "GossipTerminaGossipLarge",
       "RequiredItems": [],
-      "ConditionalItems": [],
+      "ConditionalItems": [
+        [
+          "GrottoGossipSwamp"
+        ],
+        [
+          "GrottoGossipMountain"
+        ],
+        [
+          "GrottoGossipOcean"
+        ],
+        [
+          "GrottoGossipCanyon"
+        ]
+      ],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
       "TimeSetup": "None",
@@ -25813,7 +26926,20 @@
     {
       "Id": "GossipTerminaGossipGuitar",
       "RequiredItems": [],
-      "ConditionalItems": [],
+      "ConditionalItems": [
+        [
+          "GrottoGossipSwamp"
+        ],
+        [
+          "GrottoGossipMountain"
+        ],
+        [
+          "GrottoGossipOcean"
+        ],
+        [
+          "GrottoGossipCanyon"
+        ]
+      ],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
       "TimeSetup": "None",
@@ -25822,7 +26948,20 @@
     {
       "Id": "GossipTerminaGossipPipes",
       "RequiredItems": [],
-      "ConditionalItems": [],
+      "ConditionalItems": [
+        [
+          "GrottoGossipSwamp"
+        ],
+        [
+          "GrottoGossipMountain"
+        ],
+        [
+          "GrottoGossipOcean"
+        ],
+        [
+          "GrottoGossipCanyon"
+        ]
+      ],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
       "TimeSetup": "None",
@@ -25831,7 +26970,20 @@
     {
       "Id": "GossipTerminaGossipDrums",
       "RequiredItems": [],
-      "ConditionalItems": [],
+      "ConditionalItems": [
+        [
+          "GrottoGossipSwamp"
+        ],
+        [
+          "GrottoGossipMountain"
+        ],
+        [
+          "GrottoGossipOcean"
+        ],
+        [
+          "GrottoGossipCanyon"
+        ]
+      ],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
       "TimeSetup": "None",
@@ -26376,8 +27528,8 @@
     {
       "Id": "Ocean Skulltulas",
       "RequiredItems": [
-        "AreaWestAccess",
-        "OtherExplosive"
+        "OtherExplosive",
+        "InteriorOceanSpiderHouse"
       ],
       "ConditionalItems": [
         [
@@ -26911,8 +28063,8 @@
     {
       "Id": "Pinnacle Rock Access",
       "RequiredItems": [
-        "AreaWestAccess",
-        "MaskZora"
+        "MaskZora",
+        "InteriorPinnacleRock"
       ],
       "ConditionalItems": [
         [
@@ -28353,78 +29505,10 @@
     },
     {
       "Id": "AreaSwampSpiderAccess",
-      "RequiredItems": [],
-      "ConditionalItems": [
-        [
-          "MaskDeku",
-          "Kill Big Octo"
-        ],
-        [
-          "Run Through Poisoned Water",
-          "SettingDamageModeDefault",
-          "MaskZora"
-        ],
-        [
-          "Run Through Poisoned Water",
-          "SettingDamageModeDefault",
-          "Tall Character",
-          "Kill Big Octo"
-        ],
-        [
-          "Poisoned Water as Goron",
-          "SettingDamageModeDefault",
-          "Kill Big Octo"
-        ],
-        [
-          "Big Octo Skip",
-          "SettingDamageModeDefault",
-          "MaskDeku"
-        ],
-        [
-          "Big Octo Skip",
-          "SettingDamageModeDefault",
-          "Poisoned Water as Goron",
-          "Play Song of Soaring"
-        ],
-        [
-          "Big Octo Skip",
-          "SettingDamageModeDefault",
-          "Run Through Poisoned Water",
-          "FD Jumps",
-          "Play Song of Soaring"
-        ],
-        [
-          "Big Octo Skip",
-          "SettingDamageModeDefault",
-          "Recoil Flip",
-          "Run Through Poisoned Water",
-          "SettingCharacterAdultLink",
-          "Play Song of Soaring"
-        ],
-        [
-          "Big Octo Skip",
-          "SettingDamageModeDefault",
-          "Run Through Poisoned Water",
-          "FD Difficult Jumps"
-        ],
-        [
-          "AreaSouthAccess",
-          "FD Difficult Jumps"
-        ],
-        [
-          "Long Bomb Hovers"
-        ],
-        [
-          "SettingClimbMostSurfaces",
-          "Kill Big Octo",
-          "SettingDamageModeDefault"
-        ],
-        [
-          "SettingClimbMostSurfaces",
-          "Big Octo Skip",
-          "SettingDamageModeDefault"
-        ]
+      "RequiredItems": [
+        "InteriorSwampSpiderHouse"
       ],
+      "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
       "TimeSetup": "None",
@@ -31948,71 +33032,18 @@
     },
     {
       "Id": "Butler Race",
-      "RequiredItems": [],
+      "RequiredItems": [
+        "AreaDekuPalaceAccess",
+        "InteriorDekuShrine"
+      ],
       "ConditionalItems": [
         [
-          "AreaWoodFallTempleClear",
-          "MaskDeku",
-          "BottleCatchPrincess"
-        ],
-        [
-          "Kill Deku Shrine Big Octo",
-          "MaskDeku",
           "BottleCatchPrincess",
-          "OtherArrow"
+          "MaskDeku"
         ],
         [
-          "Kill Deku Shrine Big Octo",
-          "MaskDeku",
-          "BottleCatchPrincess",
-          "MaskZora"
-        ],
-        [
-          "Kill Deku Shrine Big Octo",
-          "MaskDeku",
-          "BottleCatchPrincess",
-          "ItemHookshot",
-          "SettingDamageModeDefault"
-        ],
-        [
-          "Kill Deku Shrine Big Octo",
           "Deliver Deku Princess Without Deku Mask",
-          "Run Through Poisoned Water",
-          "SettingDamageModeDefault",
-          "MaskZora",
           "Bomb Hovering"
-        ],
-        [
-          "Kill Deku Shrine Big Octo",
-          "Deliver Deku Princess Without Deku Mask",
-          "Run Through Poisoned Water",
-          "SettingDamageModeDefault",
-          "SettingAllowFierceDeityAnywhere",
-          "OtherArrow",
-          "Bomb Hovering"
-        ],
-        [
-          "Kill Deku Shrine Big Octo",
-          "Deliver Deku Princess Without Deku Mask",
-          "Run Through Poisoned Water",
-          "SettingDamageModeDefault",
-          "SettingAllowFierceDeityAnywhere",
-          "ItemHookshot",
-          "Bomb Hovering"
-        ],
-        [
-          "AreaSouthAccess",
-          "Hookshot Clip",
-          "Weirdshot"
-        ],
-        [
-          "AreaSouthAccess",
-          "Hookshot Clip",
-          "Weirdshot Off a Powder Keg Explosion"
-        ],
-        [
-          "Deliver Deku Princess Without Deku Mask",
-          "Long Bomb Hovers"
         ]
       ],
       "TimeNeeded": "None",
@@ -32849,7 +33880,7 @@
     {
       "Id": "Secret Shrine Floating Items",
       "RequiredItems": [
-        "AreaEastAccess"
+        "InteriorSecretShrine"
       ],
       "ConditionalItems": [
         [

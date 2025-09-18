@@ -1073,6 +1073,15 @@ namespace MMR.Randomizer.GameObjects
         [Entrance(Entrance.EntranceIkanaCanyonFromIkanaClear), EntranceType(EntranceType.DungeonExit)]
         AreaStoneTowerClear,
 
+        TimeDayThreeNightThree,
+        OtherMilkBarDay,
+        OtherMilkBarNight1Or2,
+        OtherMilkBarNight3,
+        OtherPostOfficeNormal,
+        OtherPostOfficeDay2,
+        OtherRomaniInHouseNight1,
+        OtherRomaniInHouseNight2Or3,
+
         OtherExplosive,
         OtherArrow,
         OtherAnyBombBag,
