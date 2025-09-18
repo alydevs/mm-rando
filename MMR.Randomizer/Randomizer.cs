@@ -37,6 +37,7 @@ namespace MMR.Randomizer
             public DependenceType Type { get; set; }
 
             public static Dependence Dependent => new Dependence { Type = DependenceType.Dependent };
+            public static Dependence TimeOfDay => new Dependence { Type = DependenceType.TimeOfDay };
             public static Dependence NotDependent => new Dependence { Type = DependenceType.NotDependent };
             public static Dependence Circular(params Item[] items) => new Dependence { Items = items, Type = DependenceType.Circular };
         }
@@ -45,7 +46,8 @@ namespace MMR.Randomizer
         {
             Dependent,
             NotDependent,
-            Circular
+            Circular,
+            TimeOfDay,
         }
 
         // Starting items should not be replaced by trade items, or items that can be downgraded.
@@ -1202,12 +1204,24 @@ namespace MMR.Randomizer
                 .Append(null)
                 .ToList();
 
+            if (!_settings.EntranceMode.HasFlag(EntranceMode.DungeonEntrances))
+            {
+                unrandomizedEntranceTypes.Add(EntranceType.Dungeon);
+                unrandomizedEntranceTypes.Add(EntranceType.DungeonExit);
+            }
+
+            if (!_settings.EntranceMode.HasFlag(EntranceMode.BossRooms))
+            {
+                unrandomizedEntranceTypes.Add(EntranceType.Boss);
+            }
+
             Func<ItemObject, bool> filter = io => !io.ItemOverride.HasValue
                 && !_settings.CustomItemList.Contains(io.Item)
                 && unrandomizedEntranceTypes.Contains(io.Item.EntranceType())
                 && (!io.Item.MainLocation().HasValue || !_settings.CustomItemList.Contains(io.Item.MainLocation().Value))
                 && io.DependsOnItems.Count == 0
-                && io.Conditionals.Count == 0;
+                && io.Conditionals.Count == 0
+                && io.TimeAvailable == 63;
 
             var unrandomizedSphereZeroItems = new List<Item>();
             bool updated;
@@ -1222,12 +1236,7 @@ namespace MMR.Randomizer
                         continue;
                     }
 
-                    foreach (var dependent in itemObject.DependsOnItems.Where(unrandomizedSphereZeroItems.Contains).AllowModification())
-                    {
-                        itemObject.TimeAvailable &= ItemList[dependent].TimeAvailable;
-                        itemObject.DependsOnItems.Remove(dependent);
-                    }
-
+                    itemObject.DependsOnItems.RemoveAll(unrandomizedSphereZeroItems.Contains);
                     itemObject.Conditionals.ForEach(c => c.RemoveAll(unrandomizedSphereZeroItems.Contains));
 
                     if (itemObject.Conditionals.Any(c => !c.Any()))
@@ -1307,7 +1316,7 @@ namespace MMR.Randomizer
                 if ((currentItemObject.TimeNeeded & currentTargetObject.TimeAvailable) == 0)
                 {
                     Debug.WriteLine($"{currentItem} is needed at {currentItemObject.TimeNeeded} but {targetName} is only available at {currentTargetObject.TimeAvailable}");
-                    return Dependence.Dependent;
+                    return Dependence.TimeOfDay;
                 }
             }
 
@@ -1375,18 +1384,19 @@ namespace MMR.Randomizer
                             {
                                 DependenceChecked[d] = Dependence.Dependent;
                             }
-                            if (DependenceChecked[d].Type == DependenceType.Dependent)
+                            switch (DependenceChecked[d].Type)
                             {
-                                int[] check = new int[] { (int)target, i, j };
+                                case DependenceType.Dependent:
+                                    int[] check = new int[] { (int)target, i, j };
 
-                                if (!conditionRemoves.Any(c => c.SequenceEqual(check)))
-                                {
-                                    conditionRemoves.Add(check);
-                                }
-                            }
-                            else
-                            {
-                                circularDependencies = circularDependencies.Union(DependenceChecked[d].Items).ToList();
+                                    if (!conditionRemoves.Any(c => c.SequenceEqual(check)))
+                                    {
+                                        conditionRemoves.Add(check);
+                                    }
+                                    break;
+                                case DependenceType.Circular:
+                                    circularDependencies = circularDependencies.Union(DependenceChecked[d].Items).ToList();
+                                    break;
                             }
                             if (!match)
                             {

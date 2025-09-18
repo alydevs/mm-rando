@@ -287,11 +287,14 @@ namespace MMR.Randomizer.Tests
 
             // TODO flaky - relies on seed not randomizing woods of mystery grotto to vanilla
             var randomizer = new Randomizer(_settings, seed);
+            RandomizedResult randomizedResult = null;
 
             Assert.DoesNotThrow(() =>
             {
-                randomizer.Randomize(new NoProgressReporter());
+                randomizedResult = randomizer.Randomize(new NoProgressReporter());
             });
+
+            Assert.AreNotEqual(Item.GrottoGenericWoodsOfMystery, randomizedResult.ItemList[Item.GrottoGenericWoodsOfMystery].NewLocation);
         }
 
         [Test]
@@ -321,6 +324,118 @@ namespace MMR.Randomizer.Tests
                 randomizer.Randomize(new NoProgressReporter());
             });
             Assert.AreEqual("Unable to place Letter to Kafei anywhere.", exception.Message);
+        }
+
+        [Test]
+        public void ShouldPreventTemporaryItemsBeingPlacedInLocationsThatTakeOnAConditionalTimeOfDayRequirement()
+        {
+            CreateLogic(itemList =>
+            {
+                itemList[Item.TradeItemKafeiLetter].TimeNeeded = (int)TimeOfDay.Day1;
+                itemList[Item.CollectableRanchHouseBarnBarnItem1].DependsOnItems.Add(Item.InteriorRanchBarn);
+                itemList[Item.InteriorRanchBarn].DependsOnItems.Add(Item.OtherEpona);
+                itemList[Item.ItemPowderKeg].DependsOnItems.Add(Item.TradeItemKafeiLetter);
+                var dayThreeItemObject = new ItemObject
+                {
+                    ID = itemList.Count,
+                    Name = "Day Three",
+                    TimeAvailable = (int)(TimeOfDay.Day3 | TimeOfDay.Night3)
+                };
+                itemList.Add(dayThreeItemObject);
+                itemList[Item.OtherEpona].Conditionals.Add(new List<Item> { Item.ItemPowderKeg });
+                itemList[Item.OtherEpona].Conditionals.Add(new List<Item> { dayThreeItemObject.Item });
+            });
+            _settings.CustomItemList.Add(Item.TradeItemKafeiLetter);
+            _settings.CustomItemList.Add(Item.CollectableRanchHouseBarnBarnItem1);
+            _settings.CustomItemList.Add(Item.CollectableRanchHouseBarnBarnItem2); // this ensures "blue rupee" isn't uniquely randomized
+            _settings.CustomJunkLocations.Add(Item.TradeItemKafeiLetter);
+            _settings.CustomJunkLocations.Add(Item.CollectableRanchHouseBarnBarnItem2);
+
+            var randomizer = new Randomizer(_settings, seed);
+
+            var exception = Assert.Throws<RandomizationException>(() =>
+            {
+                randomizer.Randomize(new NoProgressReporter());
+            });
+            Assert.AreEqual("Unable to place Letter to Kafei anywhere.", exception.Message);
+        }
+
+        [Test]
+        public void ShouldNotPreventTemporaryItemsBeingPlacedInLocationsThatCanBeAcquiredByAnItemInsteadOfTimeOfDay()
+        {
+            CreateLogic(itemList =>
+            {
+                itemList[Item.TradeItemKafeiLetter].TimeNeeded = (int)TimeOfDay.Day1;
+                itemList[Item.CollectableRanchHouseBarnBarnItem1].DependsOnItems.Add(Item.InteriorRanchBarn);
+                itemList[Item.CollectableRanchHouseBarnBarnItem1].TimeAvailable = (int)TimeOfDay.Day1;
+                itemList[Item.InteriorRanchBarn].DependsOnItems.Add(Item.OtherEpona);
+                var dayThreeItemObject = new ItemObject
+                {
+                    ID = itemList.Count,
+                    Name = "Day Three",
+                    TimeAvailable = (int)(TimeOfDay.Day3 | TimeOfDay.Night3)
+                };
+                itemList.Add(dayThreeItemObject);
+                itemList[Item.OtherEpona].Conditionals.Add(new List<Item> { Item.ItemPowderKeg });
+                itemList[Item.OtherEpona].Conditionals.Add(new List<Item> { dayThreeItemObject.Item });
+            });
+            _settings.CustomItemList.Add(Item.TradeItemKafeiLetter);
+            _settings.CustomItemList.Add(Item.ItemPowderKeg);
+            _settings.CustomItemList.Add(Item.CollectableRanchHouseBarnBarnItem1);
+            _settings.CustomItemList.Add(Item.CollectableTerminaFieldInvisibleItem7); // this ensures "blue rupee" isn't uniquely randomized
+            _settings.CustomJunkLocations.Add(Item.TradeItemKafeiLetter);
+            _settings.CustomJunkLocations.Add(Item.ItemPowderKeg);
+
+            // TODO flaky - relies on seed placing letter to kafei on barn item 1
+            var randomizer = new Randomizer(_settings, 1);
+            RandomizedResult randomizedResult = null;
+
+            Assert.DoesNotThrow(() =>
+            {
+                randomizedResult = randomizer.Randomize(new NoProgressReporter());
+            });
+
+            Assert.AreEqual(Item.CollectableRanchHouseBarnBarnItem1, randomizedResult.ItemList[Item.TradeItemKafeiLetter].NewLocation);
+            Assert.AreEqual(Item.CollectableTerminaFieldInvisibleItem7, randomizedResult.ItemList[Item.ItemPowderKeg].NewLocation);
+        }
+
+        [Test]
+        public void ShouldAllowTemporaryItemsToBePlacedViaRequiringAnItemAndThatItemToRequireTimeOfDay()
+        {
+            CreateLogic(itemList =>
+            {
+                itemList[Item.TradeItemKafeiLetter].TimeNeeded = (int)TimeOfDay.Day1;
+                itemList[Item.CollectableRanchHouseBarnBarnItem1].DependsOnItems.Add(Item.InteriorRanchBarn);
+                itemList[Item.CollectableRanchHouseBarnBarnItem2].DependsOnItems.Add(Item.InteriorRanchBarn);
+                itemList[Item.InteriorRanchBarn].DependsOnItems.Add(Item.OtherEpona);
+                var dayThreeItemObject = new ItemObject
+                {
+                    ID = itemList.Count,
+                    Name = "Day Three",
+                    TimeAvailable = (int)(TimeOfDay.Day3 | TimeOfDay.Night3)
+                };
+                itemList.Add(dayThreeItemObject);
+                itemList[Item.OtherEpona].Conditionals.Add(new List<Item> { Item.ItemPowderKeg });
+                itemList[Item.OtherEpona].Conditionals.Add(new List<Item> { dayThreeItemObject.Item });
+            });
+            _settings.CustomItemList.Add(Item.TradeItemKafeiLetter);
+            _settings.CustomItemList.Add(Item.ItemPowderKeg);
+            _settings.CustomItemList.Add(Item.CollectableRanchHouseBarnBarnItem1);
+            _settings.CustomItemList.Add(Item.CollectableRanchHouseBarnBarnItem2); // this ensures "blue rupee" isn't uniquely randomized
+            _settings.CustomJunkLocations.Add(Item.TradeItemKafeiLetter);
+            _settings.CustomJunkLocations.Add(Item.ItemPowderKeg);
+
+            // TODO flaky - relies on seed placing letter to kafei on barn item 1
+            var randomizer = new Randomizer(_settings, 1);
+            RandomizedResult randomizedResult = null;
+
+            Assert.DoesNotThrow(() =>
+            {
+                randomizedResult = randomizer.Randomize(new NoProgressReporter());
+            });
+
+            Assert.AreEqual(Item.CollectableRanchHouseBarnBarnItem1, randomizedResult.ItemList[Item.TradeItemKafeiLetter].NewLocation);
+            Assert.AreEqual(Item.CollectableRanchHouseBarnBarnItem2, randomizedResult.ItemList[Item.ItemPowderKeg].NewLocation);
         }
 
         [TearDown]
