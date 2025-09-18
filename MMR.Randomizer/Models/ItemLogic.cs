@@ -57,7 +57,7 @@ namespace MMR.Randomizer.Models
             // Remove fake requirements
             switch (itemObject.Item)
             {
-                case Item.UpgradeBigBombBag:
+                case Item.UpgradeBigBombBagInBombShop:
                 case Item.MaskBlast:
                 case Item.NotebookSaveOldLady:
                     RequiredItemIds?.Remove((int)Item.TradeItemKafeiLetter);

@@ -1448,7 +1448,7 @@ namespace MMR.Randomizer
             foreach (var dependency in currentTargetObject.DependsOnItems)
             {
                 if (!currentItemIsTemporary
-                    && (target == Item.MaskBlast || target == Item.NotebookSaveOldLady || target == Item.UpgradeBigBombBag)
+                    && (target == Item.MaskBlast || target == Item.NotebookSaveOldLady || target == Item.UpgradeBigBombBagInBombShop)
                     && (dependency == Item.TradeItemKafeiLetter || dependency == Item.TradeItemPendant))
                 {
                     // Permanent items ignore Kafei Letter and Pendant on Blast Mask check.
@@ -1601,7 +1601,7 @@ namespace MMR.Randomizer
         private void CheckConditionals(Item currentItem, Item target, List<Item> dependencyPath)
         {
             var targetItemObject = ItemList[target];
-            if (target == Item.MaskBlast || target == Item.NotebookSaveOldLady || target == Item.UpgradeBigBombBag)
+            if (target == Item.MaskBlast || target == Item.NotebookSaveOldLady || target == Item.UpgradeBigBombBagInBombShop)
             {
                 if (_timeTravelPlaced && !currentItem.IsTemporary())
                 {
