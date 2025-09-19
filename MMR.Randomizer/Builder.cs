@@ -1027,6 +1027,11 @@ namespace MMR.Randomizer
                 }
             }
 
+            if (!_randomized.Settings.EntranceMode.HasFlag(EntranceMode.DungeonEntrances) && !_randomized.Settings.EntranceMode.HasFlag(EntranceMode.BossRooms))
+            {
+                return;
+            }
+
             var clears = new List<Item>
             {
                 Item.AreaWoodFallTempleClear,
