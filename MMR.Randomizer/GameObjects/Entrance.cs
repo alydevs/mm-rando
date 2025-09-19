@@ -858,7 +858,7 @@ namespace MMR.Randomizer.GameObjects
         // todo add after aliens defense entrance
 
 
-        [Exit(Scene.TerminaField, 2)]
+        //[Exit(Scene.TerminaField, 2)]
         //[Spawn(Scene.GreatBayCoast, 0)]
         //EntranceGreatBayCoastFromTerminaField,
 
