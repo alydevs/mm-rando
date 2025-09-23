@@ -3587,7 +3587,8 @@ namespace MMR.Randomizer
                                 && (!ItemList[itemLogic.ItemId].IsTrick || _settings.EnabledTricks.Contains(ItemList[itemLogic.ItemId].Name))
                                 && LogicUtils.IsSettingEnabled(_settings, ItemList[itemLogic.ItemId].SettingExpression)
                                 && !itemLogic.RequiredItemIds.Any()
-                                && !itemLogic.ConditionalItemIds.Any())
+                                && !itemLogic.ConditionalItemIds.Any()
+                                && ((TimeOfDay)itemLogic.TimeAvailable).HasFlag(TimeOfDay.Day1))
                             {
                                 freeItemIds.Add(itemLogic.ItemId);
                                 updated = true;
@@ -3622,14 +3623,11 @@ namespace MMR.Randomizer
                         : logicForImportance;
 
                     var checkedLocations = new Dictionary<Item, LogicUtils.LogicPaths>();
-                    foreach (var location in Enum.GetValues<Item>())
+                    foreach (var location in ItemUtils.AllLocations())
                     {
-                        if (location.Region(ItemList).HasValue && location.Entrance() == null)
-                        {
-                            var focusedCheckedLocations = checkedLocations.ToDictionary(x => x.Key, x => x.Value);
-                            LogicUtils.GetImportantLocations(ItemList, _settings, location, logicForImportance, checkedLocations: focusedCheckedLocations);
-                            checkedLocations[location] = focusedCheckedLocations[location];
-                        }
+                        var focusedCheckedLocations = checkedLocations.ToDictionary(x => x.Key, x => x.Value);
+                        LogicUtils.GetImportantLocations(ItemList, _settings, location, logicForImportance, checkedLocations: focusedCheckedLocations);
+                        checkedLocations[location] = focusedCheckedLocations[location];
                     }
                     var logicPaths = LogicUtils.GetImportantLocations(ItemList, _settings, Item.OtherCredits, logicForImportance, checkedLocations: checkedLocations);
                     var importantLocations = logicPaths?.Important.Where(item => item.Region(ItemList).HasValue && item.Entrance() == null).Distinct().ToHashSet();
@@ -3700,22 +3698,21 @@ namespace MMR.Randomizer
                     _randomized.LocationsRequiredForMoonAccess = locationsRequiredForMoonAccess.Keys.ToList().AsReadOnly();
 
                     var spheres = new List<List<ItemLocationPair>>();
-                    var acquired = new List<Item>();
-                    acquired.AddRange(_settings.CustomStartingItemList);
-                    acquired.AddRange(_randomized.BlitzExtraItems);
-                    var ioAcquired = new List<ItemObject>();
+                    var acquired = new Dictionary<Item, int>();
+                    _settings.CustomStartingItemList.ForEach(item => acquired[item] = (int)TimeOfDay.All);
+                    _randomized.BlitzExtraItems.ForEach(item => acquired[item] = (int)TimeOfDay.All);
+                    var idAcquired = new Dictionary<int, int>();
                     bool spheresUpdated;
-                    bool hasAcquired(ItemObject io)
+                    int timeAcquired(ItemLogic il)
                     {
-                        return io.DependsOnItems.Where(item => ItemList[item].Item == item).All(acquired.Contains)
-                            && (
-                                !io.Conditionals.Any()
-                                || io.Conditionals.Any(c => c.Where(item => ItemList[item].Item == item).All(acquired.Contains))
-                            );
+                        return il.TimeAvailable & il.RequiredItemIds.Cast<Item>().Where(item => ItemList[item].Item == item).Aggregate((int)TimeOfDay.All, (result, item) => result & acquired.GetValueOrDefault(item))
+                            & (!il.ConditionalItemIds.Any() ? (int)TimeOfDay.All : il.ConditionalItemIds.Aggregate(0, (result, c) => result | c.Cast<Item>().Where(item => ItemList[item].Item == item).Aggregate((int)TimeOfDay.All, (r, item) => r & acquired.GetValueOrDefault(item))));
                     }
-                    bool shouldAppearInPlaythrough(ItemObject io)
+                    bool shouldAppearInPlaythrough(ItemLogic il)
                     {
-                        return io.IsRandomized && io.Item.Entrances() == null;
+                        var io = ItemList[il.ItemId];
+                        il.ShouldAutoAcquire = !io.IsRandomized || il.IsFakeItem;
+                        return !il.ShouldAutoAcquire;
                     }
                     do
                     {
@@ -3724,32 +3721,59 @@ namespace MMR.Randomizer
                         {
                             fakeItemsUpdated = false;
 
-                            foreach (var io in ItemList.Where(io => !ioAcquired.Contains(io)))
+                            foreach (var il in _randomized.Logic.Where(il => idAcquired.GetValueOrDefault(il.ItemId) != (int)TimeOfDay.All))
                             {
-                                var location = (Item)io.ID;
+                                var location = (Item)il.ItemId;
                                 var mainLocation = location.MainLocation();
                                 if (mainLocation.HasValue)
                                 {
-                                    if (shouldAppearInPlaythrough(ItemList[mainLocation.Value]))
+                                    if (shouldAppearInPlaythrough(_randomized.Logic[(int)mainLocation.Value]))
                                     {
                                         continue;
                                     }
                                 }
-                                else if (shouldAppearInPlaythrough(io))
+                                else if (shouldAppearInPlaythrough(il))
                                 {
                                     continue;
                                 }
-                                if (hasAcquired(io))
+                                var result = timeAcquired(il);
+                                if (result > 0)
                                 {
                                     if (mainLocation.HasValue)
                                     {
-                                        ioAcquired.Add(ItemList[mainLocation.Value]);
+                                        var key = _randomized.Logic[(int)mainLocation.Value].ItemId;
+                                        if (idAcquired.ContainsKey(key))
+                                        {
+                                            idAcquired[key] |= result;
+                                        }
+                                        else
+                                        {
+                                            idAcquired[key] = result;
+                                        }
                                     }
 
                                     var item = ItemList.Single(x => (x.NewLocation ?? x.Item) == (mainLocation ?? location)).Item;
-                                    acquired.Add(item);
-                                    ioAcquired.Add(io);
-                                    fakeItemsUpdated = true;
+                                    if (acquired.ContainsKey(item))
+                                    {
+                                        acquired[item] |= result;
+                                    }
+                                    else
+                                    {
+                                        acquired[item] = result;
+                                    }
+                                    if (idAcquired.ContainsKey(il.ItemId))
+                                    {
+                                        if (idAcquired[il.ItemId] != result)
+                                        {
+                                            fakeItemsUpdated = true;
+                                        }
+                                        idAcquired[il.ItemId] |= result;
+                                    }
+                                    else
+                                    {
+                                        idAcquired[il.ItemId] = result;
+                                        fakeItemsUpdated = true;
+                                    }
                                 }
                             }
 
@@ -3757,14 +3781,14 @@ namespace MMR.Randomizer
 
                         spheresUpdated = false;
                         var currentSphere = new List<ItemLocationPair>();
-                        var currentSphereItems = new List<Item>();
-                        foreach (var io in ItemList.Where(io => !ioAcquired.Contains(io)))
+                        var currentSphereItems = new List<(Item, int)>();
+                        foreach (var io in _randomized.Logic.Where(io => idAcquired.GetValueOrDefault(io.ItemId) != (int)TimeOfDay.All))
                         {
-                            var location = (Item)io.ID;
+                            var location = (Item)io.ItemId;
                             var mainLocation = location.MainLocation();
                             if (mainLocation.HasValue)
                             {
-                                if (!shouldAppearInPlaythrough(ItemList[mainLocation.Value]))
+                                if (!shouldAppearInPlaythrough(_randomized.Logic[(int)mainLocation.Value]))
                                 {
                                     continue;
                                 }
@@ -3773,18 +3797,38 @@ namespace MMR.Randomizer
                             {
                                 continue;
                             }
-                            if (hasAcquired(io))
+                            var result = timeAcquired(io);
+                            if (result > 0 && result != idAcquired.GetValueOrDefault(io.ItemId))
                             {
-                                ioAcquired.Add(io);
+                                var item = ItemList.Single(x => x.NewLocation == (mainLocation ?? location)).Item;
+                                if (!item.IsFake() && !item.IsTemporary())
+                                {
+                                    result = (int)TimeOfDay.All;
+                                }
+                                if (idAcquired.ContainsKey(io.ItemId))
+                                {
+                                    idAcquired[io.ItemId] |= result;
+                                }
+                                else
+                                {
+                                    idAcquired[io.ItemId] = result;
+                                }
 
                                 if (mainLocation.HasValue)
                                 {
-                                    ioAcquired.Add(ItemList[mainLocation.Value]);
-                                    currentSphereItems.Add(location);
+                                    var key = ItemList[mainLocation.Value].ID;
+                                    if (idAcquired.ContainsKey(key))
+                                    {
+                                        idAcquired[key] |= result;
+                                    }
+                                    else
+                                    {
+                                        idAcquired[key] = result;
+                                    }
+                                    currentSphereItems.Add((location, result));
                                 }
 
-                                var item = ItemList.Single(x => x.NewLocation == (mainLocation ?? location)).Item;
-                                currentSphereItems.Add(item);
+                                currentSphereItems.Add((item, result));
                                 if (location.Entrances() != null)
                                 {
                                     currentSphere.Add(new ItemLocationPair
@@ -3803,7 +3847,17 @@ namespace MMR.Randomizer
                                 }
                             }
                         }
-                        acquired.AddRange(currentSphereItems);
+                        foreach (var (item, ta) in currentSphereItems)
+                        {
+                            if (acquired.ContainsKey(item))
+                            {
+                                acquired[item] |= ta;
+                            }
+                            else
+                            {
+                                acquired[item] = ta;
+                            }
+                        }
 
                         if (currentSphere.Any())
                         {

@@ -168,7 +168,7 @@ namespace MMR.Randomizer.Utils
             }
         }
 
-        public static LogicPaths GetImportantLocations(ItemList itemList, GameplaySettings settings, Item location, List<ItemLogic> itemLogic, List<Item> logicPath = null, Dictionary<Item, LogicPaths> checkedLocations = null, Dictionary<Item, ItemObject> itemsByLocation = null, CancellationTokenSource cts = null, params Item[] exclude)
+        public static LogicPaths GetImportantLocations(ItemList itemList, GameplaySettings settings, Item location, List<ItemLogic> itemLogic, int timeAvailable = 63, List<Item> logicPath = null, Dictionary<Item, LogicPaths> checkedLocations = null, Dictionary<Item, ItemObject> itemsByLocation = null, CancellationTokenSource cts = null, params Item[] exclude)
         {
             if (settings.LogicMode == LogicMode.NoLogic)
             {
@@ -179,7 +179,6 @@ namespace MMR.Randomizer.Utils
             {
                 itemsByLocation = itemList.ToDictionary(io => io.NewLocation ?? io.Item);
             }
-            var itemObject = itemsByLocation[location];
             if (logicPath == null)
             {
                 logicPath = new List<Item>();
@@ -201,7 +200,10 @@ namespace MMR.Randomizer.Utils
                     return null;
                 }
             }
-            logicPath.Add(location);
+            if (location != Item.OtherEpona)
+            {
+                logicPath.Add(location);
+            }
             if (checkedLocations == null)
             {
                 checkedLocations = new Dictionary<Item, LogicPaths>();
@@ -216,6 +218,23 @@ namespace MMR.Randomizer.Utils
                 return checkedLocation;
             }
             var locationLogic = itemLogic[(int)location];
+            var io = itemsByLocation[location];
+            if (ItemUtils.IsLogicallyJunk(io.Item))
+            {
+                timeAvailable = (int)TimeOfDay.All;
+            }
+            else if (io.Item.IsTemporary() || location.IsFake())
+            {
+                timeAvailable &= locationLogic.TimeAvailable;
+                if (timeAvailable == 0)
+                {
+                    return null;
+                }
+            }
+            else
+            {
+                timeAvailable = locationLogic.TimeAvailable;
+            }
             var required = new List<Item>();
             var important = new List<Item>();
             if (locationLogic.RequiredItemIds != null && locationLogic.RequiredItemIds.Any())
@@ -234,7 +253,7 @@ namespace MMR.Randomizer.Utils
 
                     var requiredLocation = itemList[requiredItemId].NewLocation ?? requiredItemId;
 
-                    var childPaths = GetImportantLocations(itemList, settings, requiredLocation, itemLogic, logicPath.ToList(), checkedLocations, itemsByLocation, cts, exclude);
+                    var childPaths = GetImportantLocations(itemList, settings, requiredLocation, itemLogic, timeAvailable, logicPath.ToList(), checkedLocations, itemsByLocation, cts, exclude);
                     if (childPaths == null)
                     {
                         return null;
@@ -281,7 +300,7 @@ namespace MMR.Randomizer.Utils
 
                         var conditionalLocation = itemList[conditionalItemId].NewLocation ?? conditionalItemId;
 
-                        var childPaths = GetImportantLocations(itemList, settings, conditionalLocation, itemLogic, logicPath.ToList(), checkedLocations, itemsByLocation, cts, exclude);
+                        var childPaths = GetImportantLocations(itemList, settings, conditionalLocation, itemLogic, timeAvailable, logicPath.ToList(), checkedLocations, itemsByLocation, cts, exclude);
                         if (childPaths == null)
                         {
                             conditionalRequired = null;
@@ -335,7 +354,7 @@ namespace MMR.Randomizer.Utils
                 Important = important.Union(required).Distinct().ToList().AsReadOnly(),
                 RequiredSongLocations = requiredSongLocations.Distinct().ToList().AsReadOnly()
             };
-            if (location.Region(itemList).HasValue && location.Entrance() == null)
+            if (location.Location() != null)
             {
                 checkedLocations[location] = result;
             }
