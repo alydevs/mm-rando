@@ -5085,11 +5085,6 @@ namespace MMR.Randomizer.LogicMigrator
                 ("InteriorSwordsmanSchool", null, null),
                 ("InteriorMusicBoxHouse", "MaskGibdo", (JsonFormatLogicItem item) =>
                 {
-                    item.RequiredItems.RemoveAll((req) => req.Contains("Heal"));
-                    if (item.RequiredItems.Any(x => x.Contains("Storms")))
-                    {
-                        item.RequiredItems.Add("InteriorIkanaPoolCave");
-                    }
                     item.ConditionalItems.ForEach(cs =>
                     {
                         if (cs.Any(x => x.Contains("Storms")))
@@ -5097,6 +5092,32 @@ namespace MMR.Randomizer.LogicMigrator
                             cs.Add("InteriorIkanaPoolCave");
                         }
                     });
+                    if (getItem("Play Song of Storms") != null)
+                    {
+                        if (item.RequiredItems.Remove("Play Song of Storms"))
+                        {
+                            item.addConditional("Play Song of Storms", "InteriorIkanaPoolCave");
+                        }
+                    }
+                    else
+                    {
+                        if (item.RequiredItems.Remove("SongStorms") && item.RequiredItems.Remove("ItemOcarina"))
+                        {
+                            item.addConditional("ItemOcarina", "SongStorms", "InteriorIkanaPoolCave");
+                        }
+                    }
+                    if (getItem("Play Song of Healing") != null)
+                    {
+                        item.RequiredItems.Remove("Play Song of Healing");
+                        item.addConditional("Play Song of Healing", "InteriorMusicBoxHouse");
+                    }
+                    else
+                    {
+                        item.RequiredItems.Remove("SongHealing");
+                        item.RequiredItems.Remove("ItemOcarina");
+                        item.addConditional("SongHealing", "ItemOcarina", "InteriorMusicBoxHouse");
+                    }
+                    item.addConditional("AreaStoneTowerClear", "InteriorMusicBoxHouse");
                 }),
                 ("InteriorBombShop", null, null),
                 ("InteriorLensCave", "ItemLens", null),

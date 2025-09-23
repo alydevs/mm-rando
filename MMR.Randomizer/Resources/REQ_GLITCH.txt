@@ -3788,6 +3788,14 @@
           "InteriorIkanaPoolCave"
         ],
         [
+          "Play Song of Healing",
+          "InteriorMusicBoxHouse"
+        ],
+        [
+          "AreaStoneTowerClear",
+          "InteriorMusicBoxHouse"
+        ],
+        [
           "Recoil Flip",
           "Out of Bounds"
         ],
