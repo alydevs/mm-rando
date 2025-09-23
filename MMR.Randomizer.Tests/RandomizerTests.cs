@@ -438,6 +438,43 @@ namespace MMR.Randomizer.Tests
             Assert.AreEqual(Item.CollectableRanchHouseBarnBarnItem2, randomizedResult.ItemList[Item.ItemPowderKeg].NewLocation);
         }
 
+        [Test]
+        public void ShouldNotPlaceItemsInLocationsThatRequireThemAsAnAlternativeToTimeOfDay()
+        {
+            CreateLogic(itemList =>
+            {
+                itemList[Item.CollectableTerminaFieldInvisibleItem2].DependsOnItems.Add(Item.SongHealing);
+                itemList[Item.SongEpona].TimeAvailable = (int)TimeOfDay.Day1;
+                itemList[Item.SongEpona].DependsOnItems.Add(Item.OtherEpona);
+                var dayThreeItemObject = new ItemObject
+                {
+                    ID = itemList.Count,
+                    Name = "Day Three",
+                    TimeAvailable = (int)(TimeOfDay.Day3 | TimeOfDay.Night3)
+                };
+                itemList.Add(dayThreeItemObject);
+                itemList[Item.OtherEpona].Conditionals.Add(new List<Item> { Item.ItemPowderKeg });
+                itemList[Item.OtherEpona].Conditionals.Add(new List<Item> { dayThreeItemObject.Item });
+            });
+            _settings.CustomStartingItemList.Add(Item.SongEpona);
+            _settings.CustomItemList.Add(Item.SongEpona);
+            _settings.CustomItemList.Add(Item.ItemPowderKeg);
+            _settings.CustomItemList.Add(Item.SongHealing);
+            _settings.CustomItemList.Add(Item.CollectableTerminaFieldInvisibleItem2);
+            _settings.CustomItemList.Add(Item.CollectableTerminaFieldInvisibleItem3); // ensures green rupee is not uniquely randomized
+            _settings.CustomJunkLocations.Add(Item.ItemPowderKeg);
+            _settings.CustomJunkLocations.Add(Item.SongHealing);
+            _settings.CustomJunkLocations.Add(Item.CollectableTerminaFieldInvisibleItem3);
+
+            var randomizer = new Randomizer(_settings, 1);
+
+            var exception = Assert.Throws<RandomizationException>(() =>
+            {
+                randomizer.Randomize(new NoProgressReporter());
+            });
+            Assert.AreEqual("Unable to place Powder Keg anywhere.", exception.Message);
+        }
+
         [TearDown]
         public void Cleanup()
         {

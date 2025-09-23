@@ -34,12 +34,19 @@ namespace MMR.Randomizer
         private class Dependence
         {
             public Item[] Items { get; set; }
-            public DependenceType Type { get; set; }
+            public DependenceType Type { get; }
+            public int? TimeAvailable { get; }
 
-            public static Dependence Dependent => new Dependence { Type = DependenceType.Dependent };
-            public static Dependence TimeOfDay => new Dependence { Type = DependenceType.TimeOfDay };
-            public static Dependence NotDependent => new Dependence { Type = DependenceType.NotDependent };
-            public static Dependence Circular(params Item[] items) => new Dependence { Items = items, Type = DependenceType.Circular };
+            private Dependence(DependenceType type, int? timeAvailable = null)
+            {
+                Type = type;
+                TimeAvailable = timeAvailable;
+            }
+
+            public static Dependence Dependent => new Dependence(DependenceType.Dependent);
+            public static Dependence TimeOfDay => new Dependence(DependenceType.TimeOfDay);
+            public static Dependence NotDependent(int timeAvailable) => new Dependence(DependenceType.NotDependent, timeAvailable);
+            public static Dependence Circular(params Item[] items) => new Dependence(DependenceType.Circular) { Items = items };
         }
 
         private enum DependenceType
@@ -1298,7 +1305,7 @@ namespace MMR.Randomizer
             Random = new Random(_seed);
         }
 
-        private Dependence CheckDependence(Item currentItem, Item target, List<Item> dependencyPath)
+        private Dependence CheckDependence(Item currentItem, Item target, List<Item> dependencyPath, int timeAvailable)
         {
             var targetName = target.Location() ?? ItemList[target].Name;
             Debug.WriteLine($"CheckDependence({currentItem.Name()}, {targetName}[{target}])");
@@ -1307,7 +1314,22 @@ namespace MMR.Randomizer
 
             if (currentItemObject.TimeNeeded == 0 && ItemUtils.IsLogicallyJunk(currentItem))
             {
-                return Dependence.NotDependent;
+                return Dependence.NotDependent(timeAvailable);
+            }
+
+            var itemHere = ItemList.SingleOrDefault(io => io.NewLocation == target)?.Item;
+            if (itemHere?.IsTemporary() == false && itemHere?.Entrance() == null)
+            {
+                timeAvailable = currentTargetObject.TimeAvailable;
+            }
+            else if (!itemHere.HasValue || !ItemUtils.IsLogicallyJunk(itemHere.Value))
+            {
+                if ((currentTargetObject.TimeAvailable & timeAvailable) == 0)
+                {
+                    Debug.WriteLine($"{target} is available at {(TimeOfDay)currentTargetObject.TimeAvailable} but the time of day chain is only available at {(TimeOfDay)timeAvailable}");
+                    return Dependence.TimeOfDay;
+                }
+                timeAvailable &= currentTargetObject.TimeAvailable;
             }
 
             //check timing
@@ -1340,6 +1362,7 @@ namespace MMR.Randomizer
                 int k = 0;
                 var circularDependencies = new List<Item>();
                 var conditionRemoves = new List<int[]>();
+                var hasTimeOfDayConditionals = false;
                 for (int i = 0; i < currentTargetObject.Conditionals.Count; i++)
                 {
                     bool match = false;
@@ -1374,8 +1397,13 @@ namespace MMR.Randomizer
                             {
                                 var childPath = dependencyPath.ToList();
                                 childPath.Add(d);
-                                DependenceChecked[d] = CheckDependence(currentItem, d, childPath);
+                                DependenceChecked[d] = CheckDependence(currentItem, d, childPath, timeAvailable);
                             }
+                        }
+
+                        if (DependenceChecked[d].TimeAvailable.HasValue && DependenceChecked[d].TimeAvailable.Value != (int)TimeOfDay.All)
+                        {
+                            hasTimeOfDayConditionals = true;
                         }
 
                         if (DependenceChecked[d].Type != DependenceType.NotDependent)
@@ -1416,7 +1444,7 @@ namespace MMR.Randomizer
                     Debug.WriteLine($"All conditionals of {targetName} failed dependency check for {currentItem}.");
                     return Dependence.Dependent;
                 }
-                else
+                else if (!hasTimeOfDayConditionals)
                 {
                     foreach (var cr in conditionRemoves)
                     {
@@ -1430,7 +1458,7 @@ namespace MMR.Randomizer
 
             if (currentTargetObject.DependsOnItems == null)
             {
-                return Dependence.NotDependent;
+                return Dependence.NotDependent(timeAvailable);
             }
 
             foreach (var cannotRequireItem in currentItemObject.CannotRequireItems)
@@ -1486,7 +1514,7 @@ namespace MMR.Randomizer
                     {
                         var childPath = dependencyPath.ToList();
                         childPath.Add(location);
-                        DependenceChecked[location] = CheckDependence(currentItem, location, childPath);
+                        DependenceChecked[location] = CheckDependence(currentItem, location, childPath, timeAvailable);
                     }
                     if (DependenceChecked[location].Type != DependenceType.NotDependent)
                     {
@@ -1500,7 +1528,7 @@ namespace MMR.Randomizer
                 }
             }
 
-            return Dependence.NotDependent;
+            return Dependence.NotDependent(timeAvailable);
         }
 
         private void RemoveConditionals(Item currentItem)
@@ -1562,7 +1590,7 @@ namespace MMR.Randomizer
                         targetItemObject.Conditionals.Clear();
                     }
                 }
-            };
+            }
         }
 
         private void AddConditionals(Item target, Item currentItem, int d)
@@ -1727,10 +1755,10 @@ namespace MMR.Randomizer
 
             //check direct dependence
             ConditionRemoves = new List<int[]>();
-            DependenceChecked = new Dictionary<Item, Dependence> { { target, new Dependence { Type = DependenceType.Dependent } } };
+            DependenceChecked = new Dictionary<Item, Dependence> { { target, Dependence.Dependent } };
             var dependencyPath = new List<Item> { target };
 
-            if (CheckDependence(currentItem, target, dependencyPath).Type != DependenceType.NotDependent)
+            if (CheckDependence(currentItem, target, dependencyPath, (int)TimeOfDay.All).Type != DependenceType.NotDependent)
             {
                 return false;
             }
