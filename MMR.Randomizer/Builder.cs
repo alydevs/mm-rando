@@ -1286,7 +1286,7 @@ namespace MMR.Randomizer
             int deathMode = (int)_randomized.Settings.DeathMode;
             if (deathMode > 0)
             {
-                ResourceUtils.ApplyIndexedHack(deathMode - 1, Resources.mods.death_moon_crash, Resources.mods.death_reduces_max_hearts);
+                ResourceUtils.ApplyIndexedHack(deathMode - 1, Resources.asm.DeathMoonCrash, Resources.mods.death_reduces_max_hearts);
             }
 
             int damageEffect = (int)_randomized.Settings.DamageEffect;
