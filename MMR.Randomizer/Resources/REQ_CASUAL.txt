@@ -4760,11 +4760,18 @@
     },
     {
       "Id": "ChestLensCavePurpleRupee",
-      "RequiredItems": [
-        "InteriorLensCave",
-        "OtherExplosive"
+      "RequiredItems": [],
+      "ConditionalItems": [
+        [
+          "InteriorLensCave",
+          "OtherExplosive"
+        ],
+        [
+          "SettingNotEntranceModeSimpleInteriors",
+          "AreaNorthAccess",
+          "Lens Cave With Powder Keg Challenge"
+        ]
       ],
-      "ConditionalItems": [],
       "TimeNeeded": "None",
       "TimeAvailable": "None",
       "TimeSetup": "None",
