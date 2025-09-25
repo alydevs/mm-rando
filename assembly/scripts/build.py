@@ -188,7 +188,9 @@ def main():
 
     # Create subdirectory for generated files if it doesn't exist.
     generated_path = os.path.join(relpath, 'build/generated')
+    generated_patches_path = os.path.join(generated_path, 'patches')
     os.makedirs(generated_path, exist_ok=True)
+    os.makedirs(generated_patches_path, exist_ok=True)
 
     # Dump symbols as JSON
     offsets = get_offsets_by_target(args.target)
@@ -225,7 +227,7 @@ def main():
                 create_diff(
                     os.path.join(os.path.join(run_dir, relpath, 'roms/patched.z64')),
                     os.path.join(os.path.join(run_dir, relpath, 'roms/smallpatch.z64')),
-                    os.path.join(run_dir, relpath, generated_path, name + '.bin'),
+                    os.path.join(run_dir, relpath, generated_patches_path, name + '.bin'),
                     compress=False,
                     virtual=args.virtual,
                     offset=offsets.table,
