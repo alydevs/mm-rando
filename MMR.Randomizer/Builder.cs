@@ -1672,6 +1672,7 @@ namespace MMR.Randomizer
         private void WriteMiscHacks()
         {
             var hacks = new List<byte[]>();
+            var moreHacks = new List<(uint address, byte[] data)>();
 
             if (_randomized.Settings.SmallKeyMode.HasFlag(SmallKeyMode.DoorsOpen))
             {
@@ -1762,11 +1763,11 @@ namespace MMR.Randomizer
             if (_randomized.Settings.RequiredZoraEggs < 7)
             {
                 byte numBaselineEggs = (byte)(7 - _randomized.Settings.RequiredZoraEggs);
-                var hack = Resources.asm.ZoraEgg.ToArray();
-                hack[0xB] = numBaselineEggs;
                 ushort incrementCorrection = (ushort)(1 - numBaselineEggs);
-                ReadWriteUtils.Arr_WriteU16(hack, 0x16, incrementCorrection);
-                hacks.Add(hack);
+                hacks.Add(Resources.asm.ZoraEgg);
+                var zoraEggSymbols = Symbols.FromJSON(Resources.asm.ZoraEgg_symbols);
+                moreHacks.Add((zoraEggSymbols["ZORA_EGG_BASELINE_ADD"] + 3, new byte[] { numBaselineEggs }));
+                moreHacks.Add((zoraEggSymbols["ZORA_EGG_BASELINE_SUBTRACT"] + 2, ConvertUtils.UShortToBytes(incrementCorrection)));
             }
 
             if (_randomized.Settings.TakeDamageWhileShielding)
@@ -1812,6 +1813,11 @@ namespace MMR.Randomizer
             foreach (var hack in hacks)
             {
                 ResourceUtils.ApplyHack(hack);
+            }
+
+            foreach (var hack in moreHacks)
+            {
+                ReadWriteUtils.WriteToROM((int)hack.address, hack.data);
             }
         }
 

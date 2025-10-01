@@ -33,6 +33,14 @@ def build_data_symbols(symbols, offsets):
             data_symbols[name] = '{0:08X}'.format(addr)
     return data_symbols
 
+def build_patch_data_symbols(symbols, offsets):
+    data_symbols = {}
+    for (name, sym) in symbols.items():
+        if sym['type'] == 'data':
+            addr = int(sym['address'], 16)
+            data_symbols[name] = '{0:08X}'.format(addr)
+    return data_symbols
+
 def dump_json_to_file(data, path):
     with open(path, 'w') as f:
         json.dump(data, f, indent=4, sort_keys=True)
@@ -57,7 +65,7 @@ def get_offsets_by_target(target):
     elif target == 'oot':
         return OOT_OFFSETS
 
-def parse_asm_symbols(path, c_symbols):
+def parse_asm_symbols(path, c_symbols, existing_symbols):
     symbols = {}
     all_symbols = {}
     with open(path, 'r') as f:
@@ -73,6 +81,9 @@ def parse_asm_symbols(path, c_symbols):
 
             address = m.group(1)
             sym_name = m.group(2)
+
+            if sym_name in existing_symbols:
+                continue
 
             if sym_name[0] in ['.', '@']:
                 continue
@@ -180,7 +191,7 @@ def main():
     c_sym_types = parse_c_symbols(os.path.join(relpath, 'build/c_symbols.txt'))
 
     # ...
-    symbols, all_symbols = parse_asm_symbols(os.path.join(relpath, 'build/asm_symbols.txt'), c_sym_types)
+    symbols, all_symbols = parse_asm_symbols(os.path.join(relpath, 'build/asm_symbols.txt'), c_sym_types, {})
 
     # Output symbols
 
@@ -223,10 +234,17 @@ def main():
                 name, ext = os.path.splitext(entry.name)
                 # os.popen('cp ' + entry.path + ' ' + os.path.join(generated_path, 'Patch.asm'))
                 # os.chdir(generated_path)
-                call(['armips', entry.name])
+                patch_symbols_path = os.path.join(run_dir, relpath, generated_patches_path, name + '_asm_symbols.txt')
+                call(['armips', '-sym2', patch_symbols_path, entry.name])
+                fixup_asm_symbols(patch_symbols_path)
+                patch_symbols, _ = parse_asm_symbols(patch_symbols_path, c_sym_types, all_symbols)
+                if patch_symbols:
+                    patch_data_symbols = build_patch_data_symbols(patch_symbols, offsets)
+                    dump_json_to_file(patch_data_symbols, os.path.join(run_dir, relpath, generated_patches_path, name + '_symbols.json'))
+                os.remove(patch_symbols_path)
                 create_diff(
-                    os.path.join(os.path.join(run_dir, relpath, 'roms/patched.z64')),
-                    os.path.join(os.path.join(run_dir, relpath, 'roms/smallpatch.z64')),
+                    os.path.join(run_dir, relpath, 'roms/patched.z64'),
+                    os.path.join(run_dir, relpath, 'roms/smallpatch.z64'),
                     os.path.join(run_dir, relpath, generated_patches_path, name + '.bin'),
                     compress=False,
                     virtual=args.virtual,

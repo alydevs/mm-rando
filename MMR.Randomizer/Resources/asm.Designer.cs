@@ -113,5 +113,18 @@ namespace MMR.Randomizer.Resources {
                 return ((byte[])(obj));
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {
+        ///    &quot;ZORA_EGG_BASELINE_ADD&quot;: &quot;80B319CC&quot;,
+        ///    &quot;ZORA_EGG_BASELINE_SUBTRACT&quot;: &quot;80B32214&quot;
+        ///}
+        ///.
+        /// </summary>
+        internal static string ZoraEgg_symbols {
+            get {
+                return ResourceManager.GetString("ZoraEgg_symbols", resourceCulture);
+            }
+        }
     }
 }
