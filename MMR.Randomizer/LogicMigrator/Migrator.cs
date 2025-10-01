@@ -8,7 +8,7 @@ namespace MMR.Randomizer.LogicMigrator
 {
     public static partial class Migrator
     {
-        public const int CurrentVersion = 29;
+        public const int CurrentVersion = 30;
 
         public static string ApplyMigrations(string logic)
         {
@@ -267,6 +267,11 @@ namespace MMR.Randomizer.LogicMigrator
             if (logicObject.Version < 29)
             {
                 AddInteriors(logicObject);
+            }
+
+            if (logicObject.Version < 30)
+            {
+                AddZoraEggs(logicObject);
             }
 
             return JsonSerializer.Serialize(logicObject);
@@ -5521,6 +5526,97 @@ namespace MMR.Randomizer.LogicMigrator
             getItem("CollectibleOceanSpiderToken15").removeRequired("AreaWestAccess").addRequired("InteriorOceanSpiderHouse");
 
             logicObject.Version = 29;
+        }
+
+        private static void AddZoraEggs(JsonFormatLogic logicObject)
+        {
+            var itemInfo = new (string name, string reference, Action<JsonFormatLogicItem> modify)[]
+            {
+                ("ZoraEggPinnacleRock1", "ChestPinacleRockRedRupee1", null),
+                ("ZoraEggPinnacleRock2", "ChestPinacleRockRedRupee1", null),
+                ("ZoraEggPinnacleRock3", "ChestPinacleRockRedRupee1", null),
+                ("ZoraEggPiratesFortressHookshotRoom", "ChestInsidePiratesFortressTankRedRupee", (JsonFormatLogicItem item) =>
+                {
+                    item.addRequired("Hookshot Room Beehive");
+                }),
+                ("ZoraEggPiratesFortressThreeGuardsRoom", "ChestInsidePiratesFortressTankRedRupee", null),
+                ("ZoraEggPiratesFortressBarrelMazeRoom", "ChestInsidePiratesFortressTankRedRupee", null),
+                ("ZoraEggPiratesFortressLoneGuardRoom", "ChestInsidePiratesFortressTankRedRupee", null),
+                ("ZoraEggAll", null, (item) => item.addRequired(
+                    "ZoraEggPinnacleRock1",
+                    "ZoraEggPinnacleRock2",
+                    "ZoraEggPinnacleRock3",
+                    "ZoraEggPiratesFortressHookshotRoom",
+                    "ZoraEggPiratesFortressThreeGuardsRoom",
+                    "ZoraEggPiratesFortressBarrelMazeRoom",
+                    "ZoraEggPiratesFortressLoneGuardRoom"
+                )),
+                ("ZoraEggAny", null, (item) => item
+                    .addConditional("ZoraEggPinnacleRock1")
+                    .addConditional("ZoraEggPinnacleRock2")
+                    .addConditional("ZoraEggPinnacleRock3")
+                    .addConditional("ZoraEggPiratesFortressHookshotRoom")
+                    .addConditional("ZoraEggPiratesFortressThreeGuardsRoom")
+                    .addConditional("ZoraEggPiratesFortressBarrelMazeRoom")
+                    .addConditional("ZoraEggPiratesFortressLoneGuardRoom")
+                ),
+            };
+
+            logicObject.Logic.InsertRange(144, GetLogicItems(logicObject, itemInfo));
+
+            JsonFormatLogicItem getItem(string id) => logicObject.Logic.SingleOrDefault(logicItem => logicItem.Id == id);
+
+            if (getItem("Hookshot Room Beehive") == null)
+            {
+                var hookshotRoomBeehive = new JsonFormatLogicItem
+                {
+                    Id = "Hookshot Room Beehive",
+                    RequiredItems = new List<string>(),
+                    ConditionalItems = new List<List<string>>(),
+                };
+                hookshotRoomBeehive.addConditional("OtherArrow");
+                if (getItem("Deku Bubbles") != null)
+                {
+                    hookshotRoomBeehive.addConditional("Deku Bubbles");
+                }
+                else if (getItem("Magic Meter") != null)
+                {
+                    hookshotRoomBeehive.addConditional("MaskDeku", "Magic Meter");
+                }
+                else
+                {
+                    hookshotRoomBeehive.addConditional("MaskDeku", "FairyMagic");
+                    hookshotRoomBeehive.addConditional("MaskDeku", "FairyDoubleMagic");
+                }
+                logicObject.Logic.Add(hookshotRoomBeehive);
+            }
+
+            getItem("BottleCatchEgg")
+                .clearConditionals()
+                .addConditional("ZoraEggAll")
+                .addConditional("BottleCatchEgg", "BottleCatchFish", "ZoraEggAny");
+
+            DeleteUnusedLogicItems(logicObject, 1500);
+
+            logicObject.Version = 30;
+        }
+
+        private static void DeleteUnusedLogicItems(JsonFormatLogic logicObject, int minimumIndex)
+        {
+            bool updated;
+            do
+            {
+                updated = false;
+                for (var i = logicObject.Logic.Count - 1; i >= minimumIndex; i--)
+                {
+                    var item = logicObject.Logic[i];
+                    if (!logicObject.Logic.Any(x => x.RequiredItems.Contains(item.Id) || x.ConditionalItems.Any(c => c.Contains(item.Id))))
+                    {
+                        logicObject.Logic.RemoveAt(i);
+                        updated = true;
+                    }
+                }
+            } while (updated);
         }
 
         private static List<JsonFormatLogicItem> GetLogicItems(IEnumerable<string> itemNames)

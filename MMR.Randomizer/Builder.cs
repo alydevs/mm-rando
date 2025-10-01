@@ -1759,6 +1759,16 @@ namespace MMR.Randomizer
                 hacks.Add(hack);
             }
 
+            if (_randomized.Settings.RequiredZoraEggs < 7)
+            {
+                byte numBaselineEggs = (byte)(7 - _randomized.Settings.RequiredZoraEggs);
+                var hack = Resources.asm.ZoraEgg.ToArray();
+                hack[0xB] = numBaselineEggs;
+                ushort incrementCorrection = (ushort)(1 - numBaselineEggs);
+                ReadWriteUtils.Arr_WriteU16(hack, 0x16, incrementCorrection);
+                hacks.Add(hack);
+            }
+
             if (_randomized.Settings.TakeDamageWhileShielding)
             {
                 hacks.Add(Resources.mods.take_damage_while_shielding);

@@ -1,5 +1,5 @@
 {
-  "Version": 29,
+  "Version": 30,
   "Logic": [
     {
       "Id": "MaskDeku",
@@ -2609,6 +2609,243 @@
       "IsTrick": false
     },
     {
+      "Id": "ZoraEggPinnacleRock1",
+      "RequiredItems": [
+        "Pinnacle Rock Access",
+        "MaskZora"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "ZoraEggPinnacleRock2",
+      "RequiredItems": [
+        "Pinnacle Rock Access",
+        "MaskZora"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "ZoraEggPinnacleRock3",
+      "RequiredItems": [
+        "Pinnacle Rock Access",
+        "MaskZora"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "ZoraEggPiratesFortressHookshotRoom",
+      "RequiredItems": [
+        "AreaPFInteriorAccess",
+        "Hookshot Room Beehive"
+      ],
+      "ConditionalItems": [
+        [
+          "MaskZora",
+          "ItemHookshot"
+        ],
+        [
+          "MaskZora",
+          "SettingAllowFierceDeityAnywhere"
+        ],
+        [
+          "MaskZora",
+          "SettingClimbMostSurfaces"
+        ],
+        [
+          "MaskZora",
+          "Hookshot Room Long Jump to Tank"
+        ],
+        [
+          "SettingIronGoron",
+          "ItemHookshot"
+        ],
+        [
+          "SettingIronGoron",
+          "SettingAllowFierceDeityAnywhere"
+        ],
+        [
+          "SettingIronGoron",
+          "SettingClimbMostSurfaces"
+        ],
+        [
+          "SettingIronGoron",
+          "Hookshot Room Long Jump to Tank"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "ZoraEggPiratesFortressThreeGuardsRoom",
+      "RequiredItems": [
+        "AreaPFInteriorAccess"
+      ],
+      "ConditionalItems": [
+        [
+          "MaskZora",
+          "ItemHookshot"
+        ],
+        [
+          "MaskZora",
+          "SettingAllowFierceDeityAnywhere"
+        ],
+        [
+          "MaskZora",
+          "SettingClimbMostSurfaces"
+        ],
+        [
+          "SettingIronGoron",
+          "ItemHookshot"
+        ],
+        [
+          "SettingIronGoron",
+          "SettingAllowFierceDeityAnywhere"
+        ],
+        [
+          "SettingIronGoron",
+          "SettingClimbMostSurfaces"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "ZoraEggPiratesFortressBarrelMazeRoom",
+      "RequiredItems": [
+        "AreaPFInteriorAccess"
+      ],
+      "ConditionalItems": [
+        [
+          "MaskZora",
+          "ItemHookshot"
+        ],
+        [
+          "MaskZora",
+          "SettingAllowFierceDeityAnywhere"
+        ],
+        [
+          "MaskZora",
+          "SettingClimbMostSurfaces"
+        ],
+        [
+          "SettingIronGoron",
+          "ItemHookshot"
+        ],
+        [
+          "SettingIronGoron",
+          "SettingAllowFierceDeityAnywhere"
+        ],
+        [
+          "SettingIronGoron",
+          "SettingClimbMostSurfaces"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "ZoraEggPiratesFortressLoneGuardRoom",
+      "RequiredItems": [
+        "AreaPFInteriorAccess"
+      ],
+      "ConditionalItems": [
+        [
+          "MaskZora",
+          "ItemHookshot"
+        ],
+        [
+          "MaskZora",
+          "SettingAllowFierceDeityAnywhere"
+        ],
+        [
+          "MaskZora",
+          "SettingClimbMostSurfaces"
+        ],
+        [
+          "SettingIronGoron",
+          "ItemHookshot"
+        ],
+        [
+          "SettingIronGoron",
+          "SettingAllowFierceDeityAnywhere"
+        ],
+        [
+          "SettingIronGoron",
+          "SettingClimbMostSurfaces"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "ZoraEggAll",
+      "RequiredItems": [
+        "ZoraEggPinnacleRock1",
+        "ZoraEggPinnacleRock2",
+        "ZoraEggPinnacleRock3",
+        "ZoraEggPiratesFortressHookshotRoom",
+        "ZoraEggPiratesFortressThreeGuardsRoom",
+        "ZoraEggPiratesFortressBarrelMazeRoom",
+        "ZoraEggPiratesFortressLoneGuardRoom"
+      ],
+      "ConditionalItems": [],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
+      "Id": "ZoraEggAny",
+      "RequiredItems": [],
+      "ConditionalItems": [
+        [
+          "ZoraEggPinnacleRock1"
+        ],
+        [
+          "ZoraEggPinnacleRock2"
+        ],
+        [
+          "ZoraEggPinnacleRock3"
+        ],
+        [
+          "ZoraEggPiratesFortressHookshotRoom"
+        ],
+        [
+          "ZoraEggPiratesFortressThreeGuardsRoom"
+        ],
+        [
+          "ZoraEggPiratesFortressBarrelMazeRoom"
+        ],
+        [
+          "ZoraEggPiratesFortressLoneGuardRoom"
+        ]
+      ],
+      "TimeNeeded": "None",
+      "TimeAvailable": "None",
+      "TimeSetup": "None",
+      "IsTrick": false
+    },
+    {
       "Id": "AreaOdolwasLair",
       "RequiredItems": [
         "Access Odolwa"
@@ -4706,21 +4943,12 @@
       ],
       "ConditionalItems": [
         [
-          "Hookshot Room Egg",
-          "Guarded Egg",
-          "Other PF Eggs",
-          "Pinnacle Rock Eggs"
+          "ZoraEggAll"
         ],
         [
           "BottleCatchEgg",
           "BottleCatchFish",
-          "Pinnacle Rock Eggs"
-        ],
-        [
-          "BottleCatchEgg",
-          "BottleCatchFish",
-          "Guarded Egg",
-          "Other PF Eggs"
+          "ZoraEggAny"
         ]
       ],
       "TimeNeeded": "None",
@@ -28392,15 +28620,6 @@
       "IsTrick": false
     },
     {
-      "Id": "STT Masked Hiploop",
-      "RequiredItems": [],
-      "ConditionalItems": [],
-      "TimeNeeded": "None",
-      "TimeAvailable": "None",
-      "TimeSetup": "None",
-      "IsTrick": false
-    },
-    {
       "Id": "STT Courtyard Locked Door",
       "RequiredItems": [],
       "ConditionalItems": [
@@ -28976,32 +29195,6 @@
         ],
         [
           "SettingHookshotAnySurface"
-        ]
-      ],
-      "TimeNeeded": "None",
-      "TimeAvailable": "None",
-      "TimeSetup": "None",
-      "IsTrick": false
-    },
-    {
-      "Id": "STT Eyegore Room Access",
-      "RequiredItems": [],
-      "ConditionalItems": [
-        [
-          "STT Elegy Maze",
-          "1 Stone Tower Key"
-        ],
-        [
-          "Use Light Arrow",
-          "STT Water Tunnel"
-        ],
-        [
-          "STT Garo Master Access",
-          "STT Masked Hiploop"
-        ],
-        [
-          "SettingClimbMostSurfaces",
-          "STT Water Tunnel"
         ]
       ],
       "TimeNeeded": "None",
@@ -33671,17 +33864,6 @@
       "IsTrick": false
     },
     {
-      "Id": "GBT Skulltula With Stick",
-      "RequiredItems": [],
-      "ConditionalItems": [],
-      "TimeNeeded": "None",
-      "TimeAvailable": "None",
-      "TimeSetup": "None",
-      "IsTrick": true,
-      "TrickTooltip": "Kill the Skulltula holding a Stray Fairy in Great Bay Temple with a Deku Stick.",
-      "TrickCategory": "Great Bay Temple"
-    },
-    {
       "Id": "GBT Stray Fairy Collection With Bombchu",
       "RequiredItems": [
         "OtherAnyBombBag",
@@ -35483,44 +35665,6 @@
       "TrickCategory": "Inverted Stone Tower Temple"
     },
     {
-      "Id": "Pinnacle Rock Eggs",
-      "RequiredItems": [
-        "Pinnacle Rock Access",
-        "MaskZora"
-      ],
-      "ConditionalItems": [],
-      "TimeNeeded": "None",
-      "TimeAvailable": "None",
-      "TimeSetup": "None",
-      "IsTrick": false
-    },
-    {
-      "Id": "Hookshot Room Egg",
-      "RequiredItems": [
-        "AreaPFInteriorAccess",
-        "Hookshot Room Beehive",
-        "Underwater Stuff"
-      ],
-      "ConditionalItems": [
-        [
-          "ItemHookshot"
-        ],
-        [
-          "Hookshot Room Long Jump to Tank"
-        ],
-        [
-          "SettingAllowFierceDeityAnywhere"
-        ],
-        [
-          "SettingClimbMostSurfaces"
-        ]
-      ],
-      "TimeNeeded": "None",
-      "TimeAvailable": "None",
-      "TimeSetup": "None",
-      "IsTrick": false
-    },
-    {
       "Id": "Hookshot Room Beehive",
       "RequiredItems": [],
       "ConditionalItems": [
@@ -35570,55 +35714,6 @@
       "IsTrick": true,
       "TrickTooltip": "Navigate through Pirates' Fortress Sewers using Bombchu to hit the crystal switches where available.",
       "TrickCategory": "Pirates' Fortress"
-    },
-    {
-      "Id": "Guarded Egg",
-      "RequiredItems": [
-        "AreaPFInteriorAccess",
-        "Underwater Stuff"
-      ],
-      "ConditionalItems": [
-        [
-          "ItemHookshot"
-        ],
-        [
-          "PF Guard Room Rear Entry",
-          "Tall Character"
-        ],
-        [
-          "SettingGiantMaskAnywhere",
-          "Tall Character"
-        ],
-        [
-          "SettingClimbMostSurfaces"
-        ]
-      ],
-      "TimeNeeded": "None",
-      "TimeAvailable": "None",
-      "TimeSetup": "None",
-      "IsTrick": false
-    },
-    {
-      "Id": "Other PF Eggs",
-      "RequiredItems": [
-        "AreaPFInteriorAccess",
-        "Underwater Stuff"
-      ],
-      "ConditionalItems": [
-        [
-          "ItemHookshot"
-        ],
-        [
-          "SettingAllowFierceDeityAnywhere"
-        ],
-        [
-          "SettingClimbMostSurfaces"
-        ]
-      ],
-      "TimeNeeded": "None",
-      "TimeAvailable": "None",
-      "TimeSetup": "None",
-      "IsTrick": false
     },
     {
       "Id": "ISTT Thin Bridge Rupees as Goron",

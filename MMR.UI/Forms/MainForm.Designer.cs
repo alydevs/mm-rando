@@ -155,6 +155,8 @@ namespace MMR.UI.Forms
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.gSpeedUps = new System.Windows.Forms.GroupBox();
+            this.lRequiredZoraEggs = new System.Windows.Forms.Label();
+            this.nRequiredZoraEggs = new System.Windows.Forms.NumericUpDown();
             this.cSpeedupBabyCucco = new System.Windows.Forms.CheckBox();
             this.cDoubleArcheryRewards = new System.Windows.Forms.CheckBox();
             this.cFasterBank = new System.Windows.Forms.CheckBox();
@@ -305,6 +307,7 @@ namespace MMR.UI.Forms
             ((System.ComponentModel.ISupportInitialize)(this.nMaxGaroFoolish)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nMaxGaroWotH)).BeginInit();
             this.gSpeedUps.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nRequiredZoraEggs)).BeginInit();
             this.gHints.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nMaxGossipCT)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nMaxGossipFoolish)).BeginInit();
@@ -1731,11 +1734,6 @@ namespace MMR.UI.Forms
             // nMaxGaroCT
             // 
             this.nMaxGaroCT.Location = new System.Drawing.Point(160, 91);
-            this.nMaxGaroCT.Maximum = new decimal(new int[] {
-            9,
-            0,
-            0,
-            0});
             this.nMaxGaroCT.Name = "nMaxGaroCT";
             this.nMaxGaroCT.Size = new System.Drawing.Size(31, 23);
             this.nMaxGaroCT.TabIndex = 35;
@@ -1755,11 +1753,6 @@ namespace MMR.UI.Forms
             // nMaxGaroFoolish
             // 
             this.nMaxGaroFoolish.Location = new System.Drawing.Point(108, 91);
-            this.nMaxGaroFoolish.Maximum = new decimal(new int[] {
-            9,
-            0,
-            0,
-            0});
             this.nMaxGaroFoolish.Name = "nMaxGaroFoolish";
             this.nMaxGaroFoolish.Size = new System.Drawing.Size(31, 23);
             this.nMaxGaroFoolish.TabIndex = 34;
@@ -1787,11 +1780,6 @@ namespace MMR.UI.Forms
             // nMaxGaroWotH
             // 
             this.nMaxGaroWotH.Location = new System.Drawing.Point(58, 91);
-            this.nMaxGaroWotH.Maximum = new decimal(new int[] {
-            9,
-            0,
-            0,
-            0});
             this.nMaxGaroWotH.Name = "nMaxGaroWotH";
             this.nMaxGaroWotH.Size = new System.Drawing.Size(31, 23);
             this.nMaxGaroWotH.TabIndex = 33;
@@ -1843,6 +1831,8 @@ namespace MMR.UI.Forms
             // 
             // gSpeedUps
             // 
+            this.gSpeedUps.Controls.Add(this.lRequiredZoraEggs);
+            this.gSpeedUps.Controls.Add(this.nRequiredZoraEggs);
             this.gSpeedUps.Controls.Add(this.cSpeedupBabyCucco);
             this.gSpeedUps.Controls.Add(this.cDoubleArcheryRewards);
             this.gSpeedUps.Controls.Add(this.cFasterBank);
@@ -1859,10 +1849,36 @@ namespace MMR.UI.Forms
             this.gSpeedUps.TabStop = false;
             this.gSpeedUps.Text = "Speed Ups";
             // 
+            // lRequiredZoraEggs
+            // 
+            this.lRequiredZoraEggs.AutoSize = true;
+            this.lRequiredZoraEggs.Location = new System.Drawing.Point(360, 52);
+            this.lRequiredZoraEggs.Name = "lRequiredZoraEggs";
+            this.lRequiredZoraEggs.Size = new System.Drawing.Size(109, 15);
+            this.lRequiredZoraEggs.TabIndex = 38;
+            this.lRequiredZoraEggs.Text = "Zora Eggs Required";
+            // 
+            // nRequiredZoraEggs
+            // 
+            this.nRequiredZoraEggs.Location = new System.Drawing.Point(323, 47);
+            this.nRequiredZoraEggs.Maximum = new decimal(new int[] {
+            9,
+            0,
+            0,
+            0});
+            this.nRequiredZoraEggs.Name = "nRequiredZoraEggs";
+            this.nRequiredZoraEggs.Size = new System.Drawing.Size(31, 23);
+            this.nRequiredZoraEggs.TabIndex = 34;
+            this.nRequiredZoraEggs.Value = new decimal(new int[] {
+            7,
+            0,
+            0,
+            0});
+            // 
             // cSpeedupBabyCucco
             // 
             this.cSpeedupBabyCucco.AutoSize = true;
-            this.cSpeedupBabyCucco.Location = new System.Drawing.Point(292, 25);
+            this.cSpeedupBabyCucco.Location = new System.Drawing.Point(323, 25);
             this.cSpeedupBabyCucco.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.cSpeedupBabyCucco.Name = "cSpeedupBabyCucco";
             this.cSpeedupBabyCucco.Size = new System.Drawing.Size(121, 19);
@@ -1987,11 +2003,6 @@ namespace MMR.UI.Forms
             // nMaxGossipCT
             // 
             this.nMaxGossipCT.Location = new System.Drawing.Point(153, 91);
-            this.nMaxGossipCT.Maximum = new decimal(new int[] {
-            9,
-            0,
-            0,
-            0});
             this.nMaxGossipCT.Name = "nMaxGossipCT";
             this.nMaxGossipCT.Size = new System.Drawing.Size(31, 23);
             this.nMaxGossipCT.TabIndex = 29;
@@ -2005,11 +2016,6 @@ namespace MMR.UI.Forms
             // 
             this.nMaxGossipFoolish.Enabled = false;
             this.nMaxGossipFoolish.Location = new System.Drawing.Point(101, 91);
-            this.nMaxGossipFoolish.Maximum = new decimal(new int[] {
-            9,
-            0,
-            0,
-            0});
             this.nMaxGossipFoolish.Name = "nMaxGossipFoolish";
             this.nMaxGossipFoolish.Size = new System.Drawing.Size(31, 23);
             this.nMaxGossipFoolish.TabIndex = 28;
@@ -2023,11 +2029,6 @@ namespace MMR.UI.Forms
             // 
             this.nMaxGossipWotH.Enabled = false;
             this.nMaxGossipWotH.Location = new System.Drawing.Point(51, 91);
-            this.nMaxGossipWotH.Maximum = new decimal(new int[] {
-            9,
-            0,
-            0,
-            0});
             this.nMaxGossipWotH.Name = "nMaxGossipWotH";
             this.nMaxGossipWotH.Size = new System.Drawing.Size(31, 23);
             this.nMaxGossipWotH.TabIndex = 27;
@@ -3433,6 +3434,7 @@ namespace MMR.UI.Forms
             ((System.ComponentModel.ISupportInitialize)(this.nMaxGaroWotH)).EndInit();
             this.gSpeedUps.ResumeLayout(false);
             this.gSpeedUps.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nRequiredZoraEggs)).EndInit();
             this.gHints.ResumeLayout(false);
             this.gHints.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nMaxGossipCT)).EndInit();
@@ -3719,6 +3721,8 @@ namespace MMR.UI.Forms
         private System.Windows.Forms.CheckBox cQuestItemStorage;
         private System.Windows.Forms.CheckBox cNoDowngrades;
         private System.Windows.Forms.CheckBox cEasyFrameByFrame;
+        private System.Windows.Forms.Label lRequiredZoraEggs;
+        private System.Windows.Forms.NumericUpDown nRequiredZoraEggs;
     }
 }
 

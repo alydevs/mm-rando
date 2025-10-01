@@ -103,5 +103,15 @@ namespace MMR.Randomizer.Resources {
                 return ResourceManager.GetString("symbols", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] ZoraEgg {
+            get {
+                object obj = ResourceManager.GetObject("ZoraEgg", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

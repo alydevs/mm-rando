@@ -840,6 +840,10 @@ namespace MMR.Randomizer.Models.Settings
         [Description("Quest items will return to your inventory after Song of Time.")]
         public bool KeepQuestTradeThroughTime { get; set; }
 
+        [Range(1, 7)]
+        [Description("Number of zora eggs that must be brought to the lab for the eggs to grow.")]
+        public int RequiredZoraEggs { get; set; } = 7;
+
         #endregion
 
         #region Speedups
@@ -914,6 +918,10 @@ namespace MMR.Randomizer.Models.Settings
             if (RequiredBossRemains < 0 || RequiredBossRemains > 4)
             {
                 return $"{nameof(RequiredBossRemains)} must be between 0 and 4.";
+            }
+            if (RequiredZoraEggs < 1 || RequiredZoraEggs > 7)
+            {
+                return $"{nameof(RequiredZoraEggs)} must be between 1 and 7.";
             }
             if (VictoryMode != VictoryMode.Default && VictoryMode < VictoryMode.Fairies)
             {

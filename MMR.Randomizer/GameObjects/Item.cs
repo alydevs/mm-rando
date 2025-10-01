@@ -1097,6 +1097,16 @@ namespace MMR.Randomizer.GameObjects
         OtherTimeTravel,
         OtherInaccessible,
 
+        ZoraEggPinnacleRock1,
+        ZoraEggPinnacleRock2,
+        ZoraEggPinnacleRock3,
+        ZoraEggPiratesFortressHookshotRoom,
+        ZoraEggPiratesFortressThreeGuardsRoom,
+        ZoraEggPiratesFortressBarrelMazeRoom,
+        ZoraEggPiratesFortressLoneGuardRoom,
+        ZoraEggAll,
+        ZoraEggAny,
+
         [EntranceName("Odolwa's Lair"), ExitName("Woodfall Boss"), Region(Region.WoodfallTemple), EntranceType(EntranceType.Boss)]
         [Entrance(Entrance.EntranceOdolwasLairFromWoodfallTemple)]
         AreaOdolwasLair,

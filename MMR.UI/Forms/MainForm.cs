@@ -24,6 +24,7 @@ using System.Threading;
 using MMR.UI.Controls;
 using System.Linq.Expressions;
 using MMR.Randomizer.Attributes.Setting;
+using System.ComponentModel.DataAnnotations;
 
 namespace MMR.UI.Forms
 {
@@ -168,6 +169,7 @@ namespace MMR.UI.Forms
                 { cFasterBank, cfg => cfg.GameplaySettings.SpeedupBank },
                 { cDoubleArcheryRewards, cfg => cfg.GameplaySettings.DoubleArcheryRewards },
                 { cSpeedupBabyCucco, cfg => cfg.GameplaySettings.SpeedupBabyCuccos },
+                { nRequiredZoraEggs, cfg => cfg.GameplaySettings.RequiredZoraEggs },
                 { cFastPush, cfg => cfg.GameplaySettings.FastPush },
                 { cFreestanding, cfg => cfg.GameplaySettings.UpdateWorldModels },
                 { cArrowCycling, cfg => cfg.GameplaySettings.ArrowCycling },
@@ -218,10 +220,10 @@ namespace MMR.UI.Forms
                 {
                     body = ((UnaryExpression)body).Operand;
                 }
-                var memberExpression = body as MemberExpression;
-                if (memberExpression != null)
+                var memberInfo = (body as MemberExpression)?.Member;
+                if (memberInfo != null)
                 {
-                    var description = memberExpression.Member.GetCustomAttribute<DescriptionAttribute>()?.Description;
+                    var description = memberInfo.GetCustomAttribute<DescriptionAttribute>()?.Description;
                     if (description != null)
                     {
                         TooltipBuilder.SetTooltip(control, description);
@@ -260,6 +262,20 @@ namespace MMR.UI.Forms
                     var newValueParameter = Expression.Parameter(typeof(decimal), "newValue");
                     var assignExpression = Expression.Assign(body, Expression.Convert(newValueParameter, body.Type));
                     var func = Expression.Lambda<Action<Configuration, decimal>>(assignExpression, expression.Parameters[0], newValueParameter).Compile();
+                    var rangeAttribute = memberInfo.GetAttribute<RangeAttribute>();
+                    if (rangeAttribute != null)
+                    {
+                        var minimum = (rangeAttribute.Minimum as double?) ?? (rangeAttribute.Minimum as int?);
+                        if (minimum.HasValue)
+                        {
+                            numericUpDown.Minimum = (decimal)minimum.Value;
+                        }
+                        var maximum = (rangeAttribute.Maximum as double?) ?? (rangeAttribute.Maximum as int?);
+                        if (maximum.HasValue)
+                        {
+                            numericUpDown.Maximum = (decimal)maximum.Value;
+                        }
+                    }
 
                     numericUpDown.ValueChanged += (object sender, EventArgs e) =>
                     {
@@ -1382,6 +1398,7 @@ namespace MMR.UI.Forms
             cDoubleArcheryRewards.Checked = _configuration.GameplaySettings.DoubleArcheryRewards;
             cSpeedupBabyCucco.Checked = _configuration.GameplaySettings.SpeedupBabyCuccos;
             cGiantMaskAnywhere.Checked = _configuration.GameplaySettings.GiantMaskAnywhere;
+            nRequiredZoraEggs.Value = _configuration.GameplaySettings.RequiredZoraEggs;
 
             cDMult.SelectedIndex = (int)_configuration.GameplaySettings.DamageMode;
             cDeathMode.SelectedIndex = (int)_configuration.GameplaySettings.DeathMode;
@@ -1961,6 +1978,7 @@ namespace MMR.UI.Forms
             cFasterBank.Enabled = v;
             cDoubleArcheryRewards.Enabled = v;
             cSpeedupBabyCucco.Enabled = v;
+            nRequiredZoraEggs.Enabled = v;
 
             cDMult.Enabled = v;
             cDeathMode.Enabled = v;

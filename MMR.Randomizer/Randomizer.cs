@@ -1204,6 +1204,29 @@ namespace MMR.Randomizer
                 }
             }
 
+            if (_settings.RequiredZoraEggs < 7)
+            {
+                var zoraEggAll = ItemList[Item.ZoraEggAll];
+                if (_settings.CustomItemList.Contains(Item.BottleCatchEgg) && _settings.CustomItemList.Contains(Item.BottleCatchFish))
+                {
+                    var zoraEggsAllForFish = new ItemObject
+                    {
+                        ID = ItemList.Count,
+                        TimeAvailable = 63,
+                        DependsOnItems = zoraEggAll.DependsOnItems.ToList(),
+                    };
+                    ItemList.Add(zoraEggsAllForFish);
+                    ItemList[Item.BottleCatchEgg].Conditionals.Add(new List<Item>
+                    {
+                        Item.BottleCatchEgg,
+                        zoraEggsAllForFish.Item
+                    });
+                }
+
+                zoraEggAll.Conditionals = zoraEggAll.DependsOnItems.Combinations(_settings.RequiredZoraEggs).Select(x => x.ToList()).ToList();
+                zoraEggAll.DependsOnItems.Clear();
+            }
+
             var unrandomizedEntranceTypes = Enum.GetValues<EntranceMode>()
                 .Where(em => !_settings.EntranceMode.HasFlag(em))
                 .Select(em => em.EntranceType())
