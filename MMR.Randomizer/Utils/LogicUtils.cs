@@ -223,7 +223,7 @@ namespace MMR.Randomizer.Utils
             {
                 timeAvailable = (int)TimeOfDay.All;
             }
-            else if (io.Item.IsTemporary() || location.IsFake())
+            else if ((io.Item.IsTemporary() || location.IsFake()) && timeAvailable < locationLogic.TimeAvailable)
             {
                 timeAvailable &= locationLogic.TimeAvailable;
                 if (timeAvailable == 0)
