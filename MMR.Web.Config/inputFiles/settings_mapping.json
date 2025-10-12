@@ -241,7 +241,8 @@
             "GameplaySettings.SpeedupBeavers",
             "GameplaySettings.SpeedupDogRace",
             "GameplaySettings.DoubleArcheryRewards",
-            "GameplaySettings.SpeedupBabyCuccos"
+            "GameplaySettings.SpeedupBabyCuccos",
+            "GameplaySettings.RequiredZoraEggs"
           ]
         },
         {
@@ -295,6 +296,7 @@
             "GameplaySettings.TargetHealthBar",
             "GameplaySettings.FillWallet",
             "GameplaySettings.HiddenRupeesSparkle",
+            "GameplaySettings.MinorDropSparkle",
             "GameplaySettings.SaferGlitches",
             "GameplaySettings.EasyFrameByFrame",
             "GameplaySettings.ChestGameMinimap",
@@ -309,6 +311,7 @@
             "GameplaySettings.ArrowCycling",
             "GameplaySettings.ElegySpeedup",
             "GameplaySettings.BombchuDrops",
+            "GameplaySettings.KegDrops",
             "GameplaySettings.TolerantGossipStones",
             "GameplaySettings.FairyMaskShimmer",
             "GameplaySettings.SkulltulaTokenSounds"
