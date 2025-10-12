@@ -458,7 +458,7 @@ namespace MMR.Randomizer.Models.Settings
         public bool RandomizeEnemies { get; set; }
 
         [Description("Enable randomization of Gibdo requirements. They can request ammo, bottle contents, quest and trade items, photos and masks.")]
-        public bool RandomizeGibdoRequirements{ get; set; }
+        public bool RandomizeGibdoRequirements { get; set; }
 
         /// <summary>
         /// Set how starting items are randomized
