@@ -66,6 +66,7 @@ namespace MMR.UI.Forms
             this.bJunkLocationsEditor = new System.Windows.Forms.Button();
             this.lJunkLocationsAmount = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.bRandomStartingItems = new System.Windows.Forms.Button();
             this.tStartingItemList = new System.Windows.Forms.TextBox();
             this.lCustomStartingItemAmount = new System.Windows.Forms.Label();
             this.bStartingItemEditor = new System.Windows.Forms.Button();
@@ -677,6 +678,7 @@ namespace MMR.UI.Forms
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.bRandomStartingItems);
             this.groupBox4.Controls.Add(this.tStartingItemList);
             this.groupBox4.Controls.Add(this.lCustomStartingItemAmount);
             this.groupBox4.Controls.Add(this.bStartingItemEditor);
@@ -688,6 +690,19 @@ namespace MMR.UI.Forms
             this.groupBox4.TabIndex = 17;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Extra Starting Items";
+            // 
+            // bRandomStartingItems
+            // 
+            this.bRandomStartingItems.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.bRandomStartingItems.Location = new System.Drawing.Point(217, 17);
+            this.bRandomStartingItems.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
+            this.bRandomStartingItems.Name = "bRandomStartingItems";
+            this.bRandomStartingItems.Size = new System.Drawing.Size(214, 25);
+            this.bRandomStartingItems.TabIndex = 28;
+            this.bRandomStartingItems.Text = "+ Random Starting Items";
+            this.bRandomStartingItems.UseVisualStyleBackColor = true;
+            this.bRandomStartingItems.Click += new System.EventHandler(this.bRandomStartingItems_Click);
             // 
             // tStartingItemList
             // 
@@ -3723,6 +3738,7 @@ namespace MMR.UI.Forms
         private System.Windows.Forms.CheckBox cEasyFrameByFrame;
         private System.Windows.Forms.Label lRequiredZoraEggs;
         private System.Windows.Forms.NumericUpDown nRequiredZoraEggs;
+        private System.Windows.Forms.Button bRandomStartingItems;
     }
 }
 

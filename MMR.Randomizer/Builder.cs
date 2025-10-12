@@ -1580,6 +1580,11 @@ namespace MMR.Randomizer
                 itemList.AddRange(_randomized.BlitzExtraItems);
             }
 
+            if (_randomized.RandomStartingItems != null)
+            {
+                itemList.AddRange(_randomized.RandomStartingItems);
+            }
+
             itemList = itemList.Distinct().ToList();
 
             itemList.Add(Item.StartingHeartContainer1);

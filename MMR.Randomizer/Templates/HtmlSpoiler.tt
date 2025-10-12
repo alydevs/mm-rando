@@ -64,9 +64,17 @@
 <# if (spoiler.BlitzExtraItems.Any()) { 
 #>
 <h2>Blitz Starting Items</h2>
-<#         foreach (var remains in spoiler.BlitzExtraItems) {
+<#         foreach (var item in spoiler.BlitzExtraItems) {
 #>
-<div><#= remains.Name() #></div>
+<div><#= item.Name() #></div>
+<# } #>
+<# } #>
+<# if (spoiler.RandomStartingItems.Any()) { 
+#>
+<h2>Blitz Starting Items</h2>
+<#         foreach (var item in spoiler.RandomStartingItems) {
+#>
+<div><#= item.Name() #></div>
 <# } #>
 <# } #>
 <# if (spoiler.Entrances.Any()) { 

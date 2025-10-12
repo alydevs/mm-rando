@@ -57,10 +57,20 @@ namespace MMR.Randomizer.Templates
  if (spoiler.BlitzExtraItems.Any()) { 
 
             this.Write("<h2>Blitz Starting Items</h2>\r\n");
-         foreach (var remains in spoiler.BlitzExtraItems) {
+         foreach (var item in spoiler.BlitzExtraItems) {
 
             this.Write("<div>");
-            this.Write(this.ToStringHelper.ToStringWithCulture(remains.Name()));
+            this.Write(this.ToStringHelper.ToStringWithCulture(item.Name()));
+            this.Write("</div>\r\n");
+ } 
+ } 
+ if (spoiler.RandomStartingItems.Any()) { 
+
+            this.Write("<h2>Blitz Starting Items</h2>\r\n");
+         foreach (var item in spoiler.RandomStartingItems) {
+
+            this.Write("<div>");
+            this.Write(this.ToStringHelper.ToStringWithCulture(item.Name()));
             this.Write("</div>\r\n");
  } 
  } 

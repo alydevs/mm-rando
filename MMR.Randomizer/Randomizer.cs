@@ -1317,6 +1317,7 @@ namespace MMR.Randomizer
 
             ItemUtils.PrepareJunkItems(_settings, ItemList);
             _randomized.BlitzExtraItems = new List<Item>();
+            _randomized.RandomStartingItems = new List<Item>();
             if (_settings.CustomJunkLocations.Count > ItemUtils.JunkItems.Count) // TODO also account for HintedJunkLocations and BlitzJunkLocations
             {
                 throw new Exception($"Too many Enforced Junk Locations. Select up to {ItemUtils.JunkItems.Count}.");
@@ -1713,6 +1714,11 @@ namespace MMR.Randomizer
             }
 
             if (_randomized.BlitzExtraItems.Contains(currentItem))
+            {
+                return true;
+            }
+
+            if (_randomized.RandomStartingItems.Contains(currentItem))
             {
                 return true;
             }
@@ -2394,6 +2400,7 @@ namespace MMR.Randomizer
         {
             var freeItems = _settings.CustomStartingItemList
                 .Union(_randomized.BlitzExtraItems)
+                .Union(_randomized.RandomStartingItems)
                 .Union(ItemList.Where(io => io.NewLocation.HasValue && ItemUtils.IsStartingLocation(io.NewLocation.Value)).Select(io => io.Item))
                 .ToList();
 
@@ -2565,6 +2572,7 @@ namespace MMR.Randomizer
 
             itemList.RemoveAll(item => _settings.CustomStartingItemList.Contains(item));
             itemList.RemoveAll(item => _randomized.BlitzExtraItems.Contains(item));
+            itemList.RemoveAll(item => _randomized.RandomStartingItems.Contains(item));
 
             if (!_settings.AddSongs)
             {
@@ -3210,11 +3218,12 @@ namespace MMR.Randomizer
                     StartingItemMode.AllowTemporaryItems => ItemUtils.StartingItems(),
                     _ => Enumerable.Empty<Item>(),
                 })
-                .Where(item => !ItemList[item].NewLocation.HasValue && !ForbiddenStartingItems.Contains(item) && !_settings.CustomStartingItemList.Contains(item) && !_randomized.BlitzExtraItems.Contains(item))
+                .Where(item => !ItemList[item].NewLocation.HasValue && !ForbiddenStartingItems.Contains(item) && !_settings.CustomStartingItemList.Contains(item) && !_randomized.BlitzExtraItems.Contains(item) && !_randomized.RandomStartingItems.Contains(item))
                 .Cast<Item?>()
                 .ToList();
             var itemHearts = _settings.CustomStartingItemList
                 .Union(_randomized.BlitzExtraItems)
+                .Union(_randomized.RandomStartingItems)
                 .Where(item => !ItemList[item].NewLocation.HasValue && (_settings.AddSongs || !item.IsSong()))
                 .Cast<Item?>()
                 .ToList();
@@ -3514,8 +3523,9 @@ namespace MMR.Randomizer
                 SetupItems();
 
                 _randomized.BlitzExtraItems.AddRange(ItemUtils.PrepareBlitz(_settings, ItemList, Random));
+                _randomized.RandomStartingItems.AddRange(_settings.RandomStartingItemGroups.SelectMany(g => g.Items.Random(g.Amount, Random)));
 
-                foreach (var item in _randomized.BlitzExtraItems)
+                foreach (var item in _randomized.BlitzExtraItems.Union(_randomized.RandomStartingItems))
                 {
                     ItemList[item].ItemOverride = Item.RecoveryHeart;
                 }
@@ -3546,6 +3556,7 @@ namespace MMR.Randomizer
                 
                 var freeItemIds = _settings.CustomStartingItemList
                     .Union(_randomized.BlitzExtraItems)
+                    .Union(_randomized.RandomStartingItems)
                     .Cast<int>()
                     .Union(ItemList.Where(io => io.NewLocation.HasValue && ItemUtils.IsStartingLocation(io.NewLocation.Value)).Select(io => io.ID))
                     .ToList();
@@ -3724,6 +3735,7 @@ namespace MMR.Randomizer
                     var acquired = new Dictionary<Item, int>();
                     _settings.CustomStartingItemList.ForEach(item => acquired[item] = (int)TimeOfDay.All);
                     _randomized.BlitzExtraItems.ForEach(item => acquired[item] = (int)TimeOfDay.All);
+                    _randomized.RandomStartingItems.ForEach(item => acquired[item] = (int)TimeOfDay.All);
                     var idAcquired = new Dictionary<int, int>();
                     bool spheresUpdated;
                     int timeAcquired(ItemLogic il)

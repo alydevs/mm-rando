@@ -84,6 +84,7 @@ namespace MMR.Randomizer.Utils
                 ItemList = itemList.ToList(),
                 Logic = randomized.Logic,
                 BlitzExtraItems = randomized.BlitzExtraItems.AsReadOnly(),
+                RandomStartingItems = randomized.RandomStartingItems.AsReadOnly(),
                 Spheres = randomized.Spheres,
                 GossipHints = randomized.GossipQuotes?.ToDictionary(me => (GossipQuote) me.Id, (me) =>
                 {
@@ -168,6 +169,7 @@ namespace MMR.Randomizer.Utils
                     DungeonEntrances = spoiler.Entrances,
                     Items = spoiler.ItemList.GroupBy(item => item.Region).OrderBy(g => g.Key).ToDictionary(g => g.Key.Name(), g => g.ToList()),
                     BlitzExtraItems = spoiler.BlitzExtraItems.Select(item => item.Name()).ToList().AsReadOnly(),
+                    RandomStartingItems = spoiler.RandomStartingItems.Select(item => item.Name()).ToList().AsReadOnly(),
                     Playthrough = spoiler.Spheres,
                     GossipHints = spoiler.GossipHints,
                     Prices = spoiler.MessageCosts,
@@ -198,9 +200,19 @@ namespace MMR.Randomizer.Utils
             if (spoiler.BlitzExtraItems.Any())
             {
                 log.AppendLine(" Blitz Starting Items");
-                foreach (var remain in spoiler.BlitzExtraItems)
+                foreach (var item in spoiler.BlitzExtraItems)
                 {
-                    log.AppendLine(remain.Name());
+                    log.AppendLine(item.Name());
+                }
+                log.AppendLine("");
+            }
+
+            if (spoiler.RandomStartingItems.Any())
+            {
+                log.AppendLine(" Random Starting Items");
+                foreach (var item in spoiler.RandomStartingItems)
+                {
+                    log.AppendLine(item.Name());
                 }
                 log.AppendLine("");
             }

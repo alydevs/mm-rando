@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.IO;
+using System.Linq;
 using System.Text.Json.Serialization;
 
 namespace MMR.Randomizer.Models.Settings
@@ -513,12 +514,7 @@ namespace MMR.Randomizer.Models.Settings
         [SettingItemList(nameof(ItemUtils.CustomStartingItems), true, false, nameof(ItemExtensions.ItemCategory))]
         public string CustomStartingItemListString { get; set; } = "--1fbfc-5800000-";
 
-        //[SettingItemList(nameof(ItemUtils.CustomStartingItems), true, false, nameof(ItemExtensions.ItemCategory))]
-        public List<RandomStartingItemGroup> RandomStartingItemGroups { get; set; }
-        //    = new List<RandomStartingItemGroup>
-        //{
-        //    new RandomStartingItemGroup { Items = new List<Item>() { Item.MaskDeku, Item.MaskGoron, Item.MaskZora, Item.MaskFierceDeity }, Amount = 1 },
-        //};
+        public List<RandomStartingItemGroup> RandomStartingItemGroups { get; set; } = new List<RandomStartingItemGroup>();
 
         /// <summary>
         /// List of locations that must be randomized to junk
@@ -926,6 +922,10 @@ namespace MMR.Randomizer.Models.Settings
             if (VictoryMode != VictoryMode.Default && VictoryMode < VictoryMode.Fairies)
             {
                 return "Must set some victory conditions or disable all victory modes.";
+            }
+            if (RandomStartingItemGroups.Any(g => g.Items.Count == 0 || g.Amount < 1 || g.Amount > g.Items.Count))
+            {
+                return "Invalid random starting item groups.";
             }
             return null;
         }

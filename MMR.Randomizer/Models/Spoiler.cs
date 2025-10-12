@@ -47,6 +47,7 @@ namespace MMR.Randomizer.Models
         public List<GibdoRequirement> GibdoRequirements { get; set; }
 
         public ReadOnlyCollection<Item> BlitzExtraItems { get; set; }
+        public ReadOnlyCollection<Item> RandomStartingItems { get; set; }
         public List<List<ItemLocationPair>> Spheres { get; set; }
     }
 }

@@ -1864,6 +1864,17 @@ namespace MMR.UI.Forms
             cHintImportance.Enabled = _configuration.GameplaySettings.GaroHintStyle == GossipHintStyle.Competitive || _configuration.GameplaySettings.GossipHintStyle == GossipHintStyle.Competitive;
             bCustomizeHintPriorities.Enabled = cHintImportance.Enabled;
 
+            var amount = _configuration.GameplaySettings.RandomStartingItemGroups.Sum(x => x.Amount);
+            var total = _configuration.GameplaySettings.RandomStartingItemGroups.Sum(x => x.Items.Count);
+            if (total != 0)
+            {
+                bRandomStartingItems.Text = $"+ {amount}/{total} Random Starting Item{((amount != 1 || total != 1) ? "s" : "")}";
+            }
+            else
+            {
+                bRandomStartingItems.Text = "+ Random Starting Items";
+            }
+
             tLuckRollPercentage.Enabled = _configuration.CosmeticSettings.Music == Music.Random;
 
             cQuestItemKeep.Enabled = _configuration.GameplaySettings.QuestItemStorage;
@@ -2455,6 +2466,33 @@ namespace MMR.UI.Forms
                     _configuration.GameplaySettings.OverrideHintPriorities = dialog.Result;
                     _configuration.GameplaySettings.OverrideImportanceIndicatorTiers = dialog.ResultTiersIndicateImportance;
                     _configuration.GameplaySettings.OverrideHintItemCaps = dialog.ResultTiersCap;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void bRandomStartingItems_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var dialog = new RandomStartingItemsForm(_configuration.GameplaySettings.RandomStartingItemGroups);
+                var result = dialog.ShowDialog();
+                if (result == DialogResult.OK)
+                {
+                    var amount = dialog.Result.Sum(x => x.Amount);
+                    var total = dialog.Result.Sum(x => x.Items.Count);
+                    if (total != 0)
+                    {
+                        bRandomStartingItems.Text = $"+ {amount}/{total} Random Starting Item{((amount != 1 || total != 1) ? "s" : "")}";
+                    }
+                    else
+                    {
+                        bRandomStartingItems.Text = "+ Random Starting Items";
+                    }
+                    _configuration.GameplaySettings.RandomStartingItemGroups = dialog.Result;
                 }
             }
             catch (Exception ex)

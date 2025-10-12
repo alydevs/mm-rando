@@ -24,6 +24,7 @@ namespace MMR.Randomizer.Models
         public List<NameCostPair> Prices { get; set; }
 
         public ReadOnlyCollection<string> BlitzExtraItems { get; set; }
+        public ReadOnlyCollection<string> RandomStartingItems { get; set; }
         public List<List<ItemLocationPair>> Playthrough { get; set; }
     }
 

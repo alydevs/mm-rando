@@ -23,6 +23,7 @@ namespace MMR.Randomizer.Models
         public List<ushort?> MessageCosts { get; set; }
         public List<GibdoRequirement> GibdoRequirements { get; set; }
         public List<Item> BlitzExtraItems { get; set; }
+        public List<Item> RandomStartingItems { get; set; }
         public int FileSelectSkybox { get; internal set; }
         public int FileSelectColor { get; internal set; }
         public int TitleLogoColor { get; internal set; }

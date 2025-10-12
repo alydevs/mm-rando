@@ -310,13 +310,13 @@ namespace MMR.CLI
                                             return new SettingProperty
                                             {
                                                 Name = p.Name,
-                                                DataType = "ItemList",
+                                                DataType = "Item[]",
                                                 ItemList = settingItemListAttribute.ItemList.Select((item, index) =>
                                                 {
                                                     var itemListItem = new SettingItemListItem
                                                     {
-                                                        Index = index,
                                                         Label = settingItemListAttribute.LabelExtractor(item),
+                                                        Value = item.ToString(),
                                                         AdditionalInformation = settingItemListAttribute.AdditionalInformationExtractors.ToDictionary(kvp => kvp.Key, kvp => kvp.Value(item)),
                                                     };
                                                     return itemListItem;
