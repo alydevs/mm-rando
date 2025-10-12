@@ -47,7 +47,7 @@ namespace MMR.Randomizer
                 }
                 if (configuration.OutputSettings.OutputVC && !Directory.Exists(Values.VCDirectory))
                 {
-                    return "Error: vc folder is missing and WiiVC wad creation was selected.\n\n"
+                    return "vc folder is missing and WiiVC wad creation was selected.\n\n"
                         + "If you did not extract the whole randomizer, you must extract the vc folder. If this is a beta release, copy the vc folder from the main release.";
                 }
 
@@ -60,11 +60,11 @@ namespace MMR.Randomizer
                 }
                 catch (ROMOverflowException ex)
                 {
-                    return $"Error: {ex.Message}";
+                    return ex.Message;
                 }
                 catch (PatchMagicException)
                 {
-                    return $"Error applying patch: Not a valid patch file";
+                    return "Error applying patch: Not a valid patch file";
                 }
                 catch (IOException ex)
                 {

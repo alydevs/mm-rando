@@ -589,7 +589,7 @@ namespace MMR.CLI
             var validationResult = configuration.GameplaySettings.Validate() ?? configuration.OutputSettings.Validate();
             if (validationResult != null)
             {
-                Console.WriteLine(validationResult);
+                Console.Error.WriteLine("Error: " + validationResult);
                 return -1;
             }
 
@@ -626,7 +626,7 @@ namespace MMR.CLI
                 }
                 if (result != null)
                 {
-                    Console.Error.WriteLine(result);
+                    Console.Error.WriteLine("Error: " + result);
                 }
                 else
                 {
