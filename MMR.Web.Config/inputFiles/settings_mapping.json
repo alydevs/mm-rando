@@ -122,6 +122,7 @@
           "text": "Shuffling",
           "row_span": [ 4, 6, 6 ],
           "settings": [
+            "GameplaySettings.EntranceMode",
             "GameplaySettings.VictoryMode",
             "GameplaySettings.PriceMode",
             "GameplaySettings.BossRemainsMode",
@@ -136,13 +137,12 @@
           "text": "Other",
           "row_span": [ 4, 6, 6 ],
           "settings": [
-            "GameplaySettings.RandomizeDungeonEntrances",
+            "GameplaySettings.ProgressiveUpgrades",
+            "GameplaySettings.RandomizeGibdoRequirements",
             "GameplaySettings.AddSongs",
-            "GameplaySettings.StartingItemMode",
-            "GameplaySettings.RandomizeBossRooms",
             "GameplaySettings.RandomizeEnemies",
-            "GameplaySettings.RequiredBossRemains",
-            "GameplaySettings.ProgressiveUpgrades"
+            "GameplaySettings.StartingItemMode",
+            "GameplaySettings.RequiredBossRemains"
           ]
         }
       ]
@@ -190,7 +190,7 @@
           "settings": [
             "GameplaySettings.DamageMode",
             "GameplaySettings.DamageEffect",
-            "GameplaySettings.DeathMoonCrash",
+            "GameplaySettings.DeathMode",
             "GameplaySettings.FewerHealthDrops",
             "GameplaySettings.ByoAmmo",
             "GameplaySettings.TakeDamageOnEpona",
