@@ -1398,7 +1398,9 @@ export class GUIGlobal implements OnDestroy {
 
   createSettingsFileObject(includeFromPatchFileSettings: boolean = true, includeSeedSettingsOnly: boolean = false, sanitizeForBrowserCache: boolean = false, cancelWhenError: boolean = false, sanitizeForServer: boolean = false) {
 
-    let settingsFile: any = JSON.parse(JSON.stringify(this.generator_settingsMap));
+    let settingsFile: any = {};
+
+    Object.assign(settingsFile, this.generator_settingsMap);
 
     //Add in custom colors
     Object.keys(this.generator_customColorMap).forEach(colorSettingName => {
@@ -1427,7 +1429,7 @@ export class GUIGlobal implements OnDestroy {
             settingsFile[setting.name] = valueArray;
           }
           else if (setting.type == "SearchBoxMMR") {
-            
+
             //Encode MMR search box entries to a hex string for export
             settingsFile[setting.name] = this.encodeSearchBoxSelectionsAsHexString(settingsFile[setting.name], setting.options);
           }
@@ -1453,6 +1455,9 @@ export class GUIGlobal implements OnDestroy {
           }
           else if (setting.type == "Dictionary" && settingsFile[setting.name]) { //Validate according to inner_type
 
+            //Deep clone dicts beforehand to avoid reference related bugs
+            settingsFile[setting.name] = JSON.parse(JSON.stringify(settingsFile[setting.name]));
+
             for (let key of Object.keys(settingsFile[setting.name])) {
 
               let error = false;
@@ -1469,13 +1474,17 @@ export class GUIGlobal implements OnDestroy {
 
                   break;
                 }
-              }    
+              }
 
               if (error) { //Value could not be handled, abort
                 invalidSettingsList.push(setting.text);
                 break;
               }
             }
+          }
+          else if (typeof (settingsFile[setting.name]) === "object" && settingsFile[setting.name] && setting.type != "Fileinput" && setting.type != "Directoryinput") {
+            //Deep clone other dicts beforehand to avoid reference related bugs
+            settingsFile[setting.name] = JSON.parse(JSON.stringify(settingsFile[setting.name]));
           }
         });
       });
