@@ -10,8 +10,7 @@ import { ConfirmationWindowComponent } from '../../pages/generator/confirmationW
 import { TextInputWindowComponent } from '../../pages/generator/textInputWindow/textInputWindow.component';
 
 //MMR only
-import { MMRRandomStartingItemsWindowComponent } from '../../components/mmr/randomStartingItemsWindow/randomStartingItemsWindow.component';
-import { MMRHintPrioritiesWindowComponent } from '../../components/mmr/hintPrioritiesWindow/hintPrioritiesWindow.component';
+import { MMRGuiDetailedConfigWindowComponent } from '../../components/mmr/guiDetailedConfigWindow/guiDetailedConfigWindow.component';
 import { MMRItemSelectorWindowComponent } from '../../components/mmr/itemSelectorWindow/itemSelectorWindow.component';
 
 import { GeneratorComponent } from '../../pages/generator/generator.component';
@@ -234,10 +233,27 @@ export class GUISettingsElement implements OnInit {
 
   //MMR only
   openRandomStartingItemsWindow(setting: any, assignmentSettingsMap: any, assignmentSettingName: string, settingDefault: any, settingText: string, settingTooltip: string) {
-
-    this.dialogService.open(MMRRandomStartingItemsWindowComponent, {
-      autoFocus: true, closeOnBackdropClick: true, closeOnEsc: true, hasBackdrop: true, hasScroll: false,
-      context: { dialogHeader: settingText, setting, assignmentSettingsMap, assignmentSettingName }
+    this.setAppContainerDimensions();
+    const dialogRef = this.dialogService.open(MMRGuiDetailedConfigWindowComponent, {
+      autoFocus: true, 
+      closeOnBackdropClick: true, 
+      closeOnEsc: true, 
+      hasBackdrop: true, 
+      hasScroll: false,
+      context: { 
+        dialogHeader: settingText, 
+        setting, 
+        assignmentSettingsMap, 
+        assignmentSettingName, 
+        sectionSettings: this.sectionSettings, 
+        configMode: 'randomStartingItemGroups'
+      }
+    });
+    this.resizeDialogToAppContainer('.mmrGuiDetailedConfig-window', 0.78, 0.78);
+    dialogRef.onClose.subscribe(result => {
+      if (result) {
+        this.app.afterSettingChange();
+      }
     });
   }
 
@@ -250,7 +266,7 @@ export class GUISettingsElement implements OnInit {
     let overrideImportanceIndicatorTiers = JSON.parse(JSON.stringify(this.assignmentSettingsMap['GameplaySettings.OverrideImportanceIndicatorTiers'] || []));
     let overrideHintItemCaps = JSON.parse(JSON.stringify(this.assignmentSettingsMap['GameplaySettings.OverrideHintItemCaps'] || []));
 
-    const dialogRef = this.dialogService.open(MMRHintPrioritiesWindowComponent, {
+    const dialogRef = this.dialogService.open(MMRGuiDetailedConfigWindowComponent, {
       autoFocus: true, 
       closeOnBackdropClick: true, 
       closeOnEsc: true, 
@@ -261,12 +277,13 @@ export class GUISettingsElement implements OnInit {
         setting, 
         assignmentSettingsMap, 
         assignmentSettingName,
-        sectionSettings: this.sectionSettings
+        sectionSettings: this.sectionSettings,
+        configMode: 'hintPriorities'
       }
     });
 
     // Set dialog size based on app container immediately
-    this.resizeDialogToAppContainer('.mmrHintPriorities-window', 0.78, 0.78);
+    this.resizeDialogToAppContainer('.mmrGuiDetailedConfig-window', 0.78, 0.78);
 
     dialogRef.onClose.subscribe(result => {
 
@@ -347,7 +364,7 @@ export class GUISettingsElement implements OnInit {
       } else {
         const alternativeSelectors = [
           '.mmrItemSelector-window',
-          '.mmrHintPriorities-window',
+          '.mmrGuiDetailedConfig-window',
           '[class*="ItemSelector"]',
           '[class*="HintPriorities"]'
         ];

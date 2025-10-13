@@ -185,7 +185,7 @@
     "shared": false
   },
   {
-    "name": "Web.RandomStartingItemsPool",
+    "name": "Web.RandomStartingItemGroups",
     "default": {},
     "text": "Random Starting Item Pools",
     "function": "openRandomStartingItemsWindow",

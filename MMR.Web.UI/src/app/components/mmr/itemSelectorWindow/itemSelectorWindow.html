@@ -25,7 +25,7 @@
              class="item-entry"
              [class.selected]="item.selected"
              (click)="toggleItem(item)"
-             [nbTooltip]="item.regionDisplay ? 'Region: ' + item.regionDisplay : null"
+             [nbTooltip]="item.regionDisplay ? (tagDisplayPrefix + item.regionDisplay) : null"
              nbTooltipPlacement="top">
           <input type="checkbox" 
                  [checked]="item.selected" 

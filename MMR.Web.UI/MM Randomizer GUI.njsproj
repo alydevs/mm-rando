@@ -58,12 +58,11 @@
     <Content Include="src\app\components\guiModularListbox\guiModularListbox.html" />
     <Content Include="src\app\components\guiModularListbox\guiModularListbox.scss" />
     <Content Include="src\app\components\guiSettingsElement\guiSettingsElement.scss" />
-    <Content Include="src\app\components\mmr\hintPrioritiesWindow\hintPrioritiesWindow.html" />
-    <Content Include="src\app\components\mmr\hintPrioritiesWindow\hintPrioritiesWindow.scss" />
+    <Content Include="src\app\components\mmr\guiDetailedConfigWindow\guiDetailedConfigWindow.html" />
+    <Content Include="src\app\components\mmr\guiDetailedConfigWindow\guiDetailedConfigWindow.scss" />
     <Content Include="src\app\components\mmr\itemSelectorWindow\itemSelectorWindow.html" />
     <Content Include="src\app\components\mmr\itemSelectorWindow\itemSelectorWindow.scss" />
-    <Content Include="src\app\components\mmr\randomStartingItemsWindow\randomStartingItemsWindow.html" />
-    <Content Include="src\app\components\mmr\randomStartingItemsWindow\randomStartingItemsWindow.scss" />
+    
     <Content Include="src\app\pages\generator\confirmationWindow\confirmationWindow.scss" />
     <Content Include="src\app\pages\generator\errorDetailsWindow\errorDetailsWindow.scss" />
     <Content Include="src\app\pages\generator\generator.component.html" />
@@ -97,9 +96,9 @@
     <TypeScriptCompile Include="src\app\%40theme\theme.module.ts" />
     <TypeScriptCompile Include="src\app\components\guiColorPicker\guiColorPicker.ts" />
     <TypeScriptCompile Include="src\app\components\guiModularListbox\guiModularListbox.ts" />
-    <TypeScriptCompile Include="src\app\components\mmr\hintPrioritiesWindow\hintPrioritiesWindow.component.ts" />
+    <TypeScriptCompile Include="src\app\components\mmr\guiDetailedConfigWindow\guiDetailedConfigWindow.component.ts" />
     <TypeScriptCompile Include="src\app\components\mmr\itemSelectorWindow\itemSelectorWindow.component.ts" />
-    <TypeScriptCompile Include="src\app\components\mmr\randomStartingItemsWindow\randomStartingItemsWindow.component.ts" />
+    
     <TypeScriptCompile Include="src\app\directives\responsiveCols.directive.ts">
       <SubType>Code</SubType>
     </TypeScriptCompile>
@@ -153,10 +152,10 @@
     <Folder Include="src\app\%40theme\styles\" />
     <Folder Include="src\app\components\" />
     <Folder Include="src\app\components\guiColorPicker\" />
-    <Folder Include="src\app\components\mmr\hintPrioritiesWindow\" />
+    <Folder Include="src\app\components\mmr\guiDetailedConfigWindow\" />
     <Folder Include="src\app\components\mmr\itemSelectorWindow\" />
     <Folder Include="src\app\components\guiModularListbox\" />
-    <Folder Include="src\app\components\mmr\randomStartingItemsWindow\" />
+    
     <Folder Include="src\app\components\mmr\" />
     <Folder Include="src\app\directives\" />
     <Folder Include="src\app\pages\" />
