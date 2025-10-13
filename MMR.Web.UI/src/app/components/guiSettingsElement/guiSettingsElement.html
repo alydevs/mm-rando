@@ -131,76 +131,41 @@
     </div>
   </ng-container>
 
-  <!--Slider-->
-  <ng-container *ngSwitchCase="'Slider'">
-    <div class="slider-header">
-      <span *ngIf="!skipLabel && (!setting.size || setting.size === 'small' || setting.size === 'medium')" class="numberTextInputLabel" [ngClass]="{'disabled': !visibilitySettingsMap[setting.name]}">{{settingText}}:</span>
-      <p *ngIf="!skipLabel && setting.size === 'full'" class="numberTextInputLabel" [ngClass]="{'disabled': !visibilitySettingsMap[setting.name]}">{{settingText}}</p>
-      
-      <input class="slider-value-input" 
-             nbInput 
-             type="number" 
-             [min]="setting.min" 
-             [max]="setting.max" 
-             [(ngModel)]="assignmentSettingsMap[assignmentSettingName]"
-             (blur)="app.afterSettingChange()"
-             [disabled]="!visibilitySettingsMap[setting.name]"
-             fieldSize="small">
-    </div>
-    
-    <div class="slider-container">
-      <mat-slider 
-             class="mat-slider" 
-             [min]="setting.min" 
-             [max]="setting.max" 
-             step="1" 
-             [disabled]="!visibilitySettingsMap[setting.name]"
-             [nbPopover]="tooltipComponent" 
-             [nbPopoverContext]="{tooltip: settingTooltip}" 
-             [nbPopoverTrigger]="settingTooltip && settingTooltip.length > 0 ? 'hint' : 'noop'" 
-             nbPopoverPlacement="bottom" 
-             nbPopoverAdjustment="counterclockwise"
-             [discrete]="true"
-             [showTickMarks]="true">
-        <input matSliderThumb 
-               [value]="assignmentSettingsMap[assignmentSettingName]"
-               (valueChange)="assignmentSettingsMap[assignmentSettingName] = $event; app.afterSettingChange()">
-      </mat-slider>
-    </div>
-  </ng-container>
-
-  <!--Scale (same as Slider)-->
+  <!--Scale-->
   <ng-container *ngSwitchCase="'Scale'">
     <div class="slider-header">
       <span *ngIf="!skipLabel && (!setting.size || setting.size === 'small' || setting.size === 'medium')" class="numberTextInputLabel" [ngClass]="{'disabled': !visibilitySettingsMap[setting.name]}">{{settingText}}:</span>
       <p *ngIf="!skipLabel && setting.size === 'full'" class="numberTextInputLabel" [ngClass]="{'disabled': !visibilitySettingsMap[setting.name]}">{{settingText}}</p>
-      
-      <input class="slider-value-input" 
-             nbInput 
-             type="number" 
-             [min]="setting.min" 
-             [max]="setting.max" 
-             [(ngModel)]="assignmentSettingsMap[assignmentSettingName]"
-             (blur)="app.afterSettingChange()"
+
+      <input class="slider-value-input"
+             nbInput
              [disabled]="!visibilitySettingsMap[setting.name]"
-             fieldSize="small">
+             type="text"
+             [maxlength]="setting.max_length ? setting.max_length : setting.max ? setting.max.toString().length : 6"
+             fieldSize="small"
+             (focus)="app.inputFocusIn(setting.name, subSetting ? subSetting.name : null)"
+             (focusout)="app.numberInputFocusOut(setting, true, subSetting)"
+             [(ngModel)]="assignmentSettingsMap[assignmentSettingName]"
+             [nbPopover]="tooltipComponent"
+             [nbPopoverContext]="{tooltip: settingTooltip}"
+             [nbPopoverTrigger]="settingTooltip && settingTooltip.length > 0 ? 'hint' : 'noop'" nbPopoverPlacement="right" nbPopoverAdjustment="counterclockwise">
     </div>
     
     <div class="slider-container">
-      <mat-slider 
-             class="mat-slider" 
-             [min]="setting.min" 
-             [max]="setting.max" 
-             step="1" 
-             [disabled]="!visibilitySettingsMap[setting.name]"
-             [nbPopover]="tooltipComponent" 
-             [nbPopoverContext]="{tooltip: settingTooltip}" 
-             [nbPopoverTrigger]="settingTooltip && settingTooltip.length > 0 ? 'hint' : 'noop'" 
-             nbPopoverPlacement="bottom" 
-             nbPopoverAdjustment="counterclockwise"
-             [discrete]="true"
-             [showTickMarks]="true">
-        <input matSliderThumb 
+
+      <mat-slider class="mat-slider"
+                  [min]="setting.min"
+                  [max]="setting.max"
+                  step="1"
+                  [disabled]="!visibilitySettingsMap[setting.name]"
+                  [nbPopover]="tooltipComponent"
+                  [nbPopoverContext]="{tooltip: settingTooltip}"
+                  [nbPopoverTrigger]="settingTooltip && settingTooltip.length > 0 ? 'hint' : 'noop'"
+                  nbPopoverPlacement="bottom"
+                  nbPopoverAdjustment="counterclockwise"
+                  [discrete]="true"
+                  [showTickMarks]="true">
+        <input matSliderThumb
                [value]="assignmentSettingsMap[assignmentSettingName]"
                (valueChange)="assignmentSettingsMap[assignmentSettingName] = $event; app.afterSettingChange()">
       </mat-slider>
@@ -211,7 +176,7 @@
   <ng-container *ngSwitchCase="'Textinput'">
     <span *ngIf="!skipLabel && (!setting.size || setting.size === 'small' || setting.size === 'medium')" class="numberTextInputLabel" [ngClass]="{'disabled': !visibilitySettingsMap[setting.name], 'secondaryInputLabel': sectionSettings[itemIndex-1].no_line_break && app.shouldRespectNoLineBreak(refEl, sectionSettings[itemIndex-1], sectionSettings, itemIndex-1)}">{{settingText}}:</span>
     <p *ngIf="!skipLabel && setting.size === 'full'" class="numberTextInputLabel" [ngClass]="{'disabled': !visibilitySettingsMap[setting.name]}">{{settingText}}</p>
-    <input class="numberTextInput" [disabled]="!visibilitySettingsMap[setting.name]" [ngClass]="{numberTextInputSmall: setting.size === 'small', numberTextInputMedium: setting.size === 'medium', numberTextInputFull: setting.size === 'full'}" nbInput [disabled]="!visibilitySettingsMap[setting.name]" type="text" [maxlength]="setting.max_length ? setting.max_length : 260" fieldSize="small"
+    <input class="numberTextInput" [disabled]="!visibilitySettingsMap[setting.name]" [ngClass]="{numberTextInputSmall: setting.size === 'small', numberTextInputMedium: setting.size === 'medium', numberTextInputFull: setting.size === 'full'}" nbInput type="text" [maxlength]="setting.max_length ? setting.max_length : 260" fieldSize="small"
            (focus)="app.inputFocusIn(setting.name, subSetting ? subSetting.name : null)" (focusout)="app.inputFocusOut(setting.name, false, undefined, subSetting ? subSetting.name : null)" [(ngModel)]="assignmentSettingsMap[assignmentSettingName]" [nbPopover]="tooltipComponent" [nbPopoverContext]="{tooltip: settingTooltip}" [nbPopoverTrigger]="settingTooltip && settingTooltip.length > 0 ? 'hint' : 'noop'" nbPopoverPlacement="right" nbPopoverAdjustment="counterclockwise">
   </ng-container>
 
@@ -225,7 +190,7 @@
   <ng-container *ngSwitchCase="'Numberinput'">
     <span *ngIf="!skipLabel && (!setting.size || setting.size === 'small' || setting.size === 'medium')" class="numberTextInputLabel" [ngClass]="{'disabled': !visibilitySettingsMap[setting.name], 'secondaryInputLabel': subSettingIndex > 0 && setting.no_inner_line_break && app.shouldRespectNoLineBreak(refEl, setting, sectionSettings, itemIndex)}">{{settingText}}:</span>
     <p *ngIf="!skipLabel && setting.size === 'full'" class="numberTextInputLabel" [ngClass]="{'disabled': !visibilitySettingsMap[setting.name]}">{{settingText}}</p>
-    <input class="numberTextInput" [disabled]="!visibilitySettingsMap[setting.name]" [ngClass]="{numberTextInputSmall: setting.size === 'small', numberTextInputMedium: setting.size === 'medium', numberTextInputFull: setting.size === 'full'}" nbInput [disabled]="!visibilitySettingsMap[setting.name]" type="text" [maxlength]="setting.max_length ? setting.max_length : setting.max ? setting.max.toString().length : 6" fieldSize="small"
+    <input class="numberTextInput" [disabled]="!visibilitySettingsMap[setting.name]" [ngClass]="{numberTextInputSmall: setting.size === 'small', numberTextInputMedium: setting.size === 'medium', numberTextInputFull: setting.size === 'full'}" nbInput type="text" [maxlength]="setting.max_length ? setting.max_length : setting.max ? setting.max.toString().length : 6" fieldSize="small"
            (focus)="app.inputFocusIn(setting.name, subSetting ? subSetting.name : null)" (focusout)="app.numberInputFocusOut(setting, true, subSetting)" [(ngModel)]="assignmentSettingsMap[assignmentSettingName]" [nbPopover]="tooltipComponent" [nbPopoverContext]="{tooltip: settingTooltip}" [nbPopoverTrigger]="settingTooltip && settingTooltip.length > 0 ? 'hint' : 'noop'" nbPopoverPlacement="right" nbPopoverAdjustment="counterclockwise">
   </ng-container>
 
