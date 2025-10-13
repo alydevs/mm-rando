@@ -44,8 +44,7 @@ import { ConfirmationWindowComponent } from './pages/generator/confirmationWindo
 import { TextInputWindowComponent } from './pages/generator/textInputWindow/textInputWindow.component';
 
 //MMR only
-import { MMRRandomStartingItemsWindowComponent } from './components/mmr/randomStartingItemsWindow/randomStartingItemsWindow.component';
-import { MMRHintPrioritiesWindowComponent } from './components/mmr/hintPrioritiesWindow/hintPrioritiesWindow.component';
+import { MMRGuiDetailedConfigWindowComponent } from './components/mmr/guiDetailedConfigWindow/guiDetailedConfigWindow.component';
 import { MMRItemSelectorWindowComponent } from './components/mmr/itemSelectorWindow/itemSelectorWindow.component';
 
 
@@ -58,8 +57,7 @@ import { MMRItemSelectorWindowComponent } from './components/mmr/itemSelectorWin
         ErrorDetailsWindowComponent,
         ConfirmationWindowComponent,
         TextInputWindowComponent,
-        MMRRandomStartingItemsWindowComponent,
-        MMRHintPrioritiesWindowComponent,
+        MMRGuiDetailedConfigWindowComponent,
         MMRItemSelectorWindowComponent
     ],
     imports: [

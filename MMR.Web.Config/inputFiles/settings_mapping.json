@@ -71,7 +71,7 @@
             "GameplaySettings.LogicMode",
             "GameplaySettings.UserLogicFileName",
             "GameplaySettings.ItemPlacement",
-            "Web.RandomStartingItemsPool",
+            "Web.RandomStartingItemGroups",
             "GameplaySettings.RandomStartingItemGroups"
           ]
         },

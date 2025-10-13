@@ -8,7 +8,7 @@
     <div class="search-container">
       <input nbInput 
              type="text" 
-             placeholder="Search name or region..." 
+             [placeholder]="searchPlaceholder" 
              [(ngModel)]="searchTerm" 
              (ngModelChange)="onSearchChange()"
              [autofocus]="false"
@@ -25,7 +25,7 @@
              class="item-entry"
              [class.selected]="item.selected"
              (click)="toggleItem(item)"
-             [nbTooltip]="item.regionDisplay ? 'Region: ' + item.regionDisplay : null"
+             [nbTooltip]="item.regionDisplay ? (tagDisplayPrefix + item.regionDisplay) : null"
              nbTooltipPlacement="top">
           <input type="checkbox" 
                  [checked]="item.selected" 
