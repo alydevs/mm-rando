@@ -81,8 +81,6 @@ export class GeneratorComponent implements OnInit, OnDestroy {
         }
       });
     }
-
-    this.runEventListeners();
     
     // Add window resize listener for no line break calculations
     window.addEventListener('resize', () => {
@@ -102,8 +100,6 @@ export class GeneratorComponent implements OnInit, OnDestroy {
 
   generatorReady() {
     this.generatorBusy = false;
-
-
 
     //Set active tab on boot
     this.activeTab = this.global.getGlobalVar('generatorSettingsArray')[0].text;
@@ -158,10 +154,6 @@ export class GeneratorComponent implements OnInit, OnDestroy {
       // Note: We don't force recalculation on initial load anymore
       // The default behavior is now to assume unwrapped and only wrap when necessary
 
-
-
-
-
       // Tab change subscriptions
       this.tabSet.changeTab.subscribe(eventObj => {
         this.activeTab = eventObj.tabTitle;
@@ -179,6 +171,7 @@ export class GeneratorComponent implements OnInit, OnDestroy {
           this.cd.detectChanges();
         }
         else if (eventObj.name == "dialog_error") {
+
           this.dialogService.open(DialogWindowComponent, {
             autoFocus: true, closeOnBackdropClick: true, closeOnEsc: true, hasBackdrop: true, hasScroll: false, context: { dialogHeader: "Error", dialogMessage: eventObj.message }
           });
@@ -187,8 +180,6 @@ export class GeneratorComponent implements OnInit, OnDestroy {
       
     }, 100);
   }
-
-
 
   getTabList(footer: boolean) {
     let filteredTabList = [];
@@ -1876,7 +1867,7 @@ export class GeneratorComponent implements OnInit, OnDestroy {
 
   revertToPriorValue(settingName: string, forceChangeDetection: boolean, forcePriorValue: any = null, subSettingName: string = null) {
 
-    let priorValue = forcePriorValue != null ? forcePriorValue : subSettingName ? this.global.generator_settingsMap[settingName][subSettingName] : this.global.generator_settingsMap[settingName];
+    let priorValue = forcePriorValue !== undefined ? forcePriorValue : subSettingName ? this.global.generator_settingsMap[settingName][subSettingName] : this.global.generator_settingsMap[settingName];
 
     setTimeout(() => {
 
@@ -1923,16 +1914,22 @@ export class GeneratorComponent implements OnInit, OnDestroy {
     let settingName = setting["name"];
 
     //Skip checks if null value with nullable allowed
-    if (setting["nullable"] === true && (newValue === null || newValue === "")) {
+    if (setting["nullable"] === true && (newValue === undefined || newValue === null || newValue === "")) {
       this.inputFocusOut(settingName, false, undefined, subSetting ? subSetting["name"] : null);
       return;
     }
+
+    let oldValue = this.inputOldValue;
+
+    //Make sure we don't push any null values when they are not valid 
+    if (!setting["nullable"] && (oldValue === undefined || oldValue === null || oldValue === ""))
+      oldValue = setting["min"];
 
     //Existence check
     if (!newValue || newValue.length == 0) {
 
       if (forceAdjust)
-        this.revertToPriorValue(settingName, true, this.inputOldValue, subSetting ? subSetting["name"] : null);
+        this.revertToPriorValue(settingName, true, oldValue, subSetting ? subSetting["name"] : null);
 
       return;
     }
@@ -1944,7 +1941,7 @@ export class GeneratorComponent implements OnInit, OnDestroy {
       if (Number(parseFloat(newValue)) != newValue) {
 
         if (forceAdjust)
-          this.revertToPriorValue(settingName, true, this.inputOldValue, subSetting ? subSetting["name"] : null);
+          this.revertToPriorValue(settingName, true, oldValue, subSetting ? subSetting["name"] : null);
 
         return;
       }
@@ -1955,7 +1952,7 @@ export class GeneratorComponent implements OnInit, OnDestroy {
       if (Number(parseInt(newValue)) != newValue) {
 
         if (forceAdjust)
-          this.revertToPriorValue(settingName, true, this.inputOldValue, subSetting ? subSetting["name"] : null);
+          this.revertToPriorValue(settingName, true, oldValue, subSetting ? subSetting["name"] : null);
 
         return;
       }
@@ -2213,7 +2210,6 @@ export class GeneratorComponent implements OnInit, OnDestroy {
     this.cd.markForCheck();
   }
   
-
 
   checkAutoImportSettings() { //Web only
 

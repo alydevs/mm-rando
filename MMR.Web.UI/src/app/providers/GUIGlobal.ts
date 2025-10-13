@@ -617,7 +617,7 @@ export class GUIGlobal implements OnDestroy {
             }
 
             if (useDefault) {
-              this.generator_settingsMap[setting.name] = setting.default;
+              this.generator_settingsMap[setting.name] = typeof (setting.default) === "object" ? JSON.parse(JSON.stringify(setting.default)) : setting.default;
             }
           }
           else if (setting.type == "SearchBoxMMR") { //Special parsing for SearchBoxMMR data
@@ -646,11 +646,11 @@ export class GUIGlobal implements OnDestroy {
               if (decodedUserHexStringRes.success) {
                 this.generator_settingsMap[setting.name] = decodedUserHexStringRes.decodedOptions;
                 useDefault = false;
-              }      
+              }
             }
 
             if (useDefault) { 
-              this.generator_settingsMap[setting.name] = setting.default;
+              this.generator_settingsMap[setting.name] = typeof (setting.default) === "object" ? JSON.parse(JSON.stringify(setting.default)) : setting.default;
             }
           }
           else if (setting.type == "MultipleSelect" && setting.string_value && userSettings && setting.name in userSettings) { //Parse MultipleSelect value back to array if needed
@@ -676,8 +676,25 @@ export class GUIGlobal implements OnDestroy {
             this.verifyNumericSetting(userSettings, setting, false);
             this.generator_settingsMap[setting.name] = userSettings[setting.name];
           }
+          else if (setting.type == "Dictionary" && userSettings && setting.name in userSettings && userSettings[setting.name]) { //Validate according to inner_type
+
+            for (let key of Object.keys(userSettings[setting.name])) {
+
+              switch (setting.inner_type) {
+
+                case "Scale":
+                case "Numberinput": {
+                  this.verifyNumericSetting(userSettings, setting, false, key);
+                  break;
+                }
+              }
+            }
+
+            this.generator_settingsMap[setting.name] = userSettings[setting.name];
+          }
           else { //Everything else
-            this.generator_settingsMap[setting.name] = userSettings && setting.name in userSettings ? userSettings[setting.name] : setting.default;
+            let valueToSet = userSettings && setting.name in userSettings ? userSettings[setting.name] : setting.default;
+            this.generator_settingsMap[setting.name] = typeof (valueToSet) === "object" ? JSON.parse(JSON.stringify(valueToSet)) : valueToSet;
           }
 
           //Color section handling
@@ -913,9 +930,9 @@ export class GUIGlobal implements OnDestroy {
     return false;
   }
 
-  verifyNumericSetting(settingsFile: any, setting: any, syncToGlobalMap: boolean = false) {
+  verifyNumericSetting(settingsFile: any, setting: any, syncToGlobalMap: boolean = false, dictKey = null) {
 
-    let settingValue: any = settingsFile[setting.name];
+    let settingValue: any = dictKey ? settingsFile[setting.name][dictKey] : settingsFile[setting.name];
     let error = false;
     let didCast = false;
 
@@ -926,10 +943,19 @@ export class GUIGlobal implements OnDestroy {
       if (settingValue === "") {
 
         settingValue = null;
-        settingsFile[setting.name] = settingValue;
+
+        if (dictKey)
+          settingsFile[setting.name][dictKey] = settingValue;
+        else
+          settingsFile[setting.name] = settingValue;
 
         if (syncToGlobalMap) { //Global too if needed and refresh GUI after to signal change
-          this.generator_settingsMap[setting.name] = settingValue;
+
+          if (dictKey)
+            this.generator_settingsMap[setting.name] = JSON.parse(JSON.stringify(settingsFile[setting.name]));
+          else
+            this.generator_settingsMap[setting.name] = settingValue;
+
           this.globalEmitter.emit({ name: "refresh_gui" });
         }
       }
@@ -973,10 +999,18 @@ export class GUIGlobal implements OnDestroy {
 
       if (("min" in setting) && settingValue < settingMin) {
 
-        settingsFile[setting.name]  = settingMin;
+        if (dictKey)
+          settingsFile[setting.name][dictKey] = settingMin;
+        else
+          settingsFile[setting.name] = settingMin;
 
         if (syncToGlobalMap) { //Global too if needed and refresh GUI after to signal change
-          this.generator_settingsMap[setting.name] = settingMin;
+
+          if (dictKey)
+            this.generator_settingsMap[setting.name] = JSON.parse(JSON.stringify(settingsFile[setting.name]));
+          else
+            this.generator_settingsMap[setting.name] = settingMin;
+
           this.globalEmitter.emit({ name: "refresh_gui" });
         }
 
@@ -984,10 +1018,18 @@ export class GUIGlobal implements OnDestroy {
       }
       else if (("max" in setting) && settingValue > settingMax) {
 
-        settingsFile[setting.name]  = settingMax;
+        if (dictKey)
+          settingsFile[setting.name][dictKey] = settingMax;
+        else
+          settingsFile[setting.name] = settingMax;
 
         if (syncToGlobalMap) { //Global too if needed and refresh GUI after to signal change
-          this.generator_settingsMap[setting.name] = settingMax;
+
+          if (dictKey)
+            this.generator_settingsMap[setting.name] = JSON.parse(JSON.stringify(settingsFile[setting.name]));
+          else
+            this.generator_settingsMap[setting.name] = settingMax;
+
           this.globalEmitter.emit({ name: "refresh_gui" });
         }
 
@@ -995,19 +1037,43 @@ export class GUIGlobal implements OnDestroy {
       }
 
       if (!error && didCast) { //No error, but setting had to be casted from string, fix it
-        settingsFile[setting.name] = settingValue;
+
+        if (dictKey)
+          settingsFile[setting.name][dictKey] = settingValue;
+        else
+          settingsFile[setting.name] = settingValue;
 
         if (syncToGlobalMap) { //Global too if needed and refresh GUI after to signal change
-          this.generator_settingsMap[setting.name] = settingValue;
+
+          if (dictKey)
+            this.generator_settingsMap[setting.name] = JSON.parse(JSON.stringify(settingsFile[setting.name]));
+          else
+            this.generator_settingsMap[setting.name] = settingValue;
+
           this.globalEmitter.emit({ name: "refresh_gui" });
         }
       }
     }
     else { //Critical error, reset local value to default
-      settingsFile[setting.name] = setting.default;
+
+      if (dictKey) {
+        //Reset to default if one is available, else delete it
+        if (dictKey in setting.default)
+          settingsFile[setting.name][dictKey] = setting.default[dictKey];
+        else
+          delete settingsFile[setting.name][dictKey];
+      }
+      else {
+        settingsFile[setting.name] = setting.default;
+      }
 
       if (syncToGlobalMap) { //Global too if needed and refresh GUI after to signal change
-        this.generator_settingsMap[setting.name] = setting.default;
+ 
+        if (dictKey)
+          this.generator_settingsMap[setting.name] = JSON.parse(JSON.stringify(settingsFile[setting.name]));
+        else
+          this.generator_settingsMap[setting.name] = setting.default;
+
         this.globalEmitter.emit({ name: "refresh_gui" });
       }
     }
@@ -1274,11 +1340,11 @@ export class GUIGlobal implements OnDestroy {
               }
               else {
                 if (Array.isArray(settingsObj[setting.name]))
-                  this.generator_settingsMap[setting.name] = settingsObj[setting.name];
+                  this.generator_settingsMap[setting.name] = JSON.parse(JSON.stringify(settingsObj[setting.name]));
               }
             }
             else { //Everything else
-              this.generator_settingsMap[setting.name] = settingsObj[setting.name];
+              this.generator_settingsMap[setting.name] = typeof (settingsObj[setting.name]) === "object" ? JSON.parse(JSON.stringify(settingsObj[setting.name])) : settingsObj[setting.name];
             }
 
             //Color section handling
@@ -1308,7 +1374,7 @@ export class GUIGlobal implements OnDestroy {
         section.settings.forEach(setting => {
 
           if (setting.name in cleanSettings) {
-            this.generator_settingsMap[setting.name] = setting.default;
+            this.generator_settingsMap[setting.name] = typeof (setting.default) === "object" ? JSON.parse(JSON.stringify(setting.default)) : setting.default;
           }
         });
       });
@@ -1332,9 +1398,7 @@ export class GUIGlobal implements OnDestroy {
 
   createSettingsFileObject(includeFromPatchFileSettings: boolean = true, includeSeedSettingsOnly: boolean = false, sanitizeForBrowserCache: boolean = false, cancelWhenError: boolean = false, sanitizeForServer: boolean = false) {
 
-    let settingsFile: any = {};
-
-    Object.assign(settingsFile, this.generator_settingsMap);
+    let settingsFile: any = JSON.parse(JSON.stringify(this.generator_settingsMap));
 
     //Add in custom colors
     Object.keys(this.generator_customColorMap).forEach(colorSettingName => {
@@ -1387,9 +1451,44 @@ export class GUIGlobal implements OnDestroy {
               invalidSettingsList.push(setting.text);
             }
           }
+          else if (setting.type == "Dictionary" && settingsFile[setting.name]) { //Validate according to inner_type
+
+            for (let key of Object.keys(settingsFile[setting.name])) {
+
+              let error = false;
+
+              switch (setting.inner_type) {
+
+                case "Scale":
+                case "Numberinput": {
+
+                  error = this.verifyNumericSetting(settingsFile, setting, true, key);
+
+                  if (error)
+                    console.log("Dictionary inner check setting numeric failed:", key, settingsFile[setting.name], "setting:", setting);
+
+                  break;
+                }
+              }    
+
+              if (error) { //Value could not be handled, abort
+                invalidSettingsList.push(setting.text);
+                break;
+              }
+            }
+          }
         });
       });
     });
+
+    //Abort if any invalid settings were found
+    if (invalidSettingsList && invalidSettingsList.length > 0) {
+
+      this.globalEmitter.emit({ name: "dialog_error", message: "Some invalid settings were detected and had to be reset! This can happen if you type too fast into an input box. Please try again. The following settings were affected: " + invalidSettingsList.join(", ") });
+
+      if (cancelWhenError)
+        return null;
+    }
 
     //Delete keys the python source doesn't need
     delete settingsFile["Web.presets"];
