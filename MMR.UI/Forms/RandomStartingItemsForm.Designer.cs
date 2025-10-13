@@ -83,7 +83,7 @@
             this.tRandomStartingItems.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tRandomStartingItems.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
             this.tRandomStartingItems.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tRandomStartingItems.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 30F));
+            this.tRandomStartingItems.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 31F));
             this.tRandomStartingItems.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tRandomStartingItems.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tRandomStartingItems.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 20F));
@@ -92,7 +92,7 @@
             this.tRandomStartingItems.Name = "tRandomStartingItems";
             this.tRandomStartingItems.RowCount = 1;
             this.tRandomStartingItems.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tRandomStartingItems.Size = new System.Drawing.Size(358, 31);
+            this.tRandomStartingItems.Size = new System.Drawing.Size(359, 31);
             this.tRandomStartingItems.TabIndex = 4;
             // 
             // bAddLevel
@@ -129,7 +129,7 @@
             this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
             this.MaximizeBox = false;
             this.Name = "RandomStartingItemsForm";
-            this.Text = "Customize Hint Priorities";
+            this.Text = "Random Starting Items";
             this.tRandomStartingItems.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
