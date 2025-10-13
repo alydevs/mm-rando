@@ -184,6 +184,20 @@ namespace MMR.CLI
 
                         var settingTypeAttribute = property.GetAttribute<SettingTypeAttribute>();
                         var settingItemListAttribute = property.GetAttribute<SettingItemListAttribute>();
+                        if (settingConfig.Path == $"{nameof(GameplaySettings)}.{nameof(GameplaySettings.RandomStartingItemGroups)}")
+                        {
+                            settingItemListAttribute = typeof(RandomStartingItemGroup).GetProperty(nameof(RandomStartingItemGroup.Items)).GetAttribute<SettingItemListAttribute>();
+                            settingConfig.ItemList = settingItemListAttribute.ItemList.Select(item =>
+                            {
+                                var itemListItem = new SettingItemListItem
+                                {
+                                    Value = item.ToString(),
+                                    Label = settingItemListAttribute.LabelExtractor(item),
+                                    AdditionalInformation = settingItemListAttribute.AdditionalInformationExtractors.ToDictionary(kvp => kvp.Key, kvp => kvp.Value(item)),
+                                };
+                                return itemListItem;
+                            }).ToList();
+                        }
                         if (settingTypeAttribute != null)
                         {
                             settingConfig.DataType = property.GetAttribute<SettingTypeAttribute>().Type;
@@ -311,7 +325,7 @@ namespace MMR.CLI
                                             {
                                                 Name = p.Name,
                                                 DataType = "Item[]",
-                                                ItemList = settingItemListAttribute.ItemList.Select((item, index) =>
+                                                ItemList = settingItemListAttribute.ItemList.Select(item =>
                                                 {
                                                     var itemListItem = new SettingItemListItem
                                                     {
