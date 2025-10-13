@@ -24,6 +24,7 @@ export class MMRItemSelectorWindowComponent implements OnInit, OnDestroy, AfterV
   @Input() settingTooltip: string = '';
   @Input() itemList: any[] = [];
   @Input() tagDisplayMode: 'region' | 'category' = 'region';
+  @Input() searchPlaceholder: string = 'Search name or region...';
 
   selectedItems: any[] = [];
   searchTerm: string = '';

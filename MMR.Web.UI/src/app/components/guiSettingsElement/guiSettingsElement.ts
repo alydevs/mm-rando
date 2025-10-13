@@ -44,6 +44,37 @@ export class GUISettingsElement implements OnInit {
   @Input() settingTooltip: string = null;
   @Input() skipLabel: boolean = false;
 
+  get dynamicSettingText(): string {
+    if (this.setting && this.setting.type === 'Button') {
+      switch (this.setting.name) {
+        case 'Web.HintPriorities':
+          return this.getHintPrioritiesButtonText();
+        case 'Web.RandomStartingItemGroups':
+          return this.getRandomStartingItemGroupsButtonText();
+        default:
+          return this.settingText;
+      }
+    }
+    return this.settingText;
+  }
+
+  private getHintPrioritiesButtonText(): string {
+    const overrideHintPriorities = this.assignmentSettingsMap?.['GameplaySettings.OverrideHintPriorities'] || [];
+    const tierCount = Array.isArray(overrideHintPriorities) ? overrideHintPriorities.length : 0;
+    if (tierCount === 0) return this.settingText;
+    return `Customize Hint Priorities: ${tierCount} ${tierCount === 1 ? 'Sphere' : 'Spheres'}`;
+  }
+
+  private getRandomStartingItemGroupsButtonText(): string {
+    const randomGroups = this.assignmentSettingsMap?.['GameplaySettings.RandomStartingItemGroups'] || [];
+    if (!Array.isArray(randomGroups)) return this.settingText;
+    
+    const totalAmount = randomGroups.reduce((sum: number, group: any) => sum + (group?.Amount || 0), 0);
+    const totalItems = randomGroups.reduce((sum: number, group: any) => sum + (Array.isArray(group?.Items) ? group.Items.length : 0), 0);
+    if (totalAmount === 0) return this.settingText;
+    return `Random Starting Item Pools: ${totalAmount} / ${totalItems}`;
+  }
+
 
   constructor(differs: IterableDiffers, private cd: ChangeDetectorRef, public global: GUIGlobal, private dialogService: NbDialogService) {
 

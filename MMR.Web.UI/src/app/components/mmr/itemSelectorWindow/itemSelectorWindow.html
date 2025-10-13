@@ -8,7 +8,7 @@
     <div class="search-container">
       <input nbInput 
              type="text" 
-             placeholder="Search name or region..." 
+             [placeholder]="searchPlaceholder" 
              [(ngModel)]="searchTerm" 
              (ngModelChange)="onSearchChange()"
              [autofocus]="false"

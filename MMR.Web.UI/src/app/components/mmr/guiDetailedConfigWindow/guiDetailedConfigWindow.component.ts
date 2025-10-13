@@ -60,6 +60,20 @@ Amount must be ≤ items selected in the group.`;
     }
   }
 
+  get buttonLabel(): string {
+    switch (this.configMode) {
+      case 'hintPriorities':
+        const tierCount = this.tiers.length;
+        return `Override Hint Priorities: ${tierCount} ${tierCount === 1 ? 'Sphere' : 'Spheres'}`;
+      case 'randomStartingItemGroups':
+        const totalAmount = this.tiers.reduce((sum, tier) => sum + (tier.amount || 0), 0);
+        const totalItems = this.tiers.reduce((sum, tier) => sum + tier.items.length, 0);
+        return `Random Starting Items: ${totalAmount} / ${totalItems}`;
+      default:
+        return this.dialogHeader;
+    }
+  }
+
   ngOnInit() {
     if (!document.body.classList.contains('cdk-global-scrollblock')) {
       document.body.classList.add('cdk-global-scrollblock');
@@ -205,6 +219,7 @@ Amount must be ≤ items selected in the group.`;
           selectedItems: tier.items,
           itemList: this.itemList,
           tagDisplayMode: this.configMode === 'randomStartingItemGroups' ? 'category' : 'region',
+          searchPlaceholder: this.configMode === 'randomStartingItemGroups' ? 'Search name or item category...' : 'Search name or region...',
           setting: this.setting
         }
       });
