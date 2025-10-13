@@ -239,6 +239,10 @@
     "invisible": true
   },
   {
+    "name": "GameplaySettings.RandomStartingItemGroups",
+    "invisible": true
+  },
+  {
     "name": "GameplaySettings.DrawHash",
     "text": "Show Verification Hash Icons"
   },
