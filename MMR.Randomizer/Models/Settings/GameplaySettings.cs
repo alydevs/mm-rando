@@ -512,7 +512,7 @@ namespace MMR.Randomizer.Models.Settings
         ///  Custom starting item list string
         /// </summary>
         [SettingItemList(nameof(ItemUtils.CustomStartingItems), true, false, nameof(ItemExtensions.ItemCategory))]
-        public string CustomStartingItemListString { get; set; } = "--1fbfc-5800000-";
+        public string CustomStartingItemListString { get; set; } = "----1fbfc-5800000-";
 
         public List<RandomStartingItemGroup> RandomStartingItemGroups { get; set; } = new List<RandomStartingItemGroup>();
 
