@@ -176,17 +176,20 @@ namespace MMR.Randomizer.Utils
                 };
                 File.WriteAllText(Path.Combine(directory, filename + "_SpoilerLog.json"), JsonSerializer.Serialize(spoilerJson));
             }
+        }
 
-            if (outputSettings.GenerateSettingsJson)
+        public static void CreateSettingsJson(int seed, GameplaySettings settings, OutputSettings outputSettings)
+        {
+            var directory = Path.GetDirectoryName(outputSettings.OutputROMFilename);
+            var filename = $"{Path.GetFileNameWithoutExtension(outputSettings.OutputROMFilename)}";
+
+            var settingsJson = new SettingsOutputJson
             {
-                var settingsJson = new SettingsOutputJson
-                {
-                    Settings = settings,
-                    Seed = spoiler.Seed,
-                    Version = spoiler.Version,
-                };
-                File.WriteAllText(Path.Combine(directory, filename + "_Settings.json"), JsonSerializer.Serialize(settingsJson));
-            }
+                Settings = settings,
+                Seed = seed,
+                Version = Randomizer.AssemblyVersion,
+            };
+            File.WriteAllText(Path.Combine(directory, filename + "_Settings.json"), JsonSerializer.Serialize(settingsJson));
         }
 
         private static void CreateTextSpoilerLog(Spoiler spoiler, string path)
