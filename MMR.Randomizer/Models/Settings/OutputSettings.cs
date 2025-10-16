@@ -71,6 +71,9 @@ namespace MMR.Randomizer.Models.Settings
         public bool GenerateCosmeticsPatch { get; set; }
 
         [JsonIgnore]
+        public bool GenerateCompressionInfoJson{ get; set; }
+
+        [JsonIgnore]
         public bool IsPatchForVC { get; set; }
 
         public string Validate()

@@ -6859,6 +6859,16 @@ namespace MMR.Randomizer
                 Patch.Patcher.CreatePatch(Path.Combine(directory, filename + "_Cosmetics.mmr"), cosmeticMMFileList);
             }
 
+            if (outputSettings.GenerateCompressionInfoJson)
+            {
+                var directory = Path.GetDirectoryName(outputSettings.OutputROMFilename);
+                var filename = $"{Path.GetFileNameWithoutExtension(outputSettings.OutputROMFilename)}";
+
+                var compressionInfo = RomData.MMFileList.Select(x => x.IsCompressed).ToList();
+
+                File.WriteAllText(Path.Combine(directory, filename + "_CompressionInfo.json"), JsonSerializer.Serialize(compressionInfo));
+            }
+
             if (outputSettings.GenerateROM || outputSettings.OutputVC)
             {
                 WriteAudioSeq(new Random(BitConverter.ToInt32(hash, 0)), outputSettings);
