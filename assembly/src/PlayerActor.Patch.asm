@@ -1311,6 +1311,34 @@
 .org 0x8083C91C
     jal     Player_GetLinearVelocityForLimbRotation_Hook
     or      a0, s0, r0
+    jal     Player_SpawnCrater
+
+;==================================================================================================
+; Fix Giant's Mask auto remove
+;==================================================================================================
+
+; Replaces:
+;   LBU     T9, 0x0153 (S0)
+;   ADDIU   AT, R0, 0x0014
+;   BNE     T9, AT, .+0x2C
+;   LUI     T0, 0x801F
+;   ADDIU   T0, T0, 0xF670
+;   LB      T2, 0x0039 (T0)
+;   LW      A0, 0x0054 (SP)
+;   OR      A1, S0, R0
+;   BNEZL   T2, .+0x18
+;   SB      V1, 0x0154 (S0)
+.org 0x8082FF2C
+    or      a0, s0, r0
+    jal     Player_ShouldAutoRemoveGiantsMask
+    sw      v1, 0x0048 (sp)
+    lw      v1, 0x0048 (sp)
+    lw      a0, 0x0054 (sp)
+    or      a1, s0, r0
+    beqzl   v0, .+0x28
+    sb      v1, 0x154 (s0)
+    nop
+    nop
 
 ;==================================================================================================
 ; Fix Sakon's Hideout global void respawn

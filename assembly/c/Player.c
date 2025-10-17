@@ -985,6 +985,15 @@ void Player_SetGiantMaskTransformationState(GlobalContext* ctxt, ActorPlayer* pl
     player->stateFlags.state1 |= newState;
 }
 
+bool Player_ShouldAutoRemoveGiantsMask(ActorPlayer* player) {
+    if (player->stateFlags.state2 & PLAYER_STATE2_DIVING) {
+        return false;
+    }
+
+    // Displaced code:
+    return gSaveContext.perm.unk24.currentMagic == 0;
+}
+
 static const u8* sAudioBaseFilter = (u8*)0x801D66E0;
 
 void Player_HandleIronGoronLand(GlobalContext* ctxt, ActorPlayer* player) {
