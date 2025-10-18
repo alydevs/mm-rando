@@ -499,7 +499,7 @@ namespace MMR.Randomizer.Models.Settings
         /// <summary>
         ///  Custom item list string
         /// </summary>
-        [SettingItemList(nameof(ItemUtils.AllLocations), true, true, nameof(ItemExtensions.ItemCategory), nameof(ItemExtensions.LocationCategory), nameof(ItemExtensions.ClassicCategory))]
+        [SettingItemList(nameof(ItemUtils.AllLocations), SettingItemListAttribute.LabelType.Location, SettingItemListAttribute.LabelType.Name, nameof(ItemExtensions.ItemCategory), nameof(ItemExtensions.LocationCategory), nameof(ItemExtensions.ClassicCategory))]
         public string CustomItemListString { get; set; } = "-------------------------40c-80000000----21ffff-ffffffff-ffffffff-f0000000-7bbeeffa-7fffffff-e6f1fffe-ffffffff";
 
         /// <summary>
@@ -511,7 +511,7 @@ namespace MMR.Randomizer.Models.Settings
         /// <summary>
         ///  Custom starting item list string
         /// </summary>
-        [SettingItemList(nameof(ItemUtils.CustomStartingItems), true, false, nameof(ItemExtensions.ItemCategory))]
+        [SettingItemList(nameof(ItemUtils.CustomStartingItems), SettingItemListAttribute.LabelType.Name, SettingItemListAttribute.LabelType.None, nameof(ItemExtensions.ItemCategory))]
         public string CustomStartingItemListString { get; set; } = "----1fbfc-5800000-";
 
         public List<RandomStartingItemGroup> RandomStartingItemGroups { get; set; } = new List<RandomStartingItemGroup>();
@@ -525,7 +525,7 @@ namespace MMR.Randomizer.Models.Settings
         /// <summary>
         ///  Custom junk location string
         /// </summary>
-        [SettingItemList(nameof(ItemUtils.AllLocations), false, true, nameof(ItemExtensions.Regions))]
+        [SettingItemList(nameof(ItemUtils.AllLocations), SettingItemListAttribute.LabelType.Location, SettingItemListAttribute.LabelType.None, nameof(ItemExtensions.Regions))]
         public string CustomJunkLocationsString { get; set; } = "------------------------------200000-----400000--f000";
 
         /// <summary>
@@ -780,7 +780,7 @@ namespace MMR.Randomizer.Models.Settings
         [Range(0, 7)]
         public int? OverrideMaxNumberOfClockTownGaroHints { get; set; }
 
-        [SettingItemList(nameof(ItemUtils.AllLocations), false, true, nameof(ItemExtensions.Regions))]
+        [SettingItemList(nameof(ItemUtils.AllLocations), SettingItemListAttribute.LabelType.Location, SettingItemListAttribute.LabelType.None, nameof(ItemExtensions.Regions))]
         [Description("If any locations are provided, this list will be used exclusively for determining hint priorities. Settings are not taken into account, but non-randomized and junked locations will not be hinted. The higher a location appears in this list, the higher its priority. Locations with the same priority will be chosen randomly. If a location should combine with another location, all the combined locations should be added.")]
         public List<List<Item>> OverrideHintPriorities { get; set; }
 

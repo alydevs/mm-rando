@@ -1,4 +1,6 @@
-﻿using MMR.Randomizer.Extensions;
+﻿using MMR.Common.Extensions;
+using MMR.Randomizer.Attributes.Setting;
+using MMR.Randomizer.Extensions;
 using MMR.Randomizer.GameObjects;
 using MMR.Randomizer.Models;
 using MMR.Randomizer.Models.Settings;
@@ -87,7 +89,8 @@ namespace MMR.UI.Forms
             var control = (Control)sender;
             var index = tRandomStartingItems.GetRow(control);
 
-            var form = new ItemSelectorForm(ItemUtils.CustomStartingItems(), Result[index].Items, showLocationNames: false);
+            var settingItemListAttribute = typeof(RandomStartingItemGroup).GetProperty(nameof(RandomStartingItemGroup.Items)).GetAttribute<SettingItemListAttribute>();
+            var form = new ItemSelectorForm(settingItemListAttribute.ItemList, Result[index].Items, settingItemListAttribute.LabelExtractor);
             form.ShowDialog();
 
             if (form.DialogResult == DialogResult.OK)
@@ -179,7 +182,8 @@ namespace MMR.UI.Forms
 
         private void bAddLevel_Click(object sender, EventArgs e)
         {
-            var form = new ItemSelectorForm(ItemUtils.CustomStartingItems(), Enumerable.Empty<Item>(), showLocationNames: false);
+            var settingItemListAttribute = typeof(RandomStartingItemGroup).GetProperty(nameof(RandomStartingItemGroup.Items)).GetAttribute<SettingItemListAttribute>();
+            var form = new ItemSelectorForm(settingItemListAttribute.ItemList, Enumerable.Empty<Item>(), settingItemListAttribute.LabelExtractor);
             form.ShowDialog();
 
             if (form.DialogResult == DialogResult.OK && form.ReturnItems.Count > 0)
