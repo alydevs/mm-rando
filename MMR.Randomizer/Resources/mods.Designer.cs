@@ -223,16 +223,6 @@ namespace MMR.Randomizer.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
-        internal static byte[] dm_4 {
-            get {
-                object obj = ResourceManager.GetObject("dm_4", resourceCulture);
-                return ((byte[])(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized resource of type System.Byte[].
-        /// </summary>
         internal static byte[] dm_8x {
             get {
                 object obj = ResourceManager.GetObject("dm_8x", resourceCulture);

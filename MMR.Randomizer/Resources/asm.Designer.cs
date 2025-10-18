@@ -63,6 +63,16 @@ namespace MMR.Randomizer.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] DamageModeDoom {
+            get {
+                object obj = ResourceManager.GetObject("DamageModeDoom", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] DeathMoonCrash {
             get {
                 object obj = ResourceManager.GetObject("DeathMoonCrash", resourceCulture);
@@ -82,20 +92,20 @@ namespace MMR.Randomizer.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to {
-        ///    &quot;DPAD_CONFIG&quot;: &quot;03819CA8&quot;,
-        ///    &quot;DPAD_TEXTURE&quot;: &quot;0381C2E8&quot;,
-        ///    &quot;EXT_MSG_DATA_FILE&quot;: &quot;0381A510&quot;,
-        ///    &quot;EXT_MSG_TABLE&quot;: &quot;0381BCD0&quot;,
-        ///    &quot;EXT_MSG_TABLE_COUNT&quot;: &quot;0381A498&quot;,
-        ///    &quot;EXT_OBJECTS&quot;: &quot;0381A694&quot;,
-        ///    &quot;FONT_TEXTURE&quot;: &quot;0381D2E8&quot;,
+        ///    &quot;DPAD_CONFIG&quot;: &quot;03819CD0&quot;,
+        ///    &quot;DPAD_TEXTURE&quot;: &quot;0381C310&quot;,
+        ///    &quot;EXT_MSG_DATA_FILE&quot;: &quot;0381A538&quot;,
+        ///    &quot;EXT_MSG_TABLE&quot;: &quot;0381BCF8&quot;,
+        ///    &quot;EXT_MSG_TABLE_COUNT&quot;: &quot;0381A4C0&quot;,
+        ///    &quot;EXT_OBJECTS&quot;: &quot;0381A6BC&quot;,
+        ///    &quot;FONT_TEXTURE&quot;: &quot;0381D310&quot;,
         ///    &quot;G_C_HEAP&quot;: &quot;03820000&quot;,
         ///    &quot;G_KALEIDOPAYLOAD_ADDR&quot;: &quot;03880000&quot;,
         ///    &quot;G_PAYLOAD_ADDR&quot;: &quot;03800000&quot;,
-        ///    &quot;HASH_ICONS&quot;: &quot;03819D3C&quot;,
-        ///    &quot;HUD_COLOR_CONFIG&quot;: &quot;03819DAC&quot;,
-        ///    &quot;ITEM_OVERRIDE_COUNT&quot;: &quot;0381A494&quot;,
-        ///    &quot;ITEM_OVERRIDE_ENTRIES&quot;: &quot;0381A850&quot;,
+        ///    &quot;HASH_ICONS&quot;: &quot;03819D64&quot;,
+        ///    &quot;HUD_COLOR_CONFIG&quot;: &quot;03819DD4&quot;,
+        ///    &quot;ITEM_OVERRIDE_COUNT&quot;: &quot;0381A4BC&quot;,
+        ///    &quot;ITEM_OVERRIDE_ENTRIES&quot;: &quot;0381A878&quot;,
         ///    &quot;KALEIDOPAYLOAD_END&quot;:  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string symbols {
