@@ -10,8 +10,7 @@ import { ConfirmationWindowComponent } from '../../pages/generator/confirmationW
 import { TextInputWindowComponent } from '../../pages/generator/textInputWindow/textInputWindow.component';
 
 //MMR only
-import { MMRRandomStartingItemsWindowComponent } from '../../components/mmr/randomStartingItemsWindow/randomStartingItemsWindow.component';
-import { MMRHintPrioritiesWindowComponent } from '../../components/mmr/hintPrioritiesWindow/hintPrioritiesWindow.component';
+import { MMRGuiDetailedConfigWindowComponent } from '../../components/mmr/guiDetailedConfigWindow/guiDetailedConfigWindow.component';
 import { MMRItemSelectorWindowComponent } from '../../components/mmr/itemSelectorWindow/itemSelectorWindow.component';
 
 import { GeneratorComponent } from '../../pages/generator/generator.component';
@@ -44,6 +43,37 @@ export class GUISettingsElement implements OnInit {
   @Input() settingText: string = null;
   @Input() settingTooltip: string = null;
   @Input() skipLabel: boolean = false;
+
+  get dynamicSettingText(): string {
+    if (this.setting && this.setting.type === 'Button') {
+      switch (this.setting.name) {
+        case 'Web.HintPriorities':
+          return this.getHintPrioritiesButtonText();
+        case 'Web.RandomStartingItemGroups':
+          return this.getRandomStartingItemGroupsButtonText();
+        default:
+          return this.settingText;
+      }
+    }
+    return this.settingText;
+  }
+
+  private getHintPrioritiesButtonText(): string {
+    const overrideHintPriorities = this.assignmentSettingsMap?.['GameplaySettings.OverrideHintPriorities'] || [];
+    const tierCount = Array.isArray(overrideHintPriorities) ? overrideHintPriorities.length : 0;
+    if (tierCount === 0) return this.settingText;
+    return `Customize Hint Priorities: ${tierCount} ${tierCount === 1 ? 'Sphere' : 'Spheres'}`;
+  }
+
+  private getRandomStartingItemGroupsButtonText(): string {
+    const randomGroups = this.assignmentSettingsMap?.['GameplaySettings.RandomStartingItemGroups'] || [];
+    if (!Array.isArray(randomGroups)) return this.settingText;
+    
+    const totalAmount = randomGroups.reduce((sum: number, group: any) => sum + (group?.Amount || 0), 0);
+    const totalItems = randomGroups.reduce((sum: number, group: any) => sum + (Array.isArray(group?.Items) ? group.Items.length : 0), 0);
+    if (totalAmount === 0) return this.settingText;
+    return `Random Starting Item Pools: ${totalAmount} / ${totalItems}`;
+  }
 
 
   constructor(differs: IterableDiffers, private cd: ChangeDetectorRef, public global: GUIGlobal, private dialogService: NbDialogService) {
@@ -234,10 +264,27 @@ export class GUISettingsElement implements OnInit {
 
   //MMR only
   openRandomStartingItemsWindow(setting: any, assignmentSettingsMap: any, assignmentSettingName: string, settingDefault: any, settingText: string, settingTooltip: string) {
-
-    this.dialogService.open(MMRRandomStartingItemsWindowComponent, {
-      autoFocus: true, closeOnBackdropClick: true, closeOnEsc: true, hasBackdrop: true, hasScroll: false,
-      context: { dialogHeader: settingText, setting, assignmentSettingsMap, assignmentSettingName }
+    this.setAppContainerDimensions();
+    const dialogRef = this.dialogService.open(MMRGuiDetailedConfigWindowComponent, {
+      autoFocus: true, 
+      closeOnBackdropClick: true, 
+      closeOnEsc: true, 
+      hasBackdrop: true, 
+      hasScroll: false,
+      context: { 
+        dialogHeader: settingText, 
+        setting, 
+        assignmentSettingsMap, 
+        assignmentSettingName, 
+        sectionSettings: this.sectionSettings, 
+        configMode: 'randomStartingItemGroups'
+      }
+    });
+    this.resizeDialogToAppContainer('.mmrGuiDetailedConfig-window', 0.78, 0.78);
+    dialogRef.onClose.subscribe(result => {
+      if (result) {
+        this.app.afterSettingChange();
+      }
     });
   }
 
@@ -250,7 +297,7 @@ export class GUISettingsElement implements OnInit {
     let overrideImportanceIndicatorTiers = JSON.parse(JSON.stringify(this.assignmentSettingsMap['GameplaySettings.OverrideImportanceIndicatorTiers'] || []));
     let overrideHintItemCaps = JSON.parse(JSON.stringify(this.assignmentSettingsMap['GameplaySettings.OverrideHintItemCaps'] || []));
 
-    const dialogRef = this.dialogService.open(MMRHintPrioritiesWindowComponent, {
+    const dialogRef = this.dialogService.open(MMRGuiDetailedConfigWindowComponent, {
       autoFocus: true, 
       closeOnBackdropClick: true, 
       closeOnEsc: true, 
@@ -261,12 +308,13 @@ export class GUISettingsElement implements OnInit {
         setting, 
         assignmentSettingsMap, 
         assignmentSettingName,
-        sectionSettings: this.sectionSettings
+        sectionSettings: this.sectionSettings,
+        configMode: 'hintPriorities'
       }
     });
 
     // Set dialog size based on app container immediately
-    this.resizeDialogToAppContainer('.mmrHintPriorities-window', 0.78, 0.78);
+    this.resizeDialogToAppContainer('.mmrGuiDetailedConfig-window', 0.78, 0.78);
 
     dialogRef.onClose.subscribe(result => {
 
@@ -347,7 +395,7 @@ export class GUISettingsElement implements OnInit {
       } else {
         const alternativeSelectors = [
           '.mmrItemSelector-window',
-          '.mmrHintPriorities-window',
+          '.mmrGuiDetailedConfig-window',
           '[class*="ItemSelector"]',
           '[class*="HintPriorities"]'
         ];

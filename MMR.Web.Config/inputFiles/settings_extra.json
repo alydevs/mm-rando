@@ -185,7 +185,7 @@
     "shared": false
   },
   {
-    "name": "Web.RandomStartingItemsPool",
+    "name": "Web.RandomStartingItemGroups",
     "default": {},
     "text": "Random Starting Item Pools",
     "function": "openRandomStartingItemsWindow",
@@ -236,6 +236,10 @@
   },
   {
     "name": "GameplaySettings.OverrideHintItemCaps",
+    "invisible": true
+  },
+  {
+    "name": "GameplaySettings.RandomStartingItemGroups",
     "invisible": true
   },
   {

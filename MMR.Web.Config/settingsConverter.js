@@ -175,7 +175,9 @@ function resolveSettingType(dataType, isValueType = false, linkedSettings = fals
             case "File":
                 return 'Fileinput';
             case "Item[][]":
-                return "Custom_Item[][]"
+                return "Custom_Item[][]";
+            case "object[]":
+                return "Custom_object[]";
             case "Int32[]":
                 return 'Custom_Int32[]';
             default: {
@@ -589,6 +591,7 @@ function assembleSetting(version, setting, linkedSettings = false, overrideBaseT
                     }
                 case "SearchBoxMMR":
                 case "Custom_Item[][]":
+                case "Custom_object[]":
                     {
                         //ItemList. This type also renders with a Textinput on top that shows the assembled bit string
                         for (let option of resolvedSetting.ItemList) {
@@ -870,6 +873,7 @@ function assembleSetting(version, setting, linkedSettings = false, overrideBaseT
                     }
                 case "SearchBoxMMR":
                 case "Custom_Item[][]":
+                case "Custom_object[]":
                     {
                         //ItemList
                         //Collect all tags and presets

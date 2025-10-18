@@ -70,7 +70,9 @@
           "settings": [
             "GameplaySettings.LogicMode",
             "GameplaySettings.UserLogicFileName",
-            "GameplaySettings.ItemPlacement"
+            "GameplaySettings.ItemPlacement",
+            "Web.RandomStartingItemGroups",
+            "GameplaySettings.RandomStartingItemGroups"
           ]
         },
         {

@@ -23,12 +23,18 @@ export class MMRItemSelectorWindowComponent implements OnInit, OnDestroy, AfterV
   @Input() assignmentSettingName: string = '';
   @Input() settingTooltip: string = '';
   @Input() itemList: any[] = [];
+  @Input() tagDisplayMode: 'region' | 'category' = 'region';
+  @Input() searchPlaceholder: string = 'Search name or region...';
 
   selectedItems: any[] = [];
   searchTerm: string = '';
 
   allItems: SelectableItem[] = [];
   filteredItems: SelectableItem[] = [];
+
+  get tagDisplayPrefix(): string {
+    return this.tagDisplayMode === 'category' ? 'Category: ' : 'Region: ';
+  }
 
   @ViewChild('selectAllBtn', { static: false }) selectAllBtn: ElementRef;
 
@@ -70,22 +76,22 @@ export class MMRItemSelectorWindowComponent implements OnInit, OnDestroy, AfterV
   loadItemList() {
     if (this.itemList && this.itemList.length > 0) {
       this.allItems = this.itemList.map((item: any) => {
-        const regions = item.tags.Regions;
+        const regions = item.tags?.Regions;
+        const categories = item.tags?.ItemCategory;
         const regionList: string[] = Array.isArray(regions)
-          ? regions
-              .filter((r: any) => r !== null && r !== undefined)
-              .map((r: any) => String(r))
-          : (typeof regions === 'string' || typeof regions === 'number')
-          ? [String(regions)]
-          : [];
-        const regionDisplay = regionList.join(', ');
+          ? regions.filter((r: any) => r != null).map((r: any) => String(r))
+          : (typeof regions === 'string' || typeof regions === 'number') ? [String(regions)] : [];
+        const categoryList: string[] = Array.isArray(categories)
+          ? categories.filter((c: any) => c != null).map((c: any) => String(c))
+          : (typeof categories === 'string' || typeof categories === 'number') ? [String(categories)] : [];
+        const display = this.tagDisplayMode === 'category' ? categoryList.join(', ') : regionList.join(', ');
 
         return {
           name: item.value,
           label: item.label,
           selected: this.selectedItems.includes(item.value),
-          regionDisplay: regionDisplay || undefined,
-          regionSearchLower: regionDisplay ? regionDisplay.toLowerCase() : undefined,
+          regionDisplay: display || undefined,
+          regionSearchLower: display ? display.toLowerCase() : undefined,
         } as SelectableItem;
       });
       return;
@@ -94,22 +100,22 @@ export class MMRItemSelectorWindowComponent implements OnInit, OnDestroy, AfterV
     // If setting has options (for settings with ItemList), use those
     if (this.setting && this.setting.options) {
       this.allItems = this.setting.options.map((item: any) => {
-        const regions = item.tags.Regions;
+        const regions = item.tags?.Regions;
+        const categories = item.tags?.ItemCategory;
         const regionList: string[] = Array.isArray(regions)
-          ? regions
-              .filter((r: any) => r !== null && r !== undefined)
-              .map((r: any) => String(r))
-          : (typeof regions === 'string' || typeof regions === 'number')
-          ? [String(regions)]
-          : [];
-        const regionDisplay = regionList.join(', ');
+          ? regions.filter((r: any) => r != null).map((r: any) => String(r))
+          : (typeof regions === 'string' || typeof regions === 'number') ? [String(regions)] : [];
+        const categoryList: string[] = Array.isArray(categories)
+          ? categories.filter((c: any) => c != null).map((c: any) => String(c))
+          : (typeof categories === 'string' || typeof categories === 'number') ? [String(categories)] : [];
+        const display = this.tagDisplayMode === 'category' ? categoryList.join(', ') : regionList.join(', ');
 
         return {
           name: item.Value,
           label: item.Label,
           selected: this.selectedItems.includes(item.Value),
-          regionDisplay: regionDisplay || undefined,
-          regionSearchLower: regionDisplay ? regionDisplay.toLowerCase() : undefined,
+          regionDisplay: display || undefined,
+          regionSearchLower: display ? display.toLowerCase() : undefined,
         } as SelectableItem;
       });
       return;
@@ -122,23 +128,22 @@ export class MMRItemSelectorWindowComponent implements OnInit, OnDestroy, AfterV
     // Check if we have itemList input first
     if (this.itemList && this.itemList.length > 0) {
       this.allItems = this.itemList.map((item: any) => {
-        // Safe access to regions with fallback
-        const regions = item.tags?.Regions || item.tags?.regions || [];
+        const regions = item.tags?.Regions || item.tags?.regions;
+        const categories = item.tags?.ItemCategory;
         const regionList: string[] = Array.isArray(regions)
-          ? regions
-              .filter((r: any) => r !== null && r !== undefined)
-              .map((r: any) => String(r))
-          : (typeof regions === 'string' || typeof regions === 'number')
-          ? [String(regions)]
-          : [];
-        const regionDisplay = regionList.join(', ');
+          ? regions.filter((r: any) => r != null).map((r: any) => String(r))
+          : (typeof regions === 'string' || typeof regions === 'number') ? [String(regions)] : [];
+        const categoryList: string[] = Array.isArray(categories)
+          ? categories.filter((c: any) => c != null).map((c: any) => String(c))
+          : (typeof categories === 'string' || typeof categories === 'number') ? [String(categories)] : [];
+        const display = this.tagDisplayMode === 'category' ? categoryList.join(', ') : regionList.join(', ');
 
         const selectableItem = {
           name: item.value || item.Value || item.name || item.Name,
           label: item.label || item.Label || item.name || item.Name,
           selected: this.selectedItems.includes(item.value || item.Value || item.name || item.Name),
-          regionDisplay: regionDisplay || undefined,
-          regionSearchLower: regionDisplay ? regionDisplay.toLowerCase() : undefined,
+          regionDisplay: display || undefined,
+          regionSearchLower: display ? display.toLowerCase() : undefined,
         } as SelectableItem;
         
         return selectableItem;
@@ -149,23 +154,22 @@ export class MMRItemSelectorWindowComponent implements OnInit, OnDestroy, AfterV
     
     if (this.setting && this.setting.options) {
       this.allItems = this.setting.options.map((item: any) => {
-        // Safe access to regions with fallback
-        const regions = item.tags?.Regions || item.tags?.regions || [];
+        const regions = item.tags?.Regions || item.tags?.regions;
+        const categories = item.tags?.ItemCategory;
         const regionList: string[] = Array.isArray(regions)
-          ? regions
-              .filter((r: any) => r !== null && r !== undefined)
-              .map((r: any) => String(r))
-          : (typeof regions === 'string' || typeof regions === 'number')
-          ? [String(regions)]
-          : [];
-        const regionDisplay = regionList.join(', ');
+          ? regions.filter((r: any) => r != null).map((r: any) => String(r))
+          : (typeof regions === 'string' || typeof regions === 'number') ? [String(regions)] : [];
+        const categoryList: string[] = Array.isArray(categories)
+          ? categories.filter((c: any) => c != null).map((c: any) => String(c))
+          : (typeof categories === 'string' || typeof categories === 'number') ? [String(categories)] : [];
+        const display = this.tagDisplayMode === 'category' ? categoryList.join(', ') : regionList.join(', ');
 
         const selectableItem = {
           name: item.Value || item.value || item.name,
           label: item.Label || item.label || item.name,
           selected: this.selectedItems.includes(item.Value || item.value || item.name),
-          regionDisplay: regionDisplay || undefined,
-          regionSearchLower: regionDisplay ? regionDisplay.toLowerCase() : undefined,
+          regionDisplay: display || undefined,
+          regionSearchLower: display ? display.toLowerCase() : undefined,
         } as SelectableItem;
         
         return selectableItem;

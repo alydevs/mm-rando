@@ -1,10 +1,10 @@
-<nb-card class="mmrHintPriorities-window">
+<nb-card class="mmrGuiDetailedConfig-window">
   <nb-card-header>
     <div style="display: flex; align-items: center; justify-content: center; gap: 8px;">
       <div class="dialog-title" style="text-align:center; font-size:1.5em; font-weight:bold;">{{ dialogHeader }}</div>
-      <div class="info-icon-container">
+      <div class="info-icon-container" *ngIf="effectiveTooltip">
         <img class="select-info" />
-        <div class="custom-tooltip" [innerHTML]="hintPrioritiesTooltip"></div>
+        <div class="custom-tooltip" [innerHTML]="effectiveTooltip"></div>
       </div>
     </div>
     <button nbButton class="headerButton" size="xsmall" status="danger" (click)="cancelDialog()" style="position:absolute; right:16px; top:16px;">X</button>
@@ -17,7 +17,7 @@
           <div class="control-wrapper">
             <button nbButton size="tiny" status="primary" (click)="addItemToTier(tier.id)" class="add-btn">+</button>
           </div>
-          <div class="control-wrapper">
+          <div class="control-wrapper" *ngIf="enablePriorities">
             <label class="importance-label">
               <input type="checkbox" [(ngModel)]="tier.indicateImportance" class="importance-checkbox">
               <span class="checkbox-text">Importance</span>
@@ -36,13 +36,16 @@
           </div>
         </div>
         <div class="tier-reorder">
-          <div class="control-wrapper">
+          <div class="control-wrapper" *ngIf="enablePriorities">
             <input nbInput type="number" min="0" max="99" [(ngModel)]="tier.hintCount" class="hint-count-input">
           </div>
-          <div class="control-wrapper">
+          <div class="control-wrapper" *ngIf="showAmount">
+            <input nbInput type="number" min="0" max="99" [(ngModel)]="tier.amount" class="hint-count-input">
+          </div>
+          <div class="control-wrapper" *ngIf="enableOrdering">
             <button nbButton size="tiny" status="basic" (click)="moveTierUp(tier.id)" [disabled]="tier.order === 0" class="up-btn">↑</button>
           </div>
-          <div class="control-wrapper">
+          <div class="control-wrapper" *ngIf="enableOrdering">
             <button nbButton size="tiny" status="basic" (click)="moveTierDown(tier.id)" [disabled]="tier.order === tiers.length - 1" class="down-btn">↓</button>
           </div>
           <div class="control-wrapper">
@@ -61,4 +64,4 @@
       <button nbButton status="primary" (click)="confirmDialog()" style="padding:8px 24px;">Save</button>
     </div>
   </nb-card-footer>
-</nb-card> 
+</nb-card>
