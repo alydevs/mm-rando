@@ -1311,7 +1311,6 @@
 .org 0x8083C91C
     jal     Player_GetLinearVelocityForLimbRotation_Hook
     or      a0, s0, r0
-    jal     Player_SpawnCrater
 
 ;==================================================================================================
 ; Fix Giant's Mask auto remove
