@@ -19,7 +19,7 @@ namespace MMR.Randomizer.Resources {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class asm {
@@ -63,6 +63,26 @@ namespace MMR.Randomizer.Resources {
         /// <summary>
         ///   Looks up a localized resource of type System.Byte[].
         /// </summary>
+        internal static byte[] DamageModeDoom {
+            get {
+                object obj = ResourceManager.GetObject("DamageModeDoom", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] DeathMoonCrash {
+            get {
+                object obj = ResourceManager.GetObject("DeathMoonCrash", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
         internal static byte[] rom_patch {
             get {
                 object obj = ResourceManager.GetObject("rom_patch", resourceCulture);
@@ -72,26 +92,48 @@ namespace MMR.Randomizer.Resources {
         
         /// <summary>
         ///   Looks up a localized string similar to {
-        ///    &quot;DPAD_CONFIG&quot;: &quot;03809D58&quot;,
-        ///    &quot;DPAD_TEXTURE&quot;: &quot;0380BE90&quot;,
-        ///    &quot;EXT_MSG_DATA_FILE&quot;: &quot;0380A568&quot;,
-        ///    &quot;EXT_MSG_TABLE&quot;: &quot;0380AE88&quot;,
-        ///    &quot;EXT_MSG_TABLE_COUNT&quot;: &quot;0380A530&quot;,
-        ///    &quot;EXT_OBJECTS&quot;: &quot;0380A588&quot;,
-        ///    &quot;FONT_TEXTURE&quot;: &quot;0380CE90&quot;,
+        ///    &quot;DPAD_CONFIG&quot;: &quot;03819CD0&quot;,
+        ///    &quot;DPAD_TEXTURE&quot;: &quot;0381C310&quot;,
+        ///    &quot;EXT_MSG_DATA_FILE&quot;: &quot;0381A538&quot;,
+        ///    &quot;EXT_MSG_TABLE&quot;: &quot;0381BCF8&quot;,
+        ///    &quot;EXT_MSG_TABLE_COUNT&quot;: &quot;0381A4C0&quot;,
+        ///    &quot;EXT_OBJECTS&quot;: &quot;0381A6BC&quot;,
+        ///    &quot;FONT_TEXTURE&quot;: &quot;0381D310&quot;,
         ///    &quot;G_C_HEAP&quot;: &quot;03820000&quot;,
+        ///    &quot;G_KALEIDOPAYLOAD_ADDR&quot;: &quot;03880000&quot;,
         ///    &quot;G_PAYLOAD_ADDR&quot;: &quot;03800000&quot;,
-        ///    &quot;HASH_ICONS&quot;: &quot;03809DE4&quot;,
-        ///    &quot;HUD_COLOR_CONFIG&quot;: &quot;03809EB8&quot;,
-        ///    &quot;ITEM_OVERRIDE_COUNT&quot;: &quot;0380A4EC&quot;,
-        ///    &quot;ITEM_OVERRIDE_ENTRIES&quot;: &quot;0380A608&quot;,
-        ///    &quot;MISC_CONFIG&quot;: &quot;0380A2FC&quot;,
-        ///    &quot;MMR_CONFIG&quot;: &quot;0380A320&quot;,
-        ///    &quot;P [rest of string was truncated]&quot;;.
+        ///    &quot;HASH_ICONS&quot;: &quot;03819D64&quot;,
+        ///    &quot;HUD_COLOR_CONFIG&quot;: &quot;03819DD4&quot;,
+        ///    &quot;ITEM_OVERRIDE_COUNT&quot;: &quot;0381A4BC&quot;,
+        ///    &quot;ITEM_OVERRIDE_ENTRIES&quot;: &quot;0381A878&quot;,
+        ///    &quot;KALEIDOPAYLOAD_END&quot;:  [rest of string was truncated]&quot;;.
         /// </summary>
         internal static string symbols {
             get {
                 return ResourceManager.GetString("symbols", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Byte[].
+        /// </summary>
+        internal static byte[] ZoraEgg {
+            get {
+                object obj = ResourceManager.GetObject("ZoraEgg", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {
+        ///    &quot;ZORA_EGG_BASELINE_ADD&quot;: &quot;80B319CC&quot;,
+        ///    &quot;ZORA_EGG_BASELINE_SUBTRACT&quot;: &quot;80B32214&quot;
+        ///}
+        ///.
+        /// </summary>
+        internal static string ZoraEgg_symbols {
+            get {
+                return ResourceManager.GetString("ZoraEgg_symbols", resourceCulture);
             }
         }
     }

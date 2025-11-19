@@ -5,7 +5,7 @@ using System.ComponentModel;
 namespace MMR.Randomizer.Models
 {
     [Flags]
-    [Description("Small Key Mode")]
+    [Description("Small Keys")]
     public enum SmallKeyMode
     {
         Default,

@@ -4,8 +4,8 @@
 #include <stdbool.h>
 #include <z64.h>
 
-#define MMR_ChestTableFileIndex (*(u32*)(0x80144968))
-#define MMR_GiTableFileIndex (*(u32*)(0x8014496C))
+#define MMR_ChestTableFileIndex (*(u32*)(0x801E1180))
+#define MMR_GiTableFileIndex (*(u32*)(0x801E1184))
 #define MMR_GetItemEntryContext ((GetItemEntry*)0x800B35F0)
 
 // MMR get-item table entry.
@@ -81,24 +81,24 @@ typedef struct {
 
 typedef union {
     struct {
-        u8          : 2;
-        u8 canyon   : 1;
-        u8 ocean    : 1;
-        u8 ranch    : 1;
-        u8 mountain : 1;
-        u8 swamp    : 1;
-        u8 town     : 1;
+        u16 oceanTokens : 5;
+        u16 swampTokens : 5;
+        u16 canyon      : 1;
+        u16 ocean       : 1;
+        u16 ranch       : 1;
+        u16 mountain    : 1;
+        u16 swamp       : 1;
+        u16 town        : 1;
     };
-    u8 value;
-} ExtraStartingMaps; // size = 0x1
+    u16 value;
+} ExtraStartingMapsAndTokens; // size = 0x2
 
 // Data about the MMR Get Item Table
 struct MMRConfig {
     /* 0x000 */ u32 magic;
     /* 0x004 */ u32 version;
     /* 0x008 */ MMRLocations locations;
-    /* 0x132 */ ExtraStartingMaps extraStartingMaps;
-    /* 0x133 */ u8 unused12D; // Padding.
+    /* 0x132 */ ExtraStartingMapsAndTokens extraStartingMapsAndTokens;
     /* 0x134 */ ExtraStartingItems extraStartingItems;
     /* 0x146 */ ItemsToReturn itemsToReturn;
 }; // size = 0x168

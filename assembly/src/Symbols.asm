@@ -10,8 +10,11 @@
 .definelabel z2_RngInt, 0x80086FA0
 .definelabel z2_RngSetSeed, 0x80086FD0
 .definelabel z2_Rand_ZeroOne, 0x80086FDC
+.definelabel z2_bzero, 0x80089630
 .definelabel z2_sqrtf, 0x8008D700
 .definelabel z2_strlen, 0x8008F1E0
+.definelabel z2_osInvalICache, 0x8008F270
+.definelabel z2_osinvalDCache, 0x8008F2F0
 .definelabel z2_BaseDrawCollectable, 0x800A7128
 .definelabel z2_DrawRupee, 0x800A72AC
 .definelabel z2_DrawHeartPiece, 0x800A75B8
@@ -20,6 +23,7 @@
 .definelabel z2_rupee_drop_spawn, 0x800A7AD4
 .definelabel z2_random_drop_spawn, 0x800A7D28
 .definelabel z2_EffectSsKiraKira_SpawnSmall, 0x800B16B8
+.definelabel z2_EffectSsKiraKira_SpawnDispersed, 0x800B16F4
 .definelabel z2_EffectSsHitmark_SpawnCustomScale, 0x800B26A8
 .definelabel z2_EffectSsIceSmoke_Spawn, 0x800B320C
 .definelabel z2_SetShape, 0x800B3BA4
@@ -60,6 +64,7 @@
 .definelabel z2_Actor_SpawnAsChild, 0x800BB0C0
 .definelabel z2_ActorRemove, 0x800BB498
 .definelabel z2_Actor_ChangeAnimation, 0x800BDC5C
+.definelabel z2_Gfx_DrawDListOpa, 0x800BDFC0
 .definelabel z2_BgCheck_GetCollisionHeader, 0x800C3C2C
 .definelabel z2_BgCheck_EntityCheckCeiling, 0x800C4F84
 .definelabel z2_DynaPoly_GetActor, 0x800C6248
@@ -124,6 +129,7 @@
 .definelabel z2_CheckItemObtainability, 0x80114978
 .definelabel z2_RemoveItem, 0x801149A0
 .definelabel z2_HasEmptyBottle, 0x80114E90
+.definelabel z2_Inventory_HasItemInBottle, 0x80114F2C
 .definelabel z2_HudSetAButtonText, 0x8011552C
 .definelabel z2_Health_ChangeBy, 0x80115908
 .definelabel z2_AddRupees, 0x801159EC
@@ -137,6 +143,7 @@
 .definelabel z2_CanInteract, 0x801233E4
 .definelabel z2_Inventory_GetBtnItem, 0x8012364C
 .definelabel z2_Player_SetEquipmentData, 0x80123C90
+.definelabel z2_Player_UpdateBottleHeld, 0x80123D50
 .definelabel z2_801242DC, 0x801242DC
 .definelabel z2_Player_DrawGetItem, 0x8012697C
 .definelabel z2_PlayerGormanTears, 0x80127594
@@ -156,6 +163,7 @@
 .definelabel z2_object_spawn, 0x8012F2E0
 .definelabel z2_load_objects, 0x8012F4FC
 .definelabel z2_GetObjectIndex, 0x8012F608
+.definelabel z2_Scene_SetExitFade, 0x801306A4
 .definelabel z2_AnimatedMat_Draw, 0x80131758
 .definelabel z2_Entrance_GetSceneIdAbsolute, 0x80132338
 .definelabel z2_Entrance_GetTransitionFlags, 0x801323A0
@@ -167,7 +175,11 @@
 .definelabel z2_SkelAnime_Update, 0x80136CD0
 .definelabel z2_Animation_MorphToLoop, 0x80137594
 .definelabel z2_UpdatePictoFlags, 0x8013A240
+.definelabel z2_Sram_ResetSaveFromMoonCrash, 0x80144A94
+.definelabel z2_Sram_SyncWriteToFlash, 0x80146EBC
 .definelabel z2_Sram_SaveSpecialNewDay, 0x80146F5C
+.definelabel z2_Sram_SetFlashPagesDefault, 0x80147008
+.definelabel z2_Sram_StartWriteToFlashDefault, 0x80147020
 .definelabel z2_InitButtonNoteColors, 0x80147564
 .definelabel z2_MessageShouldAdvance, 0x80147624
 .definelabel z2_MessageClose, 0x801477B4
@@ -175,6 +187,7 @@
 .definelabel z2_Message_ContinueTextbox, 0x80151938
 .definelabel z2_GetMessageState, 0x80152498
 .definelabel ShrinkWindow_SetLetterboxTarget, 0x80160C00
+.definelabel z2_kaleidomanager_loadovl, 0x80163758
 .definelabel z2_Play_EnableMotionBlur, 0x8016566C
 .definelabel z2_Play_DisableMotionBlur, 0x80165690
 .definelabel z2_801660B8, 0x801660B8
@@ -209,6 +222,7 @@
 .definelabel z2_GetAudioTable, 0x80190294
 .definelabel z2_ToggleSfxDampen, 0x8019C300
 .definelabel z2_PlaySfx, 0x8019F0C8
+.definelabel z2_PlaySfx_2, 0x8019F128
 .definelabel z2_PlaySfxDecide, 0x8019F208
 .definelabel z2_PlaySfxCancel, 0x8019F230
 .definelabel z2_Audio_PlayObjSoundBgm, 0x801A153C

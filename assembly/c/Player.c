@@ -985,6 +985,15 @@ void Player_SetGiantMaskTransformationState(GlobalContext* ctxt, ActorPlayer* pl
     player->stateFlags.state1 |= newState;
 }
 
+bool Player_ShouldAutoRemoveGiantsMask(ActorPlayer* player) {
+    if (player->stateFlags.state2 & PLAYER_STATE2_DIVING) {
+        return false;
+    }
+
+    // Displaced code:
+    return gSaveContext.perm.unk24.currentMagic == 0;
+}
+
 static const u8* sAudioBaseFilter = (u8*)0x801D66E0;
 
 void Player_HandleIronGoronLand(GlobalContext* ctxt, ActorPlayer* player) {
@@ -1069,13 +1078,22 @@ Actor* Player_GetHittingActor(ActorPlayer* player) {
     return NULL;
 }
 
+void Player_ForceInflictDamage(GlobalContext* ctxt, ActorPlayer* player, s32 damage) {
+    u32 flag = player->stateFlags.state2 & PLAYER_STATE2_LIFT_ACTOR;
+    player->stateFlags.state2 |= PLAYER_STATE2_LIFT_ACTOR;
+    z2_Player_InflictDamage(ctxt, -16);
+    if (!flag) {
+        player->stateFlags.state2 &= ~PLAYER_STATE2_LIFT_ACTOR;
+    }
+}
+
 void Player_OnMinorVoid(GlobalContext* ctxt, ActorPlayer* player) {
     // Displaced code:
     z2_Player_SetEquipmentData(ctxt, player);
     // End displaced code
 
     if (MISC_CONFIG.flags.takeDamageFromVoid) {
-        z2_Player_InflictDamage(ctxt, -16);
+        Player_ForceInflictDamage(ctxt, player, -16);
         player->unk_D6A = -2;
     }
 }
@@ -1085,7 +1103,15 @@ void Player_OnDekuWaterVoid(GlobalContext* ctxt, ActorPlayer* player) {
     z2_PerformEnterWaterEffects(ctxt, player);
     // End displaced code
 
-    if (ctxt->warpType) {
-        z2_Player_InflictDamage(ctxt, -16);
+    if (MISC_CONFIG.flags.takeDamageFromVoid && ctxt->warpType && !ctxt->transitionMode && gSaveContext.extra.voidFlag != 1) {
+        Player_ForceInflictDamage(ctxt, player, -16);
+    }
+}
+
+void Player_VoidExit(u16 sfxId) {
+    z2_PlaySfx_2(sfxId);
+
+    if (MISC_CONFIG.flags.takeDamageFromVoid && gGlobalContext.sceneNum != SCENE_BOTI) {
+        Player_ForceInflictDamage(&gGlobalContext, GET_PLAYER(&gGlobalContext), -16);
     }
 }

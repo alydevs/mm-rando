@@ -23,10 +23,10 @@ namespace MMR.Randomizer.Utils
             ResourceUtils.ApplyHack(Resources.mods.replace_gi_table);
             int last_file = RomData.MMFileList.Count - 1;
             GET_ITEM_TABLE = RomUtils.AddNewFile(Resources.mods.gi_table);
-            ReadWriteUtils.WriteToROM(0xBDAEAC, (uint)last_file + 1);
+            ReadWriteUtils.WriteToROM(0xB3C000 + 0x13B6C4, (uint)last_file + 1);
             ResourceUtils.ApplyHack(Resources.mods.update_chests);
             RomUtils.AddNewFile(Resources.mods.chest_table);
-            ReadWriteUtils.WriteToROM(0xBDAEA8, (uint)last_file + 2);
+            ReadWriteUtils.WriteToROM(0xB3C000 + 0x13B6C0, (uint)last_file + 2);
             RomUtils.AddNewFile(Resources.mods.collectable_table);
             COLLECTABLE_TABLE_FILE_INDEX = (ushort)(last_file + 3);
             ResourceUtils.ApplyHack(Resources.mods.standing_hearts);
@@ -104,7 +104,7 @@ namespace MMR.Randomizer.Utils
             }
         }
 
-        public static void WriteNewItem(ItemObject itemObject, List<MessageEntry> newMessages, GameplaySettings settings, ChestTypeAttribute.ChestType? overrideChestType, MessageTable messageTable, ExtendedObjects extendedObjects)
+        public static void WriteNewItem(ItemObject itemObject, ItemList itemList, List<MessageEntry> newMessages, GameplaySettings settings, ChestTypeAttribute.ChestType? overrideChestType, MessageTable messageTable, ExtendedObjects extendedObjects)
         {
             var item = itemObject.Item;
             var location = itemObject.NewLocation.Value;
@@ -151,7 +151,7 @@ namespace MMR.Randomizer.Utils
             // set values for draw flags for some mask checks (and pendant of memories)
             if (getItemIndex is 0x80 or 0x81 or 0x84 or 0x88 or 0x8A or 0xAB)
             {
-                MaskConfigUtils.UpdateMaskConfig(itemObject, newItem, item, getItemIndex);
+                MaskConfigUtils.UpdateMaskConfig(location, itemObject.DisplayItem);
             }
 
             // Attempt to resolve extended object Id, which should affect "Exclusive Items" as well.
@@ -228,7 +228,7 @@ namespace MMR.Randomizer.Utils
 
             if (settings.UpdateChests)
             {
-                UpdateChest(location, item, overrideChestType);
+                UpdateChest(location, item, itemList, overrideChestType);
             }
 
             if (settings.UpdateShopAppearance)
@@ -303,7 +303,7 @@ namespace MMR.Randomizer.Utils
             }
         }
 
-        private static void UpdateChest(Item location, Item item, ChestTypeAttribute.ChestType? overrideChestType)
+        private static void UpdateChest(Item location, Item item, ItemList itemList, ChestTypeAttribute.ChestType? overrideChestType)
         {
             var chestType = item.GetAttribute<ChestTypeAttribute>().Type;
             if (overrideChestType.HasValue)
@@ -324,17 +324,29 @@ namespace MMR.Randomizer.Utils
                 }
             }
 
-            var grottoChestAttribute = location.GetAttribute<GrottoChestAttribute>();
-            if (grottoChestAttribute != null)
+            if (location.HasAttribute<GrottoChestAttribute>())
             {
-                foreach (var address in grottoChestAttribute.Addresses)
+                var grottoLocation = location.GetAttribute<RegionAttribute>().Reference.Value;
+                var grottoNewLocation = itemList[grottoLocation].NewLocation ?? grottoLocation;
+                var grottoEntrance = grottoNewLocation.Entrances()[0];
+
+                var newChestType = (byte)chestType;
+                newChestType <<= 5;
+
+                foreach (var exitActorParams in grottoEntrance.ExitActorParams())
                 {
-                    var grottoVariable = ReadWriteUtils.Read(address);
-                    grottoVariable &= 0x1F; // remove existing chest type
-                    var newChestType = (byte)chestType;
-                    newChestType <<= 5;
-                    grottoVariable |= newChestType; // add new chest type
-                    ReadWriteUtils.WriteToROM(address, grottoVariable);
+                    EntranceUtils.WriteSceneActorParams(
+                        exitActorParams.SceneId,
+                        exitActorParams.SetupIndex,
+                        exitActorParams.RoomIndex,
+                        exitActorParams.ActorIndex,
+                        0x55,
+                        newChestType,
+                        0x60,
+                        null,
+                        null,
+                        null
+                    );
                 }
             }
         }

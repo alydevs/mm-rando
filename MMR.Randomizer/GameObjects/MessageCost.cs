@@ -445,7 +445,7 @@ namespace MMR.Randomizer.GameObjects
             new MessageCost
             {
                 MessageIds = { (1622, 0), (1623, 0) },
-                LocationsAffected = { Item.UpgradeBigBombBag },
+                LocationsAffected = { Item.UpgradeBigBombBagInBombShop },
                 Cost = 90,
             },
 
@@ -642,7 +642,7 @@ namespace MMR.Randomizer.GameObjects
                 Name = "Curiosity Shop Big Bomb Bag",
                 MessageIds = { (10715, 0), (10716, 0) },
                 Cost = 100,
-                // Big Bomb Bag logic not affected due to time of day logic
+                LocationsAffected = { Item.UpgradeBigBombBagInCuriosityShop },
             },
             new MessageCost
             {

@@ -61,6 +61,7 @@
 .include "FloorPhysics.Patch.asm"
 .include "Game.Patch.asm"
 .include "GiantMask.Patch.asm"
+.include "Gibdo.Patch.asm"
 .include "GinkoMan.Patch.asm"
 .include "GoronElder.Patch.asm"
 .include "GossipStone.Patch.asm"
@@ -85,6 +86,7 @@
 .include "Music.Patch.asm"
 .include "MusicStaff.Patch.asm"
 .include "NpcKafei.Patch.asm"
+.include "PalmTree.Patch.asm"
 .include "Pause.Patch.asm"
 .include "Pictobox.Patch.asm"
 .include "PlayerActor.Patch.asm"
@@ -109,8 +111,13 @@
 .include "SyatekiMan.Patch.asm"
 .include "TargetHealth.Patch.asm"
 .include "Thiefbird.Patch.asm"
+.include "WarpTag.Patch.asm"
 .include "WorldColors.Patch.asm"
 .include "ZoraLand.Patch.asm"
+
+// patching base game for kaleido payload
+.include "Kaleido_Pause.Patch.asm"
+.include "Kaleido_HudColors.Patch.asm"
 
 ;==================================================================================================
 ; New code region
@@ -155,6 +162,7 @@ PAYLOAD_START:
 .include "Music.asm"
 .include "MusicStaff.asm"
 .include "NpcKafei.asm"
+.include "PalmTree.asm"
 .include "Pause.asm"
 .include "PlayerActor.asm"
 .include "Pushblock.asm"
@@ -181,6 +189,25 @@ FONT_TEXTURE:
 
 .align 0x10
 PAYLOAD_END:
+.endarea // Payload max memory
+
+;==================================================================================================
+; New code region
+;==================================================================================================
+
+.headersize (G_KALEIDOPAYLOAD_ADDR - G_KALEIDOPAYLOAD_VROM)
+
+.org G_KALEIDOPAYLOAD_ADDR
+.area (G_KALEIDO_FREESIZE) // Payload max memory
+KALEIDOPAYLOAD_START:
+
+.include "Kaleido_HudColors.asm"
+.include "Kaleido_Pause.asm"
+.importobj "../build/kaleido.o"
+
+.align 16
+
+KALEIDOPAYLOAD_END:
 .endarea // Payload max memory
 
 .close

@@ -46,13 +46,14 @@
 
 // Data (unknown).
 #define s801BD8B0                        (*(struct_801BD8B0*)        0x801BD8B0)
-#define s801D0B70                        (*(struct_801D0B70*)        0x801D0B70)
+#define s801D0B70                        (*(KaleidoMgrOverlayTable*)        0x801D0B70)
 
 // Function Prototypes.
 extern int z2_CanInteract(GlobalContext* ctxt);
 extern u8 z2_Player_MaskIdToItemId(s32 maskIdMinusOne);
 extern void z2_Player_SetBootData(GlobalContext* ctxt, ActorPlayer* player);
 extern void z2_Player_SetEquipmentData(GlobalContext* ctxt, ActorPlayer* player);
+extern void z2_Player_UpdateBottleHeld(GlobalContext* ctxt, ActorPlayer* player, s32 itemId, s32 itemAction);
 extern int z2_Player_InBlockingCsMode(GlobalContext* ctxt, ActorPlayer* player);
 extern int z2_Inventory_GetBtnItem(GlobalContext* ctxt, ActorPlayer* player, s32 buttonIndex);
 extern void z2_DrawButtonAmounts(GlobalContext* ctxt, u32 arg1, u16 alpha);
@@ -83,6 +84,7 @@ extern void z2_Matrix_GetStateTranslationAndScaledY(f32 scale, Vec3f* dst);
 extern void z2_Matrix_GetStateTranslationAndScaledZ(f32 scale, Vec3f* dst);
 extern AudioInfo* z2_GetAudioTable(u8 audioType);
 extern void z2_PlaySfx(u32 id);
+extern void z2_PlaySfx_2(u16 id);
 extern void z2_PlaySfxDecide();
 extern void z2_PlaySfxCancel();
 extern void z2_PlayPlayerSfx(ActorPlayer* player, s16 sfxId);
@@ -114,6 +116,7 @@ extern void z2_PlayerBlastMaskAnim(GlobalContext* ctxt, ActorPlayer* player);
 extern void z2_PlayerGreatFairyLimbs(GlobalContext* ctxt, ActorPlayer* player);
 extern void z2_CopyFromMatrixStackTop(z_Matrix* mtx);
 extern void z2_CopyToMatrixStackTop(z_Matrix* mtx);
+extern void z2_KaleidoManager_LoadOvl(PlayerOverlay* ovl);
 
 
 // Function Prototypes (Scene Flags).
@@ -153,6 +156,8 @@ extern void z2_load_scene();
 
 extern void z2_EffectSsKiraKira_SpawnSmall(GlobalContext* globalCtx, Vec3f* pos, Vec3f* velocity, Vec3f* accel,
                                  ColorRGBA8* primColor, ColorRGBA8* envColor);
+extern void z2_EffectSsKiraKira_SpawnDispersed(GlobalContext* globalCtx, Vec3f* pos, Vec3f* velocity, Vec3f* accel,
+                                 ColorRGBA8* primColor, ColorRGBA8* envColor, s16 scale, s32 life);
 extern void z2_EffectSsHitmark_SpawnCustomScale(GlobalContext* ctxt, s32 type, s16 scale, Vec3f* pos);
 extern void z2_EffectSsIceSmoke_Spawn(GlobalContext* ctxt, Vec3f* pos, Vec3f* velocity, Vec3f* accel, s16 scale);
 
@@ -165,6 +170,7 @@ extern void z2_SetShape(ActorShape* shape, f32 yDisplacement, void* shadowDrawFu
 extern void z2_Actor_ChangeAnimation(SkelAnime* skelAnime, ActorAnimationEntry* animation, s32 index);
 extern void z2_Actor_OffsetOfPointInActorCoords(Actor* actor, Vec3f* offset, Vec3f* point);
 extern f32 z2_Player_GetHeight_WithoutEpona(ActorPlayer* player);
+extern void z2_Gfx_DrawDListOpa(GlobalContext* ctxt, Gfx* dList);
 
 // Function Prototypes (Actor Cutscene).
 extern void z2_ActorCutscene_ClearWaiting(void);
@@ -204,7 +210,11 @@ extern void z2_SkelAnime_DrawFlexLod(GlobalContext* ctxt, void** skeleton, Vec3s
 extern void z2_801660B8(GlobalContext* ctxt, Gfx* gfx);
 
 // Function Prototypes (File Loading).
+extern void z2_Sram_ResetSaveFromMoonCrash(SramContext* sramCtxt);
 extern void z2_Sram_SaveSpecialNewDay(GlobalContext* ctxt);
+extern void z2_Sram_SetFlashPagesDefault(SramContext* sramCtxt, u32 curPage, u32 numPages);
+extern void z2_Sram_StartWriteToFlashDefault(SramContext* sramCtxt);
+extern void z2_Sram_SyncWriteToFlash(SramContext* sramCtxt, s32 curPage, s32 numPages);
 extern s32 z2_RomToRam(u32 src, void* dst, u32 length);
 extern s16 z2_GetFileNumber(u32 vromAddr);
 extern u32 z2_GetFilePhysAddr(u32 vromAddr);
@@ -223,6 +233,7 @@ extern bool z2_SetGetItemLongrange(Actor* actor, GlobalContext* ctxt, u16 giInde
 extern void z2_GiveItem(GlobalContext* ctxt, u8 itemId);
 extern u8 z2_IsItemKnown(u8 itemId);
 extern bool z2_HasEmptyBottle();
+extern bool z2_Inventory_HasItemInBottle(u8 item);
 extern void z2_GiveMap(u32 mapIndex);
 extern s16 z2_Inventory_GetSkullTokenCount(s16 sceneIndex);
 extern s32 z2_Health_ChangeBy(GlobalContext* ctxt, s16 healthChange);
@@ -255,6 +266,7 @@ extern f32 z2_Math3D_Vec3fDistSq(Vec3f* a, Vec3f* b);
 // Function Prototypes (Objects).
 extern s8 z2_GetObjectIndex(const SceneContext* ctxt, u16 objectId);
 
+extern void z2_Scene_SetExitFade(GlobalContext* ctxt);
 extern s32 z2_Entrance_GetSceneIdAbsolute(u16 entrance);
 extern s32 z2_Entrance_GetTransitionFlags(u16 entrance);
 
@@ -267,9 +279,12 @@ extern bool z2_SkelAnime_Update(SkelAnime* skelAnime);
 extern void z2_Animation_MorphToLoop(SkelAnime* skelAnime, AnimationHeader* animation, f32 morphFrames);
 
 // Function Prototypes (OS).
+extern void z2_bzero(void* dest, u32 size);
 extern void z2_memcpy(void* dest, const void* src, u32 size);
 extern size_t z2_strlen(const unsigned char* s);
 extern f32 z2_sqrtf(f32 f);
+extern void z2_osInvalICache(void* addr, u32 size);
+extern void z2_osInvalDCache(void* addr, u32 size);
 
 // Function Prototypes (RNG).
 extern u32 z2_RngInt(void);

@@ -64,12 +64,20 @@
 <# if (spoiler.BlitzExtraItems.Any()) { 
 #>
 <h2>Blitz Starting Items</h2>
-<#         foreach (var remains in spoiler.BlitzExtraItems) {
+<#         foreach (var item in spoiler.BlitzExtraItems) {
 #>
-<div><#= remains.Name() #></div>
+<div><#= item.Name() #></div>
 <# } #>
 <# } #>
-<# if (spoiler.DungeonEntrances.Any()) { 
+<# if (spoiler.RandomStartingItems.Any()) { 
+#>
+<h2>Blitz Starting Items</h2>
+<#         foreach (var item in spoiler.RandomStartingItems) {
+#>
+<div><#= item.Name() #></div>
+<# } #>
+<# } #>
+<# if (spoiler.Entrances.Any()) { 
 #>
 <h2>Dungeon Entrance Replacements</h2>
 <table border="1" class="item-replacements">
@@ -78,13 +86,11 @@
         <th></th>
         <th>New Destination</th>
     </tr>
-<#         foreach (var kvp in spoiler.DungeonEntrances) {
-            var entrance = kvp.Key;
-            var destination = kvp.Value;#>
-    <tr data-id="<#= (int)destination #>" data-newlocationid="<#= (int)entrance #>" class="unavailable">
-        <td class="newlocation"><#= entrance.Entrance() #></td>
+<#         foreach (var dungeonEntrance in spoiler.Entrances) {#>
+    <tr data-id="<#= dungeonEntrance.DestinationId #>" data-newlocationid="<#= dungeonEntrance.EntranceId #>" class="unavailable">
+        <td class="newlocation"><#= dungeonEntrance.Entrance #></td>
         <td><input type="checkbox"/></td>
-        <td class="spoiler itemname"><span data-content="<#= destination.Entrance() #>"></span></td>
+        <td class="spoiler itemname"><span data-content="<#= dungeonEntrance.Destination #>"></span></td>
     </tr>
 <# } #>
 </table>
@@ -138,11 +144,11 @@
         <th>Name</th>
         <th>Cost</th>
     </tr>
-<#    foreach (var (name, cost) in spoiler.MessageCosts) { 
+<#    foreach (var price in spoiler.MessageCosts) { 
 #>
     <tr>
-        <td><#= name #></td>
-        <td class="spoiler"><span data-content="<#= cost #>"></span></td>
+        <td><#= price.Name #></td>
+        <td class="spoiler"><span data-content="<#= price.Cost #>"></span></td>
     </tr>
 <# } #>
 </table>

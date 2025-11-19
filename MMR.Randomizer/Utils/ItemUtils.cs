@@ -92,7 +92,6 @@ namespace MMR.Randomizer.Utils
                 var npcTextHintedItems = new List<Item>
                 {
                     Item.CollectibleStrayFairyClockTown, // Hinted by the Town Fairy Fountain
-                    Item.SongOath, // Hinted by the Giants
                     Item.ItemPowderKeg, // Hinted by the Bomb Shop Goron
                     Item.ItemBottleGoronRace, // Hinted by the Smithy
                     Item.ItemBottleBeavers, // Hinted by Evan
@@ -100,9 +99,24 @@ namespace MMR.Randomizer.Utils
                     Item.SongTime, // Hinted by the Scarecrow
                     Item.SongSoaring, // Hinted by the southern swamp owl
                 };
-                npcTextHintedItems.AddRange(BossRemains()); // Hinted by Tatl and Tael
 
                 if (npcTextHintedItems.Contains(item))
+                {
+                    return true;
+                }
+            }
+
+            if (settings.OathHint)
+            {
+                if (item == Item.SongOath) // Hinted by the Giants
+                {
+                    return true;
+                }
+            }
+
+            if (settings.RemainsHint)
+            {
+                if (BossRemains().Contains(item)) // Hinted by Tatl and Tael
                 {
                     return true;
                 }
@@ -202,13 +216,21 @@ namespace MMR.Randomizer.Utils
         }
 
         // todo cache
+        public static IEnumerable<Item> CustomStartingItems()
+        {
+            return StartingItems().Where(item => !item.Name().Contains("Heart"));
+        }
+
+        // todo cache
         public static IEnumerable<Item> StartingItems()
         {
             return Enum.GetValues(typeof(Item))
                 .Cast<Item>()
                 .Where(item => item.HasAttribute<StartingItemAttribute>()
                     || item.HasAttribute<StartingTingleMapAttribute>()
-                    || item.HasAttribute<StartingItemIdAttribute>());
+                    || item.HasAttribute<StartingItemIdAttribute>()
+                    || item.HasAttribute<StartingItemSkullAttribute>()
+                    );
         }
 
         // todo cache
@@ -311,32 +333,80 @@ namespace MMR.Randomizer.Utils
 
         private static List<Item> HintedJunkLocations;
 
-        public static void PrepareHintedJunkLocations(GameplaySettings settings, Random random)
+        public static void CheckAndUpdateHintedJunkLocations(GameplaySettings settings, ItemList itemList, Item item, Item location, Random random)
         {
-            if (settings.OverrideHintPriorities != null && settings.OverrideHintItemCaps != null)
+            if (settings.OverrideHintItemCaps != null && settings.OverrideHintPriorities != null)
             {
-                HintedJunkLocations = settings.OverrideHintPriorities.SelectMany((tier, i) =>
+                if (!IsJunk(item))
                 {
-                    var cap = settings.OverrideHintItemCaps.ElementAtOrDefault(i);
-                    if (cap > 0)
+                    var tierIndex = settings.OverrideHintPriorities.FindIndex(tier => tier.Contains(location));
+                    if (tierIndex >= 0)
                     {
-                        var groupedLocations = tier
-                            .Where(location => !IsLocationJunk(location, settings))
-                            .GroupBy(location => ItemCombinableHints.GetValueOrDefault(location).name ?? location.ToString())
-                            .ToList();
-                        var numberOfLocationsToJunk = groupedLocations.Count - cap;
-                        return groupedLocations
-                            .Random(numberOfLocationsToJunk, random)
-                            .SelectMany(g => g)
-                            .ToList();
+                        var cap = settings.OverrideHintItemCaps.ElementAtOrDefault(tierIndex);
+                        if (cap > 0)
+                        {
+                            var tier = settings.OverrideHintPriorities[tierIndex];
+                            var nonJunk = tier
+                                .Where(location => !IsLocationJunk(location, settings))
+                                .GroupBy(location => ItemCombinableHints.GetValueOrDefault(location).name ?? location.ToString())
+                                .Where(group => group.Any(tierLocation =>
+                                {
+                                    var tierItemObject = itemList.FirstOrDefault(io => io.NewLocation == tierLocation);
+                                    if (tierItemObject != null && !IsJunk(tierItemObject.Item))
+                                    {
+                                        return true;
+                                    }
+                                    return false;
+                                }));
+                            if (nonJunk.Count() >= cap)
+                            {
+                                var remainingTier = tier.Except(nonJunk.SelectMany(group => group)).Except(HintedJunkLocations);
+                                HintedJunkLocations.AddRange(remainingTier);
+                            }
+                        }
                     }
-                    return new List<Item>();
-                }).ToList();
+                }
+                if (settings.CustomItemList.Where(item => itemList[item].Item == item && !IsJunk(item)).All(item => itemList[item].NewLocation.HasValue))
+                {
+                    HintedJunkLocations.AddRange(settings.OverrideHintPriorities.SelectMany((tier, i) =>
+                    {
+                        var cap = settings.OverrideHintItemCaps.ElementAtOrDefault(i);
+                        if (cap > 0 && !HintedJunkLocations.Intersect(tier).Any())
+                        {
+                            var groupedLocations = tier
+                                .Where(location => !IsLocationJunk(location, settings))
+                                .GroupBy(location => ItemCombinableHints.GetValueOrDefault(location).name ?? location.ToString())
+                                .ToList();
+                            var hintedLocations = groupedLocations.Where(group => group.Any(tierLocation =>
+                                {
+                                    var tierItemObject = itemList.FirstOrDefault(io => io.NewLocation == tierLocation);
+                                    if (tierItemObject != null && !IsJunk(tierItemObject.Item))
+                                    {
+                                        return true;
+                                    }
+                                    return false;
+                                }))
+                                .ToList();
+                            var numberOfAdditionalGroupsToJunk = groupedLocations.Count - cap;
+                            if (numberOfAdditionalGroupsToJunk > 0)
+                            {
+                                return groupedLocations
+                                    .Except(hintedLocations)
+                                    .ToList()
+                                    .Random(numberOfAdditionalGroupsToJunk, random)
+                                    .SelectMany(g => g)
+                                    .ToList();
+                            }
+                        }
+                        return new List<Item>();
+                    }));
+                }
             }
-            else
-            {
-                HintedJunkLocations = new List<Item>();
-            }
+        }
+
+        public static void PrepareHintedJunkLocations()
+        {
+            HintedJunkLocations = new List<Item>();
         }
 
         private static List<Item> BlitzJunkLocations;
@@ -392,6 +462,14 @@ namespace MMR.Randomizer.Utils
                 { Item.AreaGyorgsLair, new Item[] { Item.AreaGreatBayTempleAccess } },
                 { Item.AreaTwinmoldsLair, new Item[] { Item.AreaInvertedStoneTowerTempleAccess, Item.AreaStoneTowerTempleAccess } },
             };
+            var dungeonItems = new List<Item>();
+            dungeonItems.AddRange(BossKeys());
+            dungeonItems.AddRange(SmallKeys());
+            dungeonItems.AddRange(DungeonNavigation());
+            if (settings.StrayFairyMode.HasFlag(StrayFairyMode.KeepWithinArea | StrayFairyMode.KeepWithinTemples) || (startingRemains.Length > 1 && settings.StrayFairyMode.HasFlag(StrayFairyMode.KeepWithinTemples)))
+            {
+                dungeonItems.AddRange(DungeonStrayFairies());
+            }
             IEnumerable<Item> filter(IEnumerable<Item> items)
             {
                 return items
@@ -425,9 +503,20 @@ namespace MMR.Randomizer.Utils
                                 BlitzJunkLocations.Add(location);
                                 debugItemObjects.Add(io);
                                 updated = true;
-                                if (!io.ItemOverride.HasValue && io.NewLocation == io.Item && io.Item.CanBeStartedWith() && !result.Contains(io.Item))
+                                if (!io.ItemOverride.HasValue)
                                 {
-                                    result.Add(io.Item); // player starts with any non-randomized blitzed item
+                                    if (!io.NewLocation.HasValue)
+                                    {
+                                        if (dungeonItems.Contains(io.Item))
+                                        {
+                                            io.NewLocation = io.Item; // randomized dungeon items that are blitzed will be placed in their vanilla location
+                                        }
+                                    }
+
+                                    if (io.NewLocation == io.Item && io.Item.CanBeStartedWith() && !result.Contains(io.Item))
+                                    {
+                                        result.Add(io.Item); // player starts with any non-randomized blitzed item
+                                    }
                                 }
                             }
                             else
@@ -486,10 +575,12 @@ namespace MMR.Randomizer.Utils
 
         public static bool IsLocationJunk(Item location, GameplaySettings settings)
         {
+            var mainLocation = location.MainLocation();
             return settings.CustomJunkLocations.Contains(location)
                 || (HintedJunkLocations?.Contains(location) == true)
                 || (BlitzJunkLocations?.Contains(location) == true)
-                || (SettingJunkLocations?.Contains(location) == true);
+                || (SettingJunkLocations?.Contains(location) == true)
+                || (mainLocation.HasValue && IsLocationJunk(mainLocation.Value, settings));
         }
 
         public static bool CanBeRequired(Item item)

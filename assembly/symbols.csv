@@ -9,8 +9,11 @@
 0x80086FA0,z2_RngInt
 0x80086FD0,z2_RngSetSeed
 0x80086FDC,z2_Rand_ZeroOne
+0x80089630,z2_bzero
 0x8008D700,z2_sqrtf
 0x8008F1E0,z2_strlen
+0x8008F270,z2_osInvalICache
+0x8008F2F0,z2_osinvalDCache
 0x800A7128,z2_BaseDrawCollectable
 0x800A72AC,z2_DrawRupee
 0x800A75B8,z2_DrawHeartPiece
@@ -19,6 +22,7 @@
 0x800A7AD4,z2_rupee_drop_spawn
 0x800A7D28,z2_random_drop_spawn
 0x800B16B8,z2_EffectSsKiraKira_SpawnSmall
+0x800B16F4,z2_EffectSsKiraKira_SpawnDispersed
 0x800B26A8,z2_EffectSsHitmark_SpawnCustomScale
 0x800B320C,z2_EffectSsIceSmoke_Spawn
 0x800B3BA4,z2_SetShape
@@ -58,6 +62,7 @@
 0x800BB0C0,z2_Actor_SpawnAsChild
 0x800BB498,z2_ActorRemove
 0x800BDC5C,z2_Actor_ChangeAnimation
+0x800BDFC0,z2_Gfx_DrawDListOpa
 0x800C3C2C,z2_BgCheck_GetCollisionHeader
 0x800C4F84,z2_BgCheck_EntityCheckCeiling
 0x800C6248,z2_DynaPoly_GetActor
@@ -122,6 +127,7 @@
 0x80114978,z2_CheckItemObtainability
 0x801149A0,z2_RemoveItem
 0x80114E90,z2_HasEmptyBottle
+0x80114F2C,z2_Inventory_HasItemInBottle
 0x8011552C,z2_HudSetAButtonText
 0x80115908,z2_Health_ChangeBy
 0x801159EC,z2_AddRupees
@@ -135,6 +141,7 @@
 0x801233E4,z2_CanInteract
 0x8012364C,z2_Inventory_GetBtnItem
 0x80123C90,z2_Player_SetEquipmentData
+0x80123D50,z2_Player_UpdateBottleHeld
 0x801242DC,z2_801242DC
 0x8012BC50,z2_8012BC50
 0x8012BF78,z2_Gfx_CallSetupDL
@@ -148,6 +155,7 @@
 0x8012F2E0,z2_object_spawn
 0x8012F4FC,z2_load_objects
 0x8012F608,z2_GetObjectIndex
+0x801306A4,z2_Scene_SetExitFade
 0x80131758,z2_AnimatedMat_Draw
 0x801323A0,z2_Entrance_GetTransitionFlags
 0x80132338,z2_Entrance_GetSceneIdAbsolute
@@ -159,7 +167,11 @@
 0x80136CD0,z2_SkelAnime_Update
 0x80137594,z2_Animation_MorphToLoop
 0x8013A240,z2_UpdatePictoFlags
+0x80144A94,z2_Sram_ResetSaveFromMoonCrash
+0x80146EBC,z2_Sram_SyncWriteToFlash
 0x80146F5C,z2_Sram_SaveSpecialNewDay
+0x80147008,z2_Sram_SetFlashPagesDefault
+0x80147020,z2_Sram_StartWriteToFlashDefault
 0x80147564,z2_InitButtonNoteColors
 0x80147624,z2_MessageShouldAdvance
 0x801477B4,z2_MessageClose
@@ -199,6 +211,7 @@
 0x80190294,z2_GetAudioTable
 0x8019C300,z2_ToggleSfxDampen
 0x8019F0C8,z2_PlaySfx
+0x8019F128,z2_PlaySfx_2
 0x8019F208,z2_PlaySfxDecide
 0x8019F230,z2_PlaySfxCancel
 0x801A153C,z2_Audio_PlayObjSoundBgm
@@ -214,3 +227,4 @@
 0x801801E8,z2_CopyFromMatrixStackTop
 0x8018020C,z2_CopyToMatrixStackTop
 0x80128640,z2_80128640
+0x80163758,z2_kaleidomanager_loadovl

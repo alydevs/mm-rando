@@ -21,11 +21,13 @@ namespace MMR.Randomizer.Models
         public Dictionary<Item, LogicUtils.LogicPaths> CheckedImportanceLocations { get; set; }
         public ReadOnlyCollection<ItemObject> Traps { get; set; }
         public List<ushort?> MessageCosts { get; set; }
+        public List<GibdoRequirement> GibdoRequirements { get; set; }
         public List<Item> BlitzExtraItems { get; set; }
+        public List<Item> RandomStartingItems { get; set; }
         public int FileSelectSkybox { get; internal set; }
         public int FileSelectColor { get; internal set; }
         public int TitleLogoColor { get; internal set; }
-        public List<List<(string item, string location)>> Spheres { get; internal set; }
+        public List<List<ItemLocationPair>> Spheres { get; internal set; }
 
         public RandomizedResult(GameplaySettings settings, int seed)
         {

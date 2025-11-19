@@ -11,22 +11,33 @@ from rom_diff import create_diff
 from ntype import BigStream
 from crc import calculate_crc
 
-Offsets = collections.namedtuple('Offsets', ('table', 'file_start', 'ram_start', 'ram_end'))
+Offsets = collections.namedtuple('Offsets', ('table', 'file_start', 'ram_start', 'ram_end', 'kaleido_file_start', 'kaleidoram_start'))
 
 # Hardcoded fields per target for added data:
 # (Table Start, File Address, RAM Start, RAM End)
-OOT_OFFSETS=Offsets(0x00007400, 0x03480000, 0x80400000, 0x80420000)
-MM_OFFSETS=Offsets(0x0001A500, 0x03800000, 0x80720000, 0x80780000)
+# OOT offsets for kaleido are placeholder
+OOT_OFFSETS=Offsets(0x00007400, 0x03480000, 0x80400000, 0x80420000, 0x03480000, 0x80400000)
+MM_OFFSETS=Offsets(0x0001A500, 0x03800000, 0x80720000, 0x80780000, 0x03880000, 0x80720000 - 0x0179C0)
 
 def build_data_symbols(symbols, offsets):
     data_symbols = {}
     for (name, sym) in symbols.items():
         if sym['type'] == 'data':
             addr = int(sym['address'], 16)
-            if offsets.ram_start <= addr < offsets.ram_end:
+            if offsets.kaleidoram_start <= addr < offsets.ram_start:
+                addr = addr - offsets.kaleidoram_start + offsets.kaleido_file_start
+            elif offsets.ram_start <= addr < offsets.ram_end:
                 addr = addr - offsets.ram_start + offsets.file_start
             else:
                 continue
+            data_symbols[name] = '{0:08X}'.format(addr)
+    return data_symbols
+
+def build_patch_data_symbols(symbols, offsets):
+    data_symbols = {}
+    for (name, sym) in symbols.items():
+        if sym['type'] == 'data':
+            addr = int(sym['address'], 16)
             data_symbols[name] = '{0:08X}'.format(addr)
     return data_symbols
 
@@ -34,6 +45,11 @@ def dump_json_to_file(data, path):
     with open(path, 'w') as f:
         json.dump(data, f, indent=4, sort_keys=True)
         f.write('\n')
+
+def dump_symbols_to_file(symbols, path):
+    with open(path, 'w') as f:
+        for (name, sym) in symbols.items():
+            f.write(".definelabel {}, 0x{}\n".format(name, sym['address']))
 
 def fixup_asm_symbols(path):
     with open(path, 'rb') as f:
@@ -49,24 +65,46 @@ def get_offsets_by_target(target):
     elif target == 'oot':
         return OOT_OFFSETS
 
-def parse_asm_symbols(path, c_symbols):
+def parse_asm_symbols(path, c_symbols, existing_symbols):
     symbols = {}
+    all_symbols = {}
     with open(path, 'r') as f:
         for line in f:
-            parts = line.strip().split(' ')
-            if len(parts) < 2:
+            m = re.match(r'''
+                    ^
+                    ([0-9a-fA-F]+)
+                    \s+
+                    ([^,\s$]+)
+                ''', line, re.VERBOSE)
+            if not m:
                 continue
-            address, sym_name = parts
-            if address[0] != '8':
+
+            address = m.group(1)
+            sym_name = m.group(2)
+
+            if sym_name in existing_symbols:
                 continue
+
             if sym_name[0] in ['.', '@']:
                 continue
+
+            if (sym_name == '0'):
+                continue
+
             sym_type = c_symbols.get(sym_name) or ('data' if sym_name.isupper() else 'code')
+
+            all_symbols[sym_name] = {
+                'type': sym_type,
+                'address': address,
+            }
+
+            if address[0] != '8':
+                continue
             symbols[sym_name] = {
                 'type': sym_type,
                 'address': address,
             }
-    return symbols
+    return symbols, all_symbols
 
 def parse_c_symbols(path):
     c_sym_types = {}
@@ -153,7 +191,7 @@ def main():
     c_sym_types = parse_c_symbols(os.path.join(relpath, 'build/c_symbols.txt'))
 
     # ...
-    symbols = parse_asm_symbols(os.path.join(relpath, 'build/asm_symbols.txt'), c_sym_types)
+    symbols, all_symbols = parse_asm_symbols(os.path.join(relpath, 'build/asm_symbols.txt'), c_sym_types, {})
 
     # Output symbols
 
@@ -161,12 +199,15 @@ def main():
 
     # Create subdirectory for generated files if it doesn't exist.
     generated_path = os.path.join(relpath, 'build/generated')
+    generated_patches_path = os.path.join(generated_path, 'patches')
     os.makedirs(generated_path, exist_ok=True)
+    os.makedirs(generated_patches_path, exist_ok=True)
 
     # Dump symbols as JSON
     offsets = get_offsets_by_target(args.target)
     data_symbols = build_data_symbols(symbols, offsets)
     dump_json_to_file(data_symbols, os.path.join(generated_path, 'symbols.json'))
+    dump_symbols_to_file(all_symbols, os.path.join(relpath, 'build/symbols.asm'))
 
     if pj64_sym_path:
         pj64_sym_path = os.path.realpath(pj64_sym_path)
@@ -183,6 +224,37 @@ def main():
         virtual=args.virtual,
         offset=offsets.table,
     )
+
+
+    os.chdir(os.path.join(relpath, 'src/patches'))
+    with os.scandir() as it:
+        for entry in it:
+            if entry.is_file() and entry.name.endswith('.asm') and entry.name != "BuildPatch.asm":
+                print(entry.name)
+                name, ext = os.path.splitext(entry.name)
+                # os.popen('cp ' + entry.path + ' ' + os.path.join(generated_path, 'Patch.asm'))
+                # os.chdir(generated_path)
+                patch_symbols_path = os.path.join(run_dir, relpath, generated_patches_path, name + '_asm_symbols.txt')
+                call(['armips', '-sym2', patch_symbols_path, entry.name])
+                fixup_asm_symbols(patch_symbols_path)
+                patch_symbols, _ = parse_asm_symbols(patch_symbols_path, c_sym_types, all_symbols)
+                if patch_symbols:
+                    patch_data_symbols = build_patch_data_symbols(patch_symbols, offsets)
+                    dump_json_to_file(patch_data_symbols, os.path.join(run_dir, relpath, generated_patches_path, name + '_symbols.json'))
+                os.remove(patch_symbols_path)
+                create_diff(
+                    os.path.join(run_dir, relpath, 'roms/patched.z64'),
+                    os.path.join(run_dir, relpath, 'roms/smallpatch.z64'),
+                    os.path.join(run_dir, relpath, generated_patches_path, name + '.bin'),
+                    compress=False,
+                    virtual=args.virtual,
+                    offset=offsets.table,
+                )
+
+    os.chdir(os.path.join(run_dir, relpath, 'roms'))
+    os.remove('smallpatch.z64')
+    os.chdir(run_dir)
+
 
 if __name__ == '__main__':
     main()

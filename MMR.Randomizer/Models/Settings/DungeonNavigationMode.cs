@@ -5,7 +5,7 @@ using System.ComponentModel;
 namespace MMR.Randomizer.Models
 {
     [Flags]
-    [Description("Dungeon Navigation Mode")]
+    [Description("Dungeon Nav")]
     public enum DungeonNavigationMode
     {
         Default,

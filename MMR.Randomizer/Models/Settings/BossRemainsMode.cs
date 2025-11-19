@@ -5,7 +5,7 @@ using System.ComponentModel;
 namespace MMR.Randomizer.Models
 {
     [Flags]
-    [Description("Boss Remains Mode")]
+    [Description("Boss Remains")]
     public enum BossRemainsMode
     {
         Default,

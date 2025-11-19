@@ -46,9 +46,16 @@ static ResettingItem resettingItems[resettingItemsLength] = {
 static void Savedata_SetStartingItems(GlobalContext* ctxt) {
     // Give extra starting maps.
     for (u8 i = 0; i < 6; i++) {
-        if (((MMR_CONFIG.extraStartingMaps.value >> i) & 1) != 0) {
+        if (((MMR_CONFIG.extraStartingMapsAndTokens.value >> i) & 1) != 0) {
             z2_GiveMap(i);
         }
+    }
+    // Give extra starting skull tokens
+    if (MMR_CONFIG.extraStartingMapsAndTokens.swampTokens) {
+        gSaveContext.perm.skullTokens[0] = MMR_CONFIG.extraStartingMapsAndTokens.swampTokens;
+    }
+    if (MMR_CONFIG.extraStartingMapsAndTokens.oceanTokens) {
+        gSaveContext.perm.skullTokens[1] = MMR_CONFIG.extraStartingMapsAndTokens.oceanTokens;
     }
     // Give extra starting items.
     for (u8 i = 0; i < MMR_CONFIG.extraStartingItems.length; i++) {
@@ -116,7 +123,7 @@ static void HandleAutoInvert_AfterSoT(SaveContext* file) {
 /**
  * Hook function called after some savedata has been loaded into SaveContext.
  **/
-void Savedata_AfterLoad(GlobalContext* ctxt, Camera* camera, SaveContext* file, const u8* buffer, size_t size) {
+void Savedata_AfterLoad(GlobalContext* ctxt, SaveContext* file, const u8* buffer, size_t size) {
     // Read our struct from buffer with flash data
     bool owlSave = IsOwlSaveSize(size);
     u32 offset = SaveFile_GetFlashSectionOffset(owlSave);
@@ -128,6 +135,19 @@ void Savedata_AfterLoad(GlobalContext* ctxt, Camera* camera, SaveContext* file, 
     if (!owlSave) {
         HandleAutoInvert_AfterLoad(file);
     }
+}
+
+void Savedata_ResetSaveFromMoonCrashWrapper(GlobalContext* ctxt) {
+    if (MISC_CONFIG.flags.moonCrashFileErase) {
+        SramContext* sramContext = &ctxt->sram;
+
+        z2_bzero(sramContext->savefile, 0x4000); // SAVE_BUFFER_SIZE
+        z2_Sram_SyncWriteToFlash(sramContext, 0, 0x300);
+        gSaveContext.extra.titleSetupIndex = 4; // GAMEMODE_OWL_SAVE // just exits to title screen
+        return;
+    }
+    z2_Sram_ResetSaveFromMoonCrash(&ctxt->sram);
+    Savedata_AfterLoad(ctxt, &gSaveContext, ctxt->sram.savefile, sizeof(SaveContextPerm));
 }
 
 /**

@@ -12,6 +12,8 @@ namespace MMR.Randomizer.Models.Rom
         public bool IsCompressed;
         public bool WasEdited;
         public bool IsStatic;
+        public uint VRamStart;
+        public uint VRamEnd;
 
         public MMFile Clone()
         {
@@ -24,7 +26,9 @@ namespace MMR.Randomizer.Models.Rom
                 IsCompressed = IsCompressed,
                 WasEdited = WasEdited,
                 IsStatic = IsStatic,
-                Data = Data?.ToArray()
+                Data = Data?.ToArray(),
+                VRamStart = VRamStart,
+                VRamEnd = VRamEnd
             };
         }
     }

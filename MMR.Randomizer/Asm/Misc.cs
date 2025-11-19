@@ -272,6 +272,11 @@ namespace MMR.Randomizer.Asm
         public bool BombchuDrops { get; set; }
 
         /// <summary>
+        /// Whether or not Powder Kegs should be able to be dropped.
+        /// </summary>
+        public bool KegDrops { get; set; }
+
+        /// <summary>
         /// Whether or not instant transformation should be enabled.
         /// </summary>
         public bool InstantTransform { get; set; }
@@ -294,12 +299,15 @@ namespace MMR.Randomizer.Asm
 
         public bool SkulltulaTokenSounds { get; set; }
 
+        public bool MinorDropSparkle { get; set; }
+
         public bool TakeDamageOnEpona { get; set; }
 
         public bool TakeDamageWhileShielding { get; set; }
 
         public bool TakeDamageFromVoid { get; set; }
         public bool OceanTokensRandomized { get; set; }
+        public bool MoonCrashFileErase { get; set; }
 
         public MiscFlags()
         {
@@ -340,6 +348,7 @@ namespace MMR.Randomizer.Asm
             HiddenRupeesSparkle = bitUnpacker.ReadBool();
             SaferGlitches = bitUnpacker.ReadBool();
             BombchuDrops = bitUnpacker.ReadBool();
+            KegDrops = bitUnpacker.ReadBool();
             InstantTransform = bitUnpacker.ReadBool();
             BombArrows = bitUnpacker.ReadBool();
             GiantMaskAnywhere = bitUnpacker.ReadBool();
@@ -348,10 +357,12 @@ namespace MMR.Randomizer.Asm
             EasyFrameByFrame = bitUnpacker.ReadBool();
             FairyMaskShimmer = bitUnpacker.ReadBool();
             SkulltulaTokenSounds = bitUnpacker.ReadBool();
+            MinorDropSparkle = bitUnpacker.ReadBool();
             TakeDamageOnEpona = bitUnpacker.ReadBool();
             TakeDamageWhileShielding = bitUnpacker.ReadBool();
             TakeDamageFromVoid = bitUnpacker.ReadBool();
             OceanTokensRandomized = bitUnpacker.ReadBool();
+            MoonCrashFileErase = bitUnpacker.ReadBool();
         }
 
         /// <summary>
@@ -384,6 +395,7 @@ namespace MMR.Randomizer.Asm
             bitPacker.Write(HiddenRupeesSparkle);
             bitPacker.Write(SaferGlitches);
             bitPacker.Write(BombchuDrops);
+            bitPacker.Write(KegDrops);
             bitPacker.Write(InstantTransform);
             bitPacker.Write(BombArrows);
             bitPacker.Write(GiantMaskAnywhere);
@@ -392,10 +404,12 @@ namespace MMR.Randomizer.Asm
             bitPacker.Write(EasyFrameByFrame);
             bitPacker.Write(FairyMaskShimmer);
             bitPacker.Write(SkulltulaTokenSounds);
+            bitPacker.Write(MinorDropSparkle);
             bitPacker.Write(TakeDamageOnEpona);
             bitPacker.Write(TakeDamageWhileShielding);
             bitPacker.Write(TakeDamageFromVoid);
             bitPacker.Write(OceanTokensRandomized);
+            bitPacker.Write(MoonCrashFileErase);
             return bitPacker.ToByteArray(4);
         }
     }
@@ -711,14 +725,14 @@ namespace MMR.Randomizer.Asm
             this.Speedups.FastBankRupees = settings.ShortenCutsceneSettings.General.HasFlag(ShortenCutsceneGeneral.FasterBankText);
             this.Speedups.ShortChestOpening = settings.ShortenCutsceneSettings.General.HasFlag(ShortenCutsceneGeneral.ShortChestOpening);
             this.Speedups.SkipGiantsCutscene = settings.ShortenCutsceneSettings.General.HasFlag(ShortenCutsceneGeneral.EverythingElse);
-            this.Speedups.OathHint = settings.UpdateNPCText;
+            this.Speedups.OathHint = settings.OathHint;
 
             // If using Adult Link model, allow Mikau cutscene to activate early.
             this.Flags.EarlyMikau = settings.Character == Character.AdultLink;
 
             this.Flags.FairyChests = settings.StrayFairyMode.HasFlag(StrayFairyMode.ChestsOnly);
 
-            this.Flags.OceanTokensRandomized = settings.UpdateNPCText && settings.CustomItemList.Any(ItemUtils.OceanSkulltulaTokens().Contains);
+            this.Flags.OceanTokensRandomized = settings.FairyAndSkullHint && settings.CustomItemList.Any(ItemUtils.OceanSkulltulaTokens().Contains);
 
             this.DrawFlags.DrawDonGeroMask = MaskConfigUtils.DonGeroGoronDrawMask;
             this.DrawFlags.DrawPostmanHat = MaskConfigUtils.PostmanDrawHat;
