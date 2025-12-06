@@ -465,7 +465,6 @@ namespace MMR.CLI
                 SaveSettings(configuration);
                 Console.WriteLine($"Generated {Path.ChangeExtension(DEFAULT_SETTINGS_FILENAME, SETTINGS_EXTENSION)}. Edit it to set your settings.");
             }
-
             var settingsPath = argsDictionary.GetValueOrDefault("-settings")?.FirstOrDefault();
             if (settingsPath != null)
             {
