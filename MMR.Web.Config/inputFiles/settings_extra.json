@@ -344,7 +344,7 @@
     "name": "CosmeticSettings.MusicLuckRollChance",
     "size": "small",
     "max_length": 5,
-    "invisible": true
+    "invisible": false
   },
   {
     "name": "CosmeticSettings.DPad.State",

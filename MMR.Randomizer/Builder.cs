@@ -34,14 +34,16 @@ namespace MMR.Randomizer
     {
         private RandomizedResult _randomized;
         private CosmeticSettings _cosmeticSettings;
+        private WebSettings _webSettings;
         private ExtendedObjects _extendedObjects;
         private List<MessageEntry> _extraMessages;
         private Dictionary<int, ItemGraphic> _graphicOverrides;
 
-        public Builder(RandomizedResult randomized, CosmeticSettings cosmeticSettings)
+        public Builder(RandomizedResult randomized, CosmeticSettings cosmeticSettings, WebSettings webSettings = null)
         {
             _randomized = randomized;
             _cosmeticSettings = cosmeticSettings;
+            _webSettings = webSettings;
             _extendedObjects = null;
             _extraMessages = new List<MessageEntry>();
             _graphicOverrides = new Dictionary<int, ItemGraphic>();
@@ -122,8 +124,22 @@ namespace MMR.Randomizer
                 return;
             }
 
+            if (!_settings.GenerateROM && !_settings.OutputVC && !_settings.GenerateCosmeticsPatch)
+            {
+                return;
+            }
+
             RomData.PointerizedSequences = new List<SequenceInfo>();
-            SequenceUtils.ReadSequenceInfo();
+
+            if (_settings.GenerateCosmeticsPatch)
+            {
+                SequenceUtils.ReadSequenceInfo(true, _cosmeticSettings.Music == Music.Random && _webSettings != null ? _webSettings.SequencesAvailable : null);
+            }
+            else
+            {
+                SequenceUtils.ReadSequenceInfo();
+            }
+
             SequenceUtils.ReadInstrumentSetList();
             SequenceUtils.ResetFreeBankIndex();
             if (_cosmeticSettings.Music == Music.Random)
@@ -134,11 +150,15 @@ namespace MMR.Randomizer
             }
 
             ResourceUtils.ApplyHack(Resources.mods.fix_music);
-            SequenceUtils.RebuildAudioSeq(RomData.SequenceList,
-                _cosmeticSettings.AsmOptions.MusicConfig.SequenceMaskFileIndex,
-                _cosmeticSettings.AsmOptions.MusicConfig.SequenceNamesFileIndex);
-            SequenceUtils.WriteNewSoundSamples(RomData.InstrumentSetList);
-            SequenceUtils.RebuildAudioBank(RomData.InstrumentSetList);
+
+            if (_settings.GenerateROM || _settings.OutputVC)
+            {
+                SequenceUtils.RebuildAudioSeq(RomData.SequenceList,
+                    _cosmeticSettings.AsmOptions.MusicConfig.SequenceMaskFileIndex,
+                    _cosmeticSettings.AsmOptions.MusicConfig.SequenceNamesFileIndex);
+                SequenceUtils.WriteNewSoundSamples(RomData.InstrumentSetList);
+                SequenceUtils.RebuildAudioBank(RomData.InstrumentSetList);
+            }
         }
 
         private void WriteMuteMusic()
@@ -6847,6 +6867,8 @@ namespace MMR.Randomizer
                 WriteDisableFanfares();
             }
 
+            WriteAudioSeq(new Random(BitConverter.ToInt32(hash, 0)), outputSettings);
+
             if (outputSettings.GenerateCosmeticsPatch)
             {
                 if (outputSettings.IsPatchForVC)
@@ -6857,6 +6879,64 @@ namespace MMR.Randomizer
                 var filename = Path.GetFileNameWithoutExtension(outputSettings.OutputROMFilename);
 
                 Patch.Patcher.CreatePatch(Path.Combine(directory, filename + "_Cosmetics.mmr"), cosmeticMMFileList);
+            }
+
+            if (outputSettings.GenerateRandomizedMusicInfoJson && _cosmeticSettings.Music == Music.Random)
+            {
+                var randomMusic = RomData.SequenceList;
+                var gameSequences = RomData.TargetSequences;
+
+                Dictionary<string, string> seqReplacements = new Dictionary<string, string>();
+                Dictionary<string, SequenceInfo> extraSequences = new Dictionary<string, SequenceInfo>();
+
+                foreach (var randomSeq in randomMusic)
+                {
+                    var replacedSeq = gameSequences.Find(u => u.Replaces == randomSeq.Replaces);
+
+                    if (replacedSeq != null)
+                    {
+                        seqReplacements.Add(replacedSeq.Name, randomSeq.Name);
+                    }
+                    else if (randomSeq.Name == nameof(Properties.Resources.mmr_f_sot))
+                    {
+                        if (outputSettings.GenerateCosmeticsPatch)
+                        {
+                            byte[] data = Properties.Resources.mmr_f_sot;
+                            // I think this checks if the sequence type is correct for MM
+                            //  because DB ripped sequences from SF64/SM64/MK64 without modifying them
+                            if (data[1] != 0x20)
+                            {
+                                data[1] = 0x20;
+                            }
+
+                            randomSeq.SequenceBinaryList = new List<SequenceBinaryData>();
+
+                            var binData = new SequenceBinaryData();
+                            binData.SequenceBinary = data;
+                            binData.InstrumentSet = null;
+                            binData.FormMask = null;
+                            randomSeq.SequenceBinaryList.Add(binData);
+
+                            //Sanitize directory name
+                            randomSeq.Directory = "";
+
+                            extraSequences.Add(randomSeq.Name, randomSeq);
+                            seqReplacements.Add(randomSeq.Name, randomSeq.Name);
+                        }
+                    }
+                }
+
+                //Dump to JSON
+                var directory = Path.GetDirectoryName(outputSettings.OutputROMFilename);
+                var filename = $"{Path.GetFileNameWithoutExtension(outputSettings.OutputROMFilename)}";
+
+                File.WriteAllText(Path.Combine(directory, filename + "_RandomizedMusicInfo.json"), JsonSerializer.Serialize(seqReplacements));
+
+                //Also dump extra sequences
+                if (outputSettings.GenerateCosmeticsPatch)
+                {
+                    File.WriteAllText(Path.Combine(directory, filename + "_RandomizedMusicExtraSeqs.json"), JsonSerializer.Serialize(extraSequences));
+                }
             }
 
             if (outputSettings.GenerateCompressionInfoJson)
@@ -6871,8 +6951,6 @@ namespace MMR.Randomizer
 
             if (outputSettings.GenerateROM || outputSettings.OutputVC)
             {
-                WriteAudioSeq(new Random(BitConverter.ToInt32(hash, 0)), outputSettings);
-
                 progressReporter.ReportProgress(75, "Building ROM...");
 
                 if (outputSettings.GenerateROM)

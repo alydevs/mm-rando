@@ -58,7 +58,7 @@ namespace MMR.Randomizer
                 }
 
                 var startTime = DateTime.Now;
-                var builder = new Builder(randomized, configuration.CosmeticSettings);
+                var builder = new Builder(randomized, configuration.CosmeticSettings, configuration.WebSettings);
 
                 try
                 {

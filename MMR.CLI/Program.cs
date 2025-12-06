@@ -465,6 +465,28 @@ namespace MMR.CLI
                 SaveSettings(configuration);
                 Console.WriteLine($"Generated {Path.ChangeExtension(DEFAULT_SETTINGS_FILENAME, SETTINGS_EXTENSION)}. Edit it to set your settings.");
             }
+
+            //DEBUG:
+            //-settings 'settings.json' -cosmeticSettings -outputSettings -webSettings -inputpatch "path" -cosmeticspatch -compressionJson -randomMusicJson -noProgressBar -output 'MMR.mmr'
+            /*
+            argsDictionary.Add("-settings", new List<string>());
+            argsDictionary["-settings"].Add("settings.json");
+
+            argsDictionary.Add("-cosmeticSettings", new List<string>());
+            argsDictionary.Add("-outputSettings", new List<string>());
+
+            argsDictionary.Add("-inputpatch", new List<string>());
+            argsDictionary["-inputpatch"].Add("C:\\ZSR\\MMRandomizer\\mmrdotcom\\temp\\patchFile-1764997451.mmr");
+         
+            argsDictionary.Add("-cosmeticspatch", new List<string>());
+            argsDictionary.Add("-compressionJson", new List<string>());
+            argsDictionary.Add("-randomMusicJson", new List<string>());
+            argsDictionary.Add("-noProgressBar", new List<string>());
+
+            argsDictionary.Add("-output", new List<string>());
+            argsDictionary["-output"].Add("MMR.mmr");
+            */
+
             var settingsPath = argsDictionary.GetValueOrDefault("-settings")?.FirstOrDefault();
             if (settingsPath != null)
             {
@@ -494,7 +516,15 @@ namespace MMR.CLI
                     configuration.OutputSettings = loadedConfiguration.OutputSettings;
                     Console.WriteLine($"Loaded ${nameof(Configuration.OutputSettings)} from \"{settingsPath}\".");
                 }
+                if (loadedConfiguration.WebSettings != null && argsDictionary.ContainsKey("-webSettings"))
+                {
+                    configuration.WebSettings = loadedConfiguration.WebSettings;
+                    Console.WriteLine($"Loaded ${nameof(Configuration.WebSettings)} from \"{settingsPath}\".");
+                }
             }
+
+            //HACK
+            //configuration.GameplaySettings = new GameplaySettings();
 
             if (configuration.GameplaySettings.ItemCategoriesRandomized != null || configuration.GameplaySettings.LocationCategoriesRandomized != null || configuration.GameplaySettings.ClassicCategoriesRandomized != null)
             {
@@ -541,6 +571,7 @@ namespace MMR.CLI
             configuration.OutputSettings.GenerateSettingsJson |= argsDictionary.ContainsKey("-infoJson");
             configuration.OutputSettings.GenerateHashJson |= argsDictionary.ContainsKey("-hashJson");
             configuration.OutputSettings.GenerateCompressionInfoJson |= argsDictionary.ContainsKey("-compressionJson");
+            configuration.OutputSettings.GenerateRandomizedMusicInfoJson |= argsDictionary.ContainsKey("-randomMusicJson");
             configuration.OutputSettings.IsPatchForVC |= argsDictionary.ContainsKey("-vcPatch");
 
             int seed;
