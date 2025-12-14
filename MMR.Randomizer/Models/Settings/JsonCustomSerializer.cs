@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 using SystemJsonSerializer = System.Text.Json.JsonSerializer;
 using MMR.Common.Utils;
 
-namespace MMR.Randomizer.Models
+namespace MMR.Randomizer.Models.Settings
 {
     public static class JsonCustomSerializer
     {

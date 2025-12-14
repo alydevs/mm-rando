@@ -2,7 +2,7 @@
 using MMR.Randomizer.Attributes.Setting;
 using System.ComponentModel;
 
-namespace MMR.Randomizer.Models
+namespace MMR.Randomizer.Models.Settings
 {
     public enum DamageMode
     {

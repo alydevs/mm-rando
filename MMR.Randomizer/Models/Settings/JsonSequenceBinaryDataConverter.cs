@@ -5,7 +5,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using MMR.Randomizer.Models.Rom;
 
-namespace MMR.Randomizer.Models
+namespace MMR.Randomizer.Models.Settings
 {
     public class JsonSequenceBinaryDataConverter : JsonConverter<SequenceBinaryData>
     {
