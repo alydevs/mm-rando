@@ -1,6 +1,6 @@
 ﻿using MMR.Common.Extensions;
 using MMR.Randomizer.Attributes.Entrance;
-using MMR.Randomizer.Models;
+using MMR.Randomizer.Models.Settings;
 
 namespace MMR.Randomizer.Extensions
 {
