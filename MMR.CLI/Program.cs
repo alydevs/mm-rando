@@ -494,6 +494,11 @@ namespace MMR.CLI
                     configuration.OutputSettings = loadedConfiguration.OutputSettings;
                     Console.WriteLine($"Loaded ${nameof(Configuration.OutputSettings)} from \"{settingsPath}\".");
                 }
+                if (loadedConfiguration.WebSettings != null && argsDictionary.ContainsKey("-webSettings"))
+                {
+                    configuration.WebSettings = loadedConfiguration.WebSettings;
+                    Console.WriteLine($"Loaded ${nameof(Configuration.WebSettings)} from \"{settingsPath}\".");
+                }
             }
 
             if (configuration.GameplaySettings.ItemCategoriesRandomized != null || configuration.GameplaySettings.LocationCategoriesRandomized != null || configuration.GameplaySettings.ClassicCategoriesRandomized != null)
@@ -541,6 +546,7 @@ namespace MMR.CLI
             configuration.OutputSettings.GenerateSettingsJson |= argsDictionary.ContainsKey("-infoJson");
             configuration.OutputSettings.GenerateHashJson |= argsDictionary.ContainsKey("-hashJson");
             configuration.OutputSettings.GenerateCompressionInfoJson |= argsDictionary.ContainsKey("-compressionJson");
+            configuration.OutputSettings.GenerateRandomizedMusicInfoJson |= argsDictionary.ContainsKey("-randomMusicJson");
             configuration.OutputSettings.IsPatchForVC |= argsDictionary.ContainsKey("-vcPatch");
 
             int seed;

@@ -227,6 +227,22 @@
     ]
   },
   {
+    "name": "Web.custom_music_directorypicker",
+    "text": "Custom Music",
+    "default": "",
+    "options": [],
+    "tooltip": "Upload custom music files in MMR's dedicated .mmrs format.<br>You can upload individual files or directories consisting of multiple<br>custom sequences. Implementation into the seed is controlled by<br>the CosmeticSettings.Music setting.<br>Note: Multiple directories at once can only be uploaded by dragging them<br>onto the text field.",
+    "type": "Directoryinput",
+    "shared": false,
+    "file_types": [
+      {
+        "name": "MMR Sequence Files",
+        "extensions": [ "mmrs" ]
+      }
+    ],
+    "hide_when_disabled": true
+  },
+  {
     "name": "GameplaySettings.OverrideHintPriorities",
     "invisible": true
   },
@@ -306,17 +322,21 @@
   },
   {
     "name": "CosmeticSettings.Music",
-    "tooltip": "Select a music option<br><br> - Default: Vanilla background music.<br> - None: No background music.",
+    "tooltip": "Select a music option<br><br> - Default: Vanilla background music.<br> - Random: Randomized background music.<br> - None: No background music.",
     "options": [
       {
         "name": "Default",
         "text": "Default",
-        "controls_visibility_setting": "CosmeticSettings.MusicLuckRollChance"
+        "controls_visibility_setting": "CosmeticSettings.MusicLuckRollChance,Web.custom_music_directorypicker"
+      },
+      {
+        "name": "Random",
+        "text": "Random"
       },
       {
         "name": "None",
         "text": "None",
-        "controls_visibility_setting": "CosmeticSettings.MusicLuckRollChance"
+        "controls_visibility_setting": "CosmeticSettings.MusicLuckRollChance,Web.custom_music_directorypicker"
       }
     ]
   },
@@ -324,7 +344,7 @@
     "name": "CosmeticSettings.MusicLuckRollChance",
     "size": "small",
     "max_length": 5,
-    "invisible": true
+    "invisible": false
   },
   {
     "name": "CosmeticSettings.DPad.State",

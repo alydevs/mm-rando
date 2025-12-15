@@ -74,6 +74,9 @@ namespace MMR.Randomizer.Models.Settings
         public bool GenerateCompressionInfoJson{ get; set; }
 
         [JsonIgnore]
+        public bool GenerateRandomizedMusicInfoJson { get; set; }
+
+        [JsonIgnore]
         public bool IsPatchForVC { get; set; }
 
         public string Validate()
