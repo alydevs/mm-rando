@@ -6932,10 +6932,23 @@ namespace MMR.Randomizer
 
                 File.WriteAllText(Path.Combine(directory, filename + "_RandomizedMusicInfo.json"), JsonSerializer.Serialize(seqReplacements));
 
-                //Also dump extra sequences
+                //Also dump extra sequences, pointerized sequences and music related file indices
                 if (outputSettings.GenerateCosmeticsPatch)
                 {
                     File.WriteAllText(Path.Combine(directory, filename + "_RandomizedMusicExtraSeqs.json"), JsonSerializer.Serialize(extraSequences));
+
+                    Dictionary<string, string> pointerizedSequences = new Dictionary<string, string>();
+                    foreach (var seq in RomData.PointerizedSequences)
+                    {
+                        var substituteSeq = gameSequences.Find(u => u.Replaces == seq.Replaces);
+                        pointerizedSequences.Add(seq.Name, substituteSeq.Name);
+                    }
+                    File.WriteAllText(Path.Combine(directory, filename + "_RandomizedMusicPointerizedSeqs.json"), JsonSerializer.Serialize(pointerizedSequences));
+
+                    Dictionary<string, int> musicFileIndices = new Dictionary<string, int>();
+                    musicFileIndices.Add("formMask", _cosmeticSettings.AsmOptions.MusicConfig.SequenceMaskFileIndex ?? -1);
+                    musicFileIndices.Add("seqDisplayNames", _cosmeticSettings.AsmOptions.MusicConfig.SequenceNamesFileIndex ?? -1);
+                    File.WriteAllText(Path.Combine(directory, filename + "_RandomizedMusicFileIDs.json"), JsonSerializer.Serialize(musicFileIndices));
                 }
             }
 
