@@ -6941,7 +6941,7 @@ namespace MMR.Randomizer
                     foreach (var seq in RomData.PointerizedSequences)
                     {
                         var substituteSeq = gameSequences.Find(u => u.Replaces == seq.Replaces);
-                        pointerizedSequences.Add(seq.Name, substituteSeq.Name);
+                        pointerizedSequences.Add(seq.Name, substituteSeq != null ? substituteSeq.Name : seq.Replaces.ToString());
                     }
                     File.WriteAllText(Path.Combine(directory, filename + "_RandomizedMusicPointerizedSeqs.json"), JsonSerializer.Serialize(pointerizedSequences));
 
