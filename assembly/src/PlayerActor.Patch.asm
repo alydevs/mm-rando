@@ -1329,7 +1329,7 @@
 ;   SB      V1, 0x0154 (S0)
 .org 0x8082FF2C
     or      a0, s0, r0
-    jal     Player_ShouldAutoRemoveGiantsMask
+    jal     Player_ShouldAutoRemoveMask
     sw      v1, 0x0048 (sp)
     lw      v1, 0x0048 (sp)
     lw      a0, 0x0054 (sp)
