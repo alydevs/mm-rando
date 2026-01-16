@@ -775,6 +775,24 @@ function assembleSetting(version, setting, linkedSettings = false, overrideBaseT
                         if (settingTypeOriginalDerived === "FlagEnum") {
                             settingArray.string_value = true;
                             settingObject.string_value = true;
+
+                            // Aggregate option tooltips into main tooltip if main tooltip is empty
+                            if (!settingArray.tooltip || settingArray.tooltip.length === 0) {
+                                let aggregatedTooltips = [];
+
+                                for (let option of optionsArray) {
+                                    if (option.tooltip && option.tooltip.length > 0) {
+                                        aggregatedTooltips.push(`<b>${option.text}</b>: ${option.tooltip}`);
+                                    }
+                                }
+
+                                if (aggregatedTooltips.length > 0) {
+                                    let aggregatedTooltip = aggregatedTooltips.join('<br>');
+                                    settingArray.tooltip = aggregatedTooltip;
+                                    settingObject.tooltip = aggregatedTooltip;
+                                }
+                            }
+
                         }
                         else {
                             settingArray.string_value = false;
