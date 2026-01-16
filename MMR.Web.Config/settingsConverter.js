@@ -792,7 +792,6 @@ function assembleSetting(version, setting, linkedSettings = false, overrideBaseT
                                     settingObject.tooltip = aggregatedTooltip;
                                 }
                             }
-
                         }
                         else {
                             settingArray.string_value = false;
