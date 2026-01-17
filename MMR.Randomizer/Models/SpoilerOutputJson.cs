@@ -30,11 +30,11 @@ namespace MMR.Randomizer.Models
 
     public class SpoilerDungeonEntrance
     {
-        public string Entrance { get; }
-        public string Destination { get; }
+        public string Entrance { get; set; }
+        public string Destination { get; set; }
         public int EntranceId { get; }
         public int DestinationId { get; }
-        public EntranceType EntranceType { get; }
+        public EntranceType EntranceType { get; set; }
 
         public SpoilerDungeonEntrance(KeyValuePair<Item, Item> entrance)
         {
