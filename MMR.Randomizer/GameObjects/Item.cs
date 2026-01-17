@@ -2778,7 +2778,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x139), ItemPool(ItemCategory.Milk, LocationCategory.NpcRewards, ClassicCategory.CowMilk)]
         ItemCoastGrottoCowMilk2,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Main Room Near Ceiling"), Region(Region.SwampSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -2787,7 +2787,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x13A), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleSwampSpiderToken1,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Gold Room Near Ceiling"), Region(Region.SwampSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -2796,7 +2796,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x13B), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleSwampSpiderToken2,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Monument Room Torch"), Region(Region.SwampSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -2805,7 +2805,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x13C), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleSwampSpiderToken3,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Gold Room Pillar"), Region(Region.SwampSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -2814,7 +2814,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x13E), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleSwampSpiderToken4,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Pot Room Jar"), Region(Region.SwampSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -2823,7 +2823,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x13F), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.Jars, ClassicCategory.SkulltulaTokens)]
         CollectibleSwampSpiderToken5,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Tree Room Grass 1"), Region(Region.SwampSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -2832,7 +2832,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x140), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleSwampSpiderToken6,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Tree Room Grass 2"), Region(Region.SwampSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -2841,7 +2841,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x141), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleSwampSpiderToken7,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Main Room Water"), Region(Region.SwampSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -2850,7 +2850,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x142), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleSwampSpiderToken8,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Main Room Lower Left Soft Soil"), Region(Region.SwampSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -2859,7 +2859,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x143), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.SoftSoil, ClassicCategory.SkulltulaTokens)]
         CollectibleSwampSpiderToken9,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Monument Room Crate 1"), Region(Region.SwampSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -2868,7 +2868,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x144), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.Crates, ClassicCategory.SkulltulaTokens)]
         CollectibleSwampSpiderToken10,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Main Room Upper Soft Soil"), Region(Region.SwampSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -2877,7 +2877,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x145), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.SoftSoil, ClassicCategory.SkulltulaTokens)]
         CollectibleSwampSpiderToken11,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Main Room Lower Right Soft Soil"), Region(Region.SwampSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -2886,7 +2886,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x146), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.SoftSoil, ClassicCategory.SkulltulaTokens)]
         CollectibleSwampSpiderToken12,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Monument Room Lower Wall"), Region(Region.SwampSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -2895,7 +2895,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x147), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleSwampSpiderToken13,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Monument Room On Monument"), Region(Region.SwampSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -2904,7 +2904,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x148), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleSwampSpiderToken14,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Main Room Pillar"), Region(Region.SwampSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -2913,7 +2913,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x149), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleSwampSpiderToken15,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Pot Room Pot 1"), Region(Region.SwampSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -2922,7 +2922,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x14A), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleSwampSpiderToken16,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Pot Room Pot 2"), Region(Region.SwampSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -2931,7 +2931,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x14B), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleSwampSpiderToken17,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Gold Room Hive"), Region(Region.SwampSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -2940,7 +2940,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x14C), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.Beehives, ClassicCategory.SkulltulaTokens)]
         CollectibleSwampSpiderToken18,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Main Room Upper Pillar"), Region(Region.SwampSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -2949,7 +2949,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x14D), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleSwampSpiderToken19,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Pot Room Behind Vines"), Region(Region.SwampSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -2958,7 +2958,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x14E), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleSwampSpiderToken20,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Tree Room Tree 1"), Region(Region.SwampSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -2967,7 +2967,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x14F), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleSwampSpiderToken21,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Pot Room Wall"), Region(Region.SwampSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -2976,7 +2976,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x150), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleSwampSpiderToken22,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Pot Room Hive 1"), Region(Region.SwampSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -2985,7 +2985,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x151), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.Beehives, ClassicCategory.SkulltulaTokens)]
         CollectibleSwampSpiderToken23,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Tree Room Tree 2"), Region(Region.SwampSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -2994,7 +2994,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x152), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleSwampSpiderToken24,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Gold Room Wall"), Region(Region.SwampSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -3003,7 +3003,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x153), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleSwampSpiderToken25,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Tree Room Hive"), Region(Region.SwampSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -3012,7 +3012,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x154), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.Beehives, ClassicCategory.SkulltulaTokens)]
         CollectibleSwampSpiderToken26,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Monument Room Crate 2"), Region(Region.SwampSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -3021,7 +3021,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x155), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.Crates, ClassicCategory.SkulltulaTokens)]
         CollectibleSwampSpiderToken27,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Pot Room Hive 2"), Region(Region.SwampSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -3030,7 +3030,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x156), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.Beehives, ClassicCategory.SkulltulaTokens)]
         CollectibleSwampSpiderToken28,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Tree Room Tree 3"), Region(Region.SwampSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -3039,7 +3039,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x157), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleSwampSpiderToken29,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Swamp Skulltula Spirit"), LocationName("Swamp Skulltula Main Room Jar"), Region(Region.SwampSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -3048,7 +3048,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x158), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.Jars, ClassicCategory.SkulltulaTokens)]
         CollectibleSwampSpiderToken30,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Storage Room Behind Boat"), Region(Region.OceanSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -3057,7 +3057,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x159), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleOceanSpiderToken1,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Library Hole Behind Picture"), Region(Region.OceanSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -3066,7 +3066,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x15A), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleOceanSpiderToken2,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Library Hole Behind Cabinet"), Region(Region.OceanSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -3075,7 +3075,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x15B), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleOceanSpiderToken3,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Library On Corner Bookshelf"), Region(Region.OceanSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -3084,7 +3084,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x15C), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleOceanSpiderToken4,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Ceiling Edge"), Region(Region.OceanSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -3093,7 +3093,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x15D), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleOceanSpiderToken5,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Ceiling Plank"), Region(Region.OceanSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -3102,7 +3102,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x15E), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleOceanSpiderToken6,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Colored Skulls Ceiling Edge"), Region(Region.OceanSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -3111,7 +3111,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x15F), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleOceanSpiderToken7,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Library Ceiling Edge"), Region(Region.OceanSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -3120,7 +3120,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x160), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleOceanSpiderToken8,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Storage Room Ceiling Web"), Region(Region.OceanSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -3129,7 +3129,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x161), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleOceanSpiderToken9,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Storage Room Behind Crate"), Region(Region.OceanSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -3138,7 +3138,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x162), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleOceanSpiderToken10,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Jar"), Region(Region.OceanSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -3147,7 +3147,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x163), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.Jars, ClassicCategory.SkulltulaTokens)]
         CollectibleOceanSpiderToken11,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Entrance Right Wall"), Region(Region.OceanSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -3156,7 +3156,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x164), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleOceanSpiderToken12,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Entrance Left Wall"), Region(Region.OceanSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -3165,7 +3165,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x165), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleOceanSpiderToken13,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Webbed Hole"), Region(Region.OceanSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -3174,7 +3174,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x166), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleOceanSpiderToken14,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Entrance Web"), Region(Region.OceanSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -3183,7 +3183,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x167), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleOceanSpiderToken15,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Colored Skulls Chandelier 1"), Region(Region.OceanSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -3192,7 +3192,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x168), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleOceanSpiderToken16,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Colored Skulls Chandelier 2"), Region(Region.OceanSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -3201,7 +3201,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x169), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleOceanSpiderToken17,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Colored Skulls Chandelier 3"), Region(Region.OceanSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -3210,7 +3210,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x16A), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleOceanSpiderToken18,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Colored Skulls Behind Picture"), Region(Region.OceanSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -3219,7 +3219,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x16B), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleOceanSpiderToken19,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Library Behind Picture"), Region(Region.OceanSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -3228,7 +3228,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x16C), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleOceanSpiderToken20,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Library Behind Bookcase 1"), Region(Region.OceanSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -3237,7 +3237,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x16D), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleOceanSpiderToken21,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Storage Room Crate"), Region(Region.OceanSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -3246,7 +3246,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x16E), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.Crates, ClassicCategory.SkulltulaTokens)]
         CollectibleOceanSpiderToken22,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Webbed Pot"), Region(Region.OceanSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -3255,7 +3255,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x16F), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleOceanSpiderToken23,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Upper Pot"), Region(Region.OceanSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -3264,7 +3264,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x170), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleOceanSpiderToken24,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Colored Skulls Pot"), Region(Region.OceanSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -3273,7 +3273,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x171), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleOceanSpiderToken25,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Storage Room Jar"), Region(Region.OceanSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -3282,7 +3282,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x172), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.Jars, ClassicCategory.SkulltulaTokens)]
         CollectibleOceanSpiderToken26,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Lower Pot"), Region(Region.OceanSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -3291,7 +3291,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x173), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleOceanSpiderToken27,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula Library Behind Bookcase 2"), Region(Region.OceanSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -3300,7 +3300,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x174), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleOceanSpiderToken28,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Behind Skull 1"), Region(Region.OceanSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]
@@ -3309,7 +3309,7 @@ namespace MMR.Randomizer.GameObjects
         [GetItemIndex(0x175), ItemPool(ItemCategory.SkulltulaTokens, LocationCategory.EnemySpawn, ClassicCategory.SkulltulaTokens)]
         CollectibleOceanSpiderToken29,
 
-        [StartingItemSkullAttribute]
+        [StartingItemSkull]
         [ModelVisible(nameof(GameplaySettings.UpdateWorldModels), true)]
         [ItemName("Ocean Skulltula Spirit"), LocationName("Ocean Skulltula 2nd Room Behind Skull 2"), Region(Region.OceanSpiderHouseItems)]
         [GossipLocationHint("a golden spider"), GossipItemHint("a golden token")]

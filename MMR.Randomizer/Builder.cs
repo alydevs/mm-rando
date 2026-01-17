@@ -1672,6 +1672,7 @@ namespace MMR.Randomizer
                     {
                         throw new Exception($@"Invalid {nameof(StartingItemSkullAttribute)} for item ""{item}""");
                     }
+                    continue;
                 }
                 if (item.HasAttribute<StartingItemIdAttribute>())
                 {
