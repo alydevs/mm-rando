@@ -499,6 +499,14 @@ export class GUIModularListboxComponent extends DualListComponent {
 
   private isDragging = false;
 
+  // Override allowDrop to ensure preventDefault without any extra logic
+  allowDrop(event: DragEvent, list: BasicList): boolean {
+    if (event.dataTransfer?.types?.length && event.dataTransfer.types[0] === this.id) {
+      event.preventDefault();
+    }
+    return false;
+  }
+
   // Override selectItem / drag events to ensure change detection runs when clicking items
   selectItem(list: any, item: any) {
     super.selectItem(list, item);
@@ -523,6 +531,7 @@ export class GUIModularListboxComponent extends DualListComponent {
   }
 
   drop(event: DragEvent, list: BasicList) {
+    event.preventDefault();
     this.isDragging = false;
     this.cd.reattach();
     super.drop(event, list);
