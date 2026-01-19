@@ -34,7 +34,7 @@ export class GUIModularListboxComponent extends DualListComponent {
   @Input() enableResponsiveDesign: boolean = true;
 
   // Tooltip configuration
-  @Input() tooltipDelay: number = 2000; // Default 2 seconds (extended from 1 second)
+  @Input() tooltipDelay: number = 1000;
   @Input() enableCrossListTooltips: boolean = true; // Enable tooltips that wrap to the other list
 
   selectedTag: any = {};
@@ -70,7 +70,7 @@ export class GUIModularListboxComponent extends DualListComponent {
 
       if (this.global.getGlobalVar('electronAvailable'))
         breakpointMaxWidth = breakpointElectronMaxWidth;
-     
+
       this.breakpointObserver.observe([
         `(max-width: ${breakpointMaxWidth}px)`
       ]).subscribe((result: BreakpointState) => {
@@ -86,7 +86,7 @@ export class GUIModularListboxComponent extends DualListComponent {
       });
     }
   }
-  
+
   ngOnChanges(changeRecord) {
     super.ngOnChanges(changeRecord);
 
@@ -103,7 +103,7 @@ export class GUIModularListboxComponent extends DualListComponent {
       } else {
         this.selectedTag = "(all)";
       }
-      
+
     }
 
     if (changeRecord['destination']) {
@@ -128,8 +128,8 @@ export class GUIModularListboxComponent extends DualListComponent {
   buildAvailable(source: Array<any>): boolean {
     const result = super.buildAvailable(source);
 
-    // Always process items to add tooltip and tags support, regardless of base class result
-    if (this.tooltip || this.tagFilter) {
+    // Only process items when the list actually changed
+    if (result && (this.tooltip || this.tagFilter)) {
       // Create a Map for O(1) lookups instead of O(n) find operations
       const sourceMap = new Map();
       source.forEach(src => {
@@ -407,10 +407,10 @@ export class GUIModularListboxComponent extends DualListComponent {
         this.selectedTag = "(all)";
       }
     }
-    
+
     // Call the base class onFilter FIRST for search picker functionality
     super.onFilter(source);
-    
+
     if (source.name === "available" && this.tagFilter && Object.keys(this.selectedTag).length > 0) {
       if (this.enableCoDependentFilters) {
         // Check if we really need to filter
@@ -480,13 +480,13 @@ export class GUIModularListboxComponent extends DualListComponent {
 
   getNbMultipleSelectLabel(setting: any): string {
     if (!this.enablePresets) return "";
-    
+
     if (this.selectedPresets.length === this.presets.presets.length)
       return "All";
 
     if (this.mobileWindowSize && (this.selectedPresets.length > 1 || this.selectedPresets.join(", ").length > 16))
       return `Selected: ${this.selectedPresets.length}`;
-     
+
     if ((this.reducedWindowSize && this.selectedPresets.length > 1) || this.selectedPresets.length > 2)
       return `Selected: ${this.selectedPresets.length}`;
     else
@@ -497,45 +497,29 @@ export class GUIModularListboxComponent extends DualListComponent {
     return listName === 'available' ? 'right' : 'left';
   }
 
-  private isDragging = false;
+  private tooltipTimeout: any = null;
 
-  // Override allowDrop to ensure preventDefault without any extra logic
-  allowDrop(event: DragEvent, list: BasicList): boolean {
-    if (event.dataTransfer?.types?.length && event.dataTransfer.types[0] === this.id) {
-      event.preventDefault();
+  onTooltipMouseEnter(popover: any): void {
+    if (this.tooltipTimeout) {
+      clearTimeout(this.tooltipTimeout);
     }
-    return false;
+
+    this.tooltipTimeout = setTimeout(() => {
+      if (popover && typeof popover.show === 'function') {
+        popover.show();
+      }
+    }, this.tooltipDelay);
   }
 
-  // Override selectItem / drag events to ensure change detection runs when clicking items
-  selectItem(list: any, item: any) {
-    super.selectItem(list, item);
-    if (!this.isDragging) {
-      this.cd.detectChanges();
+  onTooltipMouseLeave(popover: any): void {
+    // Clear timeout if mouse leaves before delay expires
+    if (this.tooltipTimeout) {
+      clearTimeout(this.tooltipTimeout);
+      this.tooltipTimeout = null;
     }
-  }
-
-  drag(event: DragEvent, item: any, list: BasicList) {
-    this.isDragging = true;
-    super.drag(event, item, list);
-    this.cd.detectChanges();
-    this.cd.detach();
-  }
-
-  dragEnd(list: BasicList = null): boolean {
-    const result = super.dragEnd(list);
-    this.isDragging = false;
-    this.cd.reattach();
-    this.cd.detectChanges();
-    return result;
-  }
-
-  drop(event: DragEvent, list: BasicList) {
-    event.preventDefault();
-    this.isDragging = false;
-    this.cd.reattach();
-    super.drop(event, list);
-    this.cd.detectChanges();
+    if (popover && typeof popover.hide === 'function') {
+      popover.hide();
+    }
   }
 
   moveItem(source: BasicList, target: BasicList, item?: any, trueup?: boolean): void {
