@@ -127,25 +127,27 @@ export class GUIModularListboxComponent extends DualListComponent {
   // Override buildAvailable to add tooltip support
   buildAvailable(source: Array<any>): boolean {
     const result = super.buildAvailable(source);
-    
+
     // Always process items to add tooltip and tags support, regardless of base class result
     if (this.tooltip || this.tagFilter) {
+      // Create a Map for O(1) lookups instead of O(n) find operations
+      const sourceMap = new Map();
+      source.forEach(src => {
+        const id = typeof src === 'object' ? src[this.key] : src;
+        sourceMap.set(id, src);
+      });
+
       this.available.list.forEach((item, index) => {
         if (item) {
-          // Find the original source item to get tooltip and tags data
-          const sourceItem = source.find(src => {
-            if (typeof src === 'object') {
-              return src[this.key] === item._id;
-            }
-            return src === item._id;
-          });
-          
+          // O(1) lookup instead of O(n) find
+          const sourceItem = sourceMap.get(item._id);
+
           if (sourceItem) {
             // Add tooltip if not present
             if (!item._tooltip && this.tooltip) {
               item._tooltip = this.makeTooltipExtended(sourceItem);
             }
-            
+
             // Add tags if not present (needed for filtering)
             if (!item._tags && this.tagFilter) {
               item._tags = this.makeTagsExtended(sourceItem);
@@ -154,7 +156,7 @@ export class GUIModularListboxComponent extends DualListComponent {
         }
       });
     }
-    
+
     return result;
   }
 
@@ -179,25 +181,27 @@ export class GUIModularListboxComponent extends DualListComponent {
   // Override buildConfirmed to add tooltip support
   buildConfirmed(destination: Array<any>): boolean {
     const result = super.buildConfirmed(destination);
-    
+
     // Add tooltip and tags support to the built items
     if (result && (this.tooltip || this.tagFilter)) {
+      // Create a Map for O(1) lookups instead of O(n) find operations
+      const sourceMap = new Map();
+      this.source.forEach(src => {
+        const id = typeof src === 'object' ? src[this.key] : src;
+        sourceMap.set(id, src);
+      });
+
       this.confirmed.list.forEach(item => {
         if (item) {
-          // Find the original source item to get tooltip and tags data
-          const sourceItem = this.source.find(src => {
-            if (typeof src === 'object') {
-              return src[this.key] === item._id;
-            }
-            return src === item._id;
-          });
-          
+          // O(1) lookup instead of O(n) find
+          const sourceItem = sourceMap.get(item._id);
+
           if (sourceItem) {
             // Add tooltip if not present
             if (!item._tooltip && this.tooltip) {
               item._tooltip = this.makeTooltipExtended(sourceItem);
             }
-            
+
             // Add tags if not present (needed for filtering)
             if (!item._tags && this.tagFilter) {
               item._tags = this.makeTagsExtended(sourceItem);
@@ -206,7 +210,7 @@ export class GUIModularListboxComponent extends DualListComponent {
         }
       });
     }
-    
+
     return result;
   }
 
@@ -493,11 +497,43 @@ export class GUIModularListboxComponent extends DualListComponent {
     return listName === 'available' ? 'right' : 'left';
   }
 
+  private isDragging = false;
+
+  // Override selectItem / drag events to ensure change detection runs when clicking items
+  selectItem(list: any, item: any) {
+    super.selectItem(list, item);
+    if (!this.isDragging) {
+      this.cd.detectChanges();
+    }
+  }
+
+  drag(event: DragEvent, item: any, list: BasicList) {
+    this.isDragging = true;
+    super.drag(event, item, list);
+    this.cd.detectChanges();
+    this.cd.detach();
+  }
+
+  dragEnd(list: BasicList = null): boolean {
+    const result = super.dragEnd(list);
+    this.isDragging = false;
+    this.cd.reattach();
+    this.cd.detectChanges();
+    return result;
+  }
+
+  drop(event: DragEvent, list: BasicList) {
+    this.isDragging = false;
+    this.cd.reattach();
+    super.drop(event, list);
+    this.cd.detectChanges();
+  }
+
   moveItem(source: BasicList, target: BasicList, item?: any, trueup?: boolean): void {
     super.moveItem(source, target, item, trueup);
     this.onFilter(source);
     this.onFilter(target);
-    
+
     this.cd.markForCheck();
   }
 }

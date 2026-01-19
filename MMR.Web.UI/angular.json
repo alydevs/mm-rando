@@ -99,6 +99,18 @@
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.hmr.ts"
                 }
+              ],
+              "assets": [
+                {
+                  "glob": "settings_list.json",
+                  "input": "../MMR.Web.Config",
+                  "output": "/angular/dev/dev_local/utils"
+                },
+                {
+                  "glob": "presets_default.json",
+                  "input": "../MMR.Web.Config",
+                  "output": "/angular/dev/dev_local/utils"
+                }
               ]
             }
           },

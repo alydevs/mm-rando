@@ -67,17 +67,14 @@ export class GUIGlobal implements OnDestroy {
     else { //Online/Web mode
       console.log("Electron API not available, assume web mode");
 
-      if (!(<any>window).pythonSourceVersion) {
-        console.error("No python version defined, exit");
-        return;
-      }
-
-      this.setGlobalVar("webSourceVersion", (<any>window).pythonSourceVersion);
+      // In production, pythonSourceVersion is set by the embedding web page
+      const webVersion = (<any>window).pythonSourceVersion || "dev_local";
+      this.setGlobalVar("webSourceVersion", webVersion);
 
       if ((<any>window).pythonSourceIsMasterVersion)
         this.setGlobalVar("webIsMasterVersion", (<any>window).pythonSourceIsMasterVersion);
 
-      console.log("Web version: " + (<any>window).pythonSourceVersion + " ; master version:", this.getGlobalVar("webIsMasterVersion"));
+      console.log("Web version: " + webVersion + " ; master version:", this.getGlobalVar("webIsMasterVersion"));
 
       let dirPickerSupport = this.testDirectoryPickerFeatureWeb();
       this.setGlobalVar("webSupportDirectoryPicker", dirPickerSupport);
@@ -649,7 +646,7 @@ export class GUIGlobal implements OnDestroy {
               }
             }
 
-            if (useDefault) { 
+            if (useDefault) {
               this.generator_settingsMap[setting.name] = typeof (setting.default) === "object" ? JSON.parse(JSON.stringify(setting.default)) : setting.default;
             }
           }
@@ -707,7 +704,7 @@ export class GUIGlobal implements OnDestroy {
               this.generator_customColorMap[setting.name] = "";
             }
           }
-          
+
           //Handle dynamic settings. The available options (and sometimes the tooltip) are determined at runtime
           if (setting.dynamic) {
             let dynamicSetting = await this.updateDynamicSetting(setting.name)
@@ -717,22 +714,22 @@ export class GUIGlobal implements OnDestroy {
               let parsedSetting = JSON.parse(dynamicSetting);
 
               let isCosmetic = (tab.name in guiSettings.cosmeticsObj);
-                     
+
               guiSettings.settingsObj[tab.name].sections[section.name].settings[setting.name] = parsedSetting.object;
-              
+
               guiSettings.settingsArray[tabIndex].sections[sectionIndex].settings[settingIndex] = parsedSetting.array;
-  
+
               if (isCosmetic) {
                 guiSettings.cosmeticsObj[tab.name].sections[section.name].settings[setting.name] = parsedSetting.object;
-  
+
                 let cosmeticTabIndex = guiSettings.cosmeticsArray.findIndex(elem => elem.name == tab.name);
-  
+
                 if (cosmeticTabIndex != -1) {
-  
+
                   //Note: This follows the assumption that sections and settings are structured identically between settings and cosmetics arrays.
                   guiSettings.cosmeticsArray[cosmeticTabIndex].sections[sectionIndex].settings[settingIndex] = parsedSetting.array;
                 }
-              }  
+              }
             }
           }
         };
@@ -790,12 +787,12 @@ export class GUIGlobal implements OnDestroy {
         }).catch(err => {
           console.error("[updateDynamicSettingy] Post-Robot Error:", err);
           reject(null);
-        });   
+        });
       } else { //web mode
           //TODO: Should dynamic settings ever be needed on web, add API call or browser lookups here.
           //for now, resolving with null is fine.
           resolve(null);
-      }   
+      }
     })
   }
 
@@ -1068,7 +1065,7 @@ export class GUIGlobal implements OnDestroy {
       }
 
       if (syncToGlobalMap) { //Global too if needed and refresh GUI after to signal change
- 
+
         if (dictKey)
           this.generator_settingsMap[setting.name] = JSON.parse(JSON.stringify(settingsFile[setting.name]));
         else
