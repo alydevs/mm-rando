@@ -2311,7 +2311,15 @@ namespace MMR.Randomizer
 
             if (!_settings.RandomizeGibdoRequirements)
             {
-                _randomized.GibdoRequirements.AddRange(GibdoRequirement.GibdoRequirements);
+                foreach (var gibdoRequirement in GibdoRequirement.GibdoRequirements)
+                {
+                    var amountAttribute = gibdoRequirement.ItemRequired.GetAttribute<ItemGibdoAmountAttribute>();
+                    var amount = amountAttribute?.DefaultAmount ?? 1;
+                    _randomized.GibdoRequirements.Add(new GibdoRequirement(gibdoRequirement.ItemRequired, gibdoRequirement.LogicEntry)
+                    {
+                        Amount = amount,
+                    });
+                }
                 return;
             }
 
