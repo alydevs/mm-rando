@@ -34,7 +34,7 @@ export class GUIModularListboxComponent extends DualListComponent {
   @Input() enableResponsiveDesign: boolean = true;
 
   // Tooltip configuration
-  @Input() tooltipDelay: number = 2000; // Default 2 seconds (extended from 1 second)
+  @Input() tooltipDelay: number = 1000;
   @Input() enableCrossListTooltips: boolean = true; // Enable tooltips that wrap to the other list
 
   selectedTag: any = {};
@@ -70,7 +70,7 @@ export class GUIModularListboxComponent extends DualListComponent {
 
       if (this.global.getGlobalVar('electronAvailable'))
         breakpointMaxWidth = breakpointElectronMaxWidth;
-     
+
       this.breakpointObserver.observe([
         `(max-width: ${breakpointMaxWidth}px)`
       ]).subscribe((result: BreakpointState) => {
@@ -86,7 +86,7 @@ export class GUIModularListboxComponent extends DualListComponent {
       });
     }
   }
-  
+
   ngOnChanges(changeRecord) {
     super.ngOnChanges(changeRecord);
 
@@ -103,7 +103,7 @@ export class GUIModularListboxComponent extends DualListComponent {
       } else {
         this.selectedTag = "(all)";
       }
-      
+
     }
 
     if (changeRecord['destination']) {
@@ -127,25 +127,27 @@ export class GUIModularListboxComponent extends DualListComponent {
   // Override buildAvailable to add tooltip support
   buildAvailable(source: Array<any>): boolean {
     const result = super.buildAvailable(source);
-    
-    // Always process items to add tooltip and tags support, regardless of base class result
-    if (this.tooltip || this.tagFilter) {
+
+    // Only process items when the list actually changed
+    if (result && (this.tooltip || this.tagFilter)) {
+      // Create a Map for O(1) lookups instead of O(n) find operations
+      const sourceMap = new Map();
+      source.forEach(src => {
+        const id = typeof src === 'object' ? src[this.key] : src;
+        sourceMap.set(id, src);
+      });
+
       this.available.list.forEach((item, index) => {
         if (item) {
-          // Find the original source item to get tooltip and tags data
-          const sourceItem = source.find(src => {
-            if (typeof src === 'object') {
-              return src[this.key] === item._id;
-            }
-            return src === item._id;
-          });
-          
+          // O(1) lookup instead of O(n) find
+          const sourceItem = sourceMap.get(item._id);
+
           if (sourceItem) {
             // Add tooltip if not present
             if (!item._tooltip && this.tooltip) {
               item._tooltip = this.makeTooltipExtended(sourceItem);
             }
-            
+
             // Add tags if not present (needed for filtering)
             if (!item._tags && this.tagFilter) {
               item._tags = this.makeTagsExtended(sourceItem);
@@ -154,7 +156,7 @@ export class GUIModularListboxComponent extends DualListComponent {
         }
       });
     }
-    
+
     return result;
   }
 
@@ -179,25 +181,27 @@ export class GUIModularListboxComponent extends DualListComponent {
   // Override buildConfirmed to add tooltip support
   buildConfirmed(destination: Array<any>): boolean {
     const result = super.buildConfirmed(destination);
-    
+
     // Add tooltip and tags support to the built items
     if (result && (this.tooltip || this.tagFilter)) {
+      // Create a Map for O(1) lookups instead of O(n) find operations
+      const sourceMap = new Map();
+      this.source.forEach(src => {
+        const id = typeof src === 'object' ? src[this.key] : src;
+        sourceMap.set(id, src);
+      });
+
       this.confirmed.list.forEach(item => {
         if (item) {
-          // Find the original source item to get tooltip and tags data
-          const sourceItem = this.source.find(src => {
-            if (typeof src === 'object') {
-              return src[this.key] === item._id;
-            }
-            return src === item._id;
-          });
-          
+          // O(1) lookup instead of O(n) find
+          const sourceItem = sourceMap.get(item._id);
+
           if (sourceItem) {
             // Add tooltip if not present
             if (!item._tooltip && this.tooltip) {
               item._tooltip = this.makeTooltipExtended(sourceItem);
             }
-            
+
             // Add tags if not present (needed for filtering)
             if (!item._tags && this.tagFilter) {
               item._tags = this.makeTagsExtended(sourceItem);
@@ -206,7 +210,7 @@ export class GUIModularListboxComponent extends DualListComponent {
         }
       });
     }
-    
+
     return result;
   }
 
@@ -403,10 +407,10 @@ export class GUIModularListboxComponent extends DualListComponent {
         this.selectedTag = "(all)";
       }
     }
-    
+
     // Call the base class onFilter FIRST for search picker functionality
     super.onFilter(source);
-    
+
     if (source.name === "available" && this.tagFilter && Object.keys(this.selectedTag).length > 0) {
       if (this.enableCoDependentFilters) {
         // Check if we really need to filter
@@ -476,13 +480,13 @@ export class GUIModularListboxComponent extends DualListComponent {
 
   getNbMultipleSelectLabel(setting: any): string {
     if (!this.enablePresets) return "";
-    
+
     if (this.selectedPresets.length === this.presets.presets.length)
       return "All";
 
     if (this.mobileWindowSize && (this.selectedPresets.length > 1 || this.selectedPresets.join(", ").length > 16))
       return `Selected: ${this.selectedPresets.length}`;
-     
+
     if ((this.reducedWindowSize && this.selectedPresets.length > 1) || this.selectedPresets.length > 2)
       return `Selected: ${this.selectedPresets.length}`;
     else
@@ -493,11 +497,36 @@ export class GUIModularListboxComponent extends DualListComponent {
     return listName === 'available' ? 'right' : 'left';
   }
 
+  private tooltipTimeout: any = null;
+
+  onTooltipMouseEnter(popover: any): void {
+    if (this.tooltipTimeout) {
+      clearTimeout(this.tooltipTimeout);
+    }
+
+    this.tooltipTimeout = setTimeout(() => {
+      if (popover && typeof popover.show === 'function') {
+        popover.show();
+      }
+    }, this.tooltipDelay);
+  }
+
+  onTooltipMouseLeave(popover: any): void {
+    // Clear timeout if mouse leaves before delay expires
+    if (this.tooltipTimeout) {
+      clearTimeout(this.tooltipTimeout);
+      this.tooltipTimeout = null;
+    }
+    if (popover && typeof popover.hide === 'function') {
+      popover.hide();
+    }
+  }
+
   moveItem(source: BasicList, target: BasicList, item?: any, trueup?: boolean): void {
     super.moveItem(source, target, item, trueup);
     this.onFilter(source);
     this.onFilter(target);
-    
+
     this.cd.markForCheck();
   }
 }

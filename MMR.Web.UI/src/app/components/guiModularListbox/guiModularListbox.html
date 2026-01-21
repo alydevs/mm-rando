@@ -7,7 +7,7 @@
   </form>
 
   <div class="dual-list" [ngClass]="{
-    'dual-list-withTagFilterOneNoPreset': tagFilter && !presets && !coDependentFilters && !enableCoDependentFilters, 
+    'dual-list-withTagFilterOneNoPreset': tagFilter && !presets && !coDependentFilters && !enableCoDependentFilters,
     'dual-list-withTagFilterMultiPreset': tagFilter && presets && coDependentFilters && enableCoDependentFilters,
     'dual-list-withHexString': valueIsHexString && enableHexString
   }">
@@ -63,22 +63,25 @@
       </form>
 
       <div class="record-picker" [ngClass]="{
-        'pickerWithTagFilter': tagFilter && !enableCoDependentFilters, 
-        'pickerWithTagFilterOneNoPreset': tagFilter && !presets && !coDependentFilters && enableCoDependentFilters, 
-        'pickerWithTagFilterMultiNoPreset': tagFilter && !presets && coDependentFilters && enableCoDependentFilters, 
+        'pickerWithTagFilter': tagFilter && !enableCoDependentFilters,
+        'pickerWithTagFilterOneNoPreset': tagFilter && !presets && !coDependentFilters && enableCoDependentFilters,
+        'pickerWithTagFilterMultiNoPreset': tagFilter && !presets && coDependentFilters && enableCoDependentFilters,
         'pickerWithTagFilterMultiPreset': tagFilter && presets && coDependentFilters && enableCoDependentFilters
       }">
         <ul [ngClass]="{over:available.dragOver}" (drop)="drop($event, confirmed)" (dragover)="allowDrop($event, available)" (dragleave)="dragLeave()">
           <li *ngFor="let item of available.sift; let idx=index;" (click)="disabled ? null : selectItem(available.pick, item); shiftClick($event, idx, available, item)" [ngClass]="{selected: isItemSelected(available.pick, item), disabled: disabled}" [draggable]="!disabled && format.draggable"
-              (dragstart)="drag($event, item, available)" (dragend)="dragEnd(available)" [nbPopover]="item._tooltip ? tooltipComponent : null" [nbPopoverContext]="item._tooltip ? {tooltip: item._tooltip} : null" [nbPopoverTrigger]="item._tooltip ? 'hover' : 'noop'" [nbPopoverPlacement]="item._tooltip ? getTooltipPlacement('available') : null" [nbPopoverDelay]="item._tooltip ? tooltipDelay : null"><label>{{item._name}}</label></li>
+              (dragstart)="drag($event, item, available)" (dragend)="dragEnd(available)"
+              (mouseenter)="item._tooltip ? onTooltipMouseEnter(popover) : null"
+              (mouseleave)="item._tooltip ? onTooltipMouseLeave(popover) : null"
+              [nbPopover]="item._tooltip ? tooltipComponent : null" [nbPopoverContext]="item._tooltip ? {tooltip: item._tooltip} : null" [nbPopoverTrigger]="'noop'" [nbPopoverPlacement]="item._tooltip ? getTooltipPlacement('available') : null" #popover="nbPopover"><label>{{item._name}}</label></li>
         </ul>
       </div>
     </div>
 
     <div class="listbox" [ngStyle]="{ 'order' : direction() ? 2 : 1, 'margin-left' : direction() ? '10px' : 0 }">
       <div class="buttonBox" [ngClass]="{
-        'hexPad': valueIsHexString && !presets && enableHexString, 
-        'presetPad': !valueIsHexString && presets && enablePresets, 
+        'hexPad': valueIsHexString && !presets && enableHexString,
+        'presetPad': !valueIsHexString && presets && enablePresets,
         'hexPresetsPad': valueIsHexString && presets && enableHexString && enablePresets
       }">
         <button nbButton type="button" name="removeBtn" class="btn btn-primary btn-block switchButton" (click)="moveItem(confirmed, available)" [ngClass]="direction() ? 'point-left' : 'point-right'" [disabled]="confirmed.pick.length === 0">
@@ -93,22 +96,25 @@
       </div>
       <form *ngIf="filter" class="filter">
         <div *ngIf="tagFilter" [ngClass]="{
-          'tagFilterSelectPadding': tagFilter && !enableCoDependentFilters, 
-          'tagFilterSingleSelectPadding': tagFilter && !coDependentFilters && enableCoDependentFilters, 
+          'tagFilterSelectPadding': tagFilter && !enableCoDependentFilters,
+          'tagFilterSingleSelectPadding': tagFilter && !coDependentFilters && enableCoDependentFilters,
           'tagFilterMultiSelectPadding': tagFilter && coDependentFilters && enableCoDependentFilters
         }"></div>
         <input nbInput [disabled]="disabled || confirmed.list.length === 0" class="form-control" name="filterDestination" [readonly]="disabled" [(ngModel)]="confirmed.picker" (ngModelChange)="onFilter(confirmed)">
       </form>
 
       <div class="record-picker" [ngClass]="{
-        'pickerWithTagFilter': tagFilter && !enableCoDependentFilters, 
-        'pickerWithTagFilterOneNoPreset': tagFilter && !presets && !coDependentFilters && enableCoDependentFilters, 
-        'pickerWithTagFilterMultiNoPreset': tagFilter && !presets && coDependentFilters && enableCoDependentFilters, 
+        'pickerWithTagFilter': tagFilter && !enableCoDependentFilters,
+        'pickerWithTagFilterOneNoPreset': tagFilter && !presets && !coDependentFilters && enableCoDependentFilters,
+        'pickerWithTagFilterMultiNoPreset': tagFilter && !presets && coDependentFilters && enableCoDependentFilters,
         'pickerWithTagFilterMultiPreset': tagFilter && presets && coDependentFilters && enableCoDependentFilters
       }">
         <ul [ngClass]="{over:confirmed.dragOver}" (drop)="drop($event, available)" (dragover)="allowDrop($event, confirmed)" (dragleave)="dragLeave()">
           <li #itmConf *ngFor="let item of confirmed.sift; let idx=index;" (click)="disabled ? null : selectItem(confirmed.pick, item); shiftClick($event, idx, confirmed, item)" [ngClass]="{selected: isItemSelected(confirmed.pick, item), disabled: disabled}" [draggable]="!disabled && format.draggable"
-              (dragstart)="drag($event, item, confirmed)" (dragend)="dragEnd(confirmed)" [nbPopover]="item._tooltip ? tooltipComponent : null" [nbPopoverContext]="item._tooltip ? {tooltip: item._tooltip} : null" [nbPopoverTrigger]="item._tooltip ? 'hover' : 'noop'" [nbPopoverPlacement]="item._tooltip ? getTooltipPlacement('confirmed') : null" [nbPopoverDelay]="item._tooltip ? tooltipDelay : null"><label>{{item._name}}</label></li>
+              (dragstart)="drag($event, item, confirmed)" (dragend)="dragEnd(confirmed)"
+              (mouseenter)="item._tooltip ? onTooltipMouseEnter(popoverConf) : null"
+              (mouseleave)="item._tooltip ? onTooltipMouseLeave(popoverConf) : null"
+              [nbPopover]="item._tooltip ? tooltipComponent : null" [nbPopoverContext]="item._tooltip ? {tooltip: item._tooltip} : null" [nbPopoverTrigger]="'noop'" [nbPopoverPlacement]="item._tooltip ? getTooltipPlacement('confirmed') : null" #popoverConf="nbPopover"><label>{{item._name}}</label></li>
         </ul>
       </div>
     </div>
