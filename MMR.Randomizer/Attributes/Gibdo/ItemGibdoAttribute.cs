@@ -19,11 +19,12 @@ namespace MMR.Randomizer.Attributes.Gibdo
             Data = data;
         }
 
-        public ItemGibdoAttribute(byte itemAction, byte item, string customMessage, ushort data = 0)
+        public ItemGibdoAttribute(byte itemAction, byte item, string customMessage, ushort messageId = default, ushort data = 0)
         {
             ItemAction = itemAction;
             Item = item;
             CustomMessage = customMessage;
+            MessageId = messageId;
             Data = data;
         }
     }

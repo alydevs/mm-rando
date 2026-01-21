@@ -86,7 +86,7 @@ namespace MMR.Randomizer.GameObjects
             [ItemGibdoLogicRequirements(41, 50, Item.UpgradeBiggestQuiver)]
             LightArrows,
 
-            [ItemGibdo(14, 6, 0x1392), ItemGibdoAmount(10, 1, 40)]
+            [ItemGibdo(14, 6, "Leeeeaave me [AMOUNT] refreshing blasts!", 0x1392), ItemGibdoAmount(10, 2, 40)]
             [ItemGibdoLogicRequirements(1, 20, Item.OtherAnyBombBag)]
             [ItemGibdoLogicConditional(21, 30, Item.UpgradeBigBombBag)]
             [ItemGibdoLogicConditional(21, 30, Item.UpgradeBiggestBombBag)]
@@ -107,11 +107,11 @@ namespace MMR.Randomizer.GameObjects
             [ItemGibdoLogicRequirements()]
             DekuSticks,
 
-            [ItemGibdo(18, 9, 0x1391), ItemGibdoAmount(10, 1, 20)]
+            [ItemGibdo(18, 9, "Leeeeaave me something that makes a blinding flash!", 0x1391), ItemGibdoAmount(10, 1, 20)]
             [ItemGibdoLogicRequirements()]
             DekuNuts,
 
-            [ItemGibdo(46, 10, 0x138D), ItemGibdoAmount(5, 1, 20)]
+            [ItemGibdo(46, 10, "Leeeeaave me something delicious to chomp on. Something that sprouts when it's watered.", 0x138D), ItemGibdoAmount(5, 1, 20)]
             [ItemGibdoLogicRequirements(Item.OtherLimitlessBeans)]
             MagicBeans,
 

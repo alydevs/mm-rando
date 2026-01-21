@@ -5880,7 +5880,8 @@ namespace MMR.Randomizer
                 var gibdoRequirement = _randomized.GibdoRequirements[i];
                 var gibdoItemAttribute = gibdoRequirement.ItemRequired.GetAttribute<ItemGibdoAttribute>();
                 var messageId = gibdoItemAttribute.MessageId;
-                if (gibdoItemAttribute.CustomMessage != default && messageId == default)
+                var defaultAmount = gibdoRequirement.ItemRequired.GetAttribute<ItemGibdoAmountAttribute>()?.DefaultAmount ?? 1;
+                if (gibdoItemAttribute.CustomMessage != default && (messageId == default || gibdoRequirement.Amount != defaultAmount))
                 {
                     if (!_extraMessages.Any())
                     {
@@ -5893,11 +5894,20 @@ namespace MMR.Randomizer
                         {
                             it.CompileTimeWrap((wrap) =>
                             {
-                                wrap.Text(gibdoItemAttribute.CustomMessage);
-
-                                if (gibdoRequirement.Amount > 1)
+                                var customMessage = gibdoItemAttribute.CustomMessage;
+                                if (customMessage.Contains("[AMOUNT]"))
                                 {
-                                    wrap.Text($" Preferably {MessageUtils.NumberToWords(gibdoRequirement.Amount)} of them...");
+                                    customMessage = customMessage.Replace("[AMOUNT]", MessageUtils.NumberToWords(gibdoRequirement.Amount));
+                                    wrap.Text(customMessage);
+                                }
+                                else
+                                {
+                                    wrap.Text(customMessage);
+
+                                    if (gibdoRequirement.Amount > 1)
+                                    {
+                                        wrap.Text($" Preferably {MessageUtils.NumberToWords(gibdoRequirement.Amount)} of them...");
+                                    }
                                 }
                             });
 
