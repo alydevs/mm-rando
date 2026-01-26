@@ -418,10 +418,8 @@
     "GameplaySettings.DeathMode": "Default",
     "GameplaySettings.HookshotAnySurface": false,
     "GameplaySettings.VanillaMoonTrialAccess": true,
-    "GameplaySettings.ShortenCutsceneSettings": {
-      "General": "BlastMaskThief, BoatArchery, FishermanGame, MilkBarPerformance, HungryGoron, TatlInterrupts, FasterBankText, GoronVillageOwl, AutomaticCredits, PrincessDelivery, ShortChestOpening, SunMask, JimRunning, Kotake, HoldAText, EverythingElse",
-      "BossIntros": "Odolwa, Goht, Gyorg, IgosDuIkana, Gomess"
-    },
+    "GameplaySettings.ShortenCutsceneSettings.General": "BlastMaskThief, BoatArchery, FishermanGame, MilkBarPerformance, HungryGoron, TatlInterrupts, FasterBankText, GoronVillageOwl, AutomaticCredits, PrincessDelivery, ShortChestOpening, SunMask, JimRunning, HoldAText, EverythingElse",
+    "GameplaySettings.ShortenCutsceneSettings.BossIntros": "Odolwa, Goht, Gyorg, IgosDuIkana, Gomess",
     "GameplaySettings.QuickTextEnabled": true,
     "GameplaySettings.Character": "LinkMM",
     "GameplaySettings.GossipHintStyle": "Competitive",
@@ -588,10 +586,8 @@
     "GameplaySettings.MoonCrashErasesFile": false,
     "GameplaySettings.HookshotAnySurface": false,
     "GameplaySettings.VanillaMoonTrialAccess": false,
-    "GameplaySettings.ShortenCutsceneSettings": {
-      "General": "BlastMaskThief, BoatArchery, FishermanGame, MilkBarPerformance, HungryGoron, TatlInterrupts, FasterBankText, GoronVillageOwl, AutomaticCredits, PrincessDelivery, ShortChestOpening, SunMask, Tingle, JimRunning, Kotake, HoldAText, EverythingElse",
-      "BossIntros": "Odolwa, Goht, Gyorg, IgosDuIkana, Gomess"
-    },
+    "GameplaySettings.ShortenCutsceneSettings.General": "BlastMaskThief, BoatArchery, FishermanGame, MilkBarPerformance, HungryGoron, TatlInterrupts, FasterBankText, GoronVillageOwl, AutomaticCredits, PrincessDelivery, ShortChestOpening, SunMask, Tingle, JimRunning, HoldAText, EverythingElse",
+    "GameplaySettings.ShortenCutsceneSettings.BossIntros": "Odolwa, Goht, Gyorg, IgosDuIkana, Gomess",
     "GameplaySettings.QuickTextEnabled": true,
     "GameplaySettings.Character": "LinkMM",
     "GameplaySettings.GossipHintStyle": "Competitive",
@@ -784,10 +780,8 @@
     "GameplaySettings.MoonCrashErasesFile": false,
     "GameplaySettings.HookshotAnySurface": false,
     "GameplaySettings.VanillaMoonTrialAccess": false,
-    "GameplaySettings.ShortenCutsceneSettings": {
-      "General": "BlastMaskThief, BoatArchery, FishermanGame, MilkBarPerformance, HungryGoron, TatlInterrupts, FasterBankText, GoronVillageOwl, AutomaticCredits, PrincessDelivery, ShortChestOpening, SunMask, Tingle, JimRunning, Kotake, HoldAText, EverythingElse",
-      "BossIntros": "Odolwa, Goht, Gyorg, IgosDuIkana, Gomess"
-    },
+    "GameplaySettings.ShortenCutsceneSettings.General": "BlastMaskThief, BoatArchery, FishermanGame, MilkBarPerformance, HungryGoron, TatlInterrupts, FasterBankText, GoronVillageOwl, AutomaticCredits, PrincessDelivery, ShortChestOpening, SunMask, Tingle, JimRunning, HoldAText, EverythingElse",
+    "GameplaySettings.ShortenCutsceneSettings.BossIntros": "Odolwa, Goht, Gyorg, IgosDuIkana, Gomess",
     "GameplaySettings.QuickTextEnabled": true,
     "GameplaySettings.Character": "LinkMM",
     "GameplaySettings.GossipHintStyle": "Competitive",
@@ -980,10 +974,8 @@
     "GameplaySettings.MoonCrashErasesFile": false,
     "GameplaySettings.HookshotAnySurface": false,
     "GameplaySettings.VanillaMoonTrialAccess": false,
-    "GameplaySettings.ShortenCutsceneSettings": {
-      "General": "BlastMaskThief, BoatArchery, FishermanGame, MilkBarPerformance, HungryGoron, TatlInterrupts, FasterBankText, GoronVillageOwl, AutomaticCredits, PrincessDelivery, ShortChestOpening, SunMask, Tingle, JimRunning, Kotake, HoldAText, EverythingElse",
-      "BossIntros": "Odolwa, Goht, Gyorg, IgosDuIkana, Gomess"
-    },
+    "GameplaySettings.ShortenCutsceneSettings.General": "BlastMaskThief, BoatArchery, FishermanGame, MilkBarPerformance, HungryGoron, TatlInterrupts, FasterBankText, GoronVillageOwl, AutomaticCredits, PrincessDelivery, ShortChestOpening, SunMask, Tingle, JimRunning, HoldAText, EverythingElse",
+    "GameplaySettings.ShortenCutsceneSettings.BossIntros": "Odolwa, Goht, Gyorg, IgosDuIkana, Gomess",
     "GameplaySettings.QuickTextEnabled": true,
     "GameplaySettings.Character": "LinkMM",
     "GameplaySettings.GossipHintStyle": "Competitive",
@@ -1165,10 +1157,8 @@
     "GameplaySettings.MoonCrashErasesFile": false,
     "GameplaySettings.HookshotAnySurface": false,
     "GameplaySettings.VanillaMoonTrialAccess": false,
-    "GameplaySettings.ShortenCutsceneSettings": {
-      "General": "BlastMaskThief, BoatArchery, FishermanGame, MilkBarPerformance, HungryGoron, TatlInterrupts, FasterBankText, GoronVillageOwl, AutomaticCredits, PrincessDelivery, ShortChestOpening, SunMask, Tingle, JimRunning, HoldAText, EverythingElse",
-      "BossIntros": "Odolwa, Goht, Gyorg, IgosDuIkana, Gomess"
-    },
+    "GameplaySettings.ShortenCutsceneSettings.General": "BlastMaskThief, BoatArchery, FishermanGame, MilkBarPerformance, HungryGoron, TatlInterrupts, FasterBankText, GoronVillageOwl, AutomaticCredits, PrincessDelivery, ShortChestOpening, SunMask, Tingle, JimRunning, HoldAText, EverythingElse",
+    "GameplaySettings.ShortenCutsceneSettings.BossIntros": "Odolwa, Goht, Gyorg, IgosDuIkana, Gomess",
     "GameplaySettings.QuickTextEnabled": true,
     "GameplaySettings.Character": "LinkMM",
     "GameplaySettings.GossipHintStyle": "Competitive",
@@ -1324,10 +1314,8 @@
     "GameplaySettings.MoonCrashErasesFile": false,
     "GameplaySettings.HookshotAnySurface": false,
     "GameplaySettings.VanillaMoonTrialAccess": false,
-    "GameplaySettings.ShortenCutsceneSettings": {
-      "General": "BlastMaskThief, BoatArchery, FishermanGame, MilkBarPerformance, HungryGoron, TatlInterrupts, FasterBankText, GoronVillageOwl, AutomaticCredits, PrincessDelivery, ShortChestOpening, SunMask, Tingle, JimRunning, HoldAText, EverythingElse",
-      "BossIntros": "Odolwa, Goht, Gyorg, IgosDuIkana, Gomess"
-    },
+    "GameplaySettings.ShortenCutsceneSettings.General": "BlastMaskThief, BoatArchery, FishermanGame, MilkBarPerformance, HungryGoron, TatlInterrupts, FasterBankText, GoronVillageOwl, AutomaticCredits, PrincessDelivery, ShortChestOpening, SunMask, Tingle, JimRunning, HoldAText, EverythingElse",
+    "GameplaySettings.ShortenCutsceneSettings.BossIntros": "Odolwa, Goht, Gyorg, IgosDuIkana, Gomess",
     "GameplaySettings.QuickTextEnabled": true,
     "GameplaySettings.Character": "LinkMM",
     "GameplaySettings.GossipHintStyle": "Competitive",
@@ -1482,10 +1470,8 @@
     "GameplaySettings.MoonCrashErasesFile": false,
     "GameplaySettings.HookshotAnySurface": false,
     "GameplaySettings.VanillaMoonTrialAccess": false,
-    "GameplaySettings.ShortenCutsceneSettings": {
-      "General": "BlastMaskThief, BoatArchery, FishermanGame, MilkBarPerformance, HungryGoron, TatlInterrupts, FasterBankText, GoronVillageOwl, AutomaticCredits, PrincessDelivery, ShortChestOpening, SunMask, Tingle, JimRunning, HoldAText, EverythingElse",
-      "BossIntros": "Odolwa, Goht, Gyorg, IgosDuIkana, Gomess"
-    },
+    "GameplaySettings.ShortenCutsceneSettings.General": "BlastMaskThief, BoatArchery, FishermanGame, MilkBarPerformance, HungryGoron, TatlInterrupts, FasterBankText, GoronVillageOwl, AutomaticCredits, PrincessDelivery, ShortChestOpening, SunMask, Tingle, JimRunning, HoldAText, EverythingElse",
+    "GameplaySettings.ShortenCutsceneSettings.BossIntros": "Odolwa, Goht, Gyorg, IgosDuIkana, Gomess",
     "GameplaySettings.QuickTextEnabled": true,
     "GameplaySettings.Character": "LinkMM",
     "GameplaySettings.GossipHintStyle": "Competitive",
@@ -1645,10 +1631,8 @@
     "GameplaySettings.MoonCrashErasesFile": false,
     "GameplaySettings.HookshotAnySurface": false,
     "GameplaySettings.VanillaMoonTrialAccess": false,
-    "GameplaySettings.ShortenCutsceneSettings": {
-      "General": "BlastMaskThief, BoatArchery, FishermanGame, MilkBarPerformance, HungryGoron, TatlInterrupts, FasterBankText, GoronVillageOwl, AutomaticCredits, PrincessDelivery, ShortChestOpening, SunMask, Tingle, JimRunning, HoldAText, EverythingElse",
-      "BossIntros": "Odolwa, Goht, Gyorg, IgosDuIkana, Gomess"
-    },
+    "GameplaySettings.ShortenCutsceneSettings.General": "BlastMaskThief, BoatArchery, FishermanGame, MilkBarPerformance, HungryGoron, TatlInterrupts, FasterBankText, GoronVillageOwl, AutomaticCredits, PrincessDelivery, ShortChestOpening, SunMask, Tingle, JimRunning, HoldAText, EverythingElse",
+    "GameplaySettings.ShortenCutsceneSettings.BossIntros": "Odolwa, Goht, Gyorg, IgosDuIkana, Gomess",
     "GameplaySettings.QuickTextEnabled": true,
     "GameplaySettings.Character": "LinkMM",
     "GameplaySettings.GossipHintStyle": "Competitive",
@@ -1803,10 +1787,8 @@
     "GameplaySettings.MoonCrashErasesFile": false,
     "GameplaySettings.HookshotAnySurface": false,
     "GameplaySettings.VanillaMoonTrialAccess": false,
-    "GameplaySettings.ShortenCutsceneSettings": {
-      "General": "BlastMaskThief, BoatArchery, FishermanGame, MilkBarPerformance, HungryGoron, TatlInterrupts, FasterBankText, GoronVillageOwl, AutomaticCredits, PrincessDelivery, ShortChestOpening, SunMask, Tingle, JimRunning, HoldAText, EverythingElse",
-      "BossIntros": "Odolwa, Goht, Gyorg, IgosDuIkana, Gomess"
-    },
+    "GameplaySettings.ShortenCutsceneSettings.General": "BlastMaskThief, BoatArchery, FishermanGame, MilkBarPerformance, HungryGoron, TatlInterrupts, FasterBankText, GoronVillageOwl, AutomaticCredits, PrincessDelivery, ShortChestOpening, SunMask, Tingle, JimRunning, HoldAText, EverythingElse",
+    "GameplaySettings.ShortenCutsceneSettings.BossIntros": "Odolwa, Goht, Gyorg, IgosDuIkana, Gomess",
     "GameplaySettings.QuickTextEnabled": true,
     "GameplaySettings.Character": "LinkMM",
     "GameplaySettings.GossipHintStyle": "Competitive",
