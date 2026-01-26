@@ -6010,12 +6010,19 @@ namespace MMR.Randomizer
             }
 
             //write free item (start item default = Deku Mask)
-            freeItems.Add(_randomized.ItemList.Find(u => u.NewLocation == Item.MaskDeku).Item);
-            freeItems.Add(_randomized.ItemList.Find(u => u.NewLocation == Item.SongHealing).Item);
-            freeItems.Add(_randomized.ItemList.Find(u => u.NewLocation == Item.StartingSword).Item);
-            freeItems.Add(_randomized.ItemList.Find(u => u.NewLocation == Item.StartingShield).Item);
-            freeItems.Add(_randomized.ItemList.Find(u => u.NewLocation == Item.StartingHeartContainer1).Item);
-            freeItems.Add(_randomized.ItemList.Find(u => u.NewLocation == Item.StartingHeartContainer2).Item);
+            var startingSlots = new List<Item>
+            {
+                Item.MaskDeku,
+                Item.SongHealing,
+                Item.StartingSword,
+                Item.StartingShield,
+                Item.StartingHeartContainer1,
+                Item.StartingHeartContainer2,
+            };
+            var startingItems = startingSlots
+                .Where(location => !ItemUtils.IsLocationJunk(location, _randomized.Settings))
+                .Select(location => _randomized.ItemList.Find(u => u.NewLocation == location).Item);
+            freeItems.AddRange(startingItems);
             WriteFreeItems(freeItems.ToArray());
 
             //write everything else
