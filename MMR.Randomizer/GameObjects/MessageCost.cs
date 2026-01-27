@@ -183,7 +183,7 @@ namespace MMR.Randomizer.GameObjects
             new MessageCost
             {
                 MessageIds = { (5609, 0), (5619, 0) },
-                LocationsAffected = { Item.ShopItemBusinessScrubMagicBean },
+                LocationsAffected = { Item.ShopItemBusinessScrubMagicBeanInSwamp, Item.ShopItemBusinessScrubMagicBeanInTown },
                 SubtractPriceAddresses = { 0x01051B70 + 0x672 },
                 PriceAddresses = { 0x01051B70 + 0x65A },
                 Cost = 10,
@@ -193,7 +193,7 @@ namespace MMR.Randomizer.GameObjects
             new MessageCost
             {
                 MessageIds = { (5632, 0), (5638, 0) },
-                LocationsAffected = { Item.UpgradeBiggestBombBag },
+                LocationsAffected = { Item.UpgradeBiggestBombBagInMountain, Item.UpgradeBiggestBombBagInSwamp },
                 SubtractPriceAddresses = { 0x1052262 },
                 PriceAddresses = { 0x105226A },
                 Cost = 200,
@@ -203,7 +203,7 @@ namespace MMR.Randomizer.GameObjects
             new MessageCost
             {
                 MessageIds = { (5650, 0), (5655, 0) },
-                LocationsAffected = { Item.ShopItemBusinessScrubGreenPotion },
+                LocationsAffected = { Item.ShopItemBusinessScrubGreenPotionInMountain, Item.ShopItemBusinessScrubGreenPotionInOcean },
                 SubtractPriceAddresses = { 0x01051B70 + 0x74A },
                 PriceAddresses = { 0x01051B70 + 0x752 },
                 Cost = 40,
@@ -213,7 +213,7 @@ namespace MMR.Randomizer.GameObjects
             new MessageCost
             {
                 MessageIds = { (5670, 0), (5677, 0) },
-                LocationsAffected = { Item.ShopItemBusinessScrubBluePotion },
+                LocationsAffected = { Item.ShopItemBusinessScrubBluePotionInCanyon, Item.ShopItemBusinessScrubBluePotionInOcean },
                 SubtractPriceAddresses = { 0x01051B70 + 0x7AA },
                 PriceAddresses = { 0x01051B70 + 0x7B2 },
                 Cost = 100,
