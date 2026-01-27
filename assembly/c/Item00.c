@@ -78,7 +78,7 @@ s8 Item00_CanBeSpawned(u16 params) {
 }
 
 s16 Item00_GetAlteredDropId(s16 dropId) {
-    if (dropId == ITEM00_BOMBS_A && MISC_CONFIG.flags.kegDrops && INV_CONTENT(ITEM_POWDER_KEG) != ITEM_NONE && gSaveContext.perm.currentForm == PLAYER_FORM_GORON && AMMO(ITEM_POWDER_KEG) == 0) {
+    if (dropId == ITEM00_BOMBS_A && MISC_CONFIG.flags.kegDrops && INV_CONTENT(ITEM_POWDER_KEG) != ITEM_NONE && AMMO(ITEM_POWDER_KEG) == 0) {
         sDefaultGiIndex = 0x34; // GI_POWDER_KEG;
         return ITEM00_BOMBS_A;
     }

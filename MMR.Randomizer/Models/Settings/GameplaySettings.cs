@@ -257,7 +257,7 @@ namespace MMR.Randomizer.Models.Settings
             set { this.AsmOptions.MiscConfig.Flags.BombchuDrops = value; }
         }
 
-        [Description("If you have found the Powder Keg, then any random Bomb drop or fixed non-randomized Bomb drop will drop a Powder Keg instead if you are in Goron form and have 0 Powder Kegs. Logic will no longer require the ability to purchase Powder Kegs from the bomb shop goron.")]
+        [Description("If you have found the Powder Keg, then any random Bomb drop or fixed non-randomized Bomb drop will drop a Powder Keg instead if you have 0 Powder Kegs. Logic will no longer require the ability to purchase Powder Kegs from the bomb shop goron.")]
         public bool KegDrops
         {
             get { return this.AsmOptions.MiscConfig.Flags.KegDrops; }
