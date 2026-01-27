@@ -3672,7 +3672,7 @@ namespace MMR.Randomizer
                         checkedLocations[location] = focusedCheckedLocations[location];
                     }
                     var logicPaths = LogicUtils.GetImportantLocations(ItemList, _settings, Item.OtherCredits, logicForImportance, checkedLocations: checkedLocations);
-                    var importantLocations = logicPaths?.Important.Where(item => item.Region(ItemList).HasValue && item.Entrance() == null).Distinct().ToHashSet();
+                    var importantLocations = logicPaths?.Important.Where(item => item.Region(ItemList).HasValue).Distinct().ToHashSet();
                     var requiredSongLocations = logicPaths?.RequiredSongLocations.ToList();
                     if (importantLocations == null)
                     {
@@ -3872,21 +3872,24 @@ namespace MMR.Randomizer
                                 }
 
                                 currentSphereItems.Add((item, result));
-                                if (location.Entrances() != null)
+                                if (_randomized.ImportantLocations.Contains(location))
                                 {
-                                    currentSphere.Add(new ItemLocationPair
+                                    if (location.Entrances() != null)
                                     {
-                                        Item = item.Entrance() ?? item.ToString(),
-                                        Location = location.Exit() ?? location.ToString(),
-                                    });
-                                }
-                                else if (_randomized.ImportantLocations.Contains(location))
-                                {
-                                    currentSphere.Add(new ItemLocationPair
+                                        currentSphere.Add(new ItemLocationPair
+                                        {
+                                            Item = item.Entrance() ?? item.ToString(),
+                                            Location = location.Exit() ?? location.ToString(),
+                                        });
+                                    }
+                                    else
                                     {
-                                        Item = item.ProgressiveUpgradeName(_settings.ProgressiveUpgrades),
-                                        Location = location.Location(ItemList) ?? location.ToString(),
-                                    });
+                                        currentSphere.Add(new ItemLocationPair
+                                        {
+                                            Item = item.ProgressiveUpgradeName(_settings.ProgressiveUpgrades),
+                                            Location = location.Location(ItemList) ?? location.ToString(),
+                                        });
+                                    }
                                 }
                             }
                         }

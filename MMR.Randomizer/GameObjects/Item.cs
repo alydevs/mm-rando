@@ -1038,7 +1038,7 @@ namespace MMR.Randomizer.GameObjects
         //areas/other
         AreaSouthAccess,
 
-        [EntranceName("Woodfall"), EntranceType(EntranceType.Dungeon)]
+        [EntranceName("Woodfall Temple"), ExitName("Temple in Woodfall"), Region(Region.Woodfall), EntranceType(EntranceType.Dungeon)]
         [Entrance(Entrance.EntranceWoodfallTempleFromWoodfall, Entrance.EntranceWoodfallFromWoodfallTempleEntrance)]
         AreaWoodFallTempleAccess,
 
@@ -1046,7 +1046,7 @@ namespace MMR.Randomizer.GameObjects
         AreaWoodFallTempleClear,
         AreaNorthAccess,
 
-        [EntranceName("Snowhead"), EntranceType(EntranceType.Dungeon)]
+        [EntranceName("Snowhead Temple"), ExitName("Temple in Snowhead"), Region(Region.Snowhead), EntranceType(EntranceType.Dungeon)]
         [Entrance(Entrance.EntranceSnowheadTempleFromSnowhead, Entrance.EntranceSnowheadFromSnowheadTemple)]
         AreaSnowheadTempleAccess,
 
@@ -1056,7 +1056,7 @@ namespace MMR.Randomizer.GameObjects
         AreaWestAccess,
         AreaPiratesFortressAccess,
 
-        [EntranceName("Great Bay"), EntranceType(EntranceType.Dungeon)]
+        [EntranceName("Great Bay Temple"), ExitName("Temple in Great Bay"), Region(Region.ZoraCape), EntranceType(EntranceType.Dungeon)]
         [Entrance(Entrance.EntranceGreatBayTempleFromZoraCape, Entrance.EntranceZoraCapeFromGreatBayTemple)]
         AreaGreatBayTempleAccess,
 
@@ -1066,7 +1066,7 @@ namespace MMR.Randomizer.GameObjects
         AreaIkanaCanyonAccess,
         AreaStoneTowerTempleAccess,
 
-        [EntranceName("Inverted Stone Tower"), EntranceType(EntranceType.Dungeon)]
+        [EntranceName("Inverted Stone Tower Temple"), ExitName("Temple in Ikana"), Region(Region.StoneTower), EntranceType(EntranceType.Dungeon)]
         [Entrance(Entrance.EntranceStoneTowerTempleInvertedFromStoneTowerInverted, Entrance.EntranceStoneTowerInvertedFromStoneTowerTempleInverted)]
         AreaInvertedStoneTowerTempleAccess,
 
