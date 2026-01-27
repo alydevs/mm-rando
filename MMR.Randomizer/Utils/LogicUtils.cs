@@ -354,7 +354,7 @@ namespace MMR.Randomizer.Utils
                 Important = important.Union(required).Distinct().ToList().AsReadOnly(),
                 RequiredSongLocations = requiredSongLocations.Distinct().ToList().AsReadOnly()
             };
-            if (location.Location() != null)
+            if (location.Location() != null || timeAvailable == (int)TimeOfDay.All)
             {
                 checkedLocations[location] = result;
             }
