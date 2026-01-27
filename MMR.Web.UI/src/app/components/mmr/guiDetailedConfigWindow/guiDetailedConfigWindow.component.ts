@@ -135,7 +135,7 @@ Amount must be ≤ items selected in the group.`;
         this.tiers = overrideHintPriorities.map((tierItems: string[], index: number) => ({
           id: this.generateTierId(),
           items: tierItems || [],
-          indicateImportance: overrideImportanceIndicatorTiers.includes(index) || overrideImportanceIndicatorTiers[index] === 1,
+          indicateImportance: overrideImportanceIndicatorTiers.includes(index),
           hintCount: overrideHintItemCaps[index] || 0,
           order: index
         }));
@@ -265,11 +265,25 @@ Amount must be ≤ items selected in the group.`;
 
   confirmDialog() {
     if (this.configMode === 'hintPriorities') {
-      const overrideHintPriorities = this.tiers.map(tier => tier.items);
-      const overrideImportanceIndicatorTiers = this.tiers
-        .map((tier, index) => tier.indicateImportance ? index : -1)
-        .filter(index => index !== -1);
-      const overrideHintItemCaps = this.tiers.map(tier => tier.hintCount || 0);
+      const hasAnyItems = this.tiers.some(tier => tier.items && tier.items.length > 0);
+
+      let overrideHintPriorities: string[][] | null;
+      let overrideImportanceIndicatorTiers: number[] | null;
+      let overrideHintItemCaps: number[] | null;
+
+      if (!hasAnyItems) {
+        overrideHintPriorities = null;
+        overrideImportanceIndicatorTiers = null;
+        overrideHintItemCaps = null;
+      } else {
+        const tiersWithItems = this.tiers.filter(tier => tier.items && tier.items.length > 0);
+
+        overrideHintPriorities = tiersWithItems.map(tier => tier.items);
+        overrideImportanceIndicatorTiers = tiersWithItems
+          .map((tier, index) => tier.indicateImportance ? index : -1)
+          .filter(index => index !== -1);
+        overrideHintItemCaps = tiersWithItems.map(tier => tier.hintCount || 0);
+      }
 
       const result = {
         'GameplaySettings.OverrideHintPriorities': overrideHintPriorities,
