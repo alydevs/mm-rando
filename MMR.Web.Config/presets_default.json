@@ -563,7 +563,7 @@
     "GameplaySettings.DungeonNavigationMode": "Default",
     "GameplaySettings.VictoryMode": "DirectToCredits, CantFightMajora, NonTransformationMasks, TransformationMasks",
     "GameplaySettings.CustomItemListString": "1fffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff",
-    "GameplaySettings.CustomStartingItemListString": "--1fbfc-5800000-",
+    "GameplaySettings.CustomStartingItemListString": "----1fbfc-5800000-",
     "GameplaySettings.CustomJunkLocationsString": "-------------------------------------",
     "GameplaySettings.TrapAmount": "None",
     "GameplaySettings.TrapWeights": {
@@ -757,7 +757,7 @@
     "GameplaySettings.DungeonNavigationMode": "Default",
     "GameplaySettings.VictoryMode": "DirectToCredits, CantFightMajora, Notebook",
     "GameplaySettings.CustomItemListString": "1fffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff",
-    "GameplaySettings.CustomStartingItemListString": "--1fbfc-5800000-",
+    "GameplaySettings.CustomStartingItemListString": "----1fbfc-5800000-",
     "GameplaySettings.CustomJunkLocationsString": "-------------------------------------",
     "GameplaySettings.TrapAmount": "None",
     "GameplaySettings.TrapWeights": {
@@ -951,7 +951,7 @@
     "GameplaySettings.DungeonNavigationMode": "Default",
     "GameplaySettings.VictoryMode": "DirectToCredits, CantFightMajora, FourBossRemains",
     "GameplaySettings.CustomItemListString": "1fffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff-ffffffff",
-    "GameplaySettings.CustomStartingItemListString": "--1fbfc-5800000-",
+    "GameplaySettings.CustomStartingItemListString": "----1fbfc-5800000-",
     "GameplaySettings.CustomJunkLocationsString": "-------------------------------------",
     "GameplaySettings.TrapAmount": "None",
     "GameplaySettings.TrapWeights": {
