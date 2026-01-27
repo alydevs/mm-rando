@@ -3669,6 +3669,10 @@ namespace MMR.Randomizer
                     {
                         var focusedCheckedLocations = checkedLocations.ToDictionary(x => x.Key, x => x.Value);
                         LogicUtils.GetImportantLocations(ItemList, _settings, location, logicForImportance, checkedLocations: focusedCheckedLocations);
+                        if (!focusedCheckedLocations.ContainsKey(location))
+                        {
+                            throw new RandomizationException($"Location {location.Location(ItemList)} is inaccessible.");
+                        }
                         checkedLocations[location] = focusedCheckedLocations[location];
                     }
                     var logicPaths = LogicUtils.GetImportantLocations(ItemList, _settings, Item.OtherCredits, logicForImportance, checkedLocations: checkedLocations);
