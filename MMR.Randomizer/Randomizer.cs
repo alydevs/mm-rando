@@ -3877,7 +3877,7 @@ namespace MMR.Randomizer
                                     currentSphere.Add(new ItemLocationPair
                                     {
                                         Item = item.Entrance() ?? item.ToString(),
-                                        Location = location.Entrance() ?? location.ToString(),
+                                        Location = location.Exit() ?? location.ToString(),
                                     });
                                 }
                                 else if (_randomized.ImportantLocations.Contains(location))
