@@ -76,6 +76,14 @@ static void Savedata_ResetStartingItems(GlobalContext* ctxt) {
         }
     }
 
+    // Give extra starting skull tokens if they got reset
+    if (gSaveContext.perm.skullTokens[0] == 0 && MMR_CONFIG.extraStartingMapsAndTokens.swampTokens) {
+        gSaveContext.perm.skullTokens[0] = MMR_CONFIG.extraStartingMapsAndTokens.swampTokens;
+    }
+    if (gSaveContext.perm.skullTokens[1] == 0 && MMR_CONFIG.extraStartingMapsAndTokens.oceanTokens) {
+        gSaveContext.perm.skullTokens[1] = MMR_CONFIG.extraStartingMapsAndTokens.oceanTokens;
+    }
+
     // Give returnable items
     for (u8 i = 0; i < MMR_CONFIG.itemsToReturn.length; i++) {
         u16 itemId = MMR_CONFIG.itemsToReturn.ids[i];
