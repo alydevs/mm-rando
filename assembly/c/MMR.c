@@ -338,8 +338,8 @@ GetItemEntry* MMR_GetNewGiEntry(u16 giIndex) {
 
 static u16 gFanfares[] = { 0x4831, 0x4855, 0x0922, 0x0924, 0x0037, 0x0039, 0x0052 };
 
-#define ITEM_QUEUE_LENGTH 4
-static u16 itemQueue[ITEM_QUEUE_LENGTH] = { 0, 0, 0, 0 };
+#define ITEM_QUEUE_LENGTH 8
+static u16 itemQueue[ITEM_QUEUE_LENGTH] = { 0, 0, 0, 0, 0, 0, 0, 0 };
 static s16 forceProcessIndex = -1;
 static u16 lastProcessedGiIndex = 0;
 
@@ -407,6 +407,7 @@ void MMR_ProcessItemQueue(GlobalContext* ctxt) {
             for (u8 i = 0; i < ITEM_QUEUE_LENGTH - 1; i++) {
                 itemQueue[i] = itemQueue[i + 1];
             }
+            itemQueue[ITEM_QUEUE_LENGTH - 1] = 0;
             if (forceProcessIndex >= 0) {
                 forceProcessIndex--;
             }
