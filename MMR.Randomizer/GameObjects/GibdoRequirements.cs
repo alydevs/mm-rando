@@ -124,12 +124,12 @@ namespace MMR.Randomizer.GameObjects
             [ItemGibdoLogicRequirements(Item.ItemPictobox)]
             PhotoOfTheSwamp,
 
-            [ItemGibdo(19, 13, "Leeeeaave me the image of white-fur in the green maze!", 1 << 2)]
+            [ItemGibdo(19, 13, "Leeeeaave me the image of white-fur in the green maze!", (1 << 1) | (1 << 2))]
             [ItemGibdoRequestType(ItemGibdoRequestTypeAttribute.GibdoRequestType.Photo)]
             [ItemGibdoLogicRequirements(Item.ItemPictobox)]
             PhotoOfAMonkey,
 
-            [ItemGibdo(19, 13, "Leeeeaave me the image of the beast that waits in still water!", 1 << 3)]
+            [ItemGibdo(19, 13, "Leeeeaave me the image of the beast that waits in still water!", (1 << 1) | (1 << 3))]
             [ItemGibdoRequestType(ItemGibdoRequestTypeAttribute.GibdoRequestType.Photo)]
             [ItemGibdoLogicRequirements(Item.ItemPictobox)]
             PhotoOfABigOcto,
