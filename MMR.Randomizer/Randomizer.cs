@@ -3694,7 +3694,7 @@ namespace MMR.Randomizer
                     progressReporter.ReportProgress(32, "Verifying item importance...", cts);
                     try
                     {
-                        Parallel.ForEach(importantLocations.ToList(), po, (location, state) =>
+                        Parallel.ForEach(importantLocations.Where(location => location.Entrance() == null).ToList(), po, (location, state) =>
                         {
                             var item = ItemList.First(io => io.NewLocation == (location.MainLocation() ?? location)).Item;
                             if (!ItemUtils.CanBeRequired(item))
