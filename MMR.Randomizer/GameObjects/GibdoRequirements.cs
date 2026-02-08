@@ -124,7 +124,7 @@ namespace MMR.Randomizer.GameObjects
             [ItemGibdoLogicRequirements(Item.ItemPictobox)]
             PhotoOfTheSwamp,
 
-            [ItemGibdo(19, 13, CustomMessage = "Leeeeaave me the image of white-fur in the green maze!", Data = (1 << 1) | (1 << 2))]
+            [ItemGibdo(19, 13, CustomMessage = "Leeeeaave me the image of white-fur calling for help!", Data = (1 << 1) | (1 << 2))]
             [ItemGibdoRequestType(ItemGibdoRequestTypeAttribute.GibdoRequestType.Photo)]
             [ItemGibdoLogicRequirements(Item.ItemPictobox)]
             PhotoOfAMonkey,
@@ -288,7 +288,7 @@ namespace MMR.Randomizer.GameObjects
             [ItemGibdoLogicRequirements(Item.TradeItemOceanDeed)]
             OceanDeed,
 
-            [ItemGibdo(44, 45, CustomMessage = "Leeeeaave me the right to enter where I once belonged!")]
+            [ItemGibdo(44, 45, CustomMessage = "Leeeeaave me the right to stay for the carnival!")]
             [ItemGibdoRequestType(ItemGibdoRequestTypeAttribute.GibdoRequestType.QuestTrade)]
             [ItemGibdoLogicRequirements(Item.TradeItemRoomKey)]
             RoomKey,
@@ -328,7 +328,7 @@ namespace MMR.Randomizer.GameObjects
             [ItemGibdoLogicRequirements(Item.MaskBunnyHood)]
             MaskBunnyHood,
 
-            [ItemGibdo(0x3E, 0x3A, CustomMessage = "Leeeeaave me one last look at the yellow ghost who still plays in forgotten fields!")]
+            [ItemGibdo(0x3E, 0x3A, CustomMessage = "Leeeeaave me one last look at the yellow trickster who still plays in forgotten fields!")]
             [ItemGibdoRequestType(ItemGibdoRequestTypeAttribute.GibdoRequestType.Mask)]
             [ItemGibdoLogicRequirements(Item.MaskKeaton)]
             MaskKeaton,
@@ -338,7 +338,7 @@ namespace MMR.Randomizer.GameObjects
             [ItemGibdoLogicRequirements(Item.MaskGaro)]
             MaskGaro,
 
-            [ItemGibdo(0x40, 0x3C, CustomMessage = "Leeeeaave me one last look at the mask of maturity, worn too soon, too heavy for hands too small!")]
+            [ItemGibdo(0x40, 0x3C, CustomMessage = "Leeeeaave me one last look at the mask of maturity!")]
             [ItemGibdoRequestType(ItemGibdoRequestTypeAttribute.GibdoRequestType.Mask)]
             [ItemGibdoLogicRequirements(Item.MaskRomani)]
             MaskRomani,
@@ -358,7 +358,7 @@ namespace MMR.Randomizer.GameObjects
             [ItemGibdoLogicRequirements(Item.MaskCouple)]
             MaskCouple,
 
-            [ItemGibdo(0x44, 0x40, CustomMessage = "Leeeeaave me one last look at the goddess who once touched the living world, now only a shadow in my fading mind!")]
+            [ItemGibdo(0x44, 0x40, CustomMessage = "Leeeeaave me one last look at the goddess who was shattered into pieces!")]
             [ItemGibdoRequestType(ItemGibdoRequestTypeAttribute.GibdoRequestType.Mask)]
             [ItemGibdoLogicRequirements(Item.MaskGreatFairy)]
             MaskGreatFairy,
@@ -373,7 +373,7 @@ namespace MMR.Randomizer.GameObjects
             [ItemGibdoLogicRequirements(Item.MaskDonGero)]
             MaskDonGero,
 
-            [ItemGibdo(0x47, 0x43, CustomMessage = "Leeeeaave me one last look at the mask that once sang with movement, now shackled by death's quiet grasp!")]
+            [ItemGibdo(0x47, 0x43, CustomMessage = "Leeeeaave me one last look at the mask that once danced with movement, now shackled by death's quiet grasp!")]
             [ItemGibdoRequestType(ItemGibdoRequestTypeAttribute.GibdoRequestType.Mask)]
             [ItemGibdoLogicRequirements(Item.MaskKamaro)]
             MaskKamaro,
@@ -388,7 +388,7 @@ namespace MMR.Randomizer.GameObjects
             [ItemGibdoLogicRequirements(Item.MaskStone)]
             MaskStone,
 
-            [ItemGibdo(0x4A, 0x46, CustomMessage = "Leeeeaave me one last look at the face that once led the march, now still, forgotten, beneath the weight of the grave!")]
+            [ItemGibdo(0x4A, 0x46, CustomMessage = "Leeeeaave me one last look at the face that once led the march!")]
             [ItemGibdoRequestType(ItemGibdoRequestTypeAttribute.GibdoRequestType.Mask)]
             [ItemGibdoLogicRequirements(Item.MaskBremen)]
             MaskBremen,
@@ -398,12 +398,12 @@ namespace MMR.Randomizer.GameObjects
             [ItemGibdoLogicRequirements(Item.MaskBlast)]
             MaskBlast,
 
-            [ItemGibdo(0x4C, 0x48, CustomMessage = "Leeeeaave me one last look at the mask that once brought life to the air, now filled only with the scent of decay!")]
+            [ItemGibdo(0x4C, 0x48, CustomMessage = "Leeeeaave me one last look at the mask that picks up even the faintest trace of fragrance!")]
             [ItemGibdoRequestType(ItemGibdoRequestTypeAttribute.GibdoRequestType.Mask)]
             [ItemGibdoLogicRequirements(Item.MaskScents)]
             MaskScents,
 
-            [ItemGibdo(0x4D, 0x49, CustomMessage = "Leeeeaave me one last look at the face that once toweered above, now reduced to dust beneath the weight of time!")]
+            [ItemGibdo(0x4D, 0x49, CustomMessage = "Leeeeaave me one last look at the face that towers above all others!")]
             [ItemGibdoRequestType(ItemGibdoRequestTypeAttribute.GibdoRequestType.Mask)]
             [ItemGibdoLogicRequirements(Item.MaskGiant)]
             MaskGiant,
