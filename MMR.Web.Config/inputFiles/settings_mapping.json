@@ -126,7 +126,6 @@
           "row_span": [ 4, 6, 6 ],
           "settings": [
             "GameplaySettings.ItemPlacement",
-            "Web.RandomStartingItemGroups",
             "GameplaySettings.RandomStartingItemGroups",
             "GameplaySettings.EntranceMode",
             "GameplaySettings.BossKeyMode",
@@ -145,7 +144,7 @@
             "GameplaySettings.AddSongs",
             "GameplaySettings.RandomizeEnemies",
             "GameplaySettings.StartingItemMode",
-            "GameplaySettings.RequiredBossRemains"
+            "Web.RandomStartingItemGroups"
           ]
         }
       ]
