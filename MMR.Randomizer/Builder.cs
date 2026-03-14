@@ -1594,7 +1594,7 @@ namespace MMR.Randomizer
 
         private void WriteEnemies()
         {
-            if (_randomized.Settings.RandomizeEnemies)
+            if (_randomized.Settings.EnemyMode.HasFlag(EnemyMode.Randomized))
             {
                 Enemies.ShuffleEnemies(new Random(_randomized.Seed));
             }

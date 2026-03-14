@@ -51,7 +51,6 @@ namespace MMR.UI.Forms
             this.lStartingItems = new System.Windows.Forms.Label();
             this.cProgressiveUpgrades = new System.Windows.Forms.CheckBox();
             this.cMixSongs = new System.Windows.Forms.CheckBox();
-            this.cEnemy = new System.Windows.Forms.CheckBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.lNumTricksEnabled = new System.Windows.Forms.Label();
             this.lItemPlacement = new System.Windows.Forms.Label();
@@ -405,7 +404,6 @@ namespace MMR.UI.Forms
             this.tOtherCustomization.Controls.Add(this.lStartingItems);
             this.tOtherCustomization.Controls.Add(this.cProgressiveUpgrades);
             this.tOtherCustomization.Controls.Add(this.cMixSongs);
-            this.tOtherCustomization.Controls.Add(this.cEnemy);
             this.tOtherCustomization.Location = new System.Drawing.Point(4, 24);
             this.tOtherCustomization.Name = "tOtherCustomization";
             this.tOtherCustomization.Padding = new System.Windows.Forms.Padding(3);
@@ -500,19 +498,6 @@ namespace MMR.UI.Forms
             this.cMixSongs.TabIndex = 3;
             this.cMixSongs.Text = "Mix songs with items";
             this.cMixSongs.UseVisualStyleBackColor = false;
-            // 
-            // cEnemy
-            // 
-            this.cEnemy.AutoSize = true;
-            this.cEnemy.BackColor = System.Drawing.Color.Transparent;
-            this.cEnemy.ForeColor = System.Drawing.Color.Black;
-            this.cEnemy.Location = new System.Drawing.Point(193, 36);
-            this.cEnemy.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
-            this.cEnemy.Name = "cEnemy";
-            this.cEnemy.Size = new System.Drawing.Size(110, 19);
-            this.cEnemy.TabIndex = 9;
-            this.cEnemy.Text = "Enemies (BETA!)";
-            this.cEnemy.UseVisualStyleBackColor = false;
             // 
             // groupBox9
             // 
@@ -3498,7 +3483,6 @@ namespace MMR.UI.Forms
         private System.Windows.Forms.SaveFileDialog saveSettings;
         private System.Windows.Forms.ComboBox cLink;
         private System.Windows.Forms.Label lLink;
-        private System.Windows.Forms.CheckBox cEnemy;
         private System.Windows.Forms.CheckBox cMixSongs;
         private System.Windows.Forms.ColorDialog cEnergy;
         private System.Windows.Forms.ColorDialog cTunic;
