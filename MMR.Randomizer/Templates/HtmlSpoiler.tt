@@ -79,7 +79,7 @@
 <# } #>
 <# if (spoiler.Entrances.Any()) { 
 #>
-<h2>Dungeon Entrance Replacements</h2>
+<h2>Entrances</h2>
 <table border="1" class="item-replacements">
     <tr>
         <th>Entrance</th>
@@ -95,7 +95,7 @@
 <# } #>
 </table>
 <# } #>
-<h2>Item Replacements</h2>
+<h2>Items</h2>
 <input type="checkbox" id="highlight-checks"/> Highlight available checks
 <table border="1" class="item-replacements">
  <tr>
