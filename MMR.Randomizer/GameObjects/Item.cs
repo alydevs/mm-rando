@@ -1804,51 +1804,61 @@ namespace MMR.Randomizer.GameObjects
         ShopItemZoraRedPotion,
 
         //bottle catch
+        [Temporary]
         [ItemName("Bottle: Fairy"), LocationName("Bottle: Fairy"), Region(Region.BottleCatch)]
         [GossipLocationHint("a wandering healer"), GossipItemHint("a winged friend", "a healer")]
         [GetBottleItemIndices(0x00, 0x0D), ItemPool(ItemCategory.ScoopedItems, LocationCategory.Scoops, ClassicCategory.CaughtBottleContents)]
         BottleCatchFairy,
 
+        [Temporary]
         [ItemName("Bottle: Deku Princess"), LocationName("Bottle: Deku Princess"), Region(Region.BottleCatch)]
         [GossipLocationHint("a captured royal", "an imprisoned daughter"), GossipItemHint("a princess", "a woodland royal")]
         [GetBottleItemIndices(0x08), ItemPool(ItemCategory.ScoopedItems, LocationCategory.Scoops, ClassicCategory.CaughtBottleContents)]
         BottleCatchPrincess,
 
+        [Temporary]
         [ItemName("Bottle: Fish"), LocationName("Bottle: Fish"), Region(Region.BottleCatch)]
         [GossipLocationHint("a swimming creature", "a water dweller"), GossipItemHint("something fresh")]
         [GetBottleItemIndices(0x01), ItemPool(ItemCategory.ScoopedItems, LocationCategory.Scoops, ClassicCategory.CaughtBottleContents)]
         BottleCatchFish,
 
+        [Temporary]
         [ItemName("Bottle: Bug"), LocationName("Bottle: Bug"), Region(Region.BottleCatch)]
         [GossipLocationHint("an insect", "a scuttling creature"), GossipItemHint("an insect", "a scuttling creature")]
         [GetBottleItemIndices(0x02, 0x03), ItemPool(ItemCategory.ScoopedItems, LocationCategory.Scoops, ClassicCategory.CaughtBottleContents)]
         BottleCatchBug,
 
+        [Temporary]
         [ItemName("Bottle: Poe"), LocationName("Bottle: Poe"), Region(Region.BottleCatch)]
         [GossipLocationHint("a wandering ghost"), GossipItemHint("a captured spirit")]
         [GetBottleItemIndices(0x0B), ItemPool(ItemCategory.ScoopedItems, LocationCategory.Scoops, ClassicCategory.CaughtBottleContents)]
         BottleCatchPoe,
 
+        [Temporary]
         [ItemName("Bottle: Big Poe"), LocationName("Bottle: Big Poe"), Region(Region.BottleCatch)]
         [GossipLocationHint("a huge ghost"), GossipItemHint("a captured spirit")]
         [GetBottleItemIndices(0x0C), ItemPool(ItemCategory.ScoopedItems, LocationCategory.Scoops, ClassicCategory.CaughtBottleContents)]
         BottleCatchBigPoe,
 
+        [Temporary]
         [ItemName("Bottle: Spring Water"), LocationName("Bottle: Spring Water"), Region(Region.BottleCatch)]
         [GossipLocationHint("a common liquid"), GossipItemHint("a common liquid", "a fresh drink")]
         [GetBottleItemIndices(0x04), ItemPool(ItemCategory.ScoopedItems, LocationCategory.Scoops, ClassicCategory.CaughtBottleContents)]
         BottleCatchSpringWater,
 
+        [Temporary]
         [ItemName("Bottle: Hot Spring Water"), LocationName("Bottle: Hot Spring Water"), Region(Region.BottleCatch)]
         [GossipLocationHint("a hot liquid", "a boiling liquid"), GossipItemHint("a boiling liquid", "a hot liquid")]
         [GetBottleItemIndices(0x05, 0x06), ItemPool(ItemCategory.ScoopedItems, LocationCategory.Scoops, ClassicCategory.CaughtBottleContents)]
         BottleCatchHotSpringWater,
 
+        [Temporary]
         [ItemName("Bottle: Zora Egg"), LocationName("Bottle: Zora Egg"), Region(Region.BottleCatch)]
         [GossipLocationHint("a lost child"), GossipItemHint("a lost child")]
         [GetBottleItemIndices(0x07), ItemPool(ItemCategory.ScoopedItems, LocationCategory.Scoops, ClassicCategory.CaughtBottleContents)]
         BottleCatchEgg,
 
+        [Temporary]
         [ItemName("Bottle: Mushroom"), LocationName("Bottle: Mushroom"), Region(Region.BottleCatch)]
         [GossipLocationHint("a strange fungus"), GossipItemHint("a strange fungus")]
         [GetBottleItemIndices(0x0A), ItemPool(ItemCategory.ScoopedItems, LocationCategory.Scoops, ClassicCategory.CaughtBottleContents)]

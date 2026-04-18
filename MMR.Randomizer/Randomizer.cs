@@ -1342,6 +1342,13 @@ namespace MMR.Randomizer
             }
 
             var itemHere = ItemList.SingleOrDefault(io => io.NewLocation == target)?.Item;
+
+            var goronElderIndex = dependencyPath.IndexOf(Item.SongLullabyIntro);
+            if (goronElderIndex >= 0 && ((itemHere == null && target == Item.AreaSnowheadTempleClear) || itemHere == Item.AreaSnowheadTempleClear) && dependencyPath.Skip(goronElderIndex + 1).All(p => p.IsFake() || ItemList.Single(i => i.NewLocation == p).Item.IsTemporary()))
+            {
+                return Dependence.TimeOfDay;
+            }
+
             if (itemHere?.IsTemporary() == false && itemHere?.Entrance() == null)
             {
                 timeAvailable = currentTargetObject.TimeAvailable;
