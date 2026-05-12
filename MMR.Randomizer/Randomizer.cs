@@ -1349,18 +1349,18 @@ namespace MMR.Randomizer
                 return Dependence.TimeOfDay;
             }
 
+            var timeToCheck = currentTargetObject.TimeSetup;
+            if (timeToCheck == (int)TimeOfDay.None)
+            {
+                timeToCheck = currentTargetObject.TimeAvailable;
+            }
+
             if (itemHere?.IsTemporary() == false && itemHere?.Entrance() == null)
             {
-                timeAvailable = currentTargetObject.TimeAvailable;
+                timeAvailable = timeToCheck;
             }
             else if (!itemHere.HasValue || !ItemUtils.IsLogicallyJunk(itemHere.Value))
             {
-                var timeToCheck = currentTargetObject.TimeSetup;
-                if (timeToCheck == (int)TimeOfDay.None)
-                {
-                    timeToCheck = currentTargetObject.TimeAvailable;
-                }
-
                 if ((timeToCheck & timeAvailable) == 0)
                 {
                     Debug.WriteLine($"{target} is at {(TimeOfDay)timeToCheck} but the time of day chain is only available at {(TimeOfDay)timeAvailable}");
@@ -1430,7 +1430,10 @@ namespace MMR.Randomizer
                             {
                                 DependenceChecked[d] = Dependence.Circular(d);
                             }
-                            if (!DependenceChecked.ContainsKey(d) || (DependenceChecked[d].Type == DependenceType.Circular && !DependenceChecked[d].Items.All(id => dependencyPath.Contains(id))))
+                            var checkedDependence = DependenceChecked.GetValueOrDefault(d);
+                            if (checkedDependence == null
+                                || (checkedDependence.Type == DependenceType.Circular && !checkedDependence.Items.All(id => dependencyPath.Contains(id)))
+                                || (checkedDependence.Type == DependenceType.NotDependent && checkedDependence.TimeAvailable != timeAvailable))
                             {
                                 var childPath = dependencyPath.ToList();
                                 childPath.Add(d);
@@ -1547,15 +1550,18 @@ namespace MMR.Randomizer
                         DependenceChecked[location] = Dependence.Circular(location);
                         return DependenceChecked[location];
                     }
-                    if (!DependenceChecked.ContainsKey(location) || (DependenceChecked[location].Type == DependenceType.Circular && !DependenceChecked[location].Items.All(id => dependencyPath.Contains(id))))
+                    var checkedDependence = DependenceChecked.GetValueOrDefault(location);
+                    if (checkedDependence == null
+                        || (checkedDependence.Type == DependenceType.Circular && !checkedDependence.Items.All(id => dependencyPath.Contains(id)))
+                        || (checkedDependence.Type == DependenceType.NotDependent && checkedDependence.TimeAvailable != timeAvailable))
                     {
                         var childPath = dependencyPath.ToList();
                         childPath.Add(location);
-                        DependenceChecked[location] = CheckDependence(currentItem, location, childPath, timeAvailable);
+                        checkedDependence = DependenceChecked[location] = CheckDependence(currentItem, location, childPath, timeAvailable);
                     }
-                    if (DependenceChecked[location].Type != DependenceType.NotDependent)
+                    if (checkedDependence.Type != DependenceType.NotDependent)
                     {
-                        if (DependenceChecked[location].Type == DependenceType.Circular && DependenceChecked[location].Items.All(id => id == location))
+                        if (checkedDependence.Type == DependenceType.Circular && checkedDependence.Items.All(id => id == location))
                         {
                             DependenceChecked[location] = Dependence.Dependent;
                         }
