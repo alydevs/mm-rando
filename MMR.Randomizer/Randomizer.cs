@@ -3760,7 +3760,12 @@ namespace MMR.Randomizer
                     bool spheresUpdated;
                     int timeAcquired(ItemLogic il)
                     {
-                        return il.TimeAvailable & il.RequiredItemIds.Cast<Item>().Where(item => ItemList[item].Item == item).Aggregate((int)TimeOfDay.All, (result, item) => result & acquired.GetValueOrDefault(item))
+                        var timeToCheck = il.TimeSetup;
+                        if (timeToCheck == (int)TimeOfDay.None)
+                        {
+                            timeToCheck = il.TimeAvailable;
+                        }
+                        return timeToCheck & il.RequiredItemIds.Cast<Item>().Where(item => ItemList[item].Item == item).Aggregate((int)TimeOfDay.All, (result, item) => result & acquired.GetValueOrDefault(item))
                             & (!il.ConditionalItemIds.Any() ? (int)TimeOfDay.All : il.ConditionalItemIds.Aggregate(0, (result, c) => result | c.Cast<Item>().Where(item => ItemList[item].Item == item).Aggregate((int)TimeOfDay.All, (r, item) => r & acquired.GetValueOrDefault(item))));
                     }
                     bool shouldAppearInPlaythrough(ItemLogic il)
